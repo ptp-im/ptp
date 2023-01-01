@@ -76,6 +76,7 @@ string URLEncode(const string &sIn);
 string URLDecode(const string &sIn);
 
 int64_t get_file_size(const char *path);
+void get_file_content(const char *path,char * fileBuf,uint64_t fileSize);
+void put_file_content(const char *path,char * fileBuf,uint64_t fileSize);
 const char*  memfind(const char *src_str,size_t src_len, const char *sub_str, size_t sub_len, bool flag = true);
-
 #endif

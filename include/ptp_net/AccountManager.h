@@ -40,10 +40,12 @@ public:
     void upsertEntropy();
     string getAccountAddress();
     static string getAddressByEntropy(const string& entropy);
-    string signMessage(const string& message);
     string getEntropyStorePathName();
     bool createShareKey(secp256k1_pubkey *pub_key,unsigned char *shared_key);
+    string signMessage(const string& message);
     void signMessage(const string& message,unsigned char *signOut65);
+    string signGroupMessage(const string& message,int32_t groupIdx);
+    void signGroupMessage(const string& message,int32_t groupIdx,unsigned char *signOut65);
     static string verifyMessageRecoverAddress(const unsigned char *sig_65, const string& message);
     void sendPdu(uint8_t *pduBytes,uint32_t size);
     static void setCurrentAccountId(uint32_t accountId);

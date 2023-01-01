@@ -82,6 +82,7 @@ public:
     std::string readString(bool *error);
     ByteArray *readByteArray(bool *error);
     NativeByteBuffer *readByteBuffer(bool copy, bool *error);
+    NativeByteBuffer *copy(uint32_t len);
     double readDouble(bool *error);
 
     void reuse();

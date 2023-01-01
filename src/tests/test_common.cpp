@@ -1,9 +1,11 @@
 #include <gtest/gtest.h>
 #include "ptp_common/Logger.h"
 #include "ptp_common/AesSimple.h"
+#include "ptp_common/socket_client.h"
+
 
 TEST(ptp_common, log) {
-   Logger::d("sss,%s","www");
+    Logger::d("sss,%s","www");
     ASSERT_EQ(1,1);
 }
 

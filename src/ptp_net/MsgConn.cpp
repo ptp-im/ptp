@@ -40,15 +40,6 @@ static string		sharedKeyHex;
 
 static void msg_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
-    NativeByteBuffer *buffer = BuffersStorage::getInstance().getFreeBuffer(NativeInvokeHeaderSize );
-    buffer->writeInt32(NativeInvokeHeaderSize);
-    buffer->writeInt32(NativeInvokeType_HEART_BEAT);
-    buffer->writeInt32(0);
-    buffer->writeInt32(0);
-    buffer->position(0);
-    buffer->reuse();
-    MsgConnManager::onNotify(buffer);
-
     ConnMap_t::iterator it_old;
 	CMsgConn* pConn = NULL;
 	uint64_t cur_time = get_tick_count();
@@ -156,8 +147,8 @@ void init_msg_conn(uint32_t account_id)
 
     if(!hasAccount){
         auto server_list = new serv_info_t[g_msg_conn_count];
-        string		server_ip = "192.168.43.244";
-        uint16_t	server_port = 7881;
+        string		server_ip = MSG_SERVER_IP_1;
+        uint16_t	server_port = MSG_SERVER_PORT_1;
         for (uint32_t i = 0; i < g_msg_conn_count; i++) {
             server_list[i].server_ip = server_ip;
             server_list[i].server_port = server_port;
@@ -284,6 +275,11 @@ void CMsgConn::OnTimer(uint64_t curr_tick)
 
 int CMsgConn::SendPdu(CImPdu * pdu) {
     auto pPdu = CImPdu::ReadPdu(pdu->GetBuffer(), pdu->GetLength());
+    DEBUG_D("pdu send n cid=%d len=%d ",pPdu->GetCommandId(),pdu->GetLength());
+    if(pPdu->GetCommandId() == 1281){
+        DEBUG_D("CID_FileImgUploadReq_VALUE");
+    }
+    int res;
     if(pPdu->GetReversed() == 1 && pPdu->GetBodyLength() > 0){
         unsigned char shared_secret[32];
         unsigned char iv[16];
@@ -305,10 +301,13 @@ int CMsgConn::SendPdu(CImPdu * pdu) {
         pdu1.SetCommandId(pPdu->GetCommandId());
         pdu1.SetSeqNum(pPdu->GetSeqNum());
         pdu1.SetReversed(pPdu->GetReversed());
-        return Send(pdu1.GetBuffer(), (int)pdu1.GetLength());
+        res = Send(pdu1.GetBuffer(), (int)pdu1.GetLength());
     }else{
-        return Send(pPdu->GetBuffer(), (int)pPdu->GetLength());
+        res = Send(pPdu->GetBuffer(), (int)pPdu->GetLength());
     }
+    delete pPdu;
+    pPdu = NULL;
+    return res;
 }
 
 void CMsgConn::HandlePdu(CImPdu* pPdu)

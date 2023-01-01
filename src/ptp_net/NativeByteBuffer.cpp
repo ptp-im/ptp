@@ -672,6 +672,13 @@ NativeByteBuffer *NativeByteBuffer::readByteBuffer(bool copy, bool *error) {
     return result;
 }
 
+NativeByteBuffer *NativeByteBuffer::copy(uint32_t length) {
+    NativeByteBuffer *result = nullptr;
+    result = BuffersStorage::getInstance().getFreeBuffer(length);
+    memcpy(result->buffer, buffer, sizeof(uint8_t) * length);
+    return result;
+}
+
 double NativeByteBuffer::readDouble(bool *error) {
     double value;
     int64_t value2 = readInt64(error);

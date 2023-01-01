@@ -12,7 +12,7 @@
 #define NETLIB_OPT_SET_SEND_BUF_SIZE	7
 #define NETLIB_OPT_SET_RECV_BUF_SIZE	8
 
-#define NETLIB_MAX_SOCKET_BUF_SIZE		(128 * 1024)
+#define NETLIB_MAX_SOCKET_BUF_SIZE		(64 * 1024 + 16)
 
 #ifdef __cplusplus
 extern "C" {

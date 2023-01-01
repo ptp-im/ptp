@@ -66,7 +66,10 @@ enum NativeInvokeType {
     NativeInvokeType_SIGN_AUTH_CAPTCHA = 1004,
     NativeInvokeType_GEN_WORDS = 1005,
     NativeInvokeType_PDU_SEND = 1006,
+    NativeInvokeType_PDU_UPLOAD = 100601,
+    NativeInvokeType_PDU_DOWNLOAD = 100602,
     NativeInvokeType_CHANGE_ACCOUNT = 1007,
+    NativeInvokeType_SIGN_GROUP_MSG = 1008,
 };
 
 

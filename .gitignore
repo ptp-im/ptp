@@ -26,3 +26,5 @@ node_modules
 *.exe
 *.a
 lib/
+build/
+third_party/curl

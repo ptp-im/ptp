@@ -1,5 +1,7 @@
 #include "ptp_common/util.h"
 #include <sstream>
+#include <fcntl.h>
+
 using namespace std;
 
 CRefObject::CRefObject()
@@ -277,13 +279,31 @@ string URLDecode(const string &sIn)
 int64_t get_file_size(const char *path)
 {
     int64_t filesize = -1;
-    struct stat statbuff;
-    if(stat(path, &statbuff) < 0){
+    struct stat statBuff;
+    if(stat(path, &statBuff) < 0){
         return filesize;
     }else{
-        filesize = statbuff.st_size;
+        filesize = statBuff.st_size;
     }
     return filesize;
+}
+
+void get_file_content(const char *path,char * fileBuf,uint64_t fileSize){
+    int m_file = open(path, O_RDONLY);
+    if(m_file){
+        pread(m_file, fileBuf, fileSize, 0);
+        fileBuf[fileSize] = '\0';
+        close(m_file);
+    }
+}
+
+void put_file_content(const char *path,char * fileBuf,uint64_t fileSize){
+    int flags = O_RDWR | O_CREAT | O_EXCL;
+    int m_file = open(path, flags);
+    if(m_file){
+        pwrite(m_file, fileBuf, fileSize, 0);
+        close(m_file);
+    }
 }
 
 const char*  memfind(const char *src_str,size_t src_len, const char *sub_str, size_t sub_len, bool flag)

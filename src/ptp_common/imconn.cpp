@@ -90,13 +90,19 @@ int CImConn::Send(void* data, int len)
 
 	int offset = 0;
 	int remain = len;
+	int i = 0;
+
 	while (remain > 0) {
+		i++;
+
 		int send_size = remain;
 		if (send_size > NETLIB_MAX_SOCKET_BUF_SIZE) {
 			send_size = NETLIB_MAX_SOCKET_BUF_SIZE;
 		}
 
 		int ret = netlib_send(m_handle, (char*)data + offset , send_size);
+		//Logger::d("pdu send i#%d,len=%d,remain=%d,ret=%d,offset=%d,send_size=%d", i,len,remain,ret,offset,send_size);
+
 		if (ret <= 0) {
 			ret = 0;
 			break;
@@ -187,7 +193,7 @@ void CImConn::OnWrite()
 		m_busy = false;
 	}
 
-Logger::d("onWrite, remain=%d ", m_out_buf.GetWriteOffset());
+	Logger::d("onWrite, remain=%d ", m_out_buf.GetWriteOffset());
 }
 
 

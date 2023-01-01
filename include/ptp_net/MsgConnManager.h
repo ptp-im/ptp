@@ -19,6 +19,14 @@
 #include "ptp_net/Defines.h"
 #endif
 
+#define MSG_SERVER_IP_1    "192.168.43.244"
+#define MSG_SERVER_PORT_1  7881
+
+#define MSFS_SERVER_IP_1    "192.168.43.244"
+#define MSFS_SERVER_PORT_1  7841
+
+#define SOCKET_BUF_SIZE  (100 * 1024 * 1024)
+
 using namespace std;
 
 class MsgConnManager {

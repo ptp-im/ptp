@@ -94,6 +94,8 @@ void AccountManager::sendPdu(uint8_t* pduBytes,uint32_t size){
     if(pMsgConn != nullptr){
         auto pPdu = CImPdu::ReadPdu((uchar_t*)pduBytes, (int)size);
         pMsgConn->SendPdu(pPdu);
+        delete pPdu;
+        pPdu = NULL;
     }
 }
 
@@ -288,7 +290,6 @@ string AccountManager::signMessage(const string &message) {
     return {reinterpret_cast<const char *>(sig_65), 65};
 }
 
-
 void AccountManager::signMessage(const string &message,unsigned char *signOut65) {
     string entropy = GetEntropy();
     auto mnemonicRes = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy,"en");
@@ -301,6 +302,27 @@ void AccountManager::signMessage(const string &message,unsigned char *signOut65)
     ecdsa_sign_recoverable(ctx,msg_data,hdKey.privateKey.data(),signOut65);
     hdKey.clear();
 }
+
+string AccountManager::signGroupMessage(const string &message,int32_t groupIdx) {
+    unsigned char sig_65[65];
+    signGroupMessage(message,groupIdx,sig_65);
+    return {reinterpret_cast<const char *>(sig_65), 65};
+}
+
+void AccountManager::signGroupMessage(const string &message,int32_t groupIdx,unsigned char *signOut65) {
+    string entropy = GetEntropy();
+    auto mnemonicRes = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy,"en");
+    PTPWallet::HDKey hdKey = PTPWallet::HDKeyEncoder::makeBip32RootKey(mnemonicRes.raw.data());
+    string groupIdxStr = int2string(groupIdx);
+    PTPWallet::HDKeyEncoder::makeExtendedKey(hdKey, "m/44'/60'/0'/0/"+groupIdxStr);
+    string msg_data = format_eth_msg_data(groupIdxStr+message);
+    secp256k1_context *ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
+    string address = PTPWallet::HDKeyEncoder::getEthAddress(hdKey);
+    DEBUG_D("signGroupMessage group address:%s", address.c_str());
+    ecdsa_sign_recoverable(ctx,msg_data,hdKey.privateKey.data(),signOut65);
+    hdKey.clear();
+}
+
 
 bool AccountManager::createShareKey(secp256k1_pubkey *pub_key,unsigned char *shared_key) {
     string entropy = GetEntropy();
