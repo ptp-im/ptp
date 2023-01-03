@@ -126,7 +126,7 @@ int socketSend(const char* ip,uint16_t port,unsigned char *requestBody,uint32_t 
             if (free_buf_len < SOCKET_MAX_READ_BUF_SIZE + 1)
                 m_in_buf.Extend(SOCKET_MAX_READ_BUF_SIZE + 1);
             int ret = (int)recv(sock, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(),SOCKET_MAX_READ_BUF_SIZE,0);
-            Logger::d("http request ret=%d,offset=%d\n",ret,m_in_buf.GetWriteOffset());
+            Logger::d("http request ret=%d,offset=%d,read: %d\n",ret,m_in_buf.GetWriteOffset(),SOCKET_MAX_READ_BUF_SIZE);
             if (ret <= 0)
                 break;
             m_in_buf.IncWriteOffset(ret);

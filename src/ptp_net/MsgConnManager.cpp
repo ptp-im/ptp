@@ -3,7 +3,6 @@
 #include "ptp_net/MsgConn.h"
 #include "ptp_toolbox/data/bytes_array.h"
 #include "ptp_common/socket_client.h"
-
 #ifdef ANDROID
 #include <jni.h>
 #include "../../tgnet/FileLog.h"
@@ -20,14 +19,6 @@
 #endif
 
 static ConnectiosManagerDelegate* m_delegate;
-
-size_t write_data_string(void *ptr, size_t size, size_t nmemb, void *userp)
-{
-    size_t len = size * nmemb;
-    string* response = (string *)userp;
-    response->append((char*)ptr, len);
-    return len;
-}
 
 static bool done = false;
 static uint32_t		process_task_cnt = 0;
@@ -132,16 +123,13 @@ static void handleTask(NativeByteBuffer *task){
                 uint16_t port = MSFS_SERVER_PORT_1;
                 socketSend(ip.c_str(),port,pduBytes,len,responseBody,responseBodyLen);
                 DEBUG_D("%s", ptp_toolbox::data::bytes_to_hex(responseBody,responseBodyLen).c_str());
-                CImPdu *pPdu;
-                pPdu = CImPdu::ReadPdu(responseBody, responseBodyLen);
-                DEBUG_D("cid:%d",pPdu->GetCommandId());
-                DEBUG_D("sno:%d",pPdu->GetSeqNum());
+                notifySize = NativeInvokeHeaderSize + responseBodyLen;
                 buffer = BuffersStorage::getInstance().getFreeBuffer(NativeInvokeHeaderSize + responseBodyLen );
                 buffer->writeInt32(NativeInvokeHeaderSize + responseBodyLen);
                 buffer->writeInt32(NativeInvokeType_PDU_RECV);
                 buffer->writeInt32(seqNum);
                 buffer->writeInt32(accountId);
-                buffer->writeBytes(pPdu->GetBuffer(),responseBodyLen);
+                buffer->writeBytes(responseBody,responseBodyLen);
                 break;
             }
             break;
@@ -151,7 +139,7 @@ static void handleTask(NativeByteBuffer *task){
             len = len - NativeInvokeHeaderSize;
             ByteArray* pduByteArray = task->readBytes(len,nullptr);
             uint8_t *pduBytes = pduByteArray->bytes;
-            AccountManager::getInstance(accountId).sendPdu(pduBytes,len);
+//            AccountManager::getInstance(accountId).sendPdu(pduBytes,len);
             break;
         }
         case NativeInvokeType_SET_WORDS:
@@ -224,12 +212,16 @@ static void handleTask(NativeByteBuffer *task){
     }
 }
 
+static void loop_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam){
+    process_upload_cnt++;
+    DEBUG_D("process_upload_cnt size=%d",process_upload_cnt);
+
+}
 
 static void process_upload_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam){
     process_upload_cnt++;
     if(!uploadList.empty() && !processingUpload){
         processingUpload = true;
-        DEBUG_D("process_upload size=%u",uploadList.size());
         while (true){
             if(uploadList.empty()){
                 break;
@@ -261,13 +253,12 @@ static void process_task_timer_callback(void* callback_data, uint8_t msg, uint32
     process_task_cnt++;
     if(!taskList.empty() && !processing){
         processing = true;
-        DEBUG_D("process_task size=%u",taskList.size());
         while (true){
             if(taskList.empty()){
                 break;
             }
             auto it = taskList.front();
-            handleTask(it);
+            //handleTask(it);
             delete it;
             taskList.pop();
         }
@@ -283,23 +274,23 @@ static void process_task_timer_callback(void* callback_data, uint8_t msg, uint32
     }
 }
 
-
-void MsgConnManager::resetMsgConn(){
-    DEBUG_D("resetMsgConn");
-    reset_msg_conn();
+void MsgConnManager::initMsgConn(uint32_t instanceNum){
+    DEBUG_D("initMsgConn:%d",instanceNum);
+    done = true;
+    init_msg_conn(get_current_account_id());
+    netlib_register_timer(process_task_timer_callback, NULL, 100);
 }
 
-void MsgConnManager::initMsgConn(uint32_t accountId){
-    if(!done){
-        done = true;
-        DEBUG_D("initMsgConn accountId:%d", accountId);
-        init_msg_conn(accountId);
-        netlib_register_timer(process_task_timer_callback, NULL, 100);
-        //netlib_register_timer(process_upload_timer_callback, NULL, 1000);
-        netlib_eventloop();
-    }else{
-        DEBUG_D("initMsgConn accountId:%d done", accountId);
-    }
+void MsgConnManager::processEvents(struct epoll_event * events,int eventsCounts){
+    netlib_handle_events(events,eventsCounts);
+}
+
+int MsgConnManager::waitEpoll(struct epoll_event* events){
+    return netlib_wait_epoll(events);
+}
+
+void MsgConnManager::dispatchTail(){
+    netlib_dispatch_tail();
 }
 
 void MsgConnManager::close(uint32_t accountId){
@@ -307,11 +298,10 @@ void MsgConnManager::close(uint32_t accountId){
     close_msg_conn(accountId);
 }
 
-
-void MsgConnManager::invoke(NativeByteBuffer *request) {
+void MsgConnManager::invoke(NativeByteBuffer *request,std::function<void()> callback) {
     int32_t len = request->readInt32(nullptr);
     request->position(0);
-    taskList.push(request->copy(len));
+//    handleTask(request->copy(len),callback);
 }
 
 void MsgConnManager::setDelegate(ConnectiosManagerDelegate* delegate)
@@ -329,7 +319,7 @@ void MsgConnManager::onNotify(NativeByteBuffer *buffer)
 void MsgConnManager::onConnectionStateChanged(ConnectionState state, uint32_t accountId)
 {
     if( nullptr != m_delegate){
-        m_delegate->onConnectionStateChanged(state,(int32_t)accountId);
+        m_delegate->onConnectionStateChanged(state,0);
         if(state == ConnectionStateConnecting){
             string address = AccountManager::getInstance(accountId).getAccountAddress();
             int32_t notifySize = NativeInvokeHeaderSize + getStringSize(address);

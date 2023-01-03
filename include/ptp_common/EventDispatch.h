@@ -31,7 +31,11 @@ public:
     void AddLoop(callback_t callback, void* user_data);
 
 	void StartDispatch(uint32_t wait_timeout = 100);
+	int WaitEpoll(struct epoll_event* events,uint32_t wait_timeout = 100);
+
+	void HandleEvents(struct epoll_event * events,int eventsCounts);
     void StopDispatch();
+	void DispatchTail();
     
     bool isRunning() {return running;}
 

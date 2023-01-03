@@ -50,6 +50,12 @@ int netlib_add_loop(callback_t callback, void* user_data);
 
 void netlib_eventloop(uint32_t wait_timeout = 100);
 
+int netlib_wait_epoll(struct epoll_event* events,uint32_t wait_timeout = 100);
+
+void netlib_handle_events(struct epoll_event * events,int eventsCounts);
+
+void netlib_dispatch_tail();
+
 void netlib_stop_event();
 
 bool netlib_is_running();

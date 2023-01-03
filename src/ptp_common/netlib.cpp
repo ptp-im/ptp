@@ -160,6 +160,19 @@ void netlib_eventloop(uint32_t wait_timeout)
 	CEventDispatch::Instance()->StartDispatch(wait_timeout);
 }
 
+void netlib_handle_events(struct epoll_event *events,int eventsCounts)
+{
+	CEventDispatch::Instance()->HandleEvents(events,eventsCounts);
+}
+
+void netlib_dispatch_tail(){
+	CEventDispatch::Instance()->DispatchTail();
+}
+
+int netlib_wait_epoll(struct epoll_event* events,uint32_t wait_timeout){
+	return CEventDispatch::Instance()->WaitEpoll(events,wait_timeout);
+}
+
 void netlib_stop_event()
 {
     CEventDispatch::Instance()->StopDispatch();

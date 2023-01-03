@@ -21,9 +21,9 @@ class Delegate : public ConnectiosManagerDelegate {
     }
 
     void onConnectionStateChanged(ConnectionState state, int32_t accountId) {
-        DEBUG_D("onConnectionStateChanged:%d,accountId:%d",state,accountId);
+        //DEBUG_D("onConnectionStateChanged:%d,accountId:%d",state,accountId);
         if(state == ConnectionState::ConnectionStateConnected){
-            MsgConnManager::close(accountId);
+            //MsgConnManager::close(accountId);
         }
     }
 
@@ -75,9 +75,6 @@ class Delegate : public ConnectiosManagerDelegate {
 };
 
 TEST(pt_net, MsgConn) {
-    bool t = true;
-    bool f = false;
-    DEBUG_E("t:%d f:%d",t,f);
     MsgConnManager::setDelegate(new Delegate());
     auto m1 = AccountManager::getInstance(1);
     auto m2 = AccountManager::getInstance(2);
@@ -91,11 +88,10 @@ TEST(pt_net, MsgConn) {
     ASSERT_EQ(m4.GetAccountId(),4);
     ASSERT_EQ(m5.GetAccountId(),1);
     uint32_t accountId = 10011;
-
     AccountManager::setCurrentAccountId(accountId);
     string p = "/tmp";
     AccountManager::setConfigPath(p);
-    MsgConnManager::initMsgConn(AccountManager::getCurrentAccountId());
+    MsgConnManager::initMsgConn(0);
 
 }
 

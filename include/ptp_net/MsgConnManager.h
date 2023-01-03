@@ -34,10 +34,13 @@ public:
     static void onConnectionStateChanged(ConnectionState state, uint32_t accountId);
     static void onNotify(NativeByteBuffer *buffer);
     static void setDelegate(ConnectiosManagerDelegate* delegate);
-    static void invoke(NativeByteBuffer *request);
-    static void initMsgConn(uint32_t accountId);
-    static void resetMsgConn();
+    static void invoke(NativeByteBuffer *request,std::function<void()> callback);
     static void close(uint32_t accountId);
+    static void initMsgConn(uint32_t instanceNum);
+    static void processEvents(struct epoll_event * events,int eventsCounts);
+    static void dispatchTail();
+    static int waitEpoll(struct epoll_event* events);
+
 };
 
 #endif
