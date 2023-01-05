@@ -1,6 +1,6 @@
 #include "ptp_net/AccountManager.h"
-#include "ptp_net/MsgConn.h"
 
+#include <sys/socket.h>
 #include "ptp_wallet/MnemonicHelper.h"
 #include "ptp_wallet/HDKey.h"
 #include "ptp_crypto/keccak.h"
@@ -121,11 +121,16 @@ void AccountManager::onConnecting(int32_t instanceNum){
 
 void AccountManager::onConnect(int32_t instanceNum,int socketFd){
     DEBUG_D("onConnect instanceNum=%d,socketFd=%d",instanceNum,socketFd);
-    if(instanceNum != 0){
+    if(instanceNum != 0 || socketFd == -1){
         return;
     }
-    AccountManager::onConnectionStateChanged(ConnectionStateConnected,AccountManager::getCurrentAccountId());
+    for (auto it = g_socket_account_map.begin(); it != g_socket_account_map.end(); ) {
+        if(it->second.GetAccountId() == AccountManager::getCurrentAccountId()){
+            g_socket_account_map.erase(it->first);
+        }
+    }
     g_socket_account_map.insert(make_pair(socketFd,AccountManager::getCurrentAccount()));
+    AccountManager::onConnectionStateChanged(ConnectionStateConnected,AccountManager::getCurrentAccountId());
 }
 
 void AccountManager::onClose(int32_t instanceNum,int socketFd,int32_t reason, int32_t error){
@@ -133,10 +138,15 @@ void AccountManager::onClose(int32_t instanceNum,int socketFd,int32_t reason, in
     if(instanceNum != 0){
         return;
     }
-    AccountManager account = findAccountBySocket(socketFd);
-    AccountManager::onConnectionStateChanged(ConnectionStateClosed,account.GetAccountId());
+
     if(socketFd != -1){
-        g_socket_account_map.erase(socketFd);
+        for (auto it = g_socket_account_map.begin(); it != g_socket_account_map.end(); ) {
+            if(it->first == socketFd){
+                AccountManager::onConnectionStateChanged(ConnectionStateClosed,it->second.GetAccountId());
+                g_socket_account_map.erase(socketFd);
+                break;
+            }
+        }
     }
 
 }
@@ -146,19 +156,14 @@ void AccountManager::onRead(int32_t instanceNum,int socketFd,NativeByteBuffer * 
     if(instanceNum != 0){
         return;
     }
-    AccountManager account = findAccountBySocket(socketFd);
-    account.handlePdu(buff,size);
-}
-
-AccountManager AccountManager::findAccountBySocket(int socketFd){
     if(socketFd != -1){
         for (auto it = g_socket_account_map.begin(); it != g_socket_account_map.end(); ) {
             if(it->first == socketFd){
-                return (AccountManager)it->second;
+                it->second.handlePdu(buff,size);
+                break;
             }
         }
     }
-    return -1;
 }
 
 void AccountManager::handlePdu(NativeByteBuffer * buff,uint32_t bufSize){
@@ -307,7 +312,6 @@ void AccountManager::handlePdu(NativeByteBuffer * buff,uint32_t bufSize){
             AccountManager::onNotify(buffer);
         }
     }
-
 }
 
 void AccountManager::onNotify(NativeByteBuffer *buffer)
@@ -319,10 +323,28 @@ void AccountManager::onNotify(NativeByteBuffer *buffer)
     }
 }
 
-NativeByteBuffer *AccountManager::getPduSendBuf(uint8_t* pduBytes,uint32_t size){
+int AccountManager::SendPduBuf(uint8_t* pduBytes,uint32_t size){
     auto pPdu = CImPdu::ReadPdu(pduBytes, size);
-    NativeByteBuffer *result = nullptr;
-    delete pduBytes;
+    return SendPdu(pPdu);
+}
+
+int AccountManager::_SendPdu(CImPdu* pPdu){
+    ssize_t sentLength = -1;
+
+    for (auto it = g_socket_account_map.begin(); it != g_socket_account_map.end(); ) {
+        if(it->second.GetAccountId() == GetAccountId()){
+            if ((sentLength = send(it->first, pPdu->GetBuffer(), pPdu->GetLength(), 0)) < 0) {
+                if (LOGS_ENABLED) DEBUG_D("connection(%p) send failed", this);
+            }
+            break;
+        }
+    }
+    delete pPdu;
+    pPdu = NULL;
+    return sentLength;
+}
+
+int AccountManager::SendPdu(CImPdu* pPdu){
     DEBUG_D("pdu send n cid=%d len=%d ",pPdu->GetCommandId(),pPdu->GetLength());
     if(pPdu->GetCommandId() == 1281){
         DEBUG_D("CID_FileImgUploadReq_VALUE");
@@ -343,23 +365,18 @@ NativeByteBuffer *AccountManager::getPduSendBuf(uint8_t* pduBytes,uint32_t size)
                 shared_secret,
                 iv,aad,
                 cipherData);
+
         CImPdu pdu1;
         pdu1.SetPBMsg(cipherData,cipherDataLen);
         pdu1.SetServiceId(pPdu->GetServiceId());
         pdu1.SetCommandId(pPdu->GetCommandId());
         pdu1.SetSeqNum(pPdu->GetSeqNum());
         pdu1.SetReversed(pPdu->GetReversed());
-        result = BuffersStorage::getInstance().getFreeBuffer(pdu1.GetLength());
-        result->writeBytes(pdu1.GetBuffer(), pdu1.GetLength());
+        return _SendPdu(&pdu1);
     }else{
-        result = BuffersStorage::getInstance().getFreeBuffer(pPdu->GetLength());
-        result->writeBytes(pPdu->GetBuffer(), pPdu->GetLength());
+        return _SendPdu(pPdu);
     }
-    delete pPdu;
-    pPdu = NULL;
-    return result;
 }
-
 void AccountManager::setConfigPath(string& configPath){
     g_configPath = configPath;
 }
@@ -611,18 +628,15 @@ void AccountManager::setConnectionState(ConnectionState state){
     m_connectionState = state;
 }
 
-NativeByteBuffer *AccountManager::onHeartBeat(){
-    NativeByteBuffer *result = nullptr;
+void AccountManager::onHeartBeat(){
     if(m_connectionState == ConnectionLogged){
         CImPdu pdu;
         pdu.SetPBMsg(nullptr);
         pdu.SetServiceId(7);
         pdu.SetCommandId(1793);
         DEBUG_D("heart beat...");
-        result = BuffersStorage::getInstance().getFreeBuffer(pdu.GetLength());
-        result->writeBytes(pdu.GetBuffer(), pdu.GetLength());
+        SendPdu(&pdu);
     }
-    return result;
 }
 
 void AccountManager::onConnectionStateChanged(ConnectionState state, uint32_t accountId)
@@ -639,11 +653,14 @@ void AccountManager::onConnectionStateChanged(ConnectionState state, uint32_t ac
             buffer->writeInt32(NativeInvokeDefaultSepNum);
             buffer->writeInt32((int32_t)accountId);
             buffer->writeString(address);
-            m_delegate->onNotify(buffer);
+            AccountManager::onNotify(buffer);
         }
     }
 }
 
+ConnectionState AccountManager::getConnectionState() {
+    return m_connectionState;
+}
 
 
 
