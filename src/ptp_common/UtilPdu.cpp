@@ -22,7 +22,6 @@ CSimpleBuffer::~CSimpleBuffer()
 {
 	m_alloc_size = 0;
 	m_write_offset = 0;
-	if (m_buffer)
 	{
 		free(m_buffer);
 		m_buffer = NULL;
@@ -52,6 +51,12 @@ uint32_t CSimpleBuffer::Write(void* buf, uint32_t len)
 	m_write_offset += len;
 
 	return len;
+}
+
+
+void CSimpleBuffer::ReadBuffer(void* buf, uint32_t len,uint32_t offset)
+{
+    memcpy(buf, m_buffer + offset, len);
 }
 
 uint32_t CSimpleBuffer::Read(void* buf, uint32_t len)

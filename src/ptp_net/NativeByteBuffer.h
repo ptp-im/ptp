@@ -84,6 +84,7 @@ public:
     NativeByteBuffer *readByteBuffer(bool copy, bool *error);
     NativeByteBuffer *copy(uint32_t len);
     double readDouble(bool *error);
+    void copyBuffer(uint32_t offset,uint32_t length,uint8_t * buf);
 
     void reuse();
 #ifdef ANDROID

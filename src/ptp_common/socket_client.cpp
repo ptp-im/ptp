@@ -8,7 +8,6 @@
 #include <netinet/in.h>
 
 #include "ptp_common/socket_client.h"
-#include "ptp_common/UtilPdu.h"
 #include "ptp_common/Logger.h"
 
 #define SA struct sockaddr
@@ -63,7 +62,7 @@ int httpPost(const string& url,struct HttpRequest *httpRequest,unsigned char *re
     return request(httpRequest, requestBody, requestBodyLen);
 }
 
-int socketSend(const char* ip,uint16_t port,unsigned char *requestBody,uint32_t requestBodyLen,unsigned char *responseBody,uint32_t &responseBodyLen){
+int socketSend(const char* ip,uint16_t port,CSimpleBuffer *request,CSimpleBuffer *response){
 
     while (true){
         int sock;
@@ -88,9 +87,7 @@ int socketSend(const char* ip,uint16_t port,unsigned char *requestBody,uint32_t 
             Logger::e("Failed to connect to the server");
             break;
         }
-
-        unsigned char *requestBuf = new unsigned char[requestBodyLen + 1];
-        memcpy(requestBuf,requestBody,requestBodyLen);
+        int requestBodyLen = (int)request->GetLength();
 
         uint32_t offset = 0;
         uint32_t remain = requestBodyLen;
@@ -100,13 +97,13 @@ int socketSend(const char* ip,uint16_t port,unsigned char *requestBody,uint32_t 
             if (send_size > SOCKET_MAX_SEND_BUF_SIZE) {
                 send_size = SOCKET_MAX_SEND_BUF_SIZE;
             }
-            auto ret = write(sock, requestBuf+offset, send_size);
+            int ret = (int)write(sock, request->GetBuffer()+offset, send_size);
             if (ret == SOCKET_ERROR){
                 err = 1;
                 Logger::e("SOCKET_ERROR");
                 break;
             }
-            Logger::d("Send len: %lu,remain: %d,send_size: %d,ret: %d,offset: %d,total: %d\n",requestBodyLen,remain,send_size,ret,offset,requestBodyLen-remain);
+            Logger::d("Send len: %d,remain: %d,send_size: %d,ret: %d,offset: %d,total: %d\n",requestBodyLen,remain,send_size,ret,offset,requestBodyLen-remain);
             if (ret <= 0) {
                 ret = 0;
                 break;
@@ -119,22 +116,18 @@ int socketSend(const char* ip,uint16_t port,unsigned char *requestBody,uint32_t 
             break;
         }
 
-        CSimpleBuffer m_in_buf = *new CSimpleBuffer();
         for (;;)
         {
-            uint32_t free_buf_len = m_in_buf.GetAllocSize() - m_in_buf.GetWriteOffset();
+            uint32_t free_buf_len = response->GetAllocSize() - response->GetWriteOffset();
             if (free_buf_len < SOCKET_MAX_READ_BUF_SIZE + 1)
-                m_in_buf.Extend(SOCKET_MAX_READ_BUF_SIZE + 1);
-            int ret = (int)recv(sock, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(),SOCKET_MAX_READ_BUF_SIZE,0);
-            Logger::d("http request ret=%d,offset=%d,read: %d\n",ret,m_in_buf.GetWriteOffset(),SOCKET_MAX_READ_BUF_SIZE);
+                response->Extend(SOCKET_MAX_READ_BUF_SIZE + 1);
+            int ret = (int)recv(sock, response->GetBuffer() + response->GetWriteOffset(),SOCKET_MAX_READ_BUF_SIZE,0);
+            Logger::d("recv:%d,offset=%d,read: %d\n",ret,response->GetWriteOffset(),SOCKET_MAX_READ_BUF_SIZE);
             if (ret <= 0)
                 break;
-            m_in_buf.IncWriteOffset(ret);
+            response->IncWriteOffset(ret);
         }
-        responseBodyLen =  m_in_buf.GetWriteOffset();
-        Logger::d("responseBodyLen:%d\n",responseBodyLen);
-        unsigned char *in_buf = m_in_buf.GetBuffer();
-        memcpy(responseBody,in_buf,responseBodyLen);
+        Logger::d("recv total:%d",response->GetLength());
         return 0;
     }
 
@@ -256,7 +249,7 @@ int request(struct HttpRequest *httpRequest,unsigned char *requestBody,uint32_t 
             if (free_buf_len < SOCKET_MAX_READ_BUF_SIZE + 1)
                 m_in_buf.Extend(SOCKET_MAX_READ_BUF_SIZE + 1);
             int ret = (int)recv(sock, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(),SOCKET_MAX_READ_BUF_SIZE,0);
-            //Logger::d("http request ret=%d,offset=%d\n",ret,m_in_buf.GetWriteOffset());
+            Logger::d("http request ret=%d,offset=%d\n",ret,m_in_buf.GetWriteOffset());
             if (ret <= 0)
                 break;
             m_in_buf.IncWriteOffset(ret);

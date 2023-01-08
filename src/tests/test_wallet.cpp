@@ -4,8 +4,10 @@
 #include "ptp_crypto/keccak.h"
 #include "ptp_crypto/secp256k1_helpers.h"
 #include "ptp_crypto/ptp_helpers.h"
+#include "ptp_crypto/ecdsa.h"
 #include "ptp_common/Logger.h"
-
+#include "ptp_crypto/keccak.h"
+#include <array>
 
 TEST(ptp_wallet, bip39_get_languages_size) {
     ASSERT_EQ((size_t) bip39_get_languages_size(),7);
@@ -76,7 +78,6 @@ TEST(ptp_wallet, genWords) {
     secp256k1_context *ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY);
     unsigned char sig_65[65];
     ecdsa_sign_recoverable(ctx,msg_data,rootHdKey.privateKey.data(),sig_65);
-    rootHdKey.clear();
     DEBUG_D("sig_65 %s", ptp_toolbox::data::bytes_to_hex(sig_65,65).c_str());
 
     string pub_key_rec1 = recover_pub_key_from_sig_65(sig_65,msg_data);
@@ -95,6 +96,7 @@ TEST(ptp_wallet, genWords) {
     string address_hex1 = address_to_hex(address1);
     DEBUG_D("rec address:%s", address_hex1.c_str());
 
+    rootHdKey.clear();
 }
 
 

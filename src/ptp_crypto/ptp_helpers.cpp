@@ -62,6 +62,7 @@ string gen_random(int len) {
 array<uint8_t, 32> keccak_256_hash(string msg_data){
     array<uint8_t, 32> msg_hash;
     Keccak256::getHash(reinterpret_cast<const uint8_t *>(msg_data.data()), msg_data.length(), msg_hash.data());
+    printf("keccak_256_hash:%s\n", bytes_to_hex_string(msg_hash.data(),32).c_str());
     return msg_hash;
 }
 

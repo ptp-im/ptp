@@ -65,11 +65,12 @@ public:
 	uchar_t*  GetBuffer() { return m_buffer; }
 	uint32_t GetAllocSize() { return m_alloc_size; }
 	uint32_t GetWriteOffset() { return m_write_offset; }
+    uint32_t GetLength() { return m_write_offset; }
 	void IncWriteOffset(uint32_t len) { m_write_offset += len; }
-
 	void Extend(uint32_t len);
 	uint32_t Write(void* buf, uint32_t len);
 	uint32_t Read(void* buf, uint32_t len);
+    void ReadBuffer(void* buf, uint32_t len,uint32_t offset);
 private:
 	uchar_t*	m_buffer;
 	uint32_t	m_alloc_size;

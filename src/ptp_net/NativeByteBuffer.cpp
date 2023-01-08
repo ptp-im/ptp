@@ -693,6 +693,11 @@ void NativeByteBuffer::reuse() {
     BuffersStorage::getInstance().reuseFreeBuffer(this);
 }
 
+
+void NativeByteBuffer::copyBuffer(uint32_t offset,uint32_t length,uint8_t * buf) {
+    memcpy(buf, buffer+offset, length);
+}
+
 #ifdef ANDROID
 jobject NativeByteBuffer::getJavaByteBuffer() {
     if (javaByteBuffer == nullptr && javaVm != nullptr) {

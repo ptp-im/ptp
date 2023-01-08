@@ -6,7 +6,6 @@
 #include "ptp_crypto/secp256k1_helpers.h"
 #include "wallet.h"
 
-
 string PTPWallet::HDKeyEncoder::formatEthMsgData(const string& message){
     return string("\x19") + "Ethereum Signed Message:\n" + to_string(message.size()) + message;
 }
@@ -17,6 +16,7 @@ PTPWallet::bytes_64 PTPWallet::HDKeyEncoder::makeBip39Seed(const std::string& mn
     MnemonicHelper::wordsToSeed(mnemonicWords.c_str(), out.data(), &n);
     return out;
 }
+
 PTPWallet::bytes_64 PTPWallet::HDKeyEncoder::makeBip39Seed(const std::vector<std::string>& mnemonicWords) {
     return makeBip39Seed(ptp_toolbox::strings::glue(" ", mnemonicWords));
 }
@@ -43,8 +43,6 @@ void PTPWallet::HDKeyEncoder::makeExtendedKey(PTPWallet::HDKey& rootKey, const D
     fillPublicKey(rootKey);
 }
 
-
-
 PTPWallet::HDKey PTPWallet::HDKeyEncoder::makeEthRootKey(const PTPWallet::bytes_64& seed) {
     HDKey out;
     out = fromSeed(seed);
@@ -55,13 +53,11 @@ PTPWallet::HDKey PTPWallet::HDKeyEncoder::makeEthRootKey(const char* mnemonic) {
     return makeEthRootKey(makeBip39Seed(mnemonic));
 }
 
-
 void PTPWallet::HDKeyEncoder::makeEthExtendedKey(PTPWallet::HDKey& rootKey, const Derivation& derivation) {
     derivePath(rootKey, derivation.path, true);
     fillPublicKey(rootKey);
     fillPublicKey64(rootKey);
 }
-
 
 string PTPWallet::HDKeyEncoder::getEthAddress(PTPWallet::HDKey& rootKey) {
     string address = ecdsa_get_public_address(rootKey.curve->params, rootKey.privateKey.cdata());
@@ -204,7 +200,6 @@ void PTPWallet::HDKeyEncoder::fillPublicKey65(PTPWallet::HDKey& key) {
     }
 }
 
-
 void PTPWallet::HDKeyEncoder::fillPublicKey64(PTPWallet::HDKey& key) {
     if (key.curve->params) {
         if (key.publicKey64.size() == 0) {
@@ -213,7 +208,6 @@ void PTPWallet::HDKeyEncoder::fillPublicKey64(PTPWallet::HDKey& key) {
         ecdsa_get_public_key64(key.curve->params, key.privateKey.cdata(), key.publicKey64.data());
     }
 }
-
 
 void PTPWallet::HDKeyEncoder::serialize(PTPWallet::HDKey& key, uint32_t fingerprint, uint32_t version, bool publicKey) {
     bytes_data data(78);
@@ -251,6 +245,7 @@ PTPWallet::HDKey PTPWallet::HDKeyEncoder::fromSeed(const char* seed) {
 PTPWallet::HDKey PTPWallet::HDKeyEncoder::fromSeed(const uint8_t* seed, size_t seedLength) {
     return fromSeed(bytes_data(seed, seedLength));
 }
+
 PTPWallet::HDKey PTPWallet::HDKeyEncoder::fromSeed(const PTPWallet::bytes_data& seed) {
     HDKey out;
     bytes_64 I;

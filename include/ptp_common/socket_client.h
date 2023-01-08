@@ -1,6 +1,7 @@
 #ifndef FUNCTIONS_HTTP
 #define FUNCTIONS_HTTP
 
+#include "ptp_common/UtilPdu.h"
 #include <string>
 #include <algorithm>
 #include <cstdint>
@@ -110,7 +111,7 @@ struct HttpRequest
 struct HttpHeader httpHeader(const string &name, const string &value);
 
 int request(struct HttpRequest *httpRequest,unsigned char *requestBody,uint32_t requestBodyLen);
-int socketSend(const char *ip,uint16_t port,unsigned char * requestBody,uint32_t requestBodyLen,unsigned char *responseBody,uint32_t &responseBodyLen);
+int socketSend(const char *ip,uint16_t port,CSimpleBuffer *request,CSimpleBuffer *response);
 int httpGet(const string& url,HttpRequest *httpHeader);
 int httpPost(const string& url,HttpRequest *HttpHeader,unsigned char *requestBody,uint32_t requestBodyLen);
 
