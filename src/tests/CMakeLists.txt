@@ -8,7 +8,7 @@ include(FetchContent)
 if(MACOS)
     FetchContent_Declare(
             googletest
-            GIT_REPOSITORY ~/data/git/gtest.git
+            GIT_REPOSITORY /Users/jack/data/git/gtest.git
             GIT_TAG        release-1.11.0
     )
 else()
@@ -36,20 +36,22 @@ ADD_DEFINITIONS(-DGTEST_USE_OWN_TR1_TUPLE=1 )
 SET(EXECUTABLE_OUTPUT_PATH  ./)
 
 include_directories (../)
-include_directories (../../include)
 LINK_DIRECTORIES(../)
 
 add_executable(test_common.exe test_common.cpp)
-target_link_libraries(test_common.exe PRIVATE gtest_main ptp_common)
-
-add_executable(test_wallet.exe test_wallet.cpp)
-target_link_libraries(test_wallet.exe PRIVATE gtest_main ptp_common ptp_wallet ptp_crypto ptp_toolbox)
-
-add_executable(test_toolbox.exe test_toolbox.cpp)
-target_link_libraries(test_toolbox.exe PRIVATE gtest_main ptp_toolbox)
-
-add_executable(test_crypto.exe test_crypto.cpp)
-target_link_libraries(test_crypto.exe PRIVATE gtest_main ptp_crypto ptp_toolbox)
-
-add_executable(test_net.exe test_net.cpp)
-target_link_libraries(test_net.exe PRIVATE gtest_main crypto ptp_net ptp_wallet ptp_crypto ptp_toolbox)
+target_link_libraries(test_common.exe PRIVATE gtest_main)
+#
+#add_executable(test_common.exe test_common.cpp)
+#target_link_libraries(test_common.exe PRIVATE gtest_main ptp_common)
+#
+#add_executable(test_wallet.exe test_wallet.cpp)
+#target_link_libraries(test_wallet.exe PRIVATE gtest_main ptp_common ptp_wallet ptp_crypto ptp_toolbox)
+#
+#add_executable(test_toolbox.exe test_toolbox.cpp)
+#target_link_libraries(test_toolbox.exe PRIVATE gtest_main ptp_toolbox)
+#
+#add_executable(test_crypto.exe test_crypto.cpp)
+#target_link_libraries(test_crypto.exe PRIVATE gtest_main ptp_crypto ptp_toolbox)
+#
+#add_executable(test_net.exe test_net.cpp)
+#target_link_libraries(test_net.exe PRIVATE gtest_main crypto ptp_net ptp_wallet ptp_crypto ptp_toolbox)

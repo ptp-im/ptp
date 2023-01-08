@@ -1,6 +1,7 @@
 #ifndef BIP39_CORE_BIP39_H
 #define BIP39_CORE_BIP39_H
 
+
 #include <iomanip>
 #include <sstream>
 

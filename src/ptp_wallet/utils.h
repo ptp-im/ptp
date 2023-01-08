@@ -19,6 +19,7 @@
 
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 namespace PTPWallet {
@@ -26,7 +27,7 @@ namespace PTPWallet {
 vector<string> split_string (string s, string delimiter);
 
 uint32_t str_to_uint32_t(std::string const& str, size_t* idx = 0, int base = 10);
-struct to_hmac_sha512;
+
 using bytes_data = ptp_toolbox::data::bytes_data;
 template<size_t N>
 using bytes_array = ptp_toolbox::data::bytes_array<N>;
@@ -35,5 +36,4 @@ using bytes_32 = ptp_toolbox::data::bytes_array<32>;
 using bip32_key = ptp_toolbox::data::bytes_array<112>;
 
 }
-
 #endif
