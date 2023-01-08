@@ -12,6 +12,7 @@ CPackSourceConfig.cmake
 .ninja_log
 build.ninja
 *.cbp
+*.run
 *.pid
 .DS_Store
 .idea

@@ -5,7 +5,8 @@ option(INSTALL_GTEST "Enable installation of googletest. (Projects embedding goo
 
 include(FetchContent)
 
-if(MACOS)
+if(APPLE)
+    MESSAGE( STATUS "GTEST release-1.11.0 APPLE" )
     FetchContent_Declare(
             googletest
             GIT_REPOSITORY /Users/jack/data/git/gtest.git
@@ -17,6 +18,7 @@ else()
             GIT_REPOSITORY https://github.com/google/googletest.git
             GIT_TAG        release-1.11.0
     )
+    MESSAGE( STATUS "GTEST release-1.11.0 LINUX" )
 endif()
 
 FetchContent_GetProperties(googletest)
@@ -33,13 +35,13 @@ endif (APPLE)
 
 ADD_DEFINITIONS(-DGTEST_USE_OWN_TR1_TUPLE=1 )
 
-SET(EXECUTABLE_OUTPUT_PATH  ./)
+SET(EXECUTABLE_OUTPUT_PATH  ./bin)
 
 include_directories (../)
 LINK_DIRECTORIES(../)
 
-add_executable(test_common.exe test_common.cpp)
-target_link_libraries(test_common.exe PRIVATE gtest_main)
+add_executable(test_common.run test_common.cpp)
+target_link_libraries(test_common.run PRIVATE gtest_main)
 #
 #add_executable(test_common.exe test_common.cpp)
 #target_link_libraries(test_common.exe PRIVATE gtest_main ptp_common)
