@@ -5,11 +5,19 @@ option(INSTALL_GTEST "Enable installation of googletest. (Projects embedding goo
 
 include(FetchContent)
 
-FetchContent_Declare(
-        googletest
-        GIT_REPOSITORY /Users/jack/data/git/gtest.git
-        GIT_TAG        release-1.11.0
-)
+if(MACOS)
+    FetchContent_Declare(
+            googletest
+            GIT_REPOSITORY ~/data/git/gtest.git
+            GIT_TAG        release-1.11.0
+    )
+else()
+    FetchContent_Declare(
+            googletest
+            GIT_REPOSITORY https://github.com/google/googletest.git
+            GIT_TAG        release-1.11.0
+    )
+endif()
 
 FetchContent_GetProperties(googletest)
 
