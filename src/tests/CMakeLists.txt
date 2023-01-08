@@ -35,13 +35,25 @@ endif (APPLE)
 
 ADD_DEFINITIONS(-DGTEST_USE_OWN_TR1_TUPLE=1 )
 
-SET(EXECUTABLE_OUTPUT_PATH  ./bin)
+file(COPY log4cxx.properties
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+SET(EXECUTABLE_OUTPUT_PATH  ./)
 
 include_directories (../)
-LINK_DIRECTORIES(../)
+include_directories (../../third_party/slog)
 
-add_executable(test_common.run test_common.cpp)
-target_link_libraries(test_common.run PRIVATE gtest_main)
+LINK_DIRECTORIES(../../third_party/slog/lib)
+
+add_executable(test_global.run test_global.cpp)
+target_link_libraries(test_global.run PRIVATE gtest_main ptp_global)
+
+add_executable(test_global_SocketClient.run test_global_SocketClient.cpp)
+target_link_libraries(test_global_SocketClient.run PRIVATE gtest_main ptp_global)
+
+add_executable(test_slog.run test_slog.cpp)
+target_link_libraries(test_slog.run PRIVATE gtest_main slog ptp_global)
+
 #
 #add_executable(test_common.exe test_common.cpp)
 #target_link_libraries(test_common.exe PRIVATE gtest_main ptp_common)

@@ -13,8 +13,6 @@ MESSAGE( STATUS "CMAKE_INSTALL_RPATH: " "${CMAKE_INSTALL_PREFIX}/lib" )
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14  -g")
 
-#SET(EXECUTABLE_OUTPUT_PATH  ./)
-
 #LINK_DIRECTORIES(./lib ../boringssl/lib/)
 #INCLUDE_DIRECTORIES(../boringssl/include)
 
@@ -23,6 +21,8 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14  -g")
 #add_subdirectory(src/ptp_crypto)
 #add_subdirectory(src/ptp_wallet)
 #add_subdirectory(src/ptp_net)
+add_subdirectory(src/ptp_global)
+add_subdirectory(third_party/slog)
 add_subdirectory(src/tests)
 enable_testing()
 
