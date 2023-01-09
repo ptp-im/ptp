@@ -1,0 +1,26 @@
+syntax = "proto2";
+package PB.Command;
+import "PB.Global.proto";
+option java_package = "com.ptp.im.protobuf.PB.Command";
+option optimize_for = LITE_RUNTIME;
+
+message FileUploadRequest{
+	required string file_id = 0x1;
+	required uint32 file_part = 0x2;
+	required uint32 file_total_parts = 0x3;
+	required bytes file_data = 0x4;
+}
+
+message FileUploadResponse{
+	required PB.ERR error = 0x500;
+	required string file_path = 0x1;
+}
+
+message FileDownloadRequest{
+	required string file_path = 0x1;
+}
+
+message FileDownloadResponse{
+	required PB.ERR error = 0x500;
+	optional bytes file_data = 0x1;
+}

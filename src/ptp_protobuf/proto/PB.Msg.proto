@@ -1,0 +1,8 @@
+syntax = "proto2";
+package PBMsg;
+option java_package = "com.ptp.im.protobuf.PB";
+option optimize_for = LITE_RUNTIME;
+
+message Msg{
+  required bool is_online = 12;
+}
