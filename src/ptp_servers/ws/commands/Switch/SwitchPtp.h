@@ -12,7 +12,7 @@
 #ifndef __SWITCHPTP_H__
 #define __SWITCHPTP_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

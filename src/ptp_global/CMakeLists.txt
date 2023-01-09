@@ -1,4 +1,3 @@
-INCLUDE_DIRECTORIES(./)
 INCLUDE_DIRECTORIES(../)
 
 INCLUDE_DIRECTORIES(../../third_party/jsoncpp)
@@ -10,9 +9,9 @@ endif()
 
 SET(LIBRARY_OUTPUT_PATH  ../../lib)
 set(LIB_NAME_MAIN ptp_global)
-
+MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
-AUX_SOURCE_DIRECTORY(. ../../third_party/jsoncpp)
+AUX_SOURCE_DIRECTORY(../../third_party/jsoncpp SRC_LIST)
 
 add_library(${LIB_NAME_MAIN} STATIC ${SRC_LIST})
 

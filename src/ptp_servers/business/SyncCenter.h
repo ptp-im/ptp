@@ -18,7 +18,7 @@
 #include "ostype.h"
 #include "Lock.h"
 #include "Condition.h"
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 #include "public_define.h"
 #include "IM.BaseDefine.pb.h"
 

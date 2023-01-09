@@ -11,7 +11,7 @@
 #ifndef DBPOOL_H_
 #define DBPOOL_H_
 
-#include "util.h"
+#include "ptp_global/Util.h"
 #include "ThreadPool.h"
 #include <mysql.h>
 

@@ -1,4 +1,5 @@
 #include "ConfigFileReader.h"
+#include "Logger.h"
 
 CConfigFileReader::CConfigFileReader(const char* filename)
 {
@@ -46,7 +47,7 @@ void CConfigFileReader::_LoadFile(const char* filename)
 	FILE* fp = fopen(filename, "r");
 	if (!fp)
 	{
-		log("can not open %s,errno = %d", filename,errno);
+		DEBUG_E("can not open %s,errno = %d", filename,errno);
 		return;
 	}
 

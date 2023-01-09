@@ -12,7 +12,7 @@
 #define CACHEPOOL_H_
 
 #include <vector>
-#include "util.h"
+#include "ptp_global/Util.h"
 #include "ThreadPool.h"
 #include "hiredis.h"
 

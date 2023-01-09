@@ -1,14 +1,7 @@
-/*
- * LoginConn.h
- *
- *  Created on: 2013-6-21
- *      Author: jianqingdu
- */
-
 #ifndef LOGINCONN_H_
 #define LOGINCONN_H_
 
-#include "imconn.h"
+#include "ptp_global/ImConn.h"
 
 enum {
 	LOGIN_CONN_TYPE_CLIENT = 1,

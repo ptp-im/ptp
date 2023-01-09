@@ -12,6 +12,7 @@ elseif(UNIX)
     LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
 endif()
 
+
 SET(LIBRARY_OUTPUT_PATH  ../)
 LINK_DIRECTORIES(../)
 

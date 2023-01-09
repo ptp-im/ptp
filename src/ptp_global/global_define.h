@@ -6,11 +6,13 @@
 //  Copyright (c) 2014年 luoning. All rights reserved.
 //
 
-#ifndef _public_define_h
-#define _public_define_h
+#ifndef _global_define_h
+#define _global_define_h
 #include <iostream>
 #include <set>
+#include <unordered_map>
 #include "global.h"
+
 //#include "IM.BaseDefine.pb.h"
 using namespace std;
 
@@ -157,7 +159,7 @@ typedef struct DBUserInfo_t
     
 } DBUserInfo_t;
 
-typedef hash_map<uint32_t, DBUserInfo_t*> DBUserMap_t;
+typedef unordered_map<uint32_t, DBUserInfo_t*> DBUserMap_t;
 
 typedef struct DBDeptInfo_t
 {
@@ -178,7 +180,7 @@ typedef struct DBDeptInfo_t
     
 } DBDeptInfo_t;
 
-typedef hash_map<uint32_t, DBDeptInfo_t*> DBDeptMap_t;
+typedef unordered_map<uint32_t, DBDeptInfo_t*> DBDeptMap_t;
 
 
 typedef struct {

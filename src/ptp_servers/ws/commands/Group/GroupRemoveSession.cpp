@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.Group.pb.h"
@@ -19,14 +19,14 @@ using namespace PTP::Common;
 
 namespace COMMAND {
     void GroupRemoveSessionReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
-        log_debug("GroupRemoveSessionReq start...");
+        DEBUG_D("GroupRemoveSessionReq start...");
         PTP::Group::GroupRemoveSessionReq msg; 
         PTP::Group::GroupRemoveSessionRes msg_rsp;
-        log("conn_uuid=%u", conn_uuid);
+        DEBUG_I("conn_uuid=%u", conn_uuid);
         ERR error = NO_ERROR;
         auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
         if(!pMsgConn){
-            log_error("not found pMsgConn");
+            DEBUG_E("not found pMsgConn");
             return;
         }
 
@@ -39,7 +39,7 @@ namespace COMMAND {
             CDBServConn* pDbConn = get_db_serv_conn();
             if (!pDbConn) {
                 error = E_REASON_NO_DB_SERVER;
-                log_error("not found pDbConn");
+                DEBUG_E("not found pDbConn");
                 break;
             }
             CDbAttachData attach(ATTACH_TYPE_HANDLE, conn_uuid, 0);
@@ -61,21 +61,21 @@ namespace COMMAND {
             pMsgConn->SendPdu(&pdu);
             //CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
         }
-        log_debug("GroupRemoveSessionReq end...");
+        DEBUG_D("GroupRemoveSessionReq end...");
     }
     
     void GroupRemoveSessionResCmd(CImPdu* pPdu){
-        log_debug("GroupRemoveSessionRes start...");
+        DEBUG_D("GroupRemoveSessionRes start...");
         PTP::Group::GroupRemoveSessionRes msg;
         CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
         while (true){
             CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
             uint32_t conn_uuid = attach_data.GetHandle();
             msg.clear_attach_data();
-            log("conn_uuid=%u", conn_uuid);
+            DEBUG_I("conn_uuid=%u", conn_uuid);
             auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
             if(!pMsgConn){
-                log_error("not found pMsgConn");
+                DEBUG_E("not found pMsgConn");
                 return;
             }
             CImPdu pdu_rsp;
@@ -86,7 +86,7 @@ namespace COMMAND {
             pMsgConn->SendPdu(&pdu_rsp);
             break;
         }
-        log_debug("GroupRemoveSessionRes end...");
+        DEBUG_D("GroupRemoveSessionRes end...");
     }
 };
 

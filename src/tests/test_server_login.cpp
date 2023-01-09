@@ -2,17 +2,17 @@
 
 #include "ptp_global/Logger.h"
 #include "ptp_global/Timer.h"
-#include "ptp_servers/route/boot_route.h"
+#include "ptp_servers/login/boot_login.h"
 
-TEST(ptp_servers, boot_route) {
+TEST(ptp_servers, boot_login) {
     DEBUG_D("boot_route");
     Timer t;
     t.setTimeout([&]() {
         DEBUG_D("timeout");
-        quit_route();
+        quit_login();
         t.stop();
     }, 3200);
-    int ret = boot_route(0, nullptr);
+    int ret = boot_login(0, nullptr);
     ASSERT_EQ(ret,0);
 }
 

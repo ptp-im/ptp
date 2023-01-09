@@ -8,17 +8,14 @@
 
 #ifndef __my_push_server__session_manager__
 #define __my_push_server__session_manager__
-
+#include <unordered_map>
 #include <stdio.h>
 #include "socket/base_io_stream.h"
 #include "thread/base_thread.hpp"
 #ifdef _WIN32
-#include <hash_map>
 #include <list>
 using namespace stdext;
 #else
-#include <ext/hash_map>
-using namespace __gnu_cxx;
 #endif
 
 #include "push_session.h"
@@ -58,7 +55,7 @@ private:
     void _ClearPushSessionForMap();
     
 private:
-    hash_map<uint32_t /* sockid */, push_session_ptr> m_MapPushSessionBySockID;
+    unordered_map<uint32_t /* sockid */, push_session_ptr> m_MapPushSessionBySockID;
     CBaseMutex m_MapIOPushSessionBySockIDMutex; 
     
     apns_client_ptr m_pAPNSClient;

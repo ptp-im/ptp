@@ -6,7 +6,7 @@
  */
 
 
-#include "ConfigFileReader.h"
+#include "ptp_global/ConfigFileReader.h"
 #include "stdio.h"
 #include "string.h"
 CConfigFileReader::CConfigFileReader(const char* filename)
@@ -39,7 +39,7 @@ void CConfigFileReader::_LoadFile(const char* filename)
 	FILE* fp = fopen(filename, "r");
 	if (!fp)
 	{
-		//log("can not open %s\n", filename);
+		//DEBUG_I("can not open %s\n", filename);
 		return;
 	}
 

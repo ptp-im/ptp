@@ -95,6 +95,7 @@ public:
     void Write(uchar_t* buf, uint32_t len) { m_buf.Write((void*)buf, len); }
     int ReadPduHeader(uchar_t* buf, uint32_t len);
     void SetPBMsg(const google::protobuf::MessageLite* msg);
+    void SetPBMsg(const google::protobuf::MessageLite* msg,uint16_t command_id,uint16_t seq_num = 0);
     void SetPBMsg(unsigned char *buf, int len);
 
 protected:

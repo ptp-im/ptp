@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.Buddy.pb.h"
@@ -20,14 +20,14 @@ using namespace PTP::Common;
 
 namespace COMMAND {
     void BuddyModifyReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
-        log_debug("BuddyModifyReq start...");
+        DEBUG_D("BuddyModifyReq start...");
         PTP::Buddy::BuddyModifyReq msg; 
         PTP::Buddy::BuddyModifyRes msg_rsp;
-        log("conn_uuid=%u", conn_uuid);
+        DEBUG_I("conn_uuid=%u", conn_uuid);
 
         auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
         if(!pMsgConn){
-            log_error("not found pMsgConn");
+            DEBUG_E("not found pMsgConn");
             return;
         }
 
@@ -41,7 +41,7 @@ namespace COMMAND {
             CDBServConn* pDbConn = get_db_serv_conn();
             if (!pDbConn) {
                 error = E_REASON_NO_DB_SERVER;
-                log_error("not found pDbConn");
+                DEBUG_E("not found pDbConn");
                 break;
             }
             CDbAttachData attach(ATTACH_TYPE_HANDLE, conn_uuid, 0);
@@ -63,11 +63,11 @@ namespace COMMAND {
             pMsgConn->SendPdu(&pdu);
             //CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
         }
-        log_debug("BuddyModifyReq end...");
+        DEBUG_D("BuddyModifyReq end...");
     }
     
     void BuddyModifyResCmd(CImPdu* pPdu){
-        log_debug("BuddyModifyRes start...");
+        DEBUG_D("BuddyModifyRes start...");
         PTP::Buddy::BuddyModifyRes msg;
         PTP::Buddy::BuddyModifyUpdatePair msg1;
         CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -75,10 +75,10 @@ namespace COMMAND {
             CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
             uint32_t conn_uuid = attach_data.GetHandle();
             msg.clear_attach_data();
-            log("conn_uuid=%u", conn_uuid);
+            DEBUG_I("conn_uuid=%u", conn_uuid);
             auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
             if(!pMsgConn){
-                log_error("not found pMsgConn");
+                DEBUG_E("not found pMsgConn");
                 return;
             }
             CImPdu pdu_rsp;
@@ -106,7 +106,7 @@ namespace COMMAND {
                 uint32_t toUserId = *it;
                 CImUser *pToImUser = CImUserManager::GetInstance()->GetImUserById(toUserId);
                 if (pToImUser) {
-                    log("CID_BuddyModifyNotify: %d -> %d",msg.auth_uid(),toUserId);
+                    DEBUG_I("CID_BuddyModifyNotify: %d -> %d",msg.auth_uid(),toUserId);
                     pToImUser->BroadcastPdu(&pdu_notify, pMsgConn);
                 }else{
                     msg1.add_pair_uid_list(toUserId);
@@ -121,13 +121,13 @@ namespace COMMAND {
             pdu1.SetSeqNum(0);
             CDBServConn* pDbConn = get_db_serv_conn();
             if (!pDbConn) {
-                log_error("not found pDbConn");
+                DEBUG_E("not found pDbConn");
                 break;
             }
             pDbConn->SendPdu(&pdu1);
             break;
         }
-        log_debug("BuddyModifyRes end...");
+        DEBUG_D("BuddyModifyRes end...");
     }
 };
 

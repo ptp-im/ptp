@@ -48,7 +48,7 @@ void httpconn_callback(void* callback_data, uint8_t msg, uint32_t handle, uint32
 		pConn->OnClose();
 		break;
 	default:
-		log("!!!httpconn_callback error msg: %d ", msg);
+		DEBUG_I("!!!httpconn_callback error msg: %d ", msg);
 		break;
 	}
 }
@@ -86,12 +86,12 @@ CHttpConn::CHttpConn()
 		m_conn_handle = ++g_conn_handle_generator;
 	}
 
-	//log("CHttpConn, handle=%u ", m_conn_handle);
+	//DEBUG_I("CHttpConn, handle=%u ", m_conn_handle);
 }
 
 CHttpConn::~CHttpConn()
 {
-	//log("~CHttpConn, handle=%u ", m_conn_handle);
+	//DEBUG_I("~CHttpConn, handle=%u ", m_conn_handle);
 }
 
 int CHttpConn::Send(void* body, int body_len)
@@ -126,7 +126,7 @@ int CHttpConn::Send(void* body, int body_len)
 	{
 		m_out_buf.Write((char*)data + ret, len - ret);
 		m_busy = true;
-		log("not send all, remain=%d ", m_out_buf.GetWriteOffset());
+		DEBUG_I("not send all, remain=%d ", m_out_buf.GetWriteOffset());
 	}
     else
     {
@@ -150,7 +150,7 @@ void CHttpConn::Close()
 
 void CHttpConn::OnConnect(net_handle_t handle)
 {
-    // log("OnConnect, handle=%d", handle);
+    // DEBUG_I("OnConnect, handle=%d", handle);
     m_sock_handle = handle;
     m_state = CONN_STATE_CONNECTED;
     g_http_conn_map.insert(make_pair(m_conn_handle, this));
@@ -173,11 +173,11 @@ void CHttpConn::OnWrite()
 	int out_buf_size = (int)m_out_buf.GetWriteOffset();
 
 	m_out_buf.Read(NULL, ret);
-	log("OnWrite: %s",ret);
+	DEBUG_I("OnWrite: %s",ret);
 	if (ret < out_buf_size)
 	{
 		m_busy = true;
-		log("not send all, remain=%d ", m_out_buf.GetWriteOffset());
+		DEBUG_I("not send all, remain=%d ", m_out_buf.GetWriteOffset());
 	}
 	else
 	{
@@ -194,7 +194,7 @@ void CHttpConn::OnClose()
 void CHttpConn::OnTimer(uint64_t curr_tick)
 {
 	if (curr_tick > m_last_recv_tick + HTTP_CONN_TIMEOUT) {
-		log("HttpConn timeout, handle=%d ", m_conn_handle);
+		DEBUG_I("HttpConn timeout, handle=%d ", m_conn_handle);
 		Close();
 	}
 }
@@ -226,7 +226,7 @@ void CHttpConn::OnRead()
 	uint32_t buf_len = m_in_buf.GetWriteOffset();
 	in_buf[buf_len] = '\0';
 
-	//log("OnRead, buf_len=%u, conn_handle=%u\n", buf_len, m_conn_handle); // for debug
+	//DEBUG_I("OnRead, buf_len=%u, conn_handle=%u\n", buf_len, m_conn_handle); // for debug
 
 	m_HttpParser.ParseHttpContent(in_buf, buf_len);
 
@@ -242,7 +242,7 @@ void CHttpConn::OnRead()
         }
         else
         {
-            log("url unknown, url=%s ", url.c_str());
+            DEBUG_I("url unknown, url=%s ", url.c_str());
             Close();
         }
 	}

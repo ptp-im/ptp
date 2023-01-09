@@ -5,9 +5,9 @@
  *      Author: ziteng
  */
 
-#include "netlib.h"
-#include "ConfigFileReader.h"
-#include "version.h"
+#include "ptp_global/NetLib.h"
+#include "ptp_global/ConfigFileReader.h"
+#include "ptp_global/version.h"
 #include "ThreadPool.h"
 #include "DBPool.h"
 #include "CachePool.h"
@@ -35,7 +35,7 @@ void proxy_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void
     }
     else
     {
-        log("!!!error msg: %d", msg);
+        DEBUG_I("!!!error msg: %d", msg);
     }
 }
 
@@ -52,13 +52,13 @@ int main(int argc, char* argv[])
 
     CacheManager* pCacheManager = CacheManager::getInstance();
     if (!pCacheManager) {
-        log("CacheManager init failed");
+        DEBUG_I("CacheManager init failed");
         return -1;
     }
 
     CDBManager* pDBManager = CDBManager::getInstance();
     if (!pDBManager) {
-        log("DBManager init failed");
+        DEBUG_I("DBManager init failed");
         return -1;
     }
     // 主线程初始化单例，不然在工作线程可能会出现多次初始化
@@ -105,13 +105,13 @@ int main(int argc, char* argv[])
 //    char* str_aes_key = config_file.GetConfigName("aesKey");
 
     if (!listen_ip || !str_listen_port || !str_thread_num || !str_file_site) {
-        log("missing ListenIP/ListenPort/ThreadNum/MsfsSite, exit...");
+        DEBUG_I("missing ListenIP/ListenPort/ThreadNum/MsfsSite, exit...");
         return -1;
     }
 
 //    if(strlen(str_aes_key) != 32)
 //    {
-//        log("aes key is invalied");
+//        DEBUG_I("aes key is invalied");
 //        return -2;
 //    }
 //    string strAesKey(str_aes_key, 32);
@@ -158,8 +158,8 @@ int main(int argc, char* argv[])
             return ret;
     }
 
-    log("server start listen on: %s:%d", listen_ip,  listen_port);
-    log("now enter the event loop...");
+    DEBUG_I("server start listen on: %s:%d", listen_ip,  listen_port);
+    DEBUG_I("now enter the event loop...");
     writePid();
     netlib_eventloop(10);
 

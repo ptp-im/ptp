@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include "global.h"
 #include "Util.h"
+#include "Helpers.h"
 #include "ImPduBase.h"
 #include "NetLib.h"
 

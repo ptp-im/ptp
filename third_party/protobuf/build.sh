@@ -62,7 +62,7 @@ get_cur_dir() {
 
 
 echo "=================================================="
-echo "start installing the development library [log4cxx]"
+echo "start installing the development library [protobuf]"
 echo "=================================================="
 
 get_cur_dir

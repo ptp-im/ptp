@@ -16,7 +16,7 @@
 #include <pthread.h>
 #include <uuid/uuid.h>
 
-#include <imconn.h>
+#include <ptp_global/ImConn.h>
 
 typedef struct file_header_t
 {
@@ -144,12 +144,12 @@ typedef struct transfer_task_t{
     }
 
     void lock(int n) {
-//    	log("++++++++++++++++++++++ lock %d %s\n", n, task_id.c_str());
+//    	DEBUG_I("++++++++++++++++++++++ lock %d %s\n", n, task_id.c_str());
         pthread_rwlock_wrlock(&task_lock);
     }
 
     void unlock(int n) {
-//    	log("++++++++++++++++++++++unlock %d %s\n", n, task_id.c_str());
+//    	DEBUG_I("++++++++++++++++++++++unlock %d %s\n", n, task_id.c_str());
         pthread_rwlock_unlock(&task_lock);
     }
 

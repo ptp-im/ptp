@@ -1,14 +1,7 @@
-/*
- * RouteConn.h
- *
- *  Created on: 2013-7-4
- *      Author: bangde.app@gmail.com
- */
-
 #ifndef ROUTECONN_H_
 #define ROUTECONN_H_
 
-#include "imconn.h"
+#include "ptp_global/ImConn.h"
 
 class CRouteConn : public CImConn
 {

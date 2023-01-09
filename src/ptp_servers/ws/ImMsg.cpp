@@ -30,7 +30,7 @@ uint32_t GetMsgIdFromCache(string from_address,string to_address)
         pCacheManager->RelCacheConn(pCacheConn);
         return (uint32_t)msg_id_long;
     }else{
-        log_error("error pCacheConn");
+        DEBUG_E("error pCacheConn");
         return 0;
     }
 }

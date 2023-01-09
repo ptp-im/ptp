@@ -12,7 +12,7 @@
 #ifndef __GROUPCHANGEMEMBER_H__
 #define __GROUPCHANGEMEMBER_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

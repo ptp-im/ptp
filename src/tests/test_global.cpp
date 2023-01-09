@@ -4,9 +4,29 @@
 #include "ptp_global/Base64Utils.h"
 #include "ptp_global/Logger.h"
 #include "ptp_global/UtilPdu.h"
+#include "ptp_global/Helpers.h"
+#include "ptp_global/Timer.h"
 #include "ptp_global/Util.h"
 
-TEST(Util, toHex) {
+TEST(Timer, Timer) {
+    Timer t;
+    t.setInterval([&]() {
+        cout << "Hey.. After each 1s..." << endl;
+    }, 1000);
+    t.setTimeout([&]() {
+        cout << "Hey.. After 5.2s. But I will stop the timer!" << endl;
+        t.stop();
+    }, 5200);
+    cout << "I am Timer" <<endl;
+    while(true){
+        if(t.isStopped()){
+            cout << "Timer break" <<endl;
+            break;
+        }
+    }
+}
+
+TEST(Util, Util_toHex) {
     const unsigned char c = 'c';
     DEBUG_D("char:%c",c);
     auto hex = toHex(c);
@@ -27,9 +47,9 @@ TEST(Util, URLEncode) {
 }
 
 TEST(Util, replaceStr) {
-    char * str = "123456789";
-    char oldChar = '2';
-    char newChar = '3';
+//    char * str = "123456789";
+//    char oldChar = '2';
+//    char newChar = '3';
     //todo
     //auto res = replaceStr(str,oldChar,newChar);
     ASSERT_EQ(true,true);
@@ -137,14 +157,14 @@ TEST(Util, put_file_content) {
 //    DEBUG_D("buf ====>>>\n%s",buf);
 //    ASSERT_TRUE(size1 == size);
 }
-
-TEST(Util, memfind) {
-    char const* src = "123456789";
-    char const* sub = "8";
-    auto res = memfind(src, strlen(src),sub, strlen(sub));
-    DEBUG_D("memfind:%s",res);
-    ASSERT_TRUE(string(res, strlen(res)) == "89");
-}
+//
+//TEST(Util, memfind) {
+//    char const* src = "123456789";
+//    char const* sub = "8";
+//    auto res = memfind(src, strlen(src),sub, strlen(sub));
+//    DEBUG_D("memfind:%s",res);
+//    ASSERT_TRUE(string(res, strlen(res)) == "89");
+//}
 
 
 TEST(Util, writePid) {

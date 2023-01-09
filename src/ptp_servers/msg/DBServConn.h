@@ -8,7 +8,7 @@
 #ifndef DBSERVCONN_H_
 #define DBSERVCONN_H_
 
-#include "imconn.h"
+#include "ptp_global/ImConn.h"
 #include "ServInfo.h"
 #include "RouteServConn.h"
 

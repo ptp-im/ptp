@@ -12,7 +12,7 @@
 #ifndef __GROUPUNREADMSG_H__
 #define __GROUPUNREADMSG_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

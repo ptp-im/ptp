@@ -1,16 +1,8 @@
-//
-//  UserInfo.cpp
-//  im-server-TT
-//
-//  Created by luoning on 14-10-23.
-//  Copyright (c) 2014年 luoning. All rights reserved.
-//
-
 #include "UserInfo.h"
 #include "ptp_global/ImPduBase.h"
 #include "ptp_global/global_define.h"
 
-#include "ptp_protobuf/PB.Global.pb.h"
+#include "ptp_protobuf/PB.User.pb.h"
 
 using namespace PB;
 
@@ -22,7 +14,7 @@ CUserInfo::~CUserInfo()
 
 void CUserInfo::AddClientType(uint32_t client_type)
 {
-    map<uint32_t, uint32_t>::iterator it = m_ClientTypeList.find(client_type);
+    auto it = m_ClientTypeList.find(client_type);
     if (it != m_ClientTypeList.end())
     {
         it->second += 1;
@@ -35,7 +27,7 @@ void CUserInfo::AddClientType(uint32_t client_type)
 
 void CUserInfo::RemoveClientType(uint32_t client_type)
 {
-    map<uint32_t, uint32_t>::iterator it = m_ClientTypeList.find(client_type);
+    auto it = m_ClientTypeList.find(client_type);
     if (it != m_ClientTypeList.end())
     {
         uint32_t count = it->second;
@@ -53,7 +45,7 @@ void CUserInfo::RemoveClientType(uint32_t client_type)
 
 bool CUserInfo::FindRouteConn(CRouteConn *pConn)
 {
-    set<CRouteConn*>::iterator it = m_RouteConnSet.find(pConn);
+    auto it = m_RouteConnSet.find(pConn);
     if (it != m_RouteConnSet.end())
     {
         return true;
@@ -66,7 +58,7 @@ bool CUserInfo::FindRouteConn(CRouteConn *pConn)
 
 uint32_t CUserInfo::GetCountByClientType(uint32_t client_type)
 {
-    map<uint32_t, uint32_t>::iterator it = m_ClientTypeList.find(client_type);
+    auto it = m_ClientTypeList.find(client_type);
     if (it != m_ClientTypeList.end()) {
         return it->second;
     }
@@ -95,7 +87,7 @@ void CUserInfo::ClearClientType()
 bool CUserInfo::IsPCClientLogin()
 {
     bool bRet = false;
-    map<uint32_t, uint32_t>::iterator it = m_ClientTypeList.begin();
+    auto it = m_ClientTypeList.begin();
     for (; it != m_ClientTypeList.end(); it++)
     {
         uint32_t client_type = it->first;
@@ -111,7 +103,7 @@ bool CUserInfo::IsPCClientLogin()
 bool CUserInfo::IsMobileClientLogin()
 {
     bool bRet = false;
-    map<uint32_t, uint32_t>::iterator it = m_ClientTypeList.begin();
+    auto it = m_ClientTypeList.begin();
     for (; it != m_ClientTypeList.end(); it++)
     {
         uint32_t client_type = it->first;
@@ -126,14 +118,14 @@ bool CUserInfo::IsMobileClientLogin()
 
 uint32_t CUserInfo::GetStatus()
 {
-    uint32_t status = PB::USER_STATUS_OFFLINE;
-    map<uint32_t, uint32_t>::iterator it = m_ClientTypeList.begin();
+    uint32_t status = PB::USER_STAT_OFFLINE;
+    auto it = m_ClientTypeList.begin();
     for (; it != m_ClientTypeList.end(); it++)
     {
         uint32_t client_type = it->first;
         if (CHECK_CLIENT_TYPE_PC(client_type))
         {
-            status = PB::USER_STATUS_ONLINE;
+            status = PB::USER_STAT_ONLINE;
             break;
         }
     }

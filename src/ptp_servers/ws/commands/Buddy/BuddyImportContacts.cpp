@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.Buddy.pb.h"
@@ -19,14 +19,14 @@ using namespace PTP::Common;
 
 namespace COMMAND {
     void BuddyImportContactsReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
-        log_debug("BuddyImportContactsReq start...");
+        DEBUG_D("BuddyImportContactsReq start...");
         PTP::Buddy::BuddyImportContactsReq msg; 
         PTP::Buddy::BuddyImportContactsRes msg_rsp;
-        log("conn_uuid=%u", conn_uuid);
+        DEBUG_I("conn_uuid=%u", conn_uuid);
         ERR error = NO_ERROR;
         auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
         if(!pMsgConn){
-            log_error("not found pMsgConn");
+            DEBUG_E("not found pMsgConn");
             return;
         }
         while (true){
@@ -39,7 +39,7 @@ namespace COMMAND {
             CDBServConn* pDbConn = get_db_serv_conn();
             if (!pDbConn) {
                 error = E_REASON_NO_DB_SERVER;
-                log_error("not found pDbConn");
+                DEBUG_E("not found pDbConn");
                 break;
             }
             CDbAttachData attach(ATTACH_TYPE_HANDLE, conn_uuid, 0);
@@ -61,20 +61,20 @@ namespace COMMAND {
             pMsgConn->SendPdu(&pdu);
         }
         //CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
-        log_debug("BuddyImportContactsReq end...");
+        DEBUG_D("BuddyImportContactsReq end...");
     }
     void BuddyImportContactsResCmd(CImPdu* pPdu){
-        log_debug("BuddyImportContactsRes start...");
+        DEBUG_D("BuddyImportContactsRes start...");
         PTP::Buddy::BuddyImportContactsRes msg;
         CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
         while (true){
             CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
             uint32_t conn_uuid = attach_data.GetHandle();
             msg.clear_attach_data();
-            log("conn_uuid=%u", conn_uuid);
+            DEBUG_I("conn_uuid=%u", conn_uuid);
             auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
             if(!pMsgConn){
-                log_error("not found pMsgConn");
+                DEBUG_E("not found pMsgConn");
                 return;
             }
             CImPdu pdu_rsp;
@@ -85,7 +85,7 @@ namespace COMMAND {
             pMsgConn->SendPdu(&pdu_rsp);
             break;
         }
-        log_debug("BuddyImportContactsRes end...");
+        DEBUG_D("BuddyImportContactsRes end...");
     }
 };
 

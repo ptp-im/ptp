@@ -12,7 +12,7 @@
 #ifndef __BUDDYGETSTAT_H__
 #define __BUDDYGETSTAT_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

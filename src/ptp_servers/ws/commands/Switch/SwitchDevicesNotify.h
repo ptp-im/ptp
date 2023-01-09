@@ -12,7 +12,7 @@
 #ifndef __SWITCHDEVICESNOTIFY_H__
 #define __SWITCHDEVICESNOTIFY_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
     void SwitchDevicesNotifyCmd(CImPdu* pPdu);

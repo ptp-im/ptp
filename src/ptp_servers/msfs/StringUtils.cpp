@@ -1,5 +1,5 @@
 #include "StringUtils.h"
-#include <string.h>
+#include <cstring>
 
 namespace msfs {
 

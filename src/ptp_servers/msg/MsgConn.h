@@ -8,7 +8,7 @@
 #ifndef MSGCONN_H_
 #define MSGCONN_H_
 
-#include "imconn.h"
+#include "ptp_global/ImConn.h"
 
 
 #define KICK_FROM_ROUTE_SERVER 		1

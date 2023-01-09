@@ -5,7 +5,6 @@
 #include "ptp_global/NetLib.h"
 #include "ptp_servers/boot.h"
 #include "ptp_servers/msfs/boot_msfs.h"
-#include "ptp_servers/route/boot_route.h"
 
 TEST(ptp_servers, get_msfs_config) {
     DEBUG_D("get_msfs_config");
@@ -35,19 +34,6 @@ TEST(ptp_servers, boot_msfs) {
         t.stop();
     }, 3200);
     int ret = boot_msfs(0, nullptr);
-    ASSERT_EQ(ret,0);
-}
-
-
-TEST(ptp_servers, boot_route) {
-    DEBUG_D("boot_route");
-    Timer t;
-    t.setTimeout([&]() {
-        DEBUG_D("timeout");
-        quit_route();
-        t.stop();
-    }, 3200);
-    int ret = boot_route(0, nullptr);
     ASSERT_EQ(ret,0);
 }
 

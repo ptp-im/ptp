@@ -8,7 +8,7 @@
 #ifndef ROUTESERVCONN_H_
 #define ROUTESERVCONN_H_
 
-#include "imconn.h"
+#include "ptp_global/ImConn.h"
 #include "ServInfo.h"
 
 class CRouteServConn : public CImConn

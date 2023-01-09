@@ -9,7 +9,7 @@
 #ifndef FILE_SERVER_TRANSFER_TASK_H_
 #define FILE_SERVER_TRANSFER_TASK_H_
 
-#include "util.h"
+#include "ptp_global/Util.h"
 
 #include "offline_file_util.h"
 
@@ -373,12 +373,12 @@ struct TransferTask {
     }
     
     void lock(int n) {
-        //    	log("++++++++++++++++++++++ lock %d %s\n", n, task_id.c_str());
+        //    	DEBUG_I("++++++++++++++++++++++ lock %d %s\n", n, task_id.c_str());
         pthread_rwlock_wrlock(&task_lock);
     }
     
     void unlock(int n) {
-        //    	log("++++++++++++++++++++++unlock %d %s\n", n, task_id.c_str());
+        //    	DEBUG_I("++++++++++++++++++++++unlock %d %s\n", n, task_id.c_str());
         pthread_rwlock_unlock(&task_lock);
     }
     

@@ -12,7 +12,7 @@
 #ifndef __GROUPPRECREATE_H__
 #define __GROUPPRECREATE_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

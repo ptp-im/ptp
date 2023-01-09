@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.Buddy.pb.h"
@@ -19,17 +19,17 @@ using namespace PTP::Common;
 
 namespace COMMAND {
     void BuddyModifyNotifyCmd(CImPdu* pPdu){
-        log_debug("BuddyModifyNotify start...");
+        DEBUG_D("BuddyModifyNotify start...");
         PTP::Buddy::BuddyModifyNotify msg;
         CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
         while (true){
             // CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
             // uint32_t conn_uuid = attach_data.GetHandle();
             // msg.clear_attach_data();
-            // log("conn_uuid=%u", conn_uuid);
+            // DEBUG_I("conn_uuid=%u", conn_uuid);
             // auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
             // if(!pMsgConn){
-            //     log_error("not found pMsgConn");
+            //     DEBUG_E("not found pMsgConn");
             //     return;
             // }
             // CImPdu pdu_rsp;
@@ -40,7 +40,7 @@ namespace COMMAND {
             // pMsgConn->SendPdu(&pdu_rsp);
             break;
         }
-        log_debug("BuddyModifyNotify end...");
+        DEBUG_D("BuddyModifyNotify end...");
     }
 };
 

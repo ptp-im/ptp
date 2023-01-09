@@ -1,22 +1,19 @@
-/*
- * login_server.cpp
- *
- *  Created on: 2013-6-21
- *      Author: ziteng@mogujie.com
- */
-
 #include "LoginConn.h"
-#include "ptp_global/NetLib.h"
 #include "ptp_global/ConfigFileReader.h"
 #include "ptp_global/version.h"
 #include "HttpConn.h"
 #include "ipparser.h"
+#include "../boot.h"
 
 IpParser *pIpParser = NULL;
 string strMsfsUrl;
 string strDiscovery;//发现获取地址
 
-void client_callback(void *callback_data, uint8_t msg, uint32_t handle, void *pParam) {
+void quit_login(){
+    netlib_stop_event();
+}
+
+static void client_callback(void *callback_data, uint8_t msg, uint32_t handle, void *pParam) {
     if (msg == NETLIB_MSG_CONNECT) {
         CLoginConn *pConn = new CLoginConn();
         pConn->OnConnect2(handle, LOGIN_CONN_TYPE_CLIENT);
@@ -26,7 +23,7 @@ void client_callback(void *callback_data, uint8_t msg, uint32_t handle, void *pP
 }
 
 // this callback will be replaced by imconn_callback() in OnConnect()
-void msg_serv_callback(void *callback_data, uint8_t msg, uint32_t handle, void *pParam) {
+static void msg_serv_callback(void *callback_data, uint8_t msg, uint32_t handle, void *pParam) {
     DEBUG_I("msg_server come in");
 
     if (msg == NETLIB_MSG_CONNECT) {
@@ -38,7 +35,7 @@ void msg_serv_callback(void *callback_data, uint8_t msg, uint32_t handle, void *
 }
 
 
-void http_callback(void *callback_data, uint8_t msg, uint32_t handle, void *pParam) {
+static void http_callback(void *callback_data, uint8_t msg, uint32_t handle, void *pParam) {
     if (msg == NETLIB_MSG_CONNECT) {
         CHttpConn *pConn = new CHttpConn();
         pConn->OnConnect(handle);
@@ -47,17 +44,14 @@ void http_callback(void *callback_data, uint8_t msg, uint32_t handle, void *pPar
     }
 }
 
-int main(int argc, char *argv[]) {
+int boot_login(int argc, char *argv[]) {
     if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
         printf("Server Version: LoginServer/%s\n", VERSION);
         printf("Server Build: %s %s\n", __DATE__, __TIME__);
         return 0;
     }
-
     signal(SIGPIPE, SIG_IGN);
-
-    CConfigFileReader config_file("../bd_common/conf/bd_login_server.conf");
-
+    CConfigFileReader config_file(CONFIG_PATH_LOGIN);
     char *client_listen_ip = config_file.GetConfigName("ClientListenIP");
     char *str_client_port = config_file.GetConfigName("ClientPort");
     char *http_listen_ip = config_file.GetConfigName("HttpListenIP");
@@ -106,16 +100,10 @@ int main(int argc, char *argv[]) {
             return ret;
     }
     DEBUG_I("start http ok!");
-
     init_login_conn();
-
     init_http_conn();
-
     DEBUG_I("now enter the event loop...");
-
     writePid();
-
     netlib_eventloop();
-
     return 0;
 }

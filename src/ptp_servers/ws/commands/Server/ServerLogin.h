@@ -12,7 +12,7 @@
 #ifndef __SERVERLOGIN_H__
 #define __SERVERLOGIN_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

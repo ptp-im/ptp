@@ -1,9 +1,4 @@
-/*
- * imconn.cpp
- *
- *  Created on: 2013-6-5
- *      Author: bangde.app@gmail.com
- */
+
 #include "ImConn.h"
 
 //static uint64_t g_send_pkt_cnt = 0;		// 发送数据包总数

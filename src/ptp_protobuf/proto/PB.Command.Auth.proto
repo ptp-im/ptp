@@ -1,8 +1,8 @@
 syntax = "proto2";
-package Command;
+package PB.Command;
 import "PB.Global.proto";
 import "PB.User.proto";
-option java_package = "com.ptp.im.protobuf.Command";
+option java_package = "com.ptp.im.protobuf.PB.Command";
 option optimize_for = LITE_RUNTIME;
 
 message AuthCaptchaRequest{

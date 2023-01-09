@@ -1,6 +1,6 @@
 syntax = "proto2";
-package Global;
-option java_package = "com.ptp.im.protobuf";
+package PB;
+option java_package = "com.ptp.im.protobuf.PB";
 option optimize_for = LITE_RUNTIME;
 
 enum ERR{
@@ -9,7 +9,7 @@ enum ERR{
   ERR_REASON_NO_ROUTE_SERVER = 0x5001;
   ERR_REASON_NO_LOGIN_SERVER = 0x5002;
   ERR_REASON_NO_DB_SERVER = 0x5003;
-  ERR_SERVER_NOT_FOUND = 0x5004;
+  ERR_SERVER_NOT_FOUND = 0x404;
 
   ERR_PB_PARSE_ERROR = 0x5005;
 
@@ -26,4 +26,17 @@ enum ERR{
 
   ERR_CLIENT = 0x501001;
   ERR_CLIENT_TIMEOUT = 0x501002;
+}
+
+
+enum COMMAND{
+  COMMAND_FILE_UPLOAD_REQUEST = 0x5001;
+  COMMAND_FILE_UPLOAD_RESPONSE = 0x5002;
+
+  COMMAND_FILE_DOWNLOAD_REQUEST = 0x5003;
+  COMMAND_FILE_DOWNLOAD_RESPONSE = 0x5004;
+
+
+  COMMAND_HEART_BEAT_NOTIFY = 0x6000;
+
 }

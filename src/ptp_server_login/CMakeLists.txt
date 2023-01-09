@@ -1,10 +1,15 @@
 INCLUDE_DIRECTORIES(../)
 LINK_DIRECTORIES(../../lib)
 
-SET(EXECUTABLE_OUTPUT_PATH  ./)
+set(LIB_NAME_MAIN ptp_server_login)
 
-set(LIB_NAME_MAIN ptp_server_route)
 MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
+
+SET(EXECUTABLE_OUTPUT_PATH  ../../bin/${LIB_NAME_MAIN})
+
+file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
+file(COPY log4cxx.properties
+        DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 
 INCLUDE_DIRECTORIES(../../third_party/jsoncpp)
 

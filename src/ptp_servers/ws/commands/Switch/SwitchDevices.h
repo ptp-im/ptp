@@ -12,7 +12,7 @@
 #ifndef __SWITCHDEVICES_H__
 #define __SWITCHDEVICES_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

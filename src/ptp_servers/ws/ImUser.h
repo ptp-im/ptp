@@ -8,7 +8,7 @@
 #ifndef IMUSER_H_
 #define IMUSER_H_
 
-#include "imconn.h"
+#include "ptp_global/ImConn.h"
 #include "public_define.h"
 #import "MsgConn.h"
 #include "PTP.Switch.pb.h"

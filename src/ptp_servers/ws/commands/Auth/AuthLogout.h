@@ -12,7 +12,7 @@
 #ifndef __AUTHLOGOUT_H__
 #define __AUTHLOGOUT_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

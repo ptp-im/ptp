@@ -2,10 +2,10 @@
 #define __MSG_CONN_CONN_H__
 
 #include "DBServConn.h"
-#include "netlib.h"
+#include "ptp_global/NetLib.h"
 #include "json/json.h"
-#include "util.h"
-#include "HttpParserWrapper.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/HttpParserWrapper.h"
 #include "websocket_request.h"
 #include "websocket_respond.h"
 #include "sha1.h"
@@ -14,11 +14,12 @@
 #include <cstring>
 #include <arpa/inet.h>
 #include <iostream>
-#include "imconn.h"
+#include "ptp_global/ImConn.h"
 #include "ServInfo.h"
 #include "HandlerMap.h"
 #include "IM.BaseDefine.pb.h"
 #include "PTP.Common.pb.h"
+#include <unordered_map>
 
 using namespace PTP::Common;
 
@@ -159,7 +160,7 @@ protected:
     Websocket_Respond *ws_respond;
 };
 
-typedef hash_map<uint32_t, CMsgConn*> WebSocketConnMap_t;
+typedef unordered_map<uint32_t, CMsgConn*> WebSocketConnMap_t;
 
 CMsgConn* FindWebSocketConnByHandle(uint32_t handle);
 void MapConn(CMsgConn * handle);

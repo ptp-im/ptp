@@ -1,6 +1,6 @@
-#include "netlib.h"
-#include "ConfigFileReader.h"
-#include "version.h"
+#include "ptp_global/NetLib.h"
+#include "ptp_global/ConfigFileReader.h"
+#include "ptp_global/version.h"
 #include "HttpConn.h"
 #import "MsgConn.h"
 #include <cstdio>
@@ -20,7 +20,7 @@ void http_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pPar
 	}
 	else
 	{
-		log_error("!!!http api init error: %d ", msg);
+		DEBUG_E("!!!http api init error: %d ", msg);
 	}
 }
 
@@ -33,7 +33,7 @@ void websocket_callback(void* callback_data, uint8_t msg, uint32_t handle, void*
 	}
 	else
 	{
-		log("!!!websocket error msg: %d ", msg);
+		DEBUG_I("!!!websocket error msg: %d ", msg);
 	}
 }
 
@@ -48,11 +48,11 @@ int main(int argc, char* argv[])
 	signal(SIGPIPE, SIG_IGN);
 	srand(time(NULL));
 
-	log("WsServer max files can open: %d ", getdtablesize());
+	DEBUG_I("WsServer max files can open: %d ", getdtablesize());
 
 //    CacheManager* pCacheManager = CacheManager::getInstance();
 //    if (!pCacheManager) {
-//        log("CacheManager init failed");
+//        DEBUG_I("CacheManager init failed");
 //        return -1;
 //    }
 
@@ -108,12 +108,12 @@ int main(int argc, char* argv[])
 	}
 
 	if (!ws_listen_ip || !str_ws_listen_port) {
-		log("config file miss ws_listen, exit... ");
+		DEBUG_I("config file miss ws_listen, exit... ");
 		return -1;
 	}
 
 	if (!http_listen_ip || !str_http_listen_port) {
-		log("config file miss http_listen, exit... ");
+		DEBUG_I("config file miss http_listen, exit... ");
 		return -1;
 	}
 
@@ -156,10 +156,10 @@ int main(int argc, char* argv[])
 
 //    init_login_serv_conn(login_server_list, login_server_count, ip_addr1, ip_addr2, listen_port, max_conn_cnt);
 
-    log("http run at: http://%s:%d ",http_listen_ip,http_listen_port);
-    log("ws run at: ws://%s:%d",ws_listen_ip,ws_listen_port);
+    DEBUG_I("http run at: http://%s:%d ",http_listen_ip,http_listen_port);
+    DEBUG_I("ws run at: ws://%s:%d",ws_listen_ip,ws_listen_port);
 
-    log("bd_ws_server websocket start ok!");
+    DEBUG_I("bd_ws_server websocket start ok!");
     
     writePid();
 	netlib_eventloop();

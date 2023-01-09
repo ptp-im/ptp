@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.Msg.pb.h"
@@ -19,13 +19,13 @@ using namespace PTP::Common;
 
 namespace COMMAND {
     void MsgNotifyCmd(CImPdu* pPdu){
-        log_debug("MsgNotify start...");
+        DEBUG_D("MsgNotify start...");
         PTP::Msg::MsgNotify msg;
         CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
         while (true){
             CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
             uint32_t handle = attach_data.GetHandle();
-            log("userId=%u,handle=%d", msg.auth_uid(),handle);
+            DEBUG_I("userId=%u,handle=%d", msg.auth_uid(),handle);
             CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(msg.auth_uid(), handle);
             msg.clear_attach_data();
 
@@ -42,7 +42,7 @@ namespace COMMAND {
                     CImUser *pToImUser = CImUserManager::GetInstance()->GetImUserById(toUserId);
                     if(toUserId != msg.auth_uid()){
                         if (pToImUser) {
-                            log_debug("notify from: %d -> toUserId: %d",msg.auth_uid(),toUserId);
+                            DEBUG_D("notify from: %d -> toUserId: %d",msg.auth_uid(),toUserId);
                             pToImUser->BroadcastClientMsgData(&pdu_rsp, msg.msg_info().msg_id(), pMsgConn, msg.auth_uid());
                         }else{
                             msg_un_notify.add_un_notify_users(toUserId);
@@ -56,7 +56,7 @@ namespace COMMAND {
             }
 
             if(msg_un_notify.un_notify_users().size() > 0){
-                log_debug("msg_un_notify size: %d", msg_un_notify.un_notify_users().size());
+                DEBUG_D("msg_un_notify size: %d", msg_un_notify.un_notify_users().size());
                 CDBServConn* pDbConn = get_db_serv_conn();
                 if(pDbConn){
                     CImPdu pdu;
@@ -66,12 +66,12 @@ namespace COMMAND {
                     pdu.SetSeqNum(0);
                     pDbConn->SendPdu(&pdu);
                 }else{
-                    log_error("msg_un_notify error: no pDbConn");
+                    DEBUG_E("msg_un_notify error: no pDbConn");
                 }
             }
             break;
         }
-        log_debug("MsgNotify end...");
+        DEBUG_D("MsgNotify end...");
     }
 };
 

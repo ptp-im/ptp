@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-#include "imconn.h"
+#include "ptp_global/ImConn.h"
 #include "ServInfo.h"
 #include "BaseSocket.h"
 #include "IM.BaseDefine.pb.h"

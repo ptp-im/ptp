@@ -12,7 +12,7 @@
 #ifndef __BUDDYSTATNOTIFY_H__
 #define __BUDDYSTATNOTIFY_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
     void BuddyStatNotifyCmd(CImPdu* pPdu);

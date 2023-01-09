@@ -9,22 +9,22 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 
 using namespace PTP::Common;
 
 namespace COMMAND {
     void SwitchDevicesReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
-        log_debug("SwitchDevicesReq start...");
+        DEBUG_D("SwitchDevicesReq start...");
         PTP::Switch::SwitchDevicesReq msg; 
         PTP::Switch::SwitchDevicesNotify msg_notify;
-        log("conn_uuid=%u", conn_uuid);
+        DEBUG_I("conn_uuid=%u", conn_uuid);
 
         auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
         if(!pMsgConn){
-            log_error("not found pMsgConn");
+            DEBUG_E("not found pMsgConn");
             return;
         }
 
@@ -34,11 +34,11 @@ namespace COMMAND {
         }
         auto pImUser = CImUserManager::GetInstance()->GetImUserById(pMsgConn->GetUserId());
 
-        log_debug("client_id=%s ", msg.client_id().c_str());
-        log_debug("browser_name=%s ", msg.browser_name().c_str());
-        log_debug("browser_version=%s ", msg.browser_version().c_str());
-        log_debug("os_name=%s ", msg.os_name().c_str());
-        log_debug("os_version=%s ", msg.os_version().c_str());
+        DEBUG_D("client_id=%s ", msg.client_id().c_str());
+        DEBUG_D("browser_name=%s ", msg.browser_name().c_str());
+        DEBUG_D("browser_version=%s ", msg.browser_version().c_str());
+        DEBUG_D("os_name=%s ", msg.os_name().c_str());
+        DEBUG_D("os_version=%s ", msg.os_version().c_str());
 
         pMsgConn->SetClientInfo(
                 msg.client_id(),msg.is_intel(),

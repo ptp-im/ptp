@@ -12,7 +12,7 @@
 #ifndef __BUDDYGETLIST_H__
 #define __BUDDYGETLIST_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

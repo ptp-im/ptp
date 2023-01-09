@@ -1,10 +1,14 @@
 INCLUDE_DIRECTORIES(../)
 LINK_DIRECTORIES(../../lib)
 
-SET(EXECUTABLE_OUTPUT_PATH  ./)
-
-set(LIB_NAME_MAIN ptp_server_msfs)
+set(LIB_NAME_MAIN ptp_server_route)
 MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
+
+SET(EXECUTABLE_OUTPUT_PATH  ../../bin/${LIB_NAME_MAIN})
+
+file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
+file(COPY log4cxx.properties
+        DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 
 INCLUDE_DIRECTORIES(../../third_party/jsoncpp)
 
@@ -33,7 +37,7 @@ INCLUDE_DIRECTORIES(../../third_party/protobuf)
 INCLUDE_DIRECTORIES(../../third_party/redis)
 INCLUDE_DIRECTORIES(../../third_party/secp256k1/include)
 
-set(COMMON_LIBS pthread mysqlclient_r hiredis curl slog crypto secp256k1)
+set(COMMON_LIBS pthread slog)
 
 ADD_EXECUTABLE(${LIB_NAME_MAIN} main.cpp)
 TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} ptp_servers ${COMMON_LIBS})

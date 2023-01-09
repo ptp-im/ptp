@@ -2,8 +2,8 @@
 // Created by jack on 2023/1/9.
 //
 
-#ifndef PTP_TIMERCPP_H
-#define PTP_TIMERCPP_H
+#ifndef PTP_TIMER_H
+#define PTP_TIMER_H
 
 #include <iostream>
 #include <thread>
@@ -17,6 +17,7 @@ public:
     void setTimeout(std::function<void()> function, int delay);
     void setInterval(std::function<void()> function, int interval);
     void stop();
+    bool isStopped();
 
 };
 
@@ -47,5 +48,8 @@ void Timer::stop() {
     active = false;
 }
 
+bool Timer::isStopped() {
+    return !active;
+}
 
-#endif //PTP_TIMERCPP_H
+#endif //PTP_TIMER_H

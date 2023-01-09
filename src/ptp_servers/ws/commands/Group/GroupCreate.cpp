@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.Group.pb.h"
@@ -19,16 +19,16 @@ using namespace PTP::Common;
 
 namespace COMMAND {
     void GroupCreateReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
-        log_debug("GroupCreateReq start...");
+        DEBUG_D("GroupCreateReq start...");
         PTP::Group::GroupCreateReq msg; 
         PTP::Group::GroupCreateRes msg_rsp;
-        log("conn_uuid=%u", conn_uuid);
+        DEBUG_I("conn_uuid=%u", conn_uuid);
         ERR error = NO_ERROR;
 
         auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
 
         if(!pMsgConn){
-            log_error("not found pMsgConn");
+            DEBUG_E("not found pMsgConn");
             return;
         }
         while (true){
@@ -40,19 +40,19 @@ namespace COMMAND {
             CDBServConn* pDbConn = get_db_serv_conn();
             if (!pDbConn) {
                 error = E_REASON_NO_DB_SERVER;
-                log_error("not found pDbConn");
+                DEBUG_E("not found pDbConn");
                 break;
             }
 
             if(pMsgConn->GetCaptcha().empty()){
                 error = E_SYSTEM;
-                log_error("captcha is null");
+                DEBUG_E("captcha is null");
                 break;
             }
 
             if(pMsgConn->GetCaptcha() != msg.captcha()){
                 error = E_SYSTEM;
-                log_error("captcha is invalid");
+                DEBUG_E("captcha is invalid");
                 break;
             }
             pMsgConn->SetCaptcha("");
@@ -77,21 +77,21 @@ namespace COMMAND {
             pMsgConn->SendPdu(&pdu);
             //CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
         }
-        log_debug("GroupCreateReq end...");
+        DEBUG_D("GroupCreateReq end...");
     }
     
     void GroupCreateResCmd(CImPdu* pPdu){
-        log_debug("GroupCreateRes start...");
+        DEBUG_D("GroupCreateRes start...");
         PTP::Group::GroupCreateRes msg;
         CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
         while (true){
             CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
             uint32_t conn_uuid = attach_data.GetHandle();
             msg.clear_attach_data();
-            log("conn_uuid=%u", conn_uuid);
+            DEBUG_I("conn_uuid=%u", conn_uuid);
             auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
             if(!pMsgConn){
-                log_error("not found pMsgConn");
+                DEBUG_E("not found pMsgConn");
                 return;
             }
             CImPdu pdu_rsp;
@@ -102,7 +102,7 @@ namespace COMMAND {
             pMsgConn->SendPdu(&pdu_rsp);
             break;
         }
-        log_debug("GroupCreateRes end...");
+        DEBUG_D("GroupCreateRes end...");
     }
 };
 

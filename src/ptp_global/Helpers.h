@@ -55,11 +55,12 @@ void replace_mark(string& str, string& new_value, uint32_t& begin_pos);
 void replace_mark(string& str, uint32_t new_value, uint32_t& begin_pos);
 
 void writePid();
-inline unsigned char toHex(const unsigned char &x);
-inline unsigned char fromHex(const unsigned char &x);
+void writePid(const string& name);
+unsigned char toHex(const unsigned char &x);
+unsigned char fromHex(const unsigned char &x);
 string URLEncode(const string &sIn);
 string URLDecode(const string &sIn);
-const char* memfind(const char *src_str,size_t src_len, const char *sub_str, size_t sub_len, bool flag = true);
+//const char* memfind(const char *src_str,size_t src_len, const char *sub_str, size_t sub_len, bool flag = true);
 int64_t get_file_size(const char *path);
 void get_file_content(const char *path,char * fileBuf,uint64_t fileSize);
 

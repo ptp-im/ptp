@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.Server.pb.h"
@@ -22,23 +22,23 @@ namespace COMMAND {
     void AuthLoginReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
         PTP::Auth::AuthLoginReq msg;
         PTP::Auth::AuthLoginRes msg_rsp;
-//        log("conn_uuid=%u", conn_uuid);
+//        DEBUG_I("conn_uuid=%u", conn_uuid);
         ERR error = NO_ERROR;
         auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
 
         if(!pMsgConn){
-            log_error("not found pMsgConn");
+            DEBUG_E("not found pMsgConn");
             return;
         }
         while (true){
             if (pMsgConn->GetAddressHex().length() != 0) {
-                log("duplicate LoginRequest in the same conn ");
+                DEBUG_I("duplicate LoginRequest in the same conn ");
                 error = E_LOGIN_ERROR;
                 break;
             }
 
             if (pMsgConn->GetCaptcha().length() == 0) {
-                log("captcha is null ");
+                DEBUG_I("captcha is null ");
                 error = E_LOGIN_ERROR;
                 break;
             }
@@ -51,7 +51,7 @@ namespace COMMAND {
             string captcha = msg.captcha();
 
             if (captcha != pMsgConn->GetCaptcha()) {
-                log("invalid captcha!");
+                DEBUG_I("invalid captcha!");
                 error = E_LOGIN_ERROR;
                 break;
             }
@@ -76,9 +76,9 @@ namespace COMMAND {
             pMsgConn->SetAddressHex(address);
             auto online_status = USER_STAT_ONLINE;
             pMsgConn->SetProperty(msg.client_version(), msg.client_type(), online_status);
-            log_debug("address=%s", address.c_str());
-            log_debug("client_type=%u ", msg.client_type());
-            log_debug("client_version=%s ",  msg.client_version().c_str());
+            DEBUG_D("address=%s", address.c_str());
+            DEBUG_D("client_type=%u ", msg.client_type());
+            DEBUG_D("client_version=%s ",  msg.client_version().c_str());
             pMsgConn->SetLoginTime(time(nullptr));
 
             CImUser *pImUser = CImUserManager::GetInstance()->GetImUserByAddressHex(pMsgConn->GetAddressHex());

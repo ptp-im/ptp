@@ -8,8 +8,8 @@
 #ifndef HTTPPDU_H_
 #define HTTPPDU_H_
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include <list>
 #include "IM.BaseDefine.pb.h"
 

@@ -1,12 +1,12 @@
 #include "HttpConn.h"
-#include "PTP.Common.pb.h"
-#include "PTP.File.pb.h"
-#include "json/json.h"
-#include "helpers.h"
 #include <unistd.h>
 
-using namespace PTP::File;
-using namespace PTP::Common;
+#include "json/json.h"
+#include "ptp_global/Helpers.h"
+
+#include "ptp_protobuf/PB.Command.File.pb.h"
+
+using namespace PB::Command;
 
 static HttpConnMap_t g_http_conn_map;
 
@@ -120,22 +120,22 @@ void CHttpTask::OnPost(){
     while (true){
         uint32_t pduLen = CByteStream::ReadUint32(reinterpret_cast<uchar_t *>(m_pContent));
         if(pduLen <= m_nContentLen){
-            log_debug("m_conn_handle=%d,pduLen=%d",m_ConnHandle,pduLen);
+            DEBUG_D("m_conn_handle=%d,pduLen=%d",m_ConnHandle,pduLen);
             HandlePduBuf(reinterpret_cast<uchar_t *>(m_pContent),pduLen);
         }
         break;
     }
 }
 
-void CHttpTask::FileImgDownloadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
-    FileImgDownloadReq msg;
-    FileImgDownloadRes msg_rsp;
+void CHttpTask::CommandFileDownloadRequest(CImPdu* pPdu, uint32_t conn_uuid){
+    FileDownloadRequest msg;
+    FileDownloadResponse msg_rsp;
     for(;;){
         msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength());
         uint32_t  nFileSize = 0;
         int32_t nTmpSize = 0;
         string strPath;
-        ERR error = NO_ERROR;
+        PB::ERR error = PB::ERR_NO;
         char *pContent = NULL;
         char* pFileContent;
         uint32_t pContentLen = 0;
@@ -149,18 +149,19 @@ void CHttpTask::FileImgDownloadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
                 g_fileManager->downloadFileByUrl((char*)strUrl.c_str(), pFileContent, &nFileSize);
                 msg_rsp.set_file_data(pFileContent,nFileSize);
             }else{
-                error = E_SERVER_NOT_FOUND;
+                error = PB::ERR_SERVER_NOT_FOUND;
             }
         }else{
-            error = E_SYSTEM;
+            error = PB::ERR_SYSTEM;
         }
         if(m_isPdu){
             msg_rsp.set_error(error);
             CImPdu pdu;
-            pdu.SetPBMsg(&msg_rsp);
-            pdu.SetServiceId(S_FILE);
-            pdu.SetCommandId(CID_FileImgDownloadRes);
-            pdu.SetSeqNum(pPdu->GetSeqNum());
+            pdu.SetPBMsg(
+                    &msg_rsp,
+                    PB::COMMAND_FILE_DOWNLOAD_RESPONSE,
+                    pPdu->GetSeqNum());
+
             auto httpBody1 = msg_rsp.SerializeAsString();
             uint32_t content_length = msg_rsp.ByteSizeLong();
             auto httpBody = httpBody1.data();
@@ -168,13 +169,13 @@ void CHttpTask::FileImgDownloadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
             pContent = new char[pContentLen];
             memcpy(pContent,pdu.GetBuffer(),pContentLen);
         }else{
-            if(error > NO_ERROR){
-                if(error == E_SERVER_NOT_FOUND){
+            if(error > PB::ERR_NO){
+                if(error == PB::ERR_SERVER_NOT_FOUND){
                     pContentLen = (uint32_t)strlen(HTTP_RESPONSE_404);
                     pContent = new char[pContentLen];
                     snprintf(pContent, pContentLen, HTTP_RESPONSE_404);
                 }
-                if(error == E_SYSTEM){
+                if(error == PB::ERR_SYSTEM){
                     pContentLen = (uint32_t)strlen(HTTP_RESPONSE_500);
                     pContent = new char[pContentLen];
                     snprintf(pContent, pContentLen, HTTP_RESPONSE_500);
@@ -193,8 +194,8 @@ void CHttpTask::FileImgDownloadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
     }
 }
 
-void CHttpTask::FileImgUploadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
-    FileImgUploadReq msg;
+void CHttpTask::CommandFileUploadRequest(CImPdu* pPdu, uint32_t conn_uuid){
+    FileUploadRequest msg;
     for(;;){
         msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength());
         const string file_group = "media";
@@ -204,19 +205,19 @@ void CHttpTask::FileImgUploadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
         string suffix = "0_" + to_string(file_part) + "_" + to_string(file_total_parts) + ".dat";
         char filePath[100] ={ 0 };
         g_fileManager->uploadFile(suffix.data(), file_data.data(), msg.file_data().size(), filePath);
-        FileImgUploadRes msg_rsp;
+        FileUploadResponse msg_rsp;
         msg_rsp.set_file_path(filePath);
-        msg_rsp.set_error(NO_ERROR);
+        msg_rsp.set_error(PB::ERR_NO);
 
         char *pContent = NULL;
 
         uint32_t pContentLen = 0;
         if(m_isPdu){
             CImPdu pdu;
-            pdu.SetPBMsg(&msg_rsp);
-            pdu.SetServiceId(S_FILE);
-            pdu.SetCommandId(CID_FileImgUploadRes);
-            pdu.SetSeqNum(pPdu->GetSeqNum());
+            pdu.SetPBMsg(
+                    &msg_rsp,PB::COMMAND_FILE_UPLOAD_RESPONSE,
+                    pPdu->GetSeqNum());
+            
             auto httpBody1 = msg_rsp.SerializeAsString();
             uint32_t content_length = msg_rsp.ByteSizeLong();
             auto httpBody = httpBody1.data();
@@ -298,10 +299,10 @@ void CHttpTask::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len)
     {
         while (true){
             pPdu = CImPdu::ReadPdu(pdu_buf, pdu_len);
-            if (pPdu->GetCommandId() == PTP::Common::CID_FileImgUploadReq) {
-                FileImgUploadReqCmd(pPdu,m_ConnHandle);
-            }else if(pPdu->GetCommandId() == PTP::Common::CID_FileImgDownloadReq){
-                FileImgDownloadReqCmd(pPdu,m_ConnHandle);
+            if (pPdu->GetCommandId() == PB::COMMAND_FILE_UPLOAD_REQUEST) {
+                CommandFileUploadRequest(pPdu,m_ConnHandle);
+            }else if(pPdu->GetCommandId() == PB::COMMAND_FILE_DOWNLOAD_REQUEST){
+                CommandFileDownloadRequest(pPdu,m_ConnHandle);
             }
             break;
         }
@@ -351,7 +352,7 @@ int CHttpConn::Send(void* data, int len)
             send_size = NETLIB_MAX_SOCKET_BUF_SIZE1;
         }
         int ret = netlib_send(m_sock_handle, (char*)data + offset , send_size);
-        log_debug("Send: %d, %d / %d, remain:%d, send_size:%d",ret,offset,len,remain,send_size);
+        DEBUG_D("Send: %d, %d / %d, remain:%d, send_size:%d",ret,offset,len,remain,send_size);
         if (ret <= 0) {
             ret = 0;
             break;
@@ -365,7 +366,7 @@ int CHttpConn::Send(void* data, int len)
     {
         m_out_buf.Write((char*)data + offset, remain);
         m_busy = true;
-        log_debug("send busy, remain=%d ", m_out_buf.GetWriteOffset());
+        DEBUG_D("send busy, remain=%d ", m_out_buf.GetWriteOffset());
     }
     else
     {
@@ -386,7 +387,7 @@ void CHttpConn::Close()
 
 void CHttpConn::OnConnect(net_handle_t handle)
 {
-    log_debug("OnConnect, handle=%d", handle);
+    DEBUG_D("OnConnect, handle=%d", handle);
     m_sock_handle = handle;
     m_state = CONN_STATE_CONNECTED;
     g_http_conn_map.insert(make_pair(m_conn_handle, this));
@@ -408,7 +409,7 @@ void CHttpConn::OnRead()
         int ret = netlib_recv(m_sock_handle,
                 m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(),
                 READ_BUF_SIZE);
-        log_debug("m_conn_handle=%d,ret=%d,offset=%d,READ_BUF_SIZE=%d",m_conn_handle,ret,m_in_buf.GetWriteOffset(),READ_BUF_SIZE);
+        DEBUG_D("m_conn_handle=%d,ret=%d,offset=%d,READ_BUF_SIZE=%d",m_conn_handle,ret,m_in_buf.GetWriteOffset(),READ_BUF_SIZE);
         if (ret <= 0)
             break;
         m_in_buf.IncWriteOffset(ret);
@@ -476,7 +477,7 @@ void CHttpConn::OnRead()
     }else{
         uint32_t pduLen = CByteStream::ReadUint32(m_in_buf.GetBuffer());
         if(pduLen <= buf_len){
-            log_debug("m_conn_handle=%d,pduLen=%d",m_conn_handle,pduLen);
+            DEBUG_D("m_conn_handle=%d,pduLen=%d",m_conn_handle,pduLen);
             Request_t request;
             request.conn_handle = m_conn_handle;
             request.isPdu = true;
@@ -490,20 +491,20 @@ void CHttpConn::OnRead()
             g_PostThreadPool.AddTask(pTask);
         }
     }
-    log_debug("m_conn_handle=%d,buf_len=%d",m_conn_handle,buf_len);
+    DEBUG_D("m_conn_handle=%d,buf_len=%d",m_conn_handle,buf_len);
 
 }
 
 void CHttpConn::OnWrite()
 {
-    log_debug("OnWrite m_busy: %b",m_busy);
+    DEBUG_D("OnWrite m_busy: %b",m_busy);
     if (!m_busy)
         return;
 
     int ret = netlib_send(m_sock_handle, m_out_buf.GetBuffer(),
             m_out_buf.GetWriteOffset());
 
-    log_debug("OnWrite ret: %d",ret);
+    DEBUG_D("OnWrite ret: %d",ret);
     if (ret < 0)
         ret = 0;
 
@@ -514,7 +515,7 @@ void CHttpConn::OnWrite()
     if (ret < out_buf_size)
     {
         m_busy = true;
-        log_debug("not send all, remain=%d", m_out_buf.GetWriteOffset());
+        DEBUG_D("not send all, remain=%d", m_out_buf.GetWriteOffset());
         OnWrite();
     } else
     {

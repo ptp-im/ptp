@@ -1,9 +1,3 @@
-/*
- * Multimedia Small File Storage System 
- * File Manager Singleton implement to manage file store and download operation
- * author potian@mogujie.com
-*/
-
 #include <cstdio>
 #include <cstdlib>
 #include <string>
@@ -12,9 +6,9 @@
 #include <sys/time.h>
 #include <pthread.h>
 #include <ctime>
-#include "Logger.h"
-#include "Util.h"
-#include "Base64.h"
+#include "ptp_global/Logger.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/Base64.h"
 #include "FileManager.h"
 #include "FileLin.h"
 #include "StringUtils.h"
@@ -108,7 +102,7 @@ int FileManager::uploadFile(const char *type, const void* content, u32 size,
 	string absPath = string(m_disk) + path;
 	File * tmpFile = new File(absPath.c_str());
 	tmpFile->create();
-    log_debug("write: %s,size: %d",absPath.c_str(),size);
+    DEBUG_D("write: %s,size: %d",absPath.c_str(),size);
 	tmpFile->write(0, size, content);
 	delete tmpFile;
 	tmpFile = NULL;

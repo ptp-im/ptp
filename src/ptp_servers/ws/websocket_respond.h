@@ -7,7 +7,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <arpa/inet.h>
-#include "util.h"
+#include "ptp_global/Util.h"
 #include "base64.h"
 #include "sha1.h"
 #include <iostream>

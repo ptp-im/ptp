@@ -82,7 +82,7 @@ int Websocket_Request::fetch_payload_length(char *msg, int &pos){
 		memcpy(&length, msg + pos, 2);
 		pos += 2;
 		payload_length_ = ntohs(length);
-        log_debug("126 payload_length_: %d", payload_length_);
+        DEBUG_D("126 payload_length_: %d", payload_length_);
     }
 	else if(payload_length_ == 127){
 //		uint32_t length = 0;
@@ -93,7 +93,7 @@ int Websocket_Request::fetch_payload_length(char *msg, int &pos){
         memcpy(&length, msg + pos, 8);
         pos += 8;
         payload_length_ = (size_t)ntohll(length);
-        log_debug("127 payload_length_: %d", payload_length_);
+        DEBUG_D("127 payload_length_: %d", payload_length_);
     }
 	return 0;
 }

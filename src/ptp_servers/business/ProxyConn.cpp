@@ -49,14 +49,14 @@ void proxy_loop_callback(void* callback_data, uint8_t msg, uint32_t handle, void
  */
 void exit_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
-	log("exit_callback...");
+	DEBUG_I("exit_callback...");
 	exit(0);
 }
 
 static void sig_handler(int sig_no)
 {
 	if (sig_no == SIGTERM) {
-		log("receive SIGTERM, prepare for exit");
+		DEBUG_I("receive SIGTERM, prepare for exit");
         CImPdu cPdu;
         IM::Server::IMStopReceivePacket msg;
         msg.set_result(0);
@@ -138,7 +138,7 @@ void CProxyConn::OnConnect(net_handle_t handle)
 	netlib_option(handle, NETLIB_OPT_GET_REMOTE_IP, (void*)&m_peer_ip);
 	netlib_option(handle, NETLIB_OPT_GET_REMOTE_PORT, (void*)&m_peer_port);
 
-	log("connect from %s:%d, handle=%d", m_peer_ip.c_str(), m_peer_port, m_handle);
+	DEBUG_I("connect from %s:%d, handle=%d", m_peer_ip.c_str(), m_peer_port, m_handle);
 }
 
 // 由于数据包是在另一个线程处理的，所以不能在主线程delete数据包，所以需要Override这个方法
@@ -165,7 +165,7 @@ void CProxyConn::OnRead()
             m_in_buf.Read(NULL, pdu_len);
         }
     } catch (CPduException& ex) {
-        log("!!!catch exception, err_code=%u, err_msg=%s, close the connection ",
+        DEBUG_I("!!!catch exception, err_code=%u, err_msg=%s, close the connection ",
             ex.GetErrorCode(), ex.GetErrorMsg());
         OnClose();
     }
@@ -191,7 +191,7 @@ void CProxyConn::OnTimer(uint64_t curr_tick)
 	}
 
 	if (curr_tick > m_last_recv_tick + SERVER_TIMEOUT) {
-		log("proxy connection timeout %s:%d", m_peer_ip.c_str(), m_peer_port);
+		DEBUG_I("proxy connection timeout %s:%d", m_peer_ip.c_str(), m_peer_port);
 		Close();
 	}
 }
@@ -210,7 +210,7 @@ void CProxyConn::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len)
         CTask* pTask = new CProxyTask(m_uuid, handler, pPdu);
         g_thread_pool.AddTask(pTask);
     } else {
-        log("no handler for packet type: %d", pPdu->GetCommandId());
+        DEBUG_I("no handler for packet type: %d", pPdu->GetCommandId());
     }
 }
 
@@ -244,7 +244,7 @@ void CProxyConn::SendResponsePduList()
 			if (pResp->pPdu) {
 				pConn->SendPdu(pResp->pPdu);
 			} else {
-				log("close connection uuid=%d by parse pdu error\b", pResp->conn_uuid);
+				DEBUG_I("close connection uuid=%d by parse pdu error\b", pResp->conn_uuid);
 				pConn->Close();
 			}
 		}

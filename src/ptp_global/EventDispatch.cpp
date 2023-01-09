@@ -1,5 +1,7 @@
 #include "EventDispatch.h"
 #include "BaseSocket.h"
+#include "Helpers.h"
+
 
 #define MIN_TIMER_DURATION	100	// 100 miliseconds
 
@@ -351,50 +353,6 @@ void CEventDispatch::RemoveEvent(SOCKET fd, uint8_t socket_event)
 	}
 }
 
-void CEventDispatch::HandleEvents(struct epoll_event * events,int eventsCounts){
-	for (int i = 0; i < eventsCounts; i++)
-	{
-		int ev_fd = events[i].data.fd;
-		CBaseSocket* pSocket = FindBaseSocket(ev_fd);
-		if (!pSocket)
-			continue;
-
-		//Commit by zhfu @2015-02-28
-#ifdef EPOLLRDHUP
-		if (events[i].events & EPOLLRDHUP)
-		{
-			DEBUG_D("On Peer Close, socket=%d", ev_fd);
-			pSocket->OnClose();
-		}
-#endif
-		// Commit End
-
-		if (events[i].events & EPOLLIN)
-		{
-			//DEBUG_D("OnRead, socket=%d", ev_fd);
-			pSocket->OnRead();
-		}
-
-		if (events[i].events & EPOLLOUT)
-		{
-			//DEBUG_D("OnWrite, socket=%d", ev_fd);
-			pSocket->OnWrite();
-		}
-
-		if (events[i].events & (EPOLLPRI | EPOLLERR | EPOLLHUP))
-		{
-			//DEBUG_D("OnClose, socket=%d", ev_fd);
-			pSocket->OnClose();
-		}
-
-		pSocket->ReleaseRef();
-	}
-}
-
-int CEventDispatch::WaitEpoll(struct epoll_event* events,uint32_t wait_timeout){
-	return epoll_wait(m_epfd, events, 1024, (int)wait_timeout);
-}
-
 void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 {
 	struct epoll_event events[1024];
@@ -445,15 +403,9 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 			pSocket->ReleaseRef();
 		}
 
-		DispatchTail();
+        _CheckTimer();
+        _CheckLoop();
 	}
-}
-
-
-void CEventDispatch::DispatchTail()
-{
-	_CheckTimer();
-	_CheckLoop();
 }
 
 void CEventDispatch::StopDispatch()

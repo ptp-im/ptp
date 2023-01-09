@@ -5,6 +5,8 @@
 //  Created by luoning on 15-1-6.
 //  Copyright (c) 2015年 luoning. All rights reserved.
 //
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 
 #include "slog_api.h"
 #include "log4cxx/logger.h"
@@ -156,5 +158,4 @@ void CSLog::Fatal(const char *format, ...)
     va_end(args);
     m_log->Fatal(szBuffer);
 }
-
-
+#pragma GCC diagnostic pop

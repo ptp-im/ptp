@@ -65,7 +65,7 @@ int CBaseSocket::Listen(const char* server_ip, uint16_t port, callback_t callbac
 	if (ret == SOCKET_ERROR)
 	{
 
-        DEBUG_E("bind failed, err_code=%d", _GetErrorCode());
+        DEBUG_E("bind failed, server_ip:%s,port=%d,err_code=%d", server_ip,port,_GetErrorCode());
 		closesocket(m_socket);
 		return NETLIB_ERROR;
 	}
@@ -73,7 +73,7 @@ int CBaseSocket::Listen(const char* server_ip, uint16_t port, callback_t callbac
 	ret = listen(m_socket, 64);
 	if (ret == SOCKET_ERROR)
 	{
-		DEBUG_E("listen failed, err_code=%d", _GetErrorCode());
+		DEBUG_E("listen failed, server_ip:%s,port=%d,err_code=%d",server_ip,port, _GetErrorCode());
 		closesocket(m_socket);
 		return NETLIB_ERROR;
 	}

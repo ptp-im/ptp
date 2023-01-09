@@ -12,7 +12,7 @@
 #ifndef __AUTHLOGIN_H__
 #define __AUTHLOGIN_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

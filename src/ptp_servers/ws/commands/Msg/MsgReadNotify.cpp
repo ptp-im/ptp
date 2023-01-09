@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.Msg.pb.h"
@@ -19,13 +19,13 @@ using namespace PTP::Common;
 
 namespace COMMAND {
     void MsgReadNotifyCmd(CImPdu* pPdu){
-        log_debug("MsgReadNotify start...");
+        DEBUG_D("MsgReadNotify start...");
         PTP::Msg::MsgReadNotify msg;
         CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
         while (true){
             CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
             uint32_t handle = attach_data.GetHandle();
-            log("userId=%u,handle=%d", msg.auth_uid(),handle);
+            DEBUG_I("userId=%u,handle=%d", msg.auth_uid(),handle);
             CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(msg.auth_uid(), handle);
             msg.clear_attach_data();
 
@@ -41,7 +41,7 @@ namespace COMMAND {
                     CImUser *pToImUser = CImUserManager::GetInstance()->GetImUserById(toUserId);
                     if(toUserId != msg.auth_uid()){
                         if (pToImUser) {
-                            log_debug("read notify notify from: %d -> toUserId: %d",msg.auth_uid(),toUserId);
+                            DEBUG_D("read notify notify from: %d -> toUserId: %d",msg.auth_uid(),toUserId);
                             pToImUser->BroadcastPdu(&pdu_rsp ,pMsgConn);
                         }
                     }
@@ -50,7 +50,7 @@ namespace COMMAND {
 
             break;
         }
-        log_debug("MsgReadNotify end...");
+        DEBUG_D("MsgReadNotify end...");
     }
 };
 

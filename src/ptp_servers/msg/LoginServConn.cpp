@@ -11,7 +11,7 @@
 #include "ImUser.h"
 #include "IM.Other.pb.h"
 #include "IM.Server.pb.h"
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 #include "public_define.h"
 using namespace IM::BaseDefine;
 
@@ -99,7 +99,7 @@ CLoginServConn::~CLoginServConn()
 
 void CLoginServConn::Connect(const char* server_ip, uint16_t server_port, uint32_t serv_idx)
 {
-	log("Connecting to LoginServer %s:%d ", server_ip, server_port);
+	DEBUG_I("Connecting to LoginServer %s:%d ", server_ip, server_port);
 	m_serv_idx = serv_idx;
 	m_handle = netlib_connect(server_ip, server_port, imconn_callback, (void*)&g_login_server_conn_map);
 
@@ -122,7 +122,7 @@ void CLoginServConn::Close()
 
 void CLoginServConn::OnConfirm()
 {
-	log("connect to login server success ");
+	DEBUG_I("connect to login server success ");
 	m_bOpen = true;
 	g_login_server_list[m_serv_idx].reconnect_cnt = MIN_RECONNECT_CNT / 2;
 
@@ -149,7 +149,7 @@ void CLoginServConn::OnConfirm()
 
 void CLoginServConn::OnClose()
 {
-	log("login server conn onclose, from handle=%d ", m_handle);
+	DEBUG_I("login server conn onclose, from handle=%d ", m_handle);
 	Close();
 }
 
@@ -165,7 +165,7 @@ void CLoginServConn::OnTimer(uint64_t curr_tick)
 	}
 
 	if (curr_tick > m_last_recv_tick + SERVER_TIMEOUT) {
-		log("conn to login server timeout ");
+		DEBUG_I("conn to login server timeout ");
 		Close();
 	}
 }

@@ -1,20 +1,21 @@
 #ifndef __HTTP_CONN_H__
 #define __HTTP_CONN_H__
-#include "ImPduBase.h"
-#include "util.h"
 #if (MSFS_LINUX)
-#include <sys/sendfile.h>
+    #include <sys/sendfile.h>
 #elif (MSFS_BSD)
-#include <sys/types.h>
- #include <sys/socket.h>
- #include <sys/uio.h>
+    #include <sys/types.h>
+    #include <sys/socket.h>
+    #include <sys/uio.h>
 #endif
 #include <pthread.h>
-#include "netlib.h"
+#include "ptp_global/ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/NetLib.h"
+#include "ptp_global/ConfigFileReader.h"
+#include "ptp_global/ThreadPool.h"
+#include "ptp_global/HttpParserWrapper.h"
 #include "FileManager.h"
-#include "ConfigFileReader.h"
-#include "ThreadPool.h"
-#include "HttpParserWrapper.h"
+#include <unordered_map>
 
 #define HTTP_CONN_TIMEOUT            30000
 
@@ -104,8 +105,8 @@ public:
     void OnPost();
     void OnGet();
     void HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len);
-    void FileImgDownloadReqCmd(CImPdu* pPdu, uint32_t conn_uuid);
-    void FileImgUploadReqCmd(CImPdu* pPdu, uint32_t conn_uuid);
+    void CommandFileDownloadRequest(CImPdu* pPdu, uint32_t conn_uuid);
+    void CommandFileUploadRequest(CImPdu* pPdu, uint32_t conn_uuid);
 private:
     uint32_t m_ConnHandle;
     int m_nMethod;
@@ -164,7 +165,7 @@ protected:
     static list<Response_t*> s_response_pdu_list;    // 主线程发送回复消息
 };
 
-typedef hash_map<uint32_t, CHttpConn*> HttpConnMap_t;
+typedef unordered_map<uint32_t, CHttpConn*> HttpConnMap_t;
 
 CHttpConn* FindHttpConnByHandle(uint32_t handle);
 void init_http_conn();

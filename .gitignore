@@ -27,6 +27,8 @@ node_modules
 
 *.exe
 *.a
+src/log
+src/bin
 lib/
 build/
 !third_party/lib

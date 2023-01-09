@@ -8,7 +8,7 @@
 using namespace ::IM::BaseDefine;
 
 CImUser::CImUser(string address_hex) {
-    //log("ImUser, userId=%u\n", user_id);
+    //DEBUG_I("ImUser, userId=%u\n", user_id);
     m_address_hex = address_hex;
     m_bValidate = false;
     m_user_id = 0;
@@ -19,7 +19,7 @@ CImUser::CImUser(string address_hex) {
 
 
 CImUser::~CImUser() {
-    //log("~ImUser, userId=%u\n", m_user_id);
+    //DEBUG_I("~ImUser, userId=%u\n", m_user_id);
 }
 
 uint32_t CImUser::getMsgId(uint32_t msg_id) {
@@ -192,7 +192,7 @@ void CImUser::HandleKickUser(CMsgConn* pConn, uint32_t reason)
     if (it != m_conn_map.end()) {
         CMsgConn* pConn = it->second;
         if(pConn) {
-            log("kick service user, user_id=%u.handle: %d,uid: %d", m_user_id,pConn->GetHandle(),pConn->GetUserId());
+            DEBUG_I("kick service user, user_id=%u.handle: %d,uid: %d", m_user_id,pConn->GetHandle(),pConn->GetUserId());
             IM::Login::IMKickUser msg;
             msg.set_user_id(m_user_id);
             msg.set_kick_reason((::IM::BaseDefine::KickReasonType)reason);
@@ -410,10 +410,10 @@ uint32_t CImUser::InitCache(){
             user_id = (uint32_t)(atoi(user_id_str.c_str()));
         }
         pCacheManager->RelCacheConn(pCacheConn);
-        log("user_id: %d -> %s", user_id,address_hex.c_str());
+        DEBUG_I("user_id: %d -> %s", user_id,address_hex.c_str());
         return user_id;
     }else{
-        log_error("error pCacheConn");
+        DEBUG_E("error pCacheConn");
         return 0;
     }
 }
@@ -441,10 +441,10 @@ uint32_t GetUserIdFromCache(string address,bool gen_user_id)
             user_id = (uint32_t)(atoi(user_id_str.c_str()));
         }
         pCacheManager->RelCacheConn(pCacheConn);
-        log("%s -> %d", address.c_str(),user_id);
+        DEBUG_I("%s -> %d", address.c_str(),user_id);
         return user_id;
     }else{
-        log_error("error pCacheConn");
+        DEBUG_E("error pCacheConn");
         return 0;
     }
 }

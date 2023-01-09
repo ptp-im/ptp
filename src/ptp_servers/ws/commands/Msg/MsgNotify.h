@@ -12,7 +12,7 @@
 #ifndef __MSGNOTIFY_H__
 #define __MSGNOTIFY_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
     void MsgNotifyCmd(CImPdu* pPdu);

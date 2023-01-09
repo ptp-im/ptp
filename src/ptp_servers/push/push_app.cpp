@@ -8,13 +8,13 @@
 
 #include "push_app.h"
 #include "push_define.h"
-#include "ConfigFileReader.h"
+#include "ptp_global/ConfigFileReader.h"
 #include "session_manager.h"
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include "slog/slog_api.h"
 
-CSLog g_pushlog = CSLog(LOG_MODULE_PUSH);
+CSLog g_pushlog = CSDEBUG_I(LOG_MODULE_PUSH);
 
 CPushApp::CPushApp()
 {

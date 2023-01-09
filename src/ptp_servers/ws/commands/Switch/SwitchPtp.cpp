@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.Switch.pb.h"
@@ -19,15 +19,15 @@ using namespace PTP::Common;
 
 namespace COMMAND {
     void SwitchPtpReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
-        log_debug("SwitchPtpReq start...");
+        DEBUG_D("SwitchPtpReq start...");
         PTP::Switch::SwitchPtpReq msg; 
         PTP::Switch::SwitchPtpRes msg_rsp;
         PTP::Switch::SwitchPtpNotify msg_notify;
-        log("conn_uuid=%u", conn_uuid);
+        DEBUG_I("conn_uuid=%u", conn_uuid);
         ERR error = NO_ERROR;
         auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
         if(!pMsgConn){
-            log_error("not found pMsgConn");
+            DEBUG_E("not found pMsgConn");
             return;
         }
         while (true){
@@ -65,7 +65,7 @@ namespace COMMAND {
         pdu.SetSeqNum(pPdu->GetSeqNum());
         pMsgConn->SendPdu(&pdu);
         //CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
-        log_debug("SwitchPtpReq end...");
+        DEBUG_D("SwitchPtpReq end...");
     }
     
     void SwitchPtpResCmd(CImPdu* pPdu){

@@ -12,7 +12,7 @@
 #ifndef __GROUPGETLIST_H__
 #define __GROUPGETLIST_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

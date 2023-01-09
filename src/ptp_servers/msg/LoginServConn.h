@@ -8,7 +8,7 @@
 #ifndef LOGINSERVCONN_H_
 #define LOGINSERVCONN_H_
 
-#include "imconn.h"
+#include "ptp_global/ImConn.h"
 #include "ServInfo.h"
 
 class CLoginServConn : public CImConn

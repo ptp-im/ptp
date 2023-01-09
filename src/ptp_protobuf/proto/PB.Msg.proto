@@ -1,5 +1,5 @@
 syntax = "proto2";
-package PBMsg;
+package PB;
 option java_package = "com.ptp.im.protobuf.PB";
 option optimize_for = LITE_RUNTIME;
 

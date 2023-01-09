@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.File.pb.h"
@@ -19,10 +19,10 @@ using namespace PTP::Common;
 
 namespace COMMAND {
     void FileImgUploadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
-        log_debug("FileImgUploadReq start...");
+        DEBUG_D("FileImgUploadReq start...");
         PTP::File::FileImgUploadReq msg; 
         PTP::File::FileImgUploadRes msg_rsp;
-        log("conn_uuid=%u", conn_uuid);
+        DEBUG_I("conn_uuid=%u", conn_uuid);
         ERR error = NO_ERROR;
         while (true){
             if(!msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
@@ -43,7 +43,7 @@ namespace COMMAND {
         if(error!= NO_ERROR){
             auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
             if(!pMsgConn){
-                log_error("not found pMsgConn");
+                DEBUG_E("not found pMsgConn");
                 return;
             }
 
@@ -57,21 +57,21 @@ namespace COMMAND {
             pMsgConn->SendPdu(&pdu);
             //CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
         }
-        log_debug("FileImgUploadReq end...");
+        DEBUG_D("FileImgUploadReq end...");
     }
     
     void FileImgUploadResCmd(CImPdu* pPdu){
-        log_debug("FileImgUploadRes start...");
+        DEBUG_D("FileImgUploadRes start...");
         PTP::File::FileImgUploadRes msg;
         CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
         while (true){
             CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
             uint32_t conn_uuid = attach_data.GetHandle();
             msg.clear_attach_data();
-            log("conn_uuid=%u", conn_uuid);
+            DEBUG_I("conn_uuid=%u", conn_uuid);
             auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
             if(!pMsgConn){
-                log_error("not found pMsgConn");
+                DEBUG_E("not found pMsgConn");
                 return;
             }
             CImPdu pdu_rsp;
@@ -82,7 +82,7 @@ namespace COMMAND {
             pMsgConn->SendPdu(&pdu_rsp);
             break;
         }
-        log_debug("FileImgUploadRes end...");
+        DEBUG_D("FileImgUploadRes end...");
     }
 };
 

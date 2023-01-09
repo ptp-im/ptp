@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "PTP.Auth.pb.h"
 #include "helpers.h"
@@ -27,7 +27,7 @@ namespace COMMAND {
 
         auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
         if(!pMsgConn){
-            log_error("not found pMsgConn");
+            DEBUG_E("not found pMsgConn");
             return;
         }
 
@@ -63,12 +63,12 @@ namespace COMMAND {
             pMsgConn->SetPrvKey(prvKeyStr);
             pMsgConn->SetIv(bytes_to_hex_string(iv,16));
             pMsgConn->SetAad(bytes_to_hex_string(aad,16));
-            //log_debug("server pubKey: %s",pubKey33Str.c_str());
-            //log_debug("msg_data: %s",msg_data.c_str());
-            //log_debug("signOut65: %s", bytes_to_hex_string(signOut65,65).c_str());
-            //log_debug("captcha: %s",msg_rsp.captcha().c_str());
-            //log_debug("iv: %s", bytes_to_hex_string(iv,16).c_str());
-            //log_debug("aad: %s", bytes_to_hex_string(aad,16).c_str());
+            //DEBUG_D("server pubKey: %s",pubKey33Str.c_str());
+            //DEBUG_D("msg_data: %s",msg_data.c_str());
+            //DEBUG_D("signOut65: %s", bytes_to_hex_string(signOut65,65).c_str());
+            //DEBUG_D("captcha: %s",msg_rsp.captcha().c_str());
+            //DEBUG_D("iv: %s", bytes_to_hex_string(iv,16).c_str());
+            //DEBUG_D("aad: %s", bytes_to_hex_string(aad,16).c_str());
             break;
         }
         msg_rsp.set_error(error);

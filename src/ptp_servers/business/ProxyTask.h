@@ -13,8 +13,8 @@
 #ifndef __PROXY_TASK_H__
 #define __PROXY_TASK_H__
 #include "Task.h"
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 
 typedef void (*pdu_handler_t)(CImPdu* pPdu, uint32_t conn_uuid);
 

@@ -7,9 +7,9 @@
 
 // #include "FileConn.h"
 
-#include "netlib.h"
-#include "ConfigFileReader.h"
-#include "version.h"
+#include "ptp_global/NetLib.h"
+#include "ptp_global/ConfigFileReader.h"
+#include "ptp_global/version.h"
 #include "IM.BaseDefine.pb.h"
 
 #include "config_util.h"
@@ -33,7 +33,7 @@
 //		CFileConn* pConn = new CFileConn();
 //		pConn->OnConnect(handle);
 //	} else {
-//		log("!!!error msg: %d ", msg);
+//		DEBUG_I("!!!error msg: %d ", msg);
 //	}
 //}
 
@@ -42,7 +42,7 @@
 //        CFileConn* pConn = new CFileConn();
 //        pConn->OnConnect(handle);
 //    } else {
-//        log("!!!error msg: %d ", msg);
+//        DEBUG_I("!!!error msg: %d ", msg);
 //    }
 //}
 
@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
     char* str_task_timeout = config_file.GetConfigName("TaskTimeout");
 
 	if (!str_client_listen_ip || !str_client_listen_port || !str_msg_server_listen_ip || !str_msg_server_listen_port) {
-		log("config item missing, exit... ");
+		DEBUG_I("config item missing, exit... ");
 		return -1;
 	}
 
@@ -126,7 +126,7 @@ int main(int argc, char* argv[])
 	netlib_eventloop();
 
 	printf("exiting.......\n");
-	log("exit");
+	DEBUG_I("exit");
 
 	return 0;
 }

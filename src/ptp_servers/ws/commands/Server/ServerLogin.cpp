@@ -9,9 +9,9 @@
  *
 ================================================================*/
 
-#include "util.h"
+#include "ptp_global/Util.h"
 #include "helpers.h"
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.Auth.pb.h"
@@ -23,10 +23,10 @@ using namespace PTP::Common;
 
 namespace COMMAND {
     void ServerLoginReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
-//        log_debug("ServerLoginReq start...");
+//        DEBUG_D("ServerLoginReq start...");
         PTP::Server::ServerLoginReq msg;
         PTP::Server::ServerLoginRes msg_rsp;
-//        log("conn_uuid=%u", conn_uuid);
+//        DEBUG_I("conn_uuid=%u", conn_uuid);
         ERR error = NO_ERROR;
         while (true){
             if(!msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
@@ -37,7 +37,7 @@ namespace COMMAND {
             CDBServConn* pDbConn = get_db_serv_conn();
             if (!pDbConn) {
                 error = E_REASON_NO_DB_SERVER;
-                log_error("not found pDbConn");
+                DEBUG_E("not found pDbConn");
                 break;
             }
             CDbAttachData attach(ATTACH_TYPE_HANDLE, conn_uuid, 0);
@@ -50,7 +50,7 @@ namespace COMMAND {
         if(error!= NO_ERROR){
             auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
             if(!pMsgConn){
-                log_error("not found pMsgConn");
+                DEBUG_E("not found pMsgConn");
                 return;
             }
 
@@ -64,11 +64,11 @@ namespace COMMAND {
             pMsgConn->SendPdu(&pdu);
             //CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
         }
-//        log_debug("ServerLoginReq end...");
+//        DEBUG_D("ServerLoginReq end...");
     }
 
     void ServerLoginResCmd(CImPdu* pPdu){
-//        log_debug("ServerLoginRes start...");
+//        DEBUG_D("ServerLoginRes start...");
         PTP::Auth::AuthLoginRes msg_rsp;
         PTP::Server::ServerLoginRes msg;
         CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -76,16 +76,16 @@ namespace COMMAND {
             CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
             uint32_t conn_uuid = attach_data.GetHandle();
             msg.clear_attach_data();
-            log("conn_uuid=%u", conn_uuid);
+            DEBUG_I("conn_uuid=%u", conn_uuid);
             auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
             if(!pMsgConn){
-                log_error("not found pMsgConn");
+                DEBUG_E("not found pMsgConn");
                 return;
             }
 
             CImUser* pImUser = CImUserManager::GetInstance()->GetImUserByAddressHex(msg.user_info().address());
             if (!pImUser) {
-                log_error("ImUser for user_name=%s not exist", msg.user_info().address().c_str());
+                DEBUG_E("ImUser for user_name=%s not exist", msg.user_info().address().c_str());
                 break;
             }
             string pub_key = msg.user_info().pub_key();
@@ -106,7 +106,7 @@ namespace COMMAND {
 
             auto prvKey = pMsgConn->GetPrvKey();
             if(prvKey.empty()){
-                log_error("prvKey is null");
+                DEBUG_E("prvKey is null");
                 break;
             }
             unsigned char shared_secret[32];
@@ -117,18 +117,18 @@ namespace COMMAND {
             auto ret = secp256k1_ec_pubkey_parse(ctx,&pub_key_raw,pub_key_33,33);
             secp256k1_context_destroy(ctx);
             if(!ret){
-                log_error("parse pub_key_raw error");
+                DEBUG_E("parse pub_key_raw error");
                 break;
             }
             ret = ecdh_create_share_key(&pub_key_raw,prvKey,shared_secret);
             if(!ret){
-                log_error("gen share key error");
+                DEBUG_E("gen share key error");
                 break;
             }
             pMsgConn->SetShareKey(bytes_to_hex_string(shared_secret,32));
-            //log("server prvKey: %s", prvKey.c_str());
-            //log("client pubKey: %s", bytes_to_hex_string(pub_key_33,33).c_str());
-            //log("shared_secret: %s", bytes_to_hex_string(shared_secret,32).c_str());
+            //DEBUG_I("server prvKey: %s", prvKey.c_str());
+            //DEBUG_I("client pubKey: %s", bytes_to_hex_string(pub_key_33,33).c_str());
+            //DEBUG_I("shared_secret: %s", bytes_to_hex_string(shared_secret,32).c_str());
             CImUser* pUser = CImUserManager::GetInstance()->GetImUserById(user_id);
             if (pUser)
             {

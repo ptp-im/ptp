@@ -1,7 +1,13 @@
 syntax = "proto2";
-package PBUser;
+package PB;
 option java_package = "com.ptp.im.protobuf.PB";
 option optimize_for = LITE_RUNTIME;
+
+enum UserStat{
+  USER_STAT_ONLINE = 1;
+  USER_STAT_OFFLINE = 2;
+  USER_STAT_LEAVE = 3;
+}
 
 message User{
   required bool is_online = 12;

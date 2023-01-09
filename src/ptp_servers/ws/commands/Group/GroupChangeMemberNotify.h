@@ -12,7 +12,7 @@
 #ifndef __GROUPCHANGEMEMBERNOTIFY_H__
 #define __GROUPCHANGEMEMBERNOTIFY_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
     void GroupChangeMemberNotifyCmd(CImPdu* pPdu);

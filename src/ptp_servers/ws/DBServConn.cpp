@@ -41,7 +41,7 @@ void init_db_serv_conn(serv_info_t* server_list, uint32_t server_count, uint32_t
 
 	uint32_t total_db_instance = server_count / concur_conn_cnt;
 	g_db_server_login_count = (total_db_instance / 2) * concur_conn_cnt;
-	log("DB server connection index for login business: [0, %u), for other business: [%u, %u) ",
+	DEBUG_I("DB server connection index for login business: [0, %u), for other business: [%u, %u) ",
 			g_db_server_login_count, g_db_server_login_count, g_db_server_count);
 
 	serv_init<CDBServConn>(g_db_server_list, g_db_server_count);
@@ -115,13 +115,13 @@ CDBServConn::~CDBServConn()
 
 void CDBServConn::Connect(const char* server_ip, uint16_t server_port, uint32_t serv_idx)
 {
-	log("Connecting to DB Storage Server %s:%d ", server_ip, server_port);
+	DEBUG_I("Connecting to DB Storage Server %s:%d ", server_ip, server_port);
 
 	m_serv_idx = serv_idx;
 	m_handle = netlib_connect(server_ip, server_port, imconn_callback, (void*)&g_db_server_conn_map);
 
 	if (m_handle != NETLIB_INVALID_HANDLE) {
-//        log("===>> m_handle: %d,serv_idx: %d",m_handle,serv_idx);
+//        DEBUG_I("===>> m_handle: %d,serv_idx: %d",m_handle,serv_idx);
         g_db_server_conn_map.insert(make_pair(m_handle, this));
 	}
 }
@@ -141,14 +141,14 @@ void CDBServConn::Close()
 
 void CDBServConn::OnConfirm()
 {
-	log("connect to db server success");
+	DEBUG_I("connect to db server success");
 	m_bOpen = true;
 	g_db_server_list[m_serv_idx].reconnect_cnt = MIN_RECONNECT_CNT / 2;
 }
 
 void CDBServConn::OnClose()
 {
-	log("onclose from db server handle=%d", m_handle);
+	DEBUG_I("onclose from db server handle=%d", m_handle);
 	Close();
 }
 
@@ -164,7 +164,7 @@ void CDBServConn::OnTimer(uint64_t curr_tick)
 	}
 
 	if (curr_tick > m_last_recv_tick + SERVER_TIMEOUT) {
-		log("conn to db server timeout");
+		DEBUG_I("conn to db server timeout");
 		Close();
 	}
 }
@@ -175,14 +175,14 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
     if (handler) {
         handler(pPdu);
     } else {
-        log("CDBServConn no handler for packet type: %d", pPdu->GetCommandId());
+        DEBUG_I("CDBServConn no handler for packet type: %d", pPdu->GetCommandId());
     }
 
 }
 
 //void CDBServConn::_HandleStopReceivePacket(CImPdu* pPdu)
 //{
-//	log("HandleStopReceivePacket, from %s:%d.",
+//	DEBUG_I("HandleStopReceivePacket, from %s:%d.",
 //			g_db_server_list[m_serv_idx].server_ip.c_str(), g_db_server_list[m_serv_idx].server_port);
 //
 //	m_bOpen = false;
@@ -212,7 +212,7 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
 ////        }
 ////        else
 ////        {
-////            log("HandleGetDeviceTokenResponse, decrypt msg failed, from_id: %u, to_id: %u, msg_type: %u.", from_id, to_id, msg_type);
+////            DEBUG_I("HandleGetDeviceTokenResponse, decrypt msg failed, from_id: %u, to_id: %u, msg_type: %u.", from_id, to_id, msg_type);
 ////            return;
 ////        }
 ////        pAes->Free(msg_out);
@@ -232,7 +232,7 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
 //    }
 //
 //    uint32_t user_token_cnt = msg.user_token_info_size();
-//    log("HandleGetDeviceTokenResponse, user_token_cnt = %u.", user_token_cnt);
+//    DEBUG_I("HandleGetDeviceTokenResponse, user_token_cnt = %u.", user_token_cnt);
 //
 //    IM::Server::IMPushToUserReq msg3;
 //    for (uint32_t i = 0; i < user_token_cnt; i++)
@@ -247,7 +247,7 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
 //            continue;
 //        }
 //
-//        log("HandleGetDeviceTokenResponse, user_id = %u, device_token = %s, push_cnt = %u, client_type = %u.",
+//        DEBUG_I("HandleGetDeviceTokenResponse, user_id = %u, device_token = %s, push_cnt = %u, client_type = %u.",
 //            user_id, device_token.c_str(), push_cnt, client_type);
 //
 //        CImUser* pUser = CImUserManager::GetInstance()->GetImUserById(user_id);
@@ -264,12 +264,12 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
 //            if (pUser->GetPCLoginStatus() == IM_PC_LOGIN_STATUS_ON)
 //            {
 //                user_token_tmp->set_push_type(IM_PUSH_TYPE_SILENT);
-//                log("HandleGetDeviceTokenResponse, user id: %d, push type: silent.", user_id);
+//                DEBUG_I("HandleGetDeviceTokenResponse, user id: %d, push type: silent.", user_id);
 //            }
 //            else
 //            {
 //                user_token_tmp->set_push_type(IM_PUSH_TYPE_NORMAL);
-//                log("HandleGetDeviceTokenResponse, user id: %d, push type: normal.", user_id);
+//                DEBUG_I("HandleGetDeviceTokenResponse, user id: %d, push type: normal.", user_id);
 //            }
 //        }
 //        else

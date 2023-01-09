@@ -12,7 +12,7 @@
 #ifndef __MSGREADACK_H__
 #define __MSGREADACK_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

@@ -7,10 +7,10 @@
 #ifndef _FILELIN_H_
 #define _FILELIN_H_
 
-#include "global_Portable.h"
 #include <string>
 #include <assert.h>
 #include <list>
+#include "ptp_global/global_Portable.h"
 
 using namespace std;
 

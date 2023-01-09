@@ -12,7 +12,7 @@
 #ifndef __HEARTBEATNOTIFY_H__
 #define __HEARTBEATNOTIFY_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
     void HeartBeatNotifyCmd(CImPdu* pPdu);

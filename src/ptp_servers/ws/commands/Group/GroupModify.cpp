@@ -9,8 +9,8 @@
  *
 ================================================================*/
 
-#include "util.h"
-#include "ImPduBase.h"
+#include "ptp_global/Util.h"
+#include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "PTP.Group.pb.h"
@@ -19,15 +19,15 @@ using namespace PTP::Common;
 
 namespace COMMAND {
     void GroupModifyReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
-        log_debug("GroupModifyReq start...");
+        DEBUG_D("GroupModifyReq start...");
         PTP::Group::GroupModifyReq msg; 
         PTP::Group::GroupModifyRes msg_rsp;
-        log("conn_uuid=%u", conn_uuid);
+        DEBUG_I("conn_uuid=%u", conn_uuid);
         ERR error = NO_ERROR;
 
         auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
         if(!pMsgConn){
-            log_error("not found pMsgConn");
+            DEBUG_E("not found pMsgConn");
             return;
         }
         while (true){
@@ -39,7 +39,7 @@ namespace COMMAND {
             CDBServConn* pDbConn = get_db_serv_conn();
             if (!pDbConn) {
                 error = E_REASON_NO_DB_SERVER;
-                log_error("not found pDbConn");
+                DEBUG_E("not found pDbConn");
                 break;
             }
             CDbAttachData attach(ATTACH_TYPE_HANDLE, conn_uuid, 0);
@@ -51,7 +51,7 @@ namespace COMMAND {
 //
 //void _Handle_GroupModifyReq(CImPdu *pPdu, CMsgConn * pMsgConn)
 //{
-//    log_debug("_Handle_GroupModifyReq start...");
+//    DEBUG_D("_Handle_GroupModifyReq start...");
 //    PTP::Group::GroupModifyReq msg;
 //    PTP::Group::GroupModifyNotify msg2;
 //    PTP::Group::GroupModifyRes msg1;
@@ -62,7 +62,7 @@ namespace COMMAND {
 //    while (1) {
 //        if (!pCacheConn) {
 //            error = E_SYSTEM;
-//            log_error("error pCacheConn");
+//            DEBUG_E("error pCacheConn");
 //            break;
 //        }
 //        string value = msg.value();
@@ -73,7 +73,7 @@ namespace COMMAND {
 //        auto groupType = (PTP::Common::GroupType) atoi(groupType_str.c_str());
 //        if(groupType == GROUP_TYPE_PAIR){
 //            error = E_SYSTEM;
-//            log_error("pair group can not modify");
+//            DEBUG_E("pair group can not modify");
 //            break;
 //        }
 //
@@ -88,7 +88,7 @@ namespace COMMAND {
 //
 //        if(group.owner_uid() != fromUserId){
 //            error = E_SYSTEM;
-//            log_error("you are not owner to modify group");
+//            DEBUG_E("you are not owner to modify group");
 //            break;
 //        }
 //
@@ -135,7 +135,7 @@ namespace COMMAND {
 //            for (auto it = members.begin(); it != members.end(); it++) {
 //                string toUserId_str = it->c_str();
 //                uint32_t toUserId = (uint32_t) (atoi(toUserId_str.c_str()));
-//                log_debug("CID_GroupModifyNotify: %d -> %d",fromUserId,toUserId);
+//                DEBUG_D("CID_GroupModifyNotify: %d -> %d",fromUserId,toUserId);
 //                CImUser *pToImUser = CImUserManager::GetInstance()->GetImUserById(toUserId);
 //                if (pToImUser) {
 //                    pToImUser->BroadcastPdu(&pdu2, pMsgConn);
@@ -157,7 +157,7 @@ namespace COMMAND {
 //    pdu.SetCommandId(CID_GroupModifyRes);
 //    pdu.SetSeqNum(pPdu->GetSeqNum());
 //    pMsgConn->SendPdu(&pdu);
-//    log_debug("_Handle_GroupModifyReq end.");
+//    DEBUG_D("_Handle_GroupModifyReq end.");
 //}
             break;
         }
@@ -174,11 +174,11 @@ namespace COMMAND {
             pMsgConn->SendPdu(&pdu);
             //CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
         }
-        log_debug("GroupModifyReq end...");
+        DEBUG_D("GroupModifyReq end...");
     }
     
     void GroupModifyResCmd(CImPdu* pPdu){
-        log_debug("GroupModifyRes start...");
+        DEBUG_D("GroupModifyRes start...");
         PTP::Group::GroupModifyRes msg;
         CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
         while (true){
@@ -187,10 +187,10 @@ namespace COMMAND {
             msg.clear_attach_data();
             auto notify_members = msg.notify_members();
             msg.clear_notify_members();
-            log("conn_uuid=%u", conn_uuid);
+            DEBUG_I("conn_uuid=%u", conn_uuid);
             auto pMsgConn = FindWebSocketConnByHandle(conn_uuid);
             if(!pMsgConn){
-                log_error("not found pMsgConn");
+                DEBUG_E("not found pMsgConn");
                 return;
             }
 
@@ -215,14 +215,14 @@ namespace COMMAND {
                 uint32_t toUserId = *it;
                 CImUser *pToImUser = CImUserManager::GetInstance()->GetImUserById(toUserId);
                 if (pToImUser && toUserId != msg.auth_uid()) {
-                    log("CID_GroupModifyNotify: %d -> %d",msg.auth_uid(),toUserId);
+                    DEBUG_I("CID_GroupModifyNotify: %d -> %d",msg.auth_uid(),toUserId);
                     pToImUser->BroadcastPdu(&pdu2, pMsgConn);
                 }
             }
 
             break;
         }
-        log_debug("GroupModifyRes end...");
+        DEBUG_D("GroupModifyRes end...");
     }
 };
 

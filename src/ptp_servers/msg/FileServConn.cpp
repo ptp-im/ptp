@@ -8,7 +8,7 @@
 
 #include "FileServConn.h"
 #include "FileHandler.h"
-#include "util.h"
+#include "ptp_global/Util.h"
 #include "ImUser.h"
 #include "AttachData.h"
 #include "RouteServConn.h"
@@ -109,7 +109,7 @@ CFileServConn::~CFileServConn()
 
 void CFileServConn::Connect(const char* server_ip, uint16_t server_port, uint32_t idx)
 {
-	log("Connecting to FileServer %s:%d ", server_ip, server_port);
+	DEBUG_I("Connecting to FileServer %s:%d ", server_ip, server_port);
     
 	m_serv_idx = idx;
 	m_handle = netlib_connect(server_ip, server_port, imconn_callback, (void*)&g_file_server_conn_map);
@@ -134,7 +134,7 @@ void CFileServConn::Close()
 
 void CFileServConn::OnConfirm()
 {
-	log("connect to file server success ");
+	DEBUG_I("connect to file server success ");
 	m_bOpen = true;
 	m_connect_time = get_tick_count();
 	g_file_server_list[m_serv_idx].reconnect_cnt = MIN_RECONNECT_CNT / 2;
@@ -149,7 +149,7 @@ void CFileServConn::OnConfirm()
 
 void CFileServConn::OnClose()
 {
-	log("onclose from file server handle=%d ", m_handle);
+	DEBUG_I("onclose from file server handle=%d ", m_handle);
 	Close();
 }
 
@@ -165,7 +165,7 @@ void CFileServConn::OnTimer(uint64_t curr_tick)
 	}
     
 	if (curr_tick > m_last_recv_tick + SERVER_TIMEOUT) {
-		log("conn to file server timeout ");
+		DEBUG_I("conn to file server timeout ");
 		Close();
 	}
 }
@@ -182,7 +182,7 @@ void CFileServConn::HandlePdu(CImPdu* pPdu)
             _HandleFileServerIPRsp(pPdu);
             break;
         default:
-            log("unknown cmd id=%d ", pPdu->GetCommandId());
+            DEBUG_I("unknown cmd id=%d ", pPdu->GetCommandId());
             break;
 	}
 }
@@ -200,7 +200,7 @@ void CFileServConn::_HandleFileMsgTransRsp(CImPdu* pPdu)
     string task_id = msg.task_id();
     uint32_t trans_mode = msg.trans_mode();
     CDbAttachData attach((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
-    log("HandleFileMsgTransRsp, result: %u, from_user_id: %u, to_user_id: %u, file_name: %s, \
+    DEBUG_I("HandleFileMsgTransRsp, result: %u, from_user_id: %u, to_user_id: %u, file_name: %s, \
         task_id: %s, trans_mode: %u. ", result, from_id, to_id,
         file_name.c_str(), task_id.c_str(), trans_mode);
 
@@ -279,7 +279,7 @@ void CFileServConn::_HandleFileServerIPRsp(CImPdu* pPdu)
     for (uint32_t i = 0; i < ip_addr_cnt ; i++)
     {
         IM::BaseDefine::IpAddr ip_addr = msg.ip_addr_list(i);
-        log("_HandleFileServerIPRsp -> %s : %d ", ip_addr.ip().c_str(), ip_addr.port());
+        DEBUG_I("_HandleFileServerIPRsp -> %s : %d ", ip_addr.ip().c_str(), ip_addr.port());
         m_ip_list.push_back(ip_addr);
     }
 }

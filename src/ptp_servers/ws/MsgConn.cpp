@@ -37,7 +37,7 @@ static bool g_log_msg_toggle = true;	// 是否把收到的MsgData写入Log的开
 static void signal_handler_usr1(int sig_no)
 {
     if (sig_no == SIGUSR1) {
-        log("receive SIGUSR1 ");
+        DEBUG_I("receive SIGUSR1 ");
         g_up_msg_total_cnt = 0;
         g_up_msg_miss_cnt = 0;
         g_down_msg_total_cnt = 0;
@@ -48,7 +48,7 @@ static void signal_handler_usr1(int sig_no)
 static void signal_handler_usr2(int sig_no)
 {
     if (sig_no == SIGUSR2) {
-        log("receive SIGUSR2 ");
+        DEBUG_I("receive SIGUSR2 ");
         g_log_msg_toggle = !g_log_msg_toggle;
     }
 }
@@ -56,7 +56,7 @@ static void signal_handler_usr2(int sig_no)
 static void signal_handler_hup(int sig_no)
 {
     if (sig_no == SIGHUP) {
-        log("receive SIGHUP exit... ");
+        DEBUG_I("receive SIGHUP exit... ");
         exit(0);
     }
 }
@@ -167,7 +167,7 @@ void websocketconn_callback(void *callback_data, uint8_t msg, uint32_t handle, u
             pConn->OnClose();
             break;
         default:
-            log("!!!httpconn_callback websocketconn_callbackerror msg: %d ", msg);
+            DEBUG_I("!!!httpconn_callback websocketconn_callbackerror msg: %d ", msg);
             break;
     }
 }
@@ -212,17 +212,17 @@ CMsgConn::CMsgConn() {
     if (m_conn_handle == 0) {
         m_conn_handle = ++g_conn_handle_generator;
     }
-    //log("CHttpConn, handle=%u ", m_conn_handle);
+    //DEBUG_I("CHttpConn, handle=%u ", m_conn_handle);
 }
 
 CMsgConn::~CMsgConn() {
-    log("~CMsgConn, handle=%u ", m_conn_handle);
+    DEBUG_I("~CMsgConn, handle=%u ", m_conn_handle);
 }
 
 
 void CMsgConn::AddToSendList(uint32_t msg_id, uint32_t from_id)
 {
-    //log("AddSendMsg, seq_no=%u, from_id=%u ", seq_no, from_id);
+    //DEBUG_I("AddSendMsg, seq_no=%u, from_id=%u ", seq_no, from_id);
     msg_ack_t msg;
     msg.msg_id = msg_id;
     msg.from_id = from_id;
@@ -234,7 +234,7 @@ void CMsgConn::AddToSendList(uint32_t msg_id, uint32_t from_id)
 
 void CMsgConn::DelFromSendList(uint32_t msg_id, uint32_t from_id)
 {
-    //log("DelSendMsg, seq_no=%u, from_id=%u ", seq_no, from_id);
+    //DEBUG_I("DelSendMsg, seq_no=%u, from_id=%u ", seq_no, from_id);
     for (list<msg_ack_t>::iterator it = m_send_msg_list.begin(); it != m_send_msg_list.end(); it++) {
         msg_ack_t msg = *it;
         if ( (msg.msg_id == msg_id) && (msg.from_id == from_id) ) {
@@ -255,14 +255,14 @@ void CMsgConn::SendPdu(CImPdu * pdu) {
         if(!m_testing_require_pdu){
             auto pPdu = CImPdu::ReadPdu(pdu->GetBuffer(), pdu->GetLength());
             if(pPdu->GetReversed()){
-                log_debug("Send len:%d data:%s ",pdu->GetLength(), bytes_to_hex_string(pdu->GetBuffer(),pdu->GetLength()).c_str());
+                DEBUG_D("Send len:%d data:%s ",pdu->GetLength(), bytes_to_hex_string(pdu->GetBuffer(),pdu->GetLength()).c_str());
                 unsigned char shared_secret[32];
                 unsigned char iv[16];
                 unsigned char aad[16];
                 string shareKey = this->GetShareKey();
                 string ivHex = this->GetIv();
                 string aadHex = this->GetAad();
-                log_debug("org pdu: %s", bytes_to_hex_string(pdu->GetBuffer(),pdu->GetLength()).c_str());
+                DEBUG_D("org pdu: %s", bytes_to_hex_string(pdu->GetBuffer(),pdu->GetLength()).c_str());
                 memcpy(shared_secret,hex_to_string(shareKey.substr(2)).data(),32);
                 memcpy(iv,hex_to_string(ivHex.substr(2)).data(),16);
                 memcpy(aad,hex_to_string(aadHex.substr(2)).data(),16);
@@ -290,7 +290,7 @@ void CMsgConn::SendPdu(CImPdu * pdu) {
         }else{
             uint32_t pdu_len = 0;
             if (!CImPdu::IsPduAvailable(pdu->GetBuffer(), pdu->GetLength(), pdu_len)){
-                log_error("IsPduAvailable: false");
+                DEBUG_E("IsPduAvailable: false");
                 Close();
             }
             m_sendPdu = CImPdu::ReadPdu(pdu->GetBuffer(), pdu_len);
@@ -375,7 +375,7 @@ void CMsgConn::OnClose() {
 void CMsgConn::OnTimer(uint64_t curr_tick) {
     m_msg_cnt_per_sec = 0;
     if (curr_tick > m_last_recv_tick + WEBSOCKET_CONN_TIMEOUT) {
-        log("WebSocketConn timeout, handle=%d ", m_conn_handle);
+        DEBUG_I("WebSocketConn timeout, handle=%d ", m_conn_handle);
         Close();
     }
 }
@@ -413,7 +413,7 @@ void CMsgConn::Close() {
 }
 
 void CMsgConn::OnConnect(net_handle_t handle) {
-    log("new client OnConnect, handle=%d", handle);
+    DEBUG_I("new client OnConnect, handle=%d", handle);
 
     isHandshark = false;
     m_conn_handle = handle;
@@ -441,7 +441,7 @@ void CMsgConn::OnRead() {
         if (free_buf_len < READ_BUF_SIZE)
             m_in_buf.Extend(READ_BUF_SIZE);
         int ret = netlib_recv(m_conn_handle, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(), READ_BUF_SIZE);
-        //log_debug("i#%d,ret=%d,free_buf_len=%d,READ_BUF_SIZE=%d,m_in_buf.GetWriteOffset()=%d",i,ret,free_buf_len,READ_BUF_SIZE,m_in_buf.GetWriteOffset());
+        //DEBUG_D("i#%d,ret=%d,free_buf_len=%d,READ_BUF_SIZE=%d,m_in_buf.GetWriteOffset()=%d",i,ret,free_buf_len,READ_BUF_SIZE,m_in_buf.GetWriteOffset());
         if (ret <= 0){
             i = 0;
             break;
@@ -454,7 +454,7 @@ void CMsgConn::OnRead() {
     char *in_buf = (char *) m_in_buf.GetBuffer();
     uint32_t buf_len = m_in_buf.GetWriteOffset();
     if(buf_len != 16 && buf_len != 22){
-        log_debug("read buf_len: %d", buf_len);
+        DEBUG_D("read buf_len: %d", buf_len);
     }
     uint32_t pdu_len = 0;
     if (CImPdu::IsPduAvailable(m_in_buf.GetBuffer(), m_in_buf.GetWriteOffset(),pdu_len)){
@@ -462,7 +462,7 @@ void CMsgConn::OnRead() {
         int offset = 0;
         while(true){
             if(buf_len != 16 && buf_len != 22){
-                log_debug("pdu_len=%d,offset=%d", pdu_len,offset);
+                DEBUG_D("pdu_len=%d,offset=%d", pdu_len,offset);
             }
             HandlePduBuf(m_in_buf.GetBuffer() + offset, pdu_len);
             if(buf_len == offset + pdu_len){
@@ -514,11 +514,11 @@ void CMsgConn::OnRead() {
                 auto buf = reinterpret_cast<uchar_t *>(ws_request->payload_);
                 auto len = ws_request->payload_length_;
                 if (!CImPdu::IsPduAvailable(buf, len, pdu_len)){
-                    log_error("IsPduAvailable: false");
+                    DEBUG_E("IsPduAvailable: false");
                     break;
                 }
                 if(pdu_len == 0){
-                    log_error("pdu_len: 0");
+                    DEBUG_E("pdu_len: 0");
                     break;
                 }
                 HandlePduBuf(buf, pdu_len);
@@ -540,7 +540,7 @@ void CMsgConn::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len)
         while (true){
             pPdu = CImPdu::ReadPdu(pdu_buf, pdu_len);
             if (pPdu->GetCommandId() == PTP::Common::CID_HeartBeatNotify) {
-                //log_debug("HeartBeatNotify");
+                //DEBUG_D("HeartBeatNotify");
                 PTP::Other::HeartBeatNotify msg;
                 CImPdu pdu_rsp;
                 pdu_rsp.SetPBMsg(&msg);
@@ -553,13 +553,13 @@ void CMsgConn::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len)
 
             if(pPdu->GetCommandId() != PTP::Common::CID_AuthCaptchaReq){
                 if (pPdu->GetCommandId() != PTP::Common::CID_AuthLoginReq && !this->IsOpen()) {
-                    log_error("HandlePdu, wrong msg. ");
+                    DEBUG_E("HandlePdu, wrong msg. ");
                     throw CPduException(pPdu->GetServiceId(), pPdu->GetCommandId(), ERROR_CODE_WRONG_SERVICE_ID, "HandlePdu error, user not login. ");
                     break;
                 }
             }
 
-            log("handle cid: %d, r:%d", pPdu->GetCommandId(), pPdu->GetReversed());
+            DEBUG_I("handle cid: %d, r:%d", pPdu->GetCommandId(), pPdu->GetReversed());
             if(pPdu->GetCommandId() != PTP::Common::CID_AuthCaptchaReq
                 && pPdu->GetCommandId() != PTP::Common::CID_AuthLoginReq
                 && pPdu->GetBodyLength() > 0
@@ -596,22 +596,22 @@ void CMsgConn::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len)
                     memset(decData, 0, sizeof(decData));
 
                 }else{
-                    log_error("error decrypt body,cid:%d",pPdu->GetCommandId() );
+                    DEBUG_E("error decrypt body,cid:%d",pPdu->GetCommandId() );
                     break;
                 }
-                log("pdu_len: %d", pdu_len);
+                DEBUG_I("pdu_len: %d", pdu_len);
             }
 
             pdu_handler_t handler = s_handler_map->GetHandler(pPdu->GetCommandId());
             if (handler) {
                 handler(pPdu, this->GetConnHandle());
             } else {
-                log("no handler for packet type: %d", pPdu->GetCommandId());
+                DEBUG_I("no handler for packet type: %d", pPdu->GetCommandId());
             }
             break;
         }
     } catch (CPduException& ex) {
-        log_error("!!!catch exception, sid=%u, cid=%u, err_code=%u, err_msg=%s, close the connection ",
+        DEBUG_E("!!!catch exception, sid=%u, cid=%u, err_code=%u, err_msg=%s, close the connection ",
                   ex.GetServiceId(), ex.GetCommandId(), ex.GetErrorCode(), ex.GetErrorMsg());
         Close();
     }

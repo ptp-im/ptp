@@ -12,7 +12,7 @@
 #ifndef __AUTHCAPTCHA_H__
 #define __AUTHCAPTCHA_H__
 
-#include "ImPduBase.h"
+#include "ptp_global/ImPduBase.h"
 
 namespace COMMAND {
 

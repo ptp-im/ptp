@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.2.2)
 option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
 option(INSTALL_GTEST "Enable installation of googletest. (Projects embedding googletest may want to turn this OFF.)" OFF)
 
+MESSAGE( STATUS ===>>> tests )
+
 include(FetchContent)
 
 if(APPLE)
@@ -33,20 +35,55 @@ if (APPLE)
     add_definitions(-D__GLIBCXX__)
 endif (APPLE)
 
+
 ADD_DEFINITIONS(-DGTEST_USE_OWN_TR1_TUPLE=1 )
 
-file(COPY log4cxx.properties
-        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+SET(EXECUTABLE_OUTPUT_PATH  ../../bin/tests)
 
-SET(EXECUTABLE_OUTPUT_PATH  ./)
+file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
+file(COPY log4cxx.properties
+        DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 
 include_directories (../)
-include_directories (../../third_party/slog)
 
+#slog
+include_directories (../../third_party/slog)
 LINK_DIRECTORIES(../../third_party/slog/lib)
+
+include_directories(../../third_party/protobuf)
+
+if(APPLE)
+    #lib:redis secp256k1 protobuf
+    LINK_DIRECTORIES(../../third_party/lib/mac)
+    #mysql
+    INCLUDE_DIRECTORIES(/usr/local/Cellar/mariadb/10.5.9/include/mysql)
+    LINK_DIRECTORIES(/usr/local/Cellar/mariadb/10.5.9/lib)
+
+    #openssl
+    INCLUDE_DIRECTORIES(/usr/local/opt/openssl@1.1/include)
+    LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
+else()
+    LINK_DIRECTORIES(../../third_party/lib)
+    INCLUDE_DIRECTORIES(/usr/include/mysql)
+    LINK_DIRECTORIES(/usr/lib64/mysql)
+    INCLUDE_DIRECTORIES(/usr/local/opt/openssl@1.1/include)
+    LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
+endif()
 
 add_executable(test_global.run test_global.cpp)
 target_link_libraries(test_global.run PRIVATE gtest_main ptp_global)
+
+add_executable(test_server_msfs.run test_server_msfs.cpp)
+target_link_libraries(test_server_msfs.run PRIVATE gtest_main ptp_servers ptp_global)
+
+add_executable(test_server_route.run test_server_route.cpp)
+target_link_libraries(test_server_route.run PRIVATE gtest_main ptp_servers ptp_global)
+
+add_executable(test_server_login.run test_server_login.cpp)
+target_link_libraries(test_server_login.run PRIVATE gtest_main ptp_servers ptp_global)
+
+add_executable(test_protobuf.run test_protobuf.cpp)
+target_link_libraries(test_protobuf.run PRIVATE gtest_main ptp_protobuf ptp_global)
 
 add_executable(test_global_SocketClient.run test_global_SocketClient.cpp)
 target_link_libraries(test_global_SocketClient.run PRIVATE gtest_main ptp_global)
