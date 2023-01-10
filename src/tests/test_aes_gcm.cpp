@@ -3,7 +3,7 @@
 #include "ptp_global/Helpers.h"
 #include "ptp_crypto/secp256k1_helpers.h"
 #include "ptp_crypto/aes_encryption.h"
-#include "ptp_crypto/ptp_helpers.h"
+#include "ptp_crypto/crypto_helpers.h"
 
 #include <string>
 #include <vector>

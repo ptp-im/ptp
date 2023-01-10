@@ -28,9 +28,9 @@
  * SUCH DAMAGE.
  */
 
-#include "ptp_crypto/sha2.h"
+#include "sha2.h"
 
-#include "ptp_crypto/memzero.h"
+#include "memzero.h"
 
 #include <cstdint>
 #include <cstring>

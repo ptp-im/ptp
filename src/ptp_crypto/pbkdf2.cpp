@@ -21,7 +21,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "ptp_crypto/pbkdf2.h"
+#include "pbkdf2.h"
 
 #include "hmac.h"
 #include "memzero.h"

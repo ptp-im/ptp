@@ -24,7 +24,7 @@
 #ifndef __HMAC_H__
 #define __HMAC_H__
 
-#include "ptp_crypto/sha2.h"
+#include "sha2.h"
 
 #include <cstdint>
 

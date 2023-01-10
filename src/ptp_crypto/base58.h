@@ -24,7 +24,7 @@
 #ifndef __BASE58_H__
 #define __BASE58_H__
 
-#include "ptp_crypto/hasher.h"
+#include "hasher.h"
 
 int base58_encode_check(const uint8_t *data, size_t len, HasherType hasher_type, char *str, size_t strsize);
 int base58_decode_check(const char *str, HasherType hasher_type, uint8_t *data, int datalen);

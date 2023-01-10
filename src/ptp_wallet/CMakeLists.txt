@@ -1,6 +1,3 @@
-INCLUDE_DIRECTORIES(./)
-INCLUDE_DIRECTORIES(../)
-
 if(ANDROID)
     INCLUDE_DIRECTORIES(../../../boringssl/include)
     LINK_DIRECTORIES(../../../boringssl/lib)
@@ -13,7 +10,10 @@ elseif(UNIX)
 endif()
 
 SET(LIBRARY_OUTPUT_PATH ../../lib)
-LINK_DIRECTORIES(../../lib)
+
+INCLUDE_DIRECTORIES(./)
+INCLUDE_DIRECTORIES(../)
+INCLUDE_DIRECTORIES(../../include)
 
 set(LIB_NAME_MAIN ptp_wallet)
 

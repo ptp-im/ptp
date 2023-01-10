@@ -1,5 +1,5 @@
 #include "mnemonic.h"
-#include "ptp_wallet/utils.h"
+#include "utils.h"
 #include "word_list.h"
 #include <cstring>
 

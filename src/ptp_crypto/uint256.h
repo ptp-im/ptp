@@ -6,7 +6,7 @@
 #ifndef BITCOIN_UINT256_H
 #define BITCOIN_UINT256_H
 
-#include "ptp_crypto/common.h"
+#include "common.h"
 
 #include <assert.h>
 #include <cstring>

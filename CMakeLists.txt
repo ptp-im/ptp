@@ -36,9 +36,9 @@ else()
     LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
 endif()
 
-INCLUDE_DIRECTORIES(./third_party/protobuf)
-INCLUDE_DIRECTORIES(./third_party/redis)
-INCLUDE_DIRECTORIES(./third_party/secp256k1/include)
+INCLUDE_DIRECTORIES(./include/protobuf)
+INCLUDE_DIRECTORIES(./include/redis)
+INCLUDE_DIRECTORIES(./include)
 
 add_subdirectory(src/ptp_crypto)
 add_subdirectory(src/ptp_toolbox)

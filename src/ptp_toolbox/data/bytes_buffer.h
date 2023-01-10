@@ -10,8 +10,8 @@
 #ifndef TOOLBOXPP_BYTES_BUFFER_H
 #define TOOLBOXPP_BYTES_BUFFER_H
 
-#include "ptp_toolbox/data/bytes_data.h"
-#include "ptp_toolbox/toolbox_config.h"
+#include "data/bytes_data.h"
+#include "../toolbox_config.h"
 
 namespace ptp_toolbox {
 namespace data {

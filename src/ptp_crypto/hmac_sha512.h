@@ -5,9 +5,9 @@
 #ifndef BITCOIN_CRYPTO_HMAC_SHA512_H
 #define BITCOIN_CRYPTO_HMAC_SHA512_H
 
-#include "ptp_crypto/sha512.h"
+#include "sha512.h"
 
-#include <ptp_crypto/hmac.h>
+#include "hmac.h"
 #include <cstdint>
 #include <cstdlib>
 

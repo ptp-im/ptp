@@ -1,10 +1,11 @@
 set(LIB_NAME_MAIN ptp_global)
 MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
-AUX_SOURCE_DIRECTORY(../../third_party/jsoncpp SRC_LIST)
-INCLUDE_DIRECTORIES(../../third_party/jsoncpp)
+
 INCLUDE_DIRECTORIES(../)
-LINK_DIRECTORIES(../../lib)
+INCLUDE_DIRECTORIES(../../include)
+INCLUDE_DIRECTORIES(../../include/jsoncpp)
+
 SET(LIBRARY_OUTPUT_PATH ../../lib)
 
 add_library(${LIB_NAME_MAIN} STATIC ${SRC_LIST})

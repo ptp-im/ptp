@@ -9,7 +9,7 @@
 #ifndef TOOLBOX_BYTES_ARRAY_H
 #define TOOLBOX_BYTES_ARRAY_H
 
-#include "ptp_toolbox/data/bytes_data.h"
+#include "bytes_data.h"
 
 namespace ptp_toolbox {
 namespace data {

@@ -1,6 +1,6 @@
 #include <iomanip>
 #include <openssl/evp.h>
-#include "ptp_crypto/aes_encryption.h"
+#include "aes_encryption.h"
 
 int aes_gcm_encrypt(const unsigned char *plaintext, int plaintext_len,
             const unsigned char *key, const unsigned char *iv,

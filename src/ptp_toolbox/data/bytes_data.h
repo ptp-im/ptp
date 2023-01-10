@@ -10,8 +10,8 @@
 #ifndef TOOLBOXPP_BYTES_DATA_H
 #define TOOLBOXPP_BYTES_DATA_H
 
-#include "ptp_toolbox/data/basic_data.h"
-#include "ptp_toolbox/toolbox_config.h"
+#include "basic_data.h"
+#include "../toolbox_config.h"
 
 #include <functional>
 #include <iostream>

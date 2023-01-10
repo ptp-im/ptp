@@ -25,8 +25,8 @@
  *  http://ehash.iaik.tugraz.at/wiki/RIPEMD-160
  */
 
-#include "ptp_crypto/ripemd160.h"
-#include "ptp_crypto/memzero.h"
+#include "ripemd160.h"
+#include "memzero.h"
 
 #include <cstring>
 #include <string>

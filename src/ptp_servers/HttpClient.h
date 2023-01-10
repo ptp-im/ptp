@@ -3,7 +3,7 @@
 
 #include <string>
 #include <curl/curl.h>
-#include "global.h"
+#include "ptp_global/global.h"
 #include <iostream>
 using namespace std;
 

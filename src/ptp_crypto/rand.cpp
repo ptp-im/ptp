@@ -21,7 +21,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "ptp_crypto/rand.h"
+#include "rand.h"
 
 #ifndef RAND_PLATFORM_INDEPENDENT
 

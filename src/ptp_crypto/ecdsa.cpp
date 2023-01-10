@@ -22,10 +22,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "ptp_crypto/ecdsa.h"
-#include "ptp_crypto/memzero.h"
-#include "ptp_crypto/rand.h"
-#include "ptp_crypto/keccak.h"
+#include "ecdsa.h"
+#include "memzero.h"
+#include "rand.h"
+#include "keccak.h"
 #include "options.h"
 
 #include <cassert>

@@ -6,9 +6,9 @@
  * \author Eduard Maximovich (edward.vstock@gmail.com)
  * \link   https://github.com/edwardstock
  */
-#include "ptp_toolbox/data/bytes_data.h"
+#include "data/bytes_data.h"
 
-#include "ptp_toolbox/data/utils.h"
+#include "data/utils.h"
 
 #include <algorithm>
 #include <atomic>

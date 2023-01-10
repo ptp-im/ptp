@@ -11,7 +11,7 @@
 #include "ptp_global/ImPduBase.h"
 #include "ptp_crypto/aes_encryption.h"
 #include "ptp_crypto/secp256k1_helpers.h"
-#include "ptp_crypto/ptp_helpers.h"
+#include "ptp_crypto/crypto_helpers.h"
 #include "ptp_protobuf/PTP.MSG.pb.h"
 #include "ptp_protobuf/PTP.AUTH.pb.h"
 #include "ptp_protobuf/PTP.GROUP.pb.h"

@@ -23,8 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "ptp_crypto/bignum.h"
-#include "ptp_crypto/memzero.h"
+#include "bignum.h"
+#include "memzero.h"
 
 #include <cassert>
 #include <cstddef>

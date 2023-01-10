@@ -24,7 +24,7 @@
 #define __HASHER_H__
 
 #include <vector>
-#include "ptp_crypto/sha2.h"
+#include "sha2.h"
 //#include "sha3.h"
 //#include "blake256.h"
 

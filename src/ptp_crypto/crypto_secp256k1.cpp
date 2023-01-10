@@ -21,7 +21,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "secp256k1.h"
+#include "crypto_secp256k1.h"
 
 const ecdsa_curve secp256k1 = {
 	/* .prime */ {

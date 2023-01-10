@@ -1,9 +1,9 @@
 #ifndef BIP39_KEY_ENCODER_H
 #define BIP39_KEY_ENCODER_H
 
-#include "ptp_wallet/MnemonicHelper.h"
-#include "ptp_wallet/utils.h"
-#include "ptp_crypto/secp256k1.h"
+#include "MnemonicHelper.h"
+#include "utils.h"
+#include "ptp_crypto/crypto_secp256k1.h"
 
 namespace PTPWallet {
 

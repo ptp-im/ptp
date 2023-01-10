@@ -8,7 +8,7 @@
 
 #include <cassert>
 #include <string>
-#include "ptp_crypto/keccak.h"
+#include "keccak.h"
 
 using std::uint8_t;
 using std::uint64_t;

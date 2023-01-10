@@ -6,7 +6,7 @@
  * \author Eduard Maximovich (edward.vstock@gmail.com)
  * \link   https://github.com/edwardstock
  */
-#include "ptp_toolbox/strings.hpp"
+#include "strings.hpp"
 
 #include <exception>
 #include <fstream>

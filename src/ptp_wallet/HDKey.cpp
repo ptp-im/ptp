@@ -1,8 +1,8 @@
-#include "ptp_wallet/HDKey.h"
+#include "HDKey.h"
 #include <ptp_toolbox/strings.hpp>
 #include <ptp_crypto/base58.h>
-#include "ptp_wallet/uint256_t.h"
-#include "ptp_crypto/ptp_helpers.h"
+#include "uint256_t.h"
+#include "ptp_crypto/crypto_helpers.h"
 #include "ptp_crypto/secp256k1_helpers.h"
 #include "wallet.h"
 

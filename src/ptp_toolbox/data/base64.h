@@ -9,8 +9,8 @@
 #ifndef TOOLBOX_BASE64_H
 #define TOOLBOX_BASE64_H
 
-#include "ptp_toolbox/toolbox_config.h"
-#include "ptp_toolbox/data/utils.h"
+#include "../toolbox_config.h"
+#include "data/utils.h"
 
 #include <string>
 

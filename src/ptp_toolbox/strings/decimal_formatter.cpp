@@ -6,9 +6,9 @@
  * \author Eduard Maximovich (edward.vstock@gmail.com)
  * \link   https://github.com/edwardstock
  */
-#include "ptp_toolbox/strings/decimal_formatter.h"
+#include "strings/decimal_formatter.h"
 
-#include "ptp_toolbox/strings.hpp"
+#include "strings.hpp"
 
 #include <sstream>
 #include <stack>

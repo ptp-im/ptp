@@ -25,9 +25,9 @@
 typedef signed long ssize_t;
 #endif
 
-#include "ptp_crypto/base58.h"
+#include "base58.h"
 
-#include "ptp_crypto/memzero.h"
+#include "memzero.h"
 
 #include <algorithm>
 #include <cstring>

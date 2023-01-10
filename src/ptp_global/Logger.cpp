@@ -10,12 +10,6 @@
 #include <android/log.h>
 #endif
 
-#ifdef DEBUG_VERSION
-bool LOGS_ENABLED = true;
-#else
-bool LOGS_ENABLED = false;
-#endif
-
 Logger &Logger::getInstance() {
     static Logger instance;
     return instance;
@@ -34,9 +28,6 @@ void Logger::init(std::string path) {
 }
 
 void Logger::e(const char *message, ...) {
-    if (!LOGS_ENABLED) {
-        return;
-    }
     va_list argptr;
     va_start(argptr, message);
     time_t t = time(0);
@@ -66,9 +57,6 @@ void Logger::e(const char *message, ...) {
 
 
 void Logger::i(const char *message, ...) {
-    if (!LOGS_ENABLED) {
-        return;
-    }
     va_list argptr;
     va_start(argptr, message);
     time_t t = time(0);
@@ -97,9 +85,6 @@ void Logger::i(const char *message, ...) {
 }
 
 void Logger::w(const char *message, ...) {
-    if (!LOGS_ENABLED) {
-        return;
-    }
     va_list argptr;
     va_start(argptr, message);
     time_t t = time(0);
@@ -128,9 +113,6 @@ void Logger::w(const char *message, ...) {
 }
 
 void Logger::d(const char *message, ...) {
-    if (!LOGS_ENABLED) {
-        return;
-    }
     va_list argptr;
     va_start(argptr, message);
     time_t t = time(0);

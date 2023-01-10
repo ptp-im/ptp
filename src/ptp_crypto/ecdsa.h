@@ -24,8 +24,8 @@
 #ifndef __ECDSA_H__
 #define __ECDSA_H__
 
-#include "ptp_crypto/bignum.h"
-#include "ptp_crypto/hasher.h"
+#include "bignum.h"
+#include "hasher.h"
 
 #include <cstdint>
 

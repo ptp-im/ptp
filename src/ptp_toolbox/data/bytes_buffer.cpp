@@ -7,7 +7,7 @@
  * \link   https://github.com/edwardstock
  */
 
-#include "ptp_toolbox/data/bytes_buffer.h"
+#include "data/bytes_buffer.h"
 
 using namespace ptp_toolbox::data;
 bytes_buffer::bytes_buffer()

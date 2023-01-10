@@ -9,9 +9,9 @@
 #ifndef TOOLBOX_TRANSFORMERS_H
 #define TOOLBOX_TRANSFORMERS_H
 
-#include "ptp_toolbox/data/base64.h"
-#include "ptp_toolbox/data/bytes_data.h"
-#include "ptp_toolbox/data/utils.h"
+#include "data/base64.h"
+#include "data/bytes_data.h"
+#include "data/utils.h"
 
 #include <string>
 

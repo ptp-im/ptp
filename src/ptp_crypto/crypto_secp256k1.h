@@ -21,8 +21,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __SECP256K1_H__
-#define __SECP256K1_H__
+#ifndef __CRYPTO_SECP256K1_H__
+#define __CRYPTO_SECP256K1_H__
 
 #include "ecdsa.h"
 #include "hasher.h"

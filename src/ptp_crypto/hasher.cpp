@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "ptp_crypto/hasher.h"
+#include "hasher.h"
 
 void hasher_Init(Hasher *hasher, HasherType type) {
     hasher->type = type;

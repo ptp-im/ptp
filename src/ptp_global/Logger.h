@@ -21,11 +21,12 @@ private:
     pthread_mutex_t mutex;
 };
 
-extern bool LOGS_ENABLED;
 
-#define DEBUG_E Logger::getInstance().e
-#define DEBUG_W Logger::getInstance().w
-#define DEBUG_D Logger::getInstance().d
+#ifndef DEBUG_D
+    #define DEBUG_E Logger::getInstance().e
+    #define DEBUG_W Logger::getInstance().w
+    #define DEBUG_D Logger::getInstance().d
+#endif
 
 #else
     #include "slog_api.h"

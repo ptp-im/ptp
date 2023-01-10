@@ -7,8 +7,8 @@
  * \link   https://github.com/edwardstock
  */
 
-#include "ptp_toolbox/data/base64.h"
-#include "ptp_toolbox/data/utils.h"
+#include "data/base64.h"
+#include "data/utils.h"
 
 #include <cctype>
 

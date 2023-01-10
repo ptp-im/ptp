@@ -10,7 +10,7 @@
 #ifndef TOOLBOXPP_STRINGS_REGEX_H
 #define TOOLBOXPP_STRINGS_REGEX_H
 
-#include "ptp_toolbox/toolbox_config.h"
+#include "toolbox_config.h"
 
 #ifdef HAVE_REGEX_H
 

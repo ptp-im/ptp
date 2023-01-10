@@ -1,8 +1,9 @@
 #include <array>
-#include "ptp_crypto/ptp_helpers.h"
-#include "ptp_crypto/secp256k1_helpers.h"
-#include "ptp_crypto/keccak.h"
-#include "secp256k1_ecdh.h"
+#include "secp256k1/secp256k1_ecdh.h"
+#include "secp256k1/secp256k1_recovery.h"
+#include "secp256k1_helpers.h"
+#include "keccak.h"
+#include "crypto_helpers.h"
 
 using namespace std;
 

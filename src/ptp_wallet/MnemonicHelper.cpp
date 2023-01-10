@@ -1,4 +1,4 @@
-#include "ptp_wallet/MnemonicHelper.h"
+#include "MnemonicHelper.h"
 #include "utils.h"
 
 #include <openssl/rand.h>

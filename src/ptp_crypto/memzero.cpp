@@ -1,7 +1,7 @@
 #include <string>
 #include <cstring>
 #include <memory.h>
-#include "ptp_crypto/memzero.h"
+#include "memzero.h"
 
 void memzero(void *s, size_t n)
 {

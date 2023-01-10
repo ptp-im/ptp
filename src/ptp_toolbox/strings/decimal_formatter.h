@@ -9,7 +9,7 @@
 
 #ifndef TOOLBOXPP_STRINGS_DECIMAL_FORMATTER_H
 #define TOOLBOXPP_STRINGS_DECIMAL_FORMATTER_H
-#include "ptp_toolbox/toolbox_config.h"
+#include "toolbox_config.h"
 
 #include <ostream>
 #include <string>

@@ -10,7 +10,7 @@
 #ifndef TOOLBOXPP_STRINGS_H
 #define TOOLBOXPP_STRINGS_H
 
-#include "ptp_toolbox/toolbox_config.h"
+#include "toolbox_config.h"
 
 #include <algorithm>
 #include <locale>

@@ -7,7 +7,7 @@
  * \link   https://github.com/edwardstock
  */
 
-#include "ptp_toolbox/strings/regex.h"
+#include "strings/regex.h"
 
 #include <vector>
 

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
-#include "ptp_wallet/bip39.h"
+#include "bip39.h"
 
 namespace PTPWallet {
 
