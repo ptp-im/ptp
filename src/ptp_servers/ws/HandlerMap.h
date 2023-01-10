@@ -1,7 +1,7 @@
 #ifndef HANDLERMAP_H_
 #define HANDLERMAP_H_
 
-#include "ptp_global/Util.h"
+#include "ptp_global/Utils.h"
 #include "ptp_global/ImPduBase.h"
 
 typedef void (*pdu_handler_t)(CImPdu* pPdu, uint32_t conn_uuid);

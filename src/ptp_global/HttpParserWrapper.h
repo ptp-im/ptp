@@ -1,7 +1,7 @@
 #ifndef http_msg_server_HttpParserWrapper_h
 #define http_msg_server_HttpParserWrapper_h
 
-#include "Util.h"
+#include "Utils.h"
 #include "HttpParser.h"
 
 // extract url and content body from an ajax request

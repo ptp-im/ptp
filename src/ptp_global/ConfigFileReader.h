@@ -1,7 +1,7 @@
 #ifndef CONFIGFILEREADER_H_
 #define CONFIGFILEREADER_H_
 
-#include "Util.h"
+#include "Utils.h"
 
 class CConfigFileReader
 {

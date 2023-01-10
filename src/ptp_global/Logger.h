@@ -1,11 +1,32 @@
 #ifndef Logger_H
 #define Logger_H
 #include <string>
-
-#include "slog_api.h"
+#include <sstream>
 
 #ifdef ANDROID
-    #include <android/log.h>
+
+class Logger {
+public:
+    Logger();
+    void init(std::string path);
+    static void e(const char *message, ...) __attribute__((format (printf, 1, 2)));
+    static void w(const char *message, ...) __attribute__((format (printf, 1, 2)));
+    static void i(const char *message, ...) __attribute__((format (printf, 1, 2)));
+    static void d(const char *message, ...) __attribute__((format (printf, 1, 2)));
+
+    static Logger &getInstance();
+
+private:
+    FILE *logFile = nullptr;
+    pthread_mutex_t mutex;
+};
+
+extern bool LOGS_ENABLED;
+
+#define DEBUG_E Logger::getInstance().e
+#define DEBUG_W Logger::getInstance().w
+#define DEBUG_D Logger::getInstance().d
+
 #else
     #include "slog_api.h"
     #define LOG_MODULE_IM         "IM"

@@ -2,7 +2,7 @@
 #define __HTTP_CONN_H__
 #include <unordered_map>
 #include "ptp_global/NetLib.h"
-#include "ptp_global/Util.h"
+#include "ptp_global/Utils.h"
 #include "ptp_global/HttpParserWrapper.h"
 
 #define HTTP_CONN_TIMEOUT			60000

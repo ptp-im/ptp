@@ -1,8 +1,8 @@
 #include <string>
 #include "HttpClient.h"
 #include "json/json.h"
-#include "Util.h"
-#include "Logger.h"
+#include "ptp_global/Utils.h"
+#include "ptp_global/Logger.h"
 using namespace std;
 
 size_t write_data_string(void *ptr, size_t size, size_t nmemb, void *userp)

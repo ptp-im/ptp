@@ -3,7 +3,7 @@
 #ifndef SERVINFO_H_
 #define SERVINFO_H_
 
-#include "Util.h"
+#include "Utils.h"
 #include "Helpers.h"
 #include "ImConn.h"
 #include "ConfigFileReader.h"

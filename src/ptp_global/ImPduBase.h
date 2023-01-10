@@ -3,8 +3,8 @@
 
 #include "UtilPdu.h"
 #include "global.h"
-#include "ImConnUtil.h"
-#include "Util.h"
+#include "ImConnUtils.h"
+#include "Utils.h"
 #include "Logger.h"
 
 #define IM_PDU_HEADER_LEN		16

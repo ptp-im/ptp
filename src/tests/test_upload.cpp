@@ -8,7 +8,7 @@
 #include "ptp_global/SocketClient.h"
 #include "ptp_global/Helpers.h"
 #include "ptp_crypto/secp256k1_helpers.h"
-#include "ptp_global/Util.h"
+#include "ptp_global/Utils.h"
 
 using namespace std;
 using namespace PTP::Common;

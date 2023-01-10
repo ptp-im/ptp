@@ -6,7 +6,7 @@
 #include "ptp_global/UtilPdu.h"
 #include "ptp_global/Helpers.h"
 #include "ptp_global/Timer.h"
-#include "ptp_global/Util.h"
+#include "ptp_global/Utils.h"
 
 TEST(Timer, Timer) {
     Timer t;

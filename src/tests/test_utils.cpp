@@ -6,7 +6,7 @@
 #include <openssl/rand.h>
 
 #include "ptp_global/Helpers.h"
-#include "ptp_global/Util.h"
+#include "ptp_global/Utils.h"
 #include "ptp_global/Logger.h"
 #include "ptp_global/ImPduBase.h"
 #include "ptp_crypto/aes_encryption.h"

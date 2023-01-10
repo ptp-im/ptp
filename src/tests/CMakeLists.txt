@@ -73,9 +73,6 @@ target_link_libraries(test_toolbox.run PRIVATE gtest_main ptp_toolbox)
 add_executable(test_crypto.run test_crypto.cpp)
 target_link_libraries(test_crypto.run PRIVATE gtest_main ptp_global ptp_crypto ptp_toolbox)
 
-add_executable(test_tgnet.run test_tgnet.cpp)
-target_link_libraries(test_tgnet.run PRIVATE gtest_main crypto ptp_wallet ptp_crypto ptp_toolbox tgnet)
-
 add_executable(test_secp256k1.run test_secp256k1.cpp)
 target_link_libraries(test_secp256k1.run PRIVATE gtest_main ptp_global ptp_crypto crypto secp256k1)
 

@@ -9,7 +9,7 @@
 #endif
 #include <pthread.h>
 #include "ptp_global/ImPduBase.h"
-#include "ptp_global/Util.h"
+#include "ptp_global/Utils.h"
 #include "ptp_global/NetLib.h"
 #include "ptp_global/ConfigFileReader.h"
 #include "ptp_global/ThreadPool.h"

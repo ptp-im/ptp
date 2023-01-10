@@ -10,7 +10,6 @@
 #include <stdarg.h>
 #include <time.h>
 #include "FileLog.h"
-#include "ConnectionsManager.h"
 
 #ifdef ANDROID
 #include <android/log.h>

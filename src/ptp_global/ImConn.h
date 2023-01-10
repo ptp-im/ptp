@@ -1,5 +1,5 @@
 /*
- * imconn.h
+ * ImConn.h
  *
  *  Created on: 2013-6-5
  *      Author: ziteng
@@ -9,7 +9,7 @@
 #define IMCONN_H_
 #include <unordered_map>
 #include "global.h"
-#include "Util.h"
+#include "Utils.h"
 #include "Helpers.h"
 #include "ImPduBase.h"
 #include "NetLib.h"

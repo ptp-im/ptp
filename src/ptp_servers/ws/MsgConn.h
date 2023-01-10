@@ -8,7 +8,7 @@
 //#include <iostream>
 
 #include "ptp_global/NetLib.h"
-#include "ptp_global/Util.h"
+#include "ptp_global/Utils.h"
 #include "ptp_global/HttpParserWrapper.h"
 #include "ptp_global/ImConn.h"
 #include "ptp_global/ServInfo.h"

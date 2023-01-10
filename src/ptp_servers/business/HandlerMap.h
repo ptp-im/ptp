@@ -13,7 +13,7 @@
 #define HANDLERMAP_H_
 
 
-#include "ptp_global/Util.h"
+#include "ptp_global/Utils.h"
 #include "ProxyTask.h"
 
 typedef map<uint32_t, pdu_handler_t> HandlerMap_t;

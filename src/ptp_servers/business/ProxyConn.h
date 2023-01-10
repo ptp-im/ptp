@@ -10,7 +10,7 @@
 #define PROXYCONN_H_
 
 #include <curl/curl.h>
-#include "ptp_global/Util.h"
+#include "ptp_global/Utils.h"
 #include "ptp_global/ImConn.h"
 
 typedef struct {

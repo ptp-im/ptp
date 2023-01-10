@@ -9,7 +9,7 @@
 #ifndef FILE_SERVER_TRANSFER_TASK_H_
 #define FILE_SERVER_TRANSFER_TASK_H_
 
-#include "ptp_global/Util.h"
+#include "ptp_global/Utils.h"
 
 #include "offline_file_util.h"
 

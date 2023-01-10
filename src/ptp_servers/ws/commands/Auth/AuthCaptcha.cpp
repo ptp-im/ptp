@@ -9,7 +9,7 @@
  *
 ================================================================*/
 
-#include "ptp_global/Util.h"
+#include "ptp_global/Utils.h"
 #include "ImUser.h"
 #include "PTP.Auth.pb.h"
 #include "ptp_global/ImPduBase.h"

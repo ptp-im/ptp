@@ -1,6 +1,3 @@
-INCLUDE_DIRECTORIES(./)
-INCLUDE_DIRECTORIES(../)
-
 if(ANDROID)
     INCLUDE_DIRECTORIES(../../../boringssl/include)
     LINK_DIRECTORIES(../../../boringssl/lib)
@@ -13,10 +10,11 @@ elseif(UNIX)
 endif()
 
 SET(LIBRARY_OUTPUT_PATH  ../../lib)
+INCLUDE_DIRECTORIES(./)
+INCLUDE_DIRECTORIES(../)
+INCLUDE_DIRECTORIES(../../third_party/secp256k1/include)
 LINK_DIRECTORIES(../../lib)
-
 set(LIB_NAME_MAIN ptp_crypto)
-
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 add_library(${LIB_NAME_MAIN} STATIC ${SRC_LIST})
 TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} secp256k1 crypto)
