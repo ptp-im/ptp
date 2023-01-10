@@ -1,16 +1,9 @@
-/*
- * HttpConn.cpp
- *
- *  Created on: 2013-9-29
- *      Author: bangde.app@gmail.com
- */
-
 #include "HttpConn.h"
 #include "HttpQuery.h"
+#include "ptp_global/Logger.h"
 
 static HttpConnMap_t g_http_conn_map;
 
-// conn_handle 从0开始递增，可以防止因socket handle重用引起的一些冲突
 static uint32_t g_conn_handle_generator = 0;
 
 CHttpConn* FindHttpConnByHandle(uint32_t conn_handle)
@@ -209,10 +202,10 @@ void CHttpConn::OnRead()
 	for (;;)
 	{
 		uint32_t free_buf_len = m_in_buf.GetAllocSize() - m_in_buf.GetWriteOffset();
-		if (free_buf_len < READ_BUF_SIZE + 1)
-			m_in_buf.Extend(READ_BUF_SIZE + 1);
+		if (free_buf_len < HTTP_READ_BUF_SIZE + 1)
+			m_in_buf.Extend(HTTP_READ_BUF_SIZE + 1);
 
-		int ret = netlib_recv(m_sock_handle, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(), READ_BUF_SIZE);
+		int ret = netlib_recv(m_sock_handle, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(), HTTP_READ_BUF_SIZE);
 		if (ret <= 0)
 			break;
 

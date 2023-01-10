@@ -19,7 +19,7 @@
 #include "Lock.h"
 #include "Condition.h"
 #include "ptp_global/ImPduBase.h"
-#include "public_define.h"
+#include "ptp_global/global_define.h"
 #include "IM.BaseDefine.pb.h"
 
 class CSyncCenter

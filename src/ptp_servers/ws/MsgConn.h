@@ -1,33 +1,30 @@
 #ifndef __MSG_CONN_CONN_H__
 #define __MSG_CONN_CONN_H__
 
-#include "DBServConn.h"
+
+//#include <sstream>
+//#include <cstring>
+//#include <arpa/inet.h>
+//#include <iostream>
+
 #include "ptp_global/NetLib.h"
-#include "json/json.h"
 #include "ptp_global/Util.h"
 #include "ptp_global/HttpParserWrapper.h"
-#include "websocket_request.h"
-#include "websocket_respond.h"
-#include "sha1.h"
-#include "base64.h"
-#include <sstream>
-#include <cstring>
-#include <arpa/inet.h>
-#include <iostream>
 #include "ptp_global/ImConn.h"
-#include "ServInfo.h"
+#include "ptp_global/ServInfo.h"
+#include "ptp_global/global_define.h"
 #include "HandlerMap.h"
-#include "IM.BaseDefine.pb.h"
+#include "WebsocketRequest.h"
+#include "WebsocketRespond.h"
 #include "PTP.Common.pb.h"
+#include "IM.BaseDefine.pb.h"
 #include <unordered_map>
 
 using namespace PTP::Common;
 
-#define WEBSOCKET_CONN_TIMEOUT   60000
+//using namespace IM::BaseDefine;
 
-//#define READ_BUF_SIZE	(64 * 1024 + 16)
-#define READ_BUF_SIZE                   (2 * 1024 * 1024)
-using namespace IM::BaseDefine;
+#define WEBSOCKET_CONN_TIMEOUT   60000
 
 typedef struct {
     uint32_t msg_id;
@@ -156,8 +153,8 @@ protected:
     list<msg_ack_t>	m_send_msg_list;
 
     CHttpParserWrapper m_HttpParser;
-	Websocket_Request *ws_request;
-    Websocket_Respond *ws_respond;
+    WebsocketRequest *ws_request;
+    WebsocketRespond *ws_respond;
 };
 
 typedef unordered_map<uint32_t, CMsgConn*> WebSocketConnMap_t;

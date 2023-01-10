@@ -103,7 +103,7 @@ int boot_login(int argc, char *argv[]) {
     init_login_conn();
     init_http_conn();
     DEBUG_I("now enter the event loop...");
-    writePid();
+    writePid("ptp_server_login.pid");
     netlib_eventloop();
     return 0;
 }

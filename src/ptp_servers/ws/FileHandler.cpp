@@ -13,7 +13,7 @@
 #include "IM.Server.pb.h"
 #include "IM.Buddy.pb.h"
 #include "ImUser.h"
-#include "AttachData.h"
+#include "ptp_global/AttachData.h"
 #include "FileServConn.h"
 using namespace IM::BaseDefine;
 

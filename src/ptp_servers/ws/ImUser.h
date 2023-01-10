@@ -1,16 +1,11 @@
-/*
- * ImUser.h
- *
- *  Created on: 2014年4月16日
- *      Author: ziteng
- */
-
 #ifndef IMUSER_H_
 #define IMUSER_H_
 
 #include "ptp_global/ImConn.h"
-#include "public_define.h"
+#include "ptp_global/global_define.h"
+
 #import "MsgConn.h"
+#import "DBServConn.h"
 #include "PTP.Switch.pb.h"
 
 #define MAX_ONLINE_FRIEND_CNT        100    //通知好友状态通知的最多个数

@@ -1,10 +1,3 @@
-/*
- * HttpPdu.h
- *
- *  Created on: 2013-10-1
- *      Author: bangde.app@gmail.com
- */
-
 #ifndef HTTPPDU_H_
 #define HTTPPDU_H_
 
@@ -12,7 +5,6 @@
 #include "ptp_global/ImPduBase.h"
 #include <list>
 #include "IM.BaseDefine.pb.h"
-
 
 // jsonp parameter parser
 class CPostDataParser

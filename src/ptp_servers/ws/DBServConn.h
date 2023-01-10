@@ -2,7 +2,7 @@
 #define DBSERVCONN_H_
 
 #include "ptp_global/ImConn.h"
-#include "ServInfo.h"
+#include "ptp_global/ServInfo.h"
 #include "RouteServConn.h"
 
 class CDBServConn : public CImConn

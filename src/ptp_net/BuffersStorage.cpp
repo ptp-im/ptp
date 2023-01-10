@@ -12,7 +12,7 @@
 #ifdef ANDROID
 #include "../../tgnet/FileLog.h"
 #else
-#include "ptp_common/Logger.h"
+#include "ptp_global/Logger.h"
 #endif
 BuffersStorage &BuffersStorage::getInstance() {
     static BuffersStorage instance(true);

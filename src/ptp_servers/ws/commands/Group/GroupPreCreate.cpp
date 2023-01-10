@@ -12,9 +12,9 @@
 #include "ptp_global/Util.h"
 #include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
-#include "AttachData.h"
+#include "ptp_global/AttachData.h"
 #include "PTP.Group.pb.h"
-#include "helpers.h"
+#include "ptp_global/Helpers.h"
 
 using namespace PTP::Common;
 
@@ -88,15 +88,15 @@ namespace COMMAND {
                 DEBUG_E("not found pMsgConn");
                 return;
             }
-            auto captcha = gen_random(6);
-            pMsgConn->SetCaptcha(captcha);
-            msg.set_captcha(captcha);
-            CImPdu pdu_rsp;
-            pdu_rsp.SetPBMsg(&msg);
-            pdu_rsp.SetServiceId(PTP::Common::S_GROUP);
-            pdu_rsp.SetCommandId(PTP::Common::CID_GroupPreCreateRes);
-            pdu_rsp.SetSeqNum(pPdu->GetSeqNum());
-            pMsgConn->SendPdu(&pdu_rsp);
+//            auto captcha = gen_random(6);
+//            pMsgConn->SetCaptcha(captcha);
+//            msg.set_captcha(captcha);
+//            CImPdu pdu_rsp;
+//            pdu_rsp.SetPBMsg(&msg);
+//            pdu_rsp.SetServiceId(PTP::Common::S_GROUP);
+//            pdu_rsp.SetCommandId(PTP::Common::CID_GroupPreCreateRes);
+//            pdu_rsp.SetSeqNum(pPdu->GetSeqNum());
+//            pMsgConn->SendPdu(&pdu_rsp);
             break;
         }
         DEBUG_D("GroupPreCreateRes end...");

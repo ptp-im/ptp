@@ -1,21 +1,16 @@
-/*
- * HttpConn.h
- *
- *  Created on: 2013-9-29
- *      Author: ziteng
- */
-
 #ifndef __HTTP_CONN_H__
 #define __HTTP_CONN_H__
 #include <unordered_map>
 
 #include "ptp_global/NetLib.h"
 #include "ptp_global/Util.h"
+#include "ptp_global/Helpers.h"
+#include "ptp_global/Logger.h"
 #include "ptp_global/HttpParserWrapper.h"
 
 #define HTTP_CONN_TIMEOUT			60000
 
-#define READ_BUF_SIZE	(64 * 1024 + 16)
+#define HTTP_READ_BUF_SIZE	(64 * 1024 + 16)
 
 enum {
     CONN_STATE_IDLE,

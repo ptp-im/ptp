@@ -1,7 +1,0 @@
-syntax = "proto2";
-package PB.Command;
-import "PB.Global.proto";
-option java_package = "com.ptp.im.protobuf.PB.Command";
-option optimize_for = LITE_RUNTIME;
-
-message HeartBeatNotify{}

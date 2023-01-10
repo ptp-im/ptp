@@ -1,20 +1,13 @@
-//
-//  push_app.cpp
-//  my_push_server
-//
-//  Created by luoning on 14-11-4.
-//  Copyright (c) 2014年 luoning. All rights reserved.
-//
-
 #include "push_app.h"
 #include "push_define.h"
 #include "ptp_global/ConfigFileReader.h"
 #include "session_manager.h"
 #include <openssl/ssl.h>
 #include <openssl/err.h>
-#include "slog/slog_api.h"
+#include "slog_api.h"
+#include "../boot.h"
 
-CSLog g_pushlog = CSDEBUG_I(LOG_MODULE_PUSH);
+CSLog g_pushlog = CSLog(LOG_MODULE_PUSH);
 
 CPushApp::CPushApp()
 {
@@ -70,8 +63,7 @@ BOOL CPushApp::Start()
 {
     if (m_bInit)
     {
-        string file_name = "../bd_common/conf/bd_push_server.conf";
-        CConfigFileReader config_file(file_name.c_str());
+        CConfigFileReader config_file(CONFIG_PATH_PUSH);
         char* listen_ip = config_file.GetConfigName("ListenIP");
         char* str_listen_port = config_file.GetConfigName("ListenPort");
         char* cert_path = config_file.GetConfigName("CertPath");
@@ -80,7 +72,7 @@ BOOL CPushApp::Start()
         char* sand_box = config_file.GetConfigName("SandBox");
         if (!listen_ip || !str_listen_port || !cert_path || !key_path || !sand_box || !key_password)
         {
-            PUSH_SERVER_ERROR("push app config file: %s not exist or miss required parameter obtained.", file_name.c_str());
+            PUSH_SERVER_ERROR("push app config file: %s not exist or miss required parameter obtained.", CONFIG_PATH_PUSH);
             return FALSE;
         }
         uint32_t nsand_box = atoi(sand_box);

@@ -1,14 +1,26 @@
-#include <string.h>
-#include <stdio.h>
+#include <cstring>
 #include "AesSimple.h"
 #include "base64.h"
 #include "ptp_toolbox/data/utils.h"
-//#include "ptp_global/ImPduBase.h"
 
 CAes::CAes(const string& strKey)
 {
     AES_set_encrypt_key((const unsigned char*)strKey.c_str(), 256, &m_cEncKey);
     AES_set_decrypt_key((const unsigned char*)strKey.c_str(), 256, &m_cDecKey);
+}
+
+static void WriteUint32(unsigned char *buf, uint32_t data)
+{
+    buf[0] = static_cast<unsigned char>(data >> 24);
+    buf[1] = static_cast<unsigned char>((data >> 16) & 0xFF);
+    buf[2] = static_cast<unsigned char>((data >> 8) & 0xFF);
+    buf[3] = static_cast<unsigned char>(data & 0xFF);
+}
+
+uint32_t ReadUint32(unsigned char *buf)
+{
+    uint32_t data = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3];
+    return data;
 }
 
 int CAes::Encrypt(const char* pInData, uint32_t nInLen, char** ppOutData, uint32_t& nOutLen)
@@ -29,7 +41,7 @@ int CAes::Encrypt(const char* pInData, uint32_t nInLen, char** ppOutData, uint32
     memcpy(pData, pInData, nInLen);
     unsigned char* pEncData = (unsigned char*) malloc(nEncryptLen);
 
-    CByteStream::WriteUint32((pData + nEncryptLen - 4), nInLen);
+    WriteUint32((pData + nEncryptLen - 4), nInLen);
     for (uint32_t i = 0; i < nBlocks; i++) {
         AES_encrypt(pData + i * 16, pEncData + i * 16, &m_cEncKey);
     }
@@ -74,8 +86,8 @@ int CAes::Decrypt(const char* pInData, uint32_t nInLen, char** ppOutData, uint32
         AES_decrypt(pData + i * 16, (unsigned char*)pTmp + i * 16, &m_cDecKey);
     }
 
-    uchar_t* pStart = (uchar_t*)pTmp+nLen-4;
-    nOutLen = CByteStream::ReadUint32(pStart);
+    unsigned char* pStart = (unsigned char*)pTmp+nLen-4;
+    nOutLen = ReadUint32(pStart);
     //        printf("%u\n", nOutLen);
     if(nOutLen > nLen)
     {
@@ -98,11 +110,10 @@ void CAes::Free(char* pOutData)
 
 void CMd5::MD5_Calculate(const char *pContent, unsigned int nLen, string& md5)
 {
-    uchar_t d[16];
+    unsigned char d[16];
     MD5_CTX ctx;
     MD5_Init(&ctx);
     MD5_Update(&ctx, pContent, nLen);
     MD5_Final(d, &ctx);
     md5 = ptp_toolbox::data::bytes_to_hex(d,sizeof d);
-    return;
 }

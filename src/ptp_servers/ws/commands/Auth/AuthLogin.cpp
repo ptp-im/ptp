@@ -11,8 +11,8 @@
 
 #include "ptp_global/Util.h"
 #include "ptp_global/ImPduBase.h"
+#include "ptp_global/AttachData.h"
 #include "ImUser.h"
-#include "AttachData.h"
 #include "PTP.Server.pb.h"
 #include "PTP.Auth.pb.h"
 

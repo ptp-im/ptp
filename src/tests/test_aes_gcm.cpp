@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "secp256k1_helpers.h"
-#include <secp256k1/secp256k1_ecdh.h>
+#include <secp256k1_ecdh.h>
 #include "helpers.h"
 #include "aes_encryption.h"
 

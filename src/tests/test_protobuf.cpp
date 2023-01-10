@@ -1,8 +1,7 @@
 #include <gtest/gtest.h>
 
-
 #include "ptp_global/Logger.h"
-#include "ptp_protobuf/PB.Command.Auth.pb.h"
+#include "ptp_protobuf/v2/PB.Command.Auth.pb.h"
 
 using namespace PB;
 using namespace PB::Command;

@@ -12,8 +12,8 @@
 #include <iostream>
 
 #include "ptp_global/ImConn.h"
-#include "ServInfo.h"
-#include "BaseSocket.h"
+#include "ptp_global/ServInfo.h"
+#include "ptp_global/BaseSocket.h"
 #include "IM.BaseDefine.pb.h"
 class CFileServConn : public CImConn
 {

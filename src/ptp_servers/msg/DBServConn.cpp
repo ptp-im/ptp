@@ -22,7 +22,7 @@
 #include "IM.Message.pb.h"
 #include "IM.Server.pb.h"
 #include "ptp_global/ImPduBase.h"
-#include "public_define.h"
+#include "ptp_global/global_define.h"
 using namespace IM::BaseDefine;
 
 static ConnMap_t g_db_server_conn_map;

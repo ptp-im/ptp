@@ -1,16 +1,9 @@
-//
-//  FileServConn.cpp
-//  public_TTServer
-//
-//  Created by luoning on 14-8-19.
-//  Copyright (c) 2014年 luoning. All rights reserved.
-//
 
 #include "FileServConn.h"
 #include "FileHandler.h"
 #include "ptp_global/Util.h"
 #include "ImUser.h"
-#include "AttachData.h"
+#include "ptp_global/AttachData.h"
 #include "RouteServConn.h"
 #include "MsgConn.h"
 #include "IM.Server.pb.h"

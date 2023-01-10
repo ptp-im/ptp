@@ -247,8 +247,8 @@ void CHttpConn::_HandleMsgServRequest(string& url, string& post_data)
         value["msg"] = "没有msg_server";
         string strContent = value.toStyledString();
         char* szContent = new char[HTTP_RESPONSE_HTML_MAX];
-        snprintf(szContent, HTTP_RESPONSE_HTML_MAX, HTTP_RESPONSE_HTML, strContent.length(), strContent.c_str());
-        Send((void*)szContent, strlen(szContent));
+        snprintf(szContent, HTTP_RESPONSE_HTML_MAX, HTTP_RESPONSE_HTML, (int)strContent.length(), strContent.c_str());
+        Send((void*)szContent, (int)strlen(szContent));
         delete [] szContent;
         return ;
     }
@@ -269,8 +269,8 @@ void CHttpConn::_HandleMsgServRequest(string& url, string& post_data)
         value["msg"] = "负载过高";
         string strContent = value.toStyledString();
         char* szContent = new char[HTTP_RESPONSE_HTML_MAX];
-        snprintf(szContent, HTTP_RESPONSE_HTML_MAX, HTTP_RESPONSE_HTML, strContent.length(), strContent.c_str());
-        Send((void*)szContent, strlen(szContent));
+        snprintf(szContent, HTTP_RESPONSE_HTML_MAX, HTTP_RESPONSE_HTML, (int)strContent.length(), strContent.c_str());
+        Send((void*)szContent, (int)strlen(szContent));
         delete [] szContent;
         return;
     } else {

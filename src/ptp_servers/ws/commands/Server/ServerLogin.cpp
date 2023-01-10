@@ -10,10 +10,10 @@
 ================================================================*/
 
 #include "ptp_global/Util.h"
-#include "helpers.h"
+#include "ptp_global/Helpers.h"
 #include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
-#include "AttachData.h"
+#include "ptp_global/AttachData.h"
 #include "PTP.Auth.pb.h"
 #include "PTP.Server.pb.h"
 #include "secp256k1_helpers.h"

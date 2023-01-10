@@ -13,7 +13,7 @@
 #include "GroupChat.h"
 #include "ImUser.h"
 #include "PushServConn.h"
-#include "AttachData.h"
+#include "ptp_global/AttachData.h"
 #include "FileServConn.h"
 #include "IM.Buddy.pb.h"
 #include "IM.Message.pb.h"

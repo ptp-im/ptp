@@ -1,14 +1,15 @@
 #include "RouteConn.h"
 #include "ptp_global/NetLib.h"
 #include "ptp_global/global_define.h"
-#include "ptp_protobuf/PB.Global.pb.h"
-#include "ptp_protobuf/PB.Command.Other.pb.h"
 
 #include "UserInfo.h"
-#include <unordered_map>
-
-using namespace PB;
-using namespace PB::Command;
+#include "IM.Buddy.pb.h"
+#include "IM.Group.pb.h"
+#include "IM.Message.pb.h"
+#include "IM.Other.pb.h"
+#include "IM.Server.pb.h"
+#include "IM.SwitchService.pb.h"
+using namespace IM::BaseDefine;
 
 static ConnMap_t g_route_conn_map;
 typedef unordered_map<uint32_t, CUserInfo*> UserInfoMap_t;
@@ -100,9 +101,11 @@ void CRouteConn::OnTimer(uint64_t curr_tick)
 {
 	if (curr_tick > m_last_send_tick + SERVER_HEARTBEAT_INTERVAL)
     {
-        HeartBeatNotify msg;
+        IM::Other::IMHeartBeat msg;
         CImPdu pdu;
-        pdu.SetPBMsg(&msg,COMMAND_HEART_BEAT_NOTIFY);
+        pdu.SetPBMsg(&msg);
+        pdu.SetServiceId(SID_OTHER);
+        pdu.SetCommandId(CID_OTHER_HEARTBEAT);
 		SendPdu(&pdu);
 	}
 
@@ -115,7 +118,7 @@ void CRouteConn::OnTimer(uint64_t curr_tick)
 void CRouteConn::HandlePdu(CImPdu* pPdu)
 {
 	switch (pPdu->GetCommandId()) {
-        case COMMAND_HEART_BEAT_NOTIFY:
+        case CID_OTHER_HEARTBEAT:
             // do not take any action, heart beat only update m_last_recv_tick
             break;
 //        case CID_OTHER_ONLINE_USER_INFO:

@@ -10,7 +10,7 @@
 #include "DBServConn.h"
 #include "RouteServConn.h"
 
-#include "AttachData.h"
+#include "ptp_global/AttachData.h"
 #include "ImUser.h"
 #include "IM.Group.pb.h"
 #include "IM.Server.pb.h"

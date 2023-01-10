@@ -105,8 +105,8 @@ public:
     void OnPost();
     void OnGet();
     void HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len);
-    void CommandFileDownloadRequest(CImPdu* pPdu, uint32_t conn_uuid);
-    void CommandFileUploadRequest(CImPdu* pPdu, uint32_t conn_uuid);
+    void FileImgDownloadReqCmd(CImPdu* pPdu, uint32_t conn_uuid);
+    void FileImgUploadReqCmd(CImPdu* pPdu, uint32_t conn_uuid);
 private:
     uint32_t m_ConnHandle;
     int m_nMethod;

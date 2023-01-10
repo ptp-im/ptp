@@ -12,7 +12,7 @@
 #include <iostream>
 
 #include "ptp_global/ImConn.h"
-#include "ServInfo.h"
+#include "ptp_global/ServInfo.h"
 
 class CPushServConn : public CImConn
 {

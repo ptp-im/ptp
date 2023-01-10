@@ -16,7 +16,7 @@
 #ifdef ANDROID
 #include "../../tgnet/FileLog.h"
 #else
-#include "ptp_common/Logger.h"
+#include "ptp_global/Logger.h"
 #endif
 Config::Config(int32_t instance,std::string filePath) {
     configPath = filePath;

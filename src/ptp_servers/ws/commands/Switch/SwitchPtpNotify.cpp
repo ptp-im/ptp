@@ -12,7 +12,7 @@
 #include "ptp_global/Util.h"
 #include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
-#include "AttachData.h"
+#include "ptp_global/AttachData.h"
 #include "PTP.Switch.pb.h"
 
 using namespace PTP::Common;

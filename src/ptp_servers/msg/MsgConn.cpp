@@ -20,11 +20,11 @@
 #include "IM.Group.pb.h"
 #include "IM.Server.pb.h"
 #include "IM.SwitchService.pb.h"
-#include "public_define.h"
+#include "ptp_global/global_define.h"
 #include "ptp_global/ImPduBase.h"
 #include "ptp_global/ImPduBase.h"
 #include "secp256k1_helpers.h"
-#include "helpers.h"
+#include "ptp_global/Helpers.h"
 
 using namespace IM::BaseDefine;
 

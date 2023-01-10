@@ -1,10 +1,9 @@
 #include "UserInfo.h"
 #include "ptp_global/ImPduBase.h"
 #include "ptp_global/global_define.h"
+#include "IM.BaseDefine.pb.h"
 
-#include "ptp_protobuf/PB.User.pb.h"
-
-using namespace PB;
+using namespace IM::BaseDefine;
 
 CUserInfo::CUserInfo()
 {}
@@ -118,14 +117,14 @@ bool CUserInfo::IsMobileClientLogin()
 
 uint32_t CUserInfo::GetStatus()
 {
-    uint32_t status = PB::USER_STAT_OFFLINE;
+    uint32_t status = USER_STATUS_OFFLINE;
     auto it = m_ClientTypeList.begin();
     for (; it != m_ClientTypeList.end(); it++)
     {
         uint32_t client_type = it->first;
         if (CHECK_CLIENT_TYPE_PC(client_type))
         {
-            status = PB::USER_STAT_ONLINE;
+            status = USER_STATUS_ONLINE;
             break;
         }
     }

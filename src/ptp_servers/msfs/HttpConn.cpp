@@ -1,12 +1,12 @@
 #include "HttpConn.h"
+#include "ptp_global/Helpers.h"
+#include "json/json.h"
+#include "PTP.Common.pb.h"
+#include "PTP.File.pb.h"
 #include <unistd.h>
 
-#include "json/json.h"
-#include "ptp_global/Helpers.h"
-
-#include "ptp_protobuf/PB.Command.File.pb.h"
-
-using namespace PB::Command;
+using namespace PTP::File;
+using namespace PTP::Common;
 
 static HttpConnMap_t g_http_conn_map;
 
@@ -127,15 +127,15 @@ void CHttpTask::OnPost(){
     }
 }
 
-void CHttpTask::CommandFileDownloadRequest(CImPdu* pPdu, uint32_t conn_uuid){
-    FileDownloadRequest msg;
-    FileDownloadResponse msg_rsp;
+void CHttpTask::FileImgDownloadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
+    FileImgDownloadReq msg;
+    FileImgDownloadRes msg_rsp;
     for(;;){
         msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength());
         uint32_t  nFileSize = 0;
         int32_t nTmpSize = 0;
         string strPath;
-        PB::ERR error = PB::ERR_NO;
+        ERR error = NO_ERROR;
         char *pContent = NULL;
         char* pFileContent;
         uint32_t pContentLen = 0;
@@ -149,19 +149,18 @@ void CHttpTask::CommandFileDownloadRequest(CImPdu* pPdu, uint32_t conn_uuid){
                 g_fileManager->downloadFileByUrl((char*)strUrl.c_str(), pFileContent, &nFileSize);
                 msg_rsp.set_file_data(pFileContent,nFileSize);
             }else{
-                error = PB::ERR_SERVER_NOT_FOUND;
+                error = E_SERVER_NOT_FOUND;
             }
         }else{
-            error = PB::ERR_SYSTEM;
+            error = E_SYSTEM;
         }
         if(m_isPdu){
             msg_rsp.set_error(error);
             CImPdu pdu;
-            pdu.SetPBMsg(
-                    &msg_rsp,
-                    PB::COMMAND_FILE_DOWNLOAD_RESPONSE,
-                    pPdu->GetSeqNum());
-
+            pdu.SetPBMsg(&msg_rsp);
+            pdu.SetServiceId(S_FILE);
+            pdu.SetCommandId(CID_FileImgDownloadRes);
+            pdu.SetSeqNum(pPdu->GetSeqNum());
             auto httpBody1 = msg_rsp.SerializeAsString();
             uint32_t content_length = msg_rsp.ByteSizeLong();
             auto httpBody = httpBody1.data();
@@ -169,13 +168,13 @@ void CHttpTask::CommandFileDownloadRequest(CImPdu* pPdu, uint32_t conn_uuid){
             pContent = new char[pContentLen];
             memcpy(pContent,pdu.GetBuffer(),pContentLen);
         }else{
-            if(error > PB::ERR_NO){
-                if(error == PB::ERR_SERVER_NOT_FOUND){
+            if(error > NO_ERROR){
+                if(error == E_SERVER_NOT_FOUND){
                     pContentLen = (uint32_t)strlen(HTTP_RESPONSE_404);
                     pContent = new char[pContentLen];
                     snprintf(pContent, pContentLen, HTTP_RESPONSE_404);
                 }
-                if(error == PB::ERR_SYSTEM){
+                if(error == E_SYSTEM){
                     pContentLen = (uint32_t)strlen(HTTP_RESPONSE_500);
                     pContent = new char[pContentLen];
                     snprintf(pContent, pContentLen, HTTP_RESPONSE_500);
@@ -194,8 +193,8 @@ void CHttpTask::CommandFileDownloadRequest(CImPdu* pPdu, uint32_t conn_uuid){
     }
 }
 
-void CHttpTask::CommandFileUploadRequest(CImPdu* pPdu, uint32_t conn_uuid){
-    FileUploadRequest msg;
+void CHttpTask::FileImgUploadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
+    FileImgUploadReq msg;
     for(;;){
         msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength());
         const string file_group = "media";
@@ -205,19 +204,19 @@ void CHttpTask::CommandFileUploadRequest(CImPdu* pPdu, uint32_t conn_uuid){
         string suffix = "0_" + to_string(file_part) + "_" + to_string(file_total_parts) + ".dat";
         char filePath[100] ={ 0 };
         g_fileManager->uploadFile(suffix.data(), file_data.data(), msg.file_data().size(), filePath);
-        FileUploadResponse msg_rsp;
+        FileImgUploadRes msg_rsp;
         msg_rsp.set_file_path(filePath);
-        msg_rsp.set_error(PB::ERR_NO);
+        msg_rsp.set_error(NO_ERROR);
 
         char *pContent = NULL;
 
         uint32_t pContentLen = 0;
         if(m_isPdu){
             CImPdu pdu;
-            pdu.SetPBMsg(
-                    &msg_rsp,PB::COMMAND_FILE_UPLOAD_RESPONSE,
-                    pPdu->GetSeqNum());
-            
+            pdu.SetPBMsg(&msg_rsp);
+            pdu.SetServiceId(S_FILE);
+            pdu.SetCommandId(CID_FileImgUploadRes);
+            pdu.SetSeqNum(pPdu->GetSeqNum());
             auto httpBody1 = msg_rsp.SerializeAsString();
             uint32_t content_length = msg_rsp.ByteSizeLong();
             auto httpBody = httpBody1.data();
@@ -299,10 +298,10 @@ void CHttpTask::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len)
     {
         while (true){
             pPdu = CImPdu::ReadPdu(pdu_buf, pdu_len);
-            if (pPdu->GetCommandId() == PB::COMMAND_FILE_UPLOAD_REQUEST) {
-                CommandFileUploadRequest(pPdu,m_ConnHandle);
-            }else if(pPdu->GetCommandId() == PB::COMMAND_FILE_DOWNLOAD_REQUEST){
-                CommandFileDownloadRequest(pPdu,m_ConnHandle);
+            if (pPdu->GetCommandId() == PTP::Common::CID_FileImgUploadReq) {
+                FileImgUploadReqCmd(pPdu,m_ConnHandle);
+            }else if(pPdu->GetCommandId() == PTP::Common::CID_FileImgDownloadReq){
+                FileImgDownloadReqCmd(pPdu,m_ConnHandle);
             }
             break;
         }

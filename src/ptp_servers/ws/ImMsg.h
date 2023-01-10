@@ -1,7 +1,6 @@
 #ifndef IMMSG_H_
 #define IMMSG_H_
 
-
 class CImMsg {
 public:
     CImMsg();

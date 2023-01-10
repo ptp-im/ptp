@@ -1,4 +1,3 @@
-SET(LIBRARY_OUTPUT_PATH  ../../lib)
 set(LIB_NAME_MAIN ptp_servers)
 
 MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
@@ -6,39 +5,26 @@ MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 AUX_SOURCE_DIRECTORY(./route SRC_LIST)
 AUX_SOURCE_DIRECTORY(./msfs SRC_LIST)
+#AUX_SOURCE_DIRECTORY(./push SRC_LIST)
 AUX_SOURCE_DIRECTORY(./login SRC_LIST)
+#AUX_SOURCE_DIRECTORY(./ws SRC_LIST)
+#AUX_SOURCE_DIRECTORY(./ws/commands/Msg SRC_LIST)
+#AUX_SOURCE_DIRECTORY(./ws/commands/Group SRC_LIST)
+#AUX_SOURCE_DIRECTORY(./ws/commands/Buddy SRC_LIST)
+#AUX_SOURCE_DIRECTORY(./ws/commands/File SRC_LIST)
+#AUX_SOURCE_DIRECTORY(./ws/commands/Other SRC_LIST)
+#AUX_SOURCE_DIRECTORY(./ws/commands/Server SRC_LIST)
+#AUX_SOURCE_DIRECTORY(./ws/commands/Switch SRC_LIST)
+
+#AUX_SOURCE_DIRECTORY(./business SRC_LIST)
 
 add_library(${LIB_NAME_MAIN} STATIC ${SRC_LIST})
 
-INCLUDE_DIRECTORIES(../)
-
-INCLUDE_DIRECTORIES(../../third_party/jsoncpp)
-
-INCLUDE_DIRECTORIES(../../third_party/slog)
-LINK_DIRECTORIES(../../third_party/slog/lib)
-
-if(APPLE)
-    #lib:redis secp256k1 protobuf
-    LINK_DIRECTORIES(../../third_party/lib/mac)
-    #mysql
-    INCLUDE_DIRECTORIES(/usr/local/Cellar/mariadb/10.5.9/include/mysql)
-    LINK_DIRECTORIES(/usr/local/Cellar/mariadb/10.5.9/lib)
-
-    #openssl
-    INCLUDE_DIRECTORIES(/usr/local/opt/openssl@1.1/include)
-    LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
-else()
-    LINK_DIRECTORIES(../../third_party/lib)
-    INCLUDE_DIRECTORIES(/usr/include/mysql)
-    LINK_DIRECTORIES(/usr/lib64/mysql)
-    INCLUDE_DIRECTORIES(/usr/local/opt/openssl@1.1/include)
-    LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
-endif()
-
-INCLUDE_DIRECTORIES(../../third_party/protobuf)
-INCLUDE_DIRECTORIES(../../third_party/redis)
-INCLUDE_DIRECTORIES(../../third_party/secp256k1/include)
+INCLUDE_DIRECTORIES(./)
+INCLUDE_DIRECTORIES(./ws)
+#INCLUDE_DIRECTORIES(../)
+INCLUDE_DIRECTORIES(../ptp_protobuf)
 
 set(COMMON_LIBS pthread mysqlclient_r hiredis curl slog crypto secp256k1)
 
-TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} ${COMMON_LIBS} ptp_global ptp_protobuf)
+TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} ${COMMON_LIBS} ptp_global ptp_protobuf ptp_business)

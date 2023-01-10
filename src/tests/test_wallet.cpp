@@ -5,7 +5,7 @@
 #include "ptp_crypto/secp256k1_helpers.h"
 #include "ptp_crypto/ptp_helpers.h"
 #include "ptp_crypto/ecdsa.h"
-#include "ptp_common/Logger.h"
+#include "ptp_global/Logger.h"
 #include "ptp_crypto/keccak.h"
 #include <array>
 

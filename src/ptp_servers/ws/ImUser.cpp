@@ -1,9 +1,8 @@
-#include "CachePool.h"
 #include "ImUser.h"
-#include "cache_common.h"
+#include "ptp_business/cache_common.h"
+#include "ptp_business/CachePool.h"
 #include "IM.Server.pb.h"
 #include "IM.Login.pb.h"
-
 
 using namespace ::IM::BaseDefine;
 
@@ -28,8 +27,7 @@ uint32_t CImUser::getMsgId(uint32_t msg_id) {
             return msg_id;
         }
     }
-
-    return NULL;
+    return 0;
 }
 
 CMsgConn *CImUser::GetUnValidateMsgConn(uint32_t handle) {

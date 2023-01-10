@@ -1,9 +1,7 @@
 #include <gtest/gtest.h>
 #include "ptp_net/BuffersStorage.h"
-#include "ptp_common/UtilPdu.h"
-#include "ptp_common/socket_client.h"
-
-
+#include "ptp_global/UtilPdu.h"
+#include "ptp_global/SoketClient.h"
 
 void testResizeBuffer1(CSimpleBuffer *m_buf, const char *t){
     m_buf->Write((void *)t, strlen(t));

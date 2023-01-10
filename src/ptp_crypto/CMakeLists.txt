@@ -1,5 +1,5 @@
 INCLUDE_DIRECTORIES(./)
-INCLUDE_DIRECTORIES(../../include)
+INCLUDE_DIRECTORIES(../)
 
 if(ANDROID)
     INCLUDE_DIRECTORIES(../../../boringssl/include)
@@ -12,9 +12,8 @@ elseif(UNIX)
     LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
 endif()
 
-
-SET(LIBRARY_OUTPUT_PATH  ../)
-LINK_DIRECTORIES(../)
+SET(LIBRARY_OUTPUT_PATH  ../../lib)
+LINK_DIRECTORIES(../../lib)
 
 set(LIB_NAME_MAIN ptp_crypto)
 

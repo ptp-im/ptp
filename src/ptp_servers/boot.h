@@ -4,6 +4,7 @@
 
 #define CONFIG_PATH             "../../conf/bd_server.conf"
 #define CONFIG_PATH_MSFS        "../../conf/bd_msfs_server.conf"
+#define CONFIG_PATH_PUSH        "../../conf/bd_push_server.conf"
 #define CONFIG_PATH_LOGIN       "../../conf/bd_login_server.conf"
 
 int get_msfs_config(

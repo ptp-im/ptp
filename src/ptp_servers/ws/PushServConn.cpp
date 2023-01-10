@@ -1,16 +1,9 @@
-//
-//  PushServConn.cpp
-//  im-server-TT
-//
-//  Created by luoning on 14-9-15.
-//  Copyright (c) 2014年 luoning. All rights reserved.
-//
-
 #include "PushServConn.h"
 #include "ImUser.h"
 #include "IM.Server.pb.h"
 #include "IM.Other.pb.h"
 #include "IM.BaseDefine.pb.h"
+
 using namespace IM::BaseDefine;
 
 #define IOS_PUSH_FLASH_MAX_LENGTH    40

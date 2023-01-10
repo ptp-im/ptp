@@ -13,7 +13,7 @@
 #include "ptp_global/ImPduBase.h"
 #include "ImUser.h"
 #include "PTP.Auth.pb.h"
-#include "helpers.h"
+#include "ptp_global/Helpers.h"
 #include "secp256k1_helpers.h"
 #include <array>
 

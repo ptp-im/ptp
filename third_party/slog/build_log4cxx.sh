@@ -90,9 +90,9 @@ mkdir -p $SRC_DIR/lib $SRC_DIR/include
 cp -rf $BUILD_DIR/log4cxx/include/             $SRC_DIR/include
 
 if [ $SYSTEM ==  "mac" ];then
-  cp -f $BUILD_DIR/log4cxx/lib/liblog4cxx.*   $SRC_DIR/lib
+  cp -f $BUILD_DIR/log4cxx/lib/liblog4cxx.*   $SRC_DIR/../../lib
 else
-  cp -f $BUILD_DIR/log4cxx/lib/liblog4cxx.so* $SRC_DIR/lib
+  cp -f $BUILD_DIR/log4cxx/lib/liblog4cxx.so* $SRC_DIR/../../lib
 fi
 
 rm -rf BUILD_DIR

@@ -1,20 +1,16 @@
-#include "EncDec.h"
-#include "DBServConn.h"
 #include "MsgConn.h"
 #include "HttpQuery.h"
 #include <memory>
 #include <string>
 #include <cstdlib>
 #include <cinttypes>
+#include "LoginServConn.h"
 #include "IM.Server.pb.h"
 #include "PTP.Other.pb.h"
 #include "ImUser.h"
-#include "rsa.h"
-#include "base64.h"
-#include "secp256k1_helpers.h"
-#include "helpers.h"
-#include "LoginServConn.h"
-#include "aes_encryption.h"
+#include "DBServConn.h"
+#include "ptp_global/Helpers.h"
+#include "ptp_global/aes_encryption.h"
 
 using namespace std;
 using namespace IM::BaseDefine;
@@ -23,7 +19,6 @@ static CHandlerMap* s_handler_map;
 
 static WebSocketConnMap_t g_websocket_conn_map;
 
-// conn_handle 从0开始递增，可以防止因socket handle重用引起的一些冲突
 static uint32_t g_conn_handle_generator = 0;
 
 static uint64_t	g_last_stat_tick;	// 上次显示丢包率信息的时间
@@ -204,8 +199,8 @@ CMsgConn::CMsgConn() {
     m_testing_require_pdu = false;
     m_conn_handle = NETLIB_INVALID_HANDLE;
     m_state = WS_STATE_UNCONNECTED;
-    ws_request = new Websocket_Request();
-    ws_respond = new Websocket_Respond();
+    ws_request = new WebsocketRequest();
+    ws_respond = new WebsocketRespond();
     m_msg_cnt_per_sec = 0;
     m_last_send_tick = m_last_recv_tick = get_tick_count();
     m_conn_handle = ++g_conn_handle_generator;
@@ -251,50 +246,48 @@ int CMsgConn::Send(void *data, int len) {
 
 
 void CMsgConn::SendPdu(CImPdu * pdu) {
-    if(this){
-        if(!m_testing_require_pdu){
-            auto pPdu = CImPdu::ReadPdu(pdu->GetBuffer(), pdu->GetLength());
-            if(pPdu->GetReversed()){
-                DEBUG_D("Send len:%d data:%s ",pdu->GetLength(), bytes_to_hex_string(pdu->GetBuffer(),pdu->GetLength()).c_str());
-                unsigned char shared_secret[32];
-                unsigned char iv[16];
-                unsigned char aad[16];
-                string shareKey = this->GetShareKey();
-                string ivHex = this->GetIv();
-                string aadHex = this->GetAad();
-                DEBUG_D("org pdu: %s", bytes_to_hex_string(pdu->GetBuffer(),pdu->GetLength()).c_str());
-                memcpy(shared_secret,hex_to_string(shareKey.substr(2)).data(),32);
-                memcpy(iv,hex_to_string(ivHex.substr(2)).data(),16);
-                memcpy(aad,hex_to_string(aadHex.substr(2)).data(),16);
+    if(!m_testing_require_pdu){
+        auto pPdu = CImPdu::ReadPdu(pdu->GetBuffer(), pdu->GetLength());
+        if(pPdu->GetReversed()){
+            DEBUG_D("Send len:%d data:%s ",pdu->GetLength(), bytes_to_hex_string(pdu->GetBuffer(),pdu->GetLength()).c_str());
+            unsigned char shared_secret[32];
+            unsigned char iv[16];
+            unsigned char aad[16];
+            string shareKey = this->GetShareKey();
+            string ivHex = this->GetIv();
+            string aadHex = this->GetAad();
+            DEBUG_D("org pdu: %s", bytes_to_hex_string(pdu->GetBuffer(),pdu->GetLength()).c_str());
+            memcpy(shared_secret,hex_to_string(shareKey.substr(2)).data(),32);
+            memcpy(iv,hex_to_string(ivHex.substr(2)).data(),16);
+            memcpy(aad,hex_to_string(aadHex.substr(2)).data(),16);
 
-                unsigned char cipherData[1024*1024];
-                int cipherDataLen = aes_gcm_encrypt(
-                        pPdu->GetBodyData(),
-                        (int)pPdu->GetBodyLength(),
-                        shared_secret,
-                        iv,aad,
-                        cipherData);
+            unsigned char cipherData[1024*1024];
+            int cipherDataLen = aes_gcm_encrypt(
+                    pPdu->GetBodyData(),
+                    (int)pPdu->GetBodyLength(),
+                    shared_secret,
+                    iv,aad,
+                    cipherData);
 
-                pdu->SetPBMsg(cipherData,cipherDataLen);
-                pdu->SetServiceId(pPdu->GetServiceId());
-                pdu->SetCommandId(pPdu->GetCommandId());
-                pdu->SetSeqNum(pPdu->GetSeqNum());
-                pdu->SetReversed(pPdu->GetReversed());
-            }
-
-            if(m_is_websocket){
-                SendBufMessageToWS(pdu->GetBuffer(),(int)pdu->GetLength());
-            }else{
-                Send(pdu->GetBuffer(),(int)pdu->GetLength());
-            }
-        }else{
-            uint32_t pdu_len = 0;
-            if (!CImPdu::IsPduAvailable(pdu->GetBuffer(), pdu->GetLength(), pdu_len)){
-                DEBUG_E("IsPduAvailable: false");
-                Close();
-            }
-            m_sendPdu = CImPdu::ReadPdu(pdu->GetBuffer(), pdu_len);
+            pdu->SetPBMsg(cipherData,cipherDataLen);
+            pdu->SetServiceId(pPdu->GetServiceId());
+            pdu->SetCommandId(pPdu->GetCommandId());
+            pdu->SetSeqNum(pPdu->GetSeqNum());
+            pdu->SetReversed(pPdu->GetReversed());
         }
+
+        if(m_is_websocket){
+            SendBufMessageToWS(pdu->GetBuffer(),(int)pdu->GetLength());
+        }else{
+            Send(pdu->GetBuffer(),(int)pdu->GetLength());
+        }
+    }else{
+        uint32_t pdu_len = 0;
+        if (!CImPdu::IsPduAvailable(pdu->GetBuffer(), pdu->GetLength(), pdu_len)){
+            DEBUG_E("IsPduAvailable: false");
+            Close();
+        }
+        m_sendPdu = CImPdu::ReadPdu(pdu->GetBuffer(), pdu_len);
     }
 
 }
@@ -480,9 +473,9 @@ void CMsgConn::OnRead() {
         m_is_websocket = true;
         if (!isHandshark) {
             strcpy(buff_, in_buf);
-            char *b = "Connection: Upgrade";
+            char const *b = "Connection: Upgrade";
             if (strstr(in_buf, b) != NULL) {
-                char *c = "Sec-WebSocket-Key:";
+                char const *c = "Sec-WebSocket-Key:";
                 if (strstr(in_buf, c) != NULL) {
                     char request[1024] = {};
                     ws_respond->fetch_http_info(buff_);
@@ -505,12 +498,12 @@ void CMsgConn::OnRead() {
         ws_request->fetch_websocket_info(in_buf);
 
         if (in_buf) {
-            memset(in_buf, 0, sizeof(in_buf));
+            memset(in_buf, 0, buf_len);
         }
         if (ws_request->opcode_ == 0x1) {
             Close();
         }if (ws_request->opcode_ == 0x2) {
-            while (1){
+            while (true){
                 auto buf = reinterpret_cast<uchar_t *>(ws_request->payload_);
                 auto len = ws_request->payload_length_;
                 if (!CImPdu::IsPduAvailable(buf, len, pdu_len)){
