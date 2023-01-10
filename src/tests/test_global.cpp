@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "ptp_global/global.h"
-#include "ptp_global/Base64.h"
-#include "ptp_global/Base64Utils.h"
+#include "ptp_crypto/Base64.h"
+#include "ptp_crypto/Base64Utils.h"
 #include "ptp_global/Logger.h"
 #include "ptp_global/UtilPdu.h"
 #include "ptp_global/Helpers.h"
@@ -178,6 +178,28 @@ TEST(Util, writePid) {
     DEBUG_D("buf ====>>>\n%s",buf);
     ASSERT_TRUE(string(buf, size) == to_string(curPid));
 }
+
+
+TEST(pt_net, CSimpleBuffer) {
+    char const* str = "123456789";
+    CSimpleBuffer m_buf = *new CSimpleBuffer();
+    m_buf.Write((void *)str, strlen(str));
+    uchar_t buff1[2];
+    m_buf.ReadBuffer(buff1,2,0);
+    std::string myString(reinterpret_cast<const char *>(buff1), 2);
+    ASSERT_EQ(myString,"12");
+    uchar_t buff2[4];
+    m_buf.ReadBuffer(buff2,4,2);
+    std::string myString1(reinterpret_cast<const char *>(buff2), 4);
+    ASSERT_EQ(myString1,"3456");
+
+    std::string myString2(reinterpret_cast<const char *>(m_buf.GetBuffer()+1), 4);
+    ASSERT_EQ(myString2,"2345");
+
+    std::string myString3(reinterpret_cast<const char *>(m_buf.GetBuffer()+2), 2);
+    ASSERT_EQ(myString3,"34");
+}
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

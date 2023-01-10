@@ -1,6 +1,6 @@
 #include <cstring>
 #include "AesSimple.h"
-#include "base64.h"
+#include "Base64.h"
 #include "ptp_toolbox/data/utils.h"
 
 CAes::CAes(const string& strKey)
@@ -106,14 +106,4 @@ void CAes::Free(char* pOutData)
         free(pOutData);
         pOutData = NULL;
     }
-}
-
-void CMd5::MD5_Calculate(const char *pContent, unsigned int nLen, string& md5)
-{
-    unsigned char d[16];
-    MD5_CTX ctx;
-    MD5_Init(&ctx);
-    MD5_Update(&ctx, pContent, nLen);
-    MD5_Final(d, &ctx);
-    md5 = ptp_toolbox::data::bytes_to_hex(d,sizeof d);
 }

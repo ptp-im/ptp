@@ -8,7 +8,7 @@
 #include <ctime>
 #include "ptp_global/Logger.h"
 #include "ptp_global/Util.h"
-#include "ptp_global/Base64.h"
+#include "ptp_crypto/Base64.h"
 #include "FileManager.h"
 #include "FileLin.h"
 #include "StringUtils.h"

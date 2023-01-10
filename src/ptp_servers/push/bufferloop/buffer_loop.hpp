@@ -1,15 +1,3 @@
-/**	@file buffer_Loop.hpp
- *	@note 
- *	@brief 环形存储块的类
- *
- *	@author		shiwei
- *	@date		2013/11/23
- *
- *	@note 实现一个环形内存区的类，该类线程不安全，需要外部加锁保护,但是对于分别只有一个
- *        读和写的线程是安全的
- *	@note 历史记录：
- *	@note V1.0.0  创建文件
- */
 #ifndef _BUFFER_LOOP_HPP
 #define _BUFFER_LOOP_HPP
 

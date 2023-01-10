@@ -1,9 +1,3 @@
-/*
- * UtilPdu.cpp
- *
- *  Created on: 2013-8-27
- *      Author: bangde.app@gmail.com
- */
 #include <cstdlib>
 #include <cstring>
 #include "global.h"

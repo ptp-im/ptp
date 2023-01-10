@@ -64,14 +64,26 @@ target_link_libraries(test_global_SocketClient.run PRIVATE gtest_main ptp_global
 add_executable(test_slog.run test_slog.cpp)
 target_link_libraries(test_slog.run PRIVATE gtest_main slog ptp_global)
 
-add_executable(test_wallet.exe test_wallet.cpp)
-target_link_libraries(test_wallet.exe PRIVATE gtest_main ptp_global ptp_wallet ptp_crypto ptp_toolbox)
+add_executable(test_wallet.run test_wallet.cpp)
+target_link_libraries(test_wallet.run PRIVATE gtest_main ptp_global ptp_wallet ptp_crypto ptp_toolbox)
 
-add_executable(test_toolbox.exe test_toolbox.cpp)
-target_link_libraries(test_toolbox.exe PRIVATE gtest_main ptp_toolbox)
+add_executable(test_toolbox.run test_toolbox.cpp)
+target_link_libraries(test_toolbox.run PRIVATE gtest_main ptp_toolbox)
 
-add_executable(test_crypto.exe test_crypto.cpp)
-target_link_libraries(test_crypto.exe PRIVATE gtest_main ptp_crypto ptp_toolbox)
-#
-add_executable(test_net.exe test_net.cpp)
-target_link_libraries(test_net.exe PRIVATE gtest_main crypto ptp_net ptp_wallet ptp_crypto ptp_toolbox)
+add_executable(test_crypto.run test_crypto.cpp)
+target_link_libraries(test_crypto.run PRIVATE gtest_main ptp_global ptp_crypto ptp_toolbox)
+
+add_executable(test_tgnet.run test_tgnet.cpp)
+target_link_libraries(test_tgnet.run PRIVATE gtest_main crypto ptp_wallet ptp_crypto ptp_toolbox tgnet)
+
+add_executable(test_secp256k1.run test_secp256k1.cpp)
+target_link_libraries(test_secp256k1.run PRIVATE gtest_main ptp_global ptp_crypto crypto secp256k1)
+
+add_executable(test_aes_gcm.run test_aes_gcm.cpp)
+target_link_libraries(test_aes_gcm.run PRIVATE gtest_main ptp_global ptp_crypto crypto secp256k1)
+
+add_executable(test_utils.run test_utils.cpp)
+target_link_libraries(test_utils.run PRIVATE gtest_main ptp_global ptp_crypto ptp_protobuf crypto secp256k1)
+
+add_executable(test_upload.run test_upload.cpp)
+target_link_libraries(test_upload.run PRIVATE gtest_main ptp_global ptp_crypto ptp_protobuf crypto secp256k1)

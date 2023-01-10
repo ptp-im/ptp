@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "ptp_global/Logger.h"
-#include "ptp_global/SoketClient.h"
+#include "ptp_global/SocketClient.h"
 
 
 TEST(SocketClient, socketSend) {

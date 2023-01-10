@@ -1,15 +1,3 @@
-/*================================================================
-*   Copyright (C) 2014 All rights reserved.
-*   
-*   文件名称：ProxyTask.h
-*   创 建 者：Zhang Yuanhao
-*   邮    箱：bluefoxah@gmail.com
-*   创建日期：2014年09月16日
-*   描    述：
-*
-#pragma once
-================================================================*/
-
 #ifndef __PROXY_TASK_H__
 #define __PROXY_TASK_H__
 #include "Task.h"

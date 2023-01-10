@@ -16,7 +16,7 @@
 #include "ptp_global/AttachData.h"
 #include "PTP.Auth.pb.h"
 #include "PTP.Server.pb.h"
-#include "secp256k1_helpers.h"
+#include "ptp_crypto/secp256k1_helpers.h"
 
 
 using namespace PTP::Common;
@@ -152,7 +152,7 @@ namespace COMMAND {
             CImUserManager::GetInstance()->AddImUserById(user_id, pUser);
             pMsgConn->SetUserId(user_id);
             pMsgConn->SetOpen();
-            pMsgConn->SendUserStatusUpdate(USER_STATUS_ONLINE);
+            pMsgConn->SendUserStatusUpdate(USER_STAT_ONLINE);
             CImPdu pdu_rsp;
             msg_rsp.set_error(msg.error());
             pdu_rsp.SetPBMsg(&msg_rsp);

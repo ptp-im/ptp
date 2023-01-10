@@ -13,7 +13,7 @@
 #include "CachePool.h"
 #include "PTP.Common.pb.h"
 #include "helpers.h"
-#include "secp256k1_helpers.h"
+#include "ptp_crypto/secp256k1_helpers.h"
 
 CModelGroup* CModelGroup::m_pInstance = NULL;
 

@@ -6,6 +6,16 @@
 
 using namespace std;
 
+string format_sign_msg_data(const string &message,SignMsgType signMsgType){
+    if(signMsgType == SignMsgType_ptp){
+        return string("\x19") + PTP_Signed_Message + to_string(message.size()) + message;
+    }else if(signMsgType == SignMsgType_ptp_group){
+        return string("\x19") + PTP_GROUP_Signed_Message + to_string(message.size()) + message;
+    }else{
+        return string("\x19") + ETH_Signed_Message + to_string(message.size()) + message;
+    }
+}
+
 string recover_address_from_sig_hex(string sig_hex, string msg)
 {
     string _sig = hex_to_string(sig_hex.substr(2)); // strip 0x

@@ -1,13 +1,3 @@
-/*================================================================
-*     Copyright (c) 2014年 lanhu. All rights reserved.
-*   
-*   文件名称：CacheManager.cpp
-*   创 建 者：Zhang Yuanhao
-*   邮    箱：bluefoxah@gmail.com
-*   创建日期：2014年12月02日
-*   描    述：
-*
-================================================================*/
 #include <stdlib.h>
 #include <sys/signal.h>
 #include "SyncCenter.h"

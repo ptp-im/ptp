@@ -2,7 +2,7 @@
  * MsgConn.h
  *
  *  Created on: 2013-7-5
- *      Author: ziteng@mogujie.com
+ *      Author: crypto.service@proton.me
  */
 
 #ifndef MSGCONN_H_

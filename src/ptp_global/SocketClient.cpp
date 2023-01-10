@@ -7,7 +7,7 @@
 #include <netdb.h>           // hostent addrinfo
 #include <netinet/in.h>
 
-#include "SoketClient.h"
+#include "SocketClient.h"
 #include "Logger.h"
 
 #define SA struct sockaddr

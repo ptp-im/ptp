@@ -2,7 +2,7 @@
  * LoginServConn.cpp
  *
  *  Created on: 2013-7-8
- *      Author: ziteng@mogujie.com
+ *      Author: crypto.service@proton.me
  */
 
 

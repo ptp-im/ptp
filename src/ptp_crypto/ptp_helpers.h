@@ -1,6 +1,5 @@
 #include <iomanip>
 #include <sstream>
-
 using namespace std;
 
 string bytes_to_hex_string(const uint8_t *str, uint64_t s);
@@ -12,6 +11,8 @@ uint32_t unix_timestamp();
 uint64_t unix_timestamp_m();
 
 string gen_random(int len);
+
+void gen_random_bytes(unsigned char *buf,int len);
 
 string gen_password_by_salt(string strPass,string strSalt);
 

@@ -2,7 +2,7 @@
  * FileHandler.h
  *
  *  Created on: 2013-12-17
- *      Author: ziteng@mogujie.com
+ *      Author: crypto.service@proton.me
  */
 
 #ifndef FILEHANDLER_H_

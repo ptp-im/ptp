@@ -2,7 +2,7 @@
  * GroupChat.cpp
  *
  *  Created on: 2014-1-3
- *      Author: ziteng@mogujie.com
+ *      Author: crypto.service@proton.me
  */
 
 #include "GroupChat.h"

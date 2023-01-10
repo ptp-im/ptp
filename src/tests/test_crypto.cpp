@@ -3,7 +3,7 @@
 #include "ptp_crypto/keccak.h"
 #include "ptp_crypto/secp256k1_helpers.h"
 #include "ptp_crypto/ptp_helpers.h"
-#include "ptp_crypto/ecdsa.h"
+#include "ptp_global/Logger.h"
 
 TEST(ptp_crypto, keccak) {
     uint8_t actualHash[32];
@@ -12,6 +12,7 @@ TEST(ptp_crypto, keccak) {
     uint8_t actualHash1[32];
     std::string message1 = "836B35A026743E823A90A0EE3B91BF615C6A757E2B60B9E1DC1826FD0DD16106F7BC1E8179F665015F43C6C81F39062FC2086ED849625C06E04697698B21855E";
     Keccak256::getHash(message1, actualHash1);
+    DEBUG_D("%s",actualHash1);
     ASSERT_EQ(actualHash[0],actualHash1[0]);
 }
 
@@ -45,11 +46,9 @@ TEST(ptp_crypto, signRecover) {
     ASSERT_EQ(address_hex1,address_hex);
     ASSERT_EQ(pub_key_hex,pub_key_rec_hex);
     ASSERT_EQ(pub_key_hex,pub_key_rec_hex1);
-
-
 }
 
-TEST(ptp_crypto, signRecover1) {
+TEST(ptp_crypto, signRecover11) {
     unsigned char sig_64[64];
     unsigned char sig_65[65];
     unsigned char prv_key[32];
@@ -72,7 +71,8 @@ TEST(ptp_crypto, signRecover1) {
     std::cout << pub_key_64_s.size() << std::endl;
     string address_hex_org = address_to_hex(pub_key_to_address(pub_key_64_s));
     std::cout << "address_hex org:" + address_hex_org << std::endl;
-    ecdsa_sign_recoverable(ctx,msg_data,prv_key,sig_65);
+    secp256k1_context *ctx1 = secp256k1_context_create(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY);
+    ecdsa_sign_recoverable(ctx1,msg_data,prv_key,sig_65);
     memcpy(sig_64,sig_65,64);
     string pub_key_rec = recover_pub_key_from_sig_64(sig_64,sig_65[64], msg_data);
     string pub_key_rec_hex = bytes_to_hex_string(reinterpret_cast<const uint8_t *>(pub_key_rec.data()), pub_key_rec.size());

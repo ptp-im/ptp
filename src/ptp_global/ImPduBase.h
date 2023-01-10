@@ -1,10 +1,3 @@
-/*
- * ImPduBase.h
- *
- *  Created on: 2013-8-27
- *      Author: bangde.app@gmail.com
- */
-
 #ifndef IMPDUBASE_H_
 #define IMPDUBASE_H_
 

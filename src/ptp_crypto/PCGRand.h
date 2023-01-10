@@ -1,13 +1,3 @@
-/*! 
- * bip39. 2018
- *
- * Copyright (c) 2018 Arvid Gerstmann.
- * This code is licensed under MIT license.
- *
- * \author Eduard Maximovich <edward.vstock@gmail.com>
- * \link https://github.com/edwardstock
- */
-
 #ifndef BIP39_PCGRandRAND_H
 #define BIP39_PCGRandRAND_H
 

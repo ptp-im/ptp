@@ -3,6 +3,21 @@
 
 using namespace std;
 
+#define PTP_Signed_Message          "PTP Signed Message:\n"
+#define PTP_HD_PATH                 "m/44'/60'/0'/1/0"
+#define PTP_GROUP_Signed_Message    "PTP GROUP Signed Message:\n"
+#define PTP_GROUP_HD_PATH           "m/44'/60'/0'/1/1"
+
+#define ETH_Signed_Message          "Ethereum Signed Message:\n"
+#define ETH_HD_PATH                 "m/44'/60'/0'/0/"
+
+enum SignMsgType {
+    SignMsgType_eth = 1000,
+    SignMsgType_ptp = 1001,
+    SignMsgType_ptp_group = 1002,
+};
+string format_sign_msg_data(const string &message,SignMsgType signMsgType);
+
 string recover_address_from_sig_hex(string sig_hex, string msg);
 
 string pub_key_to_address(string pubkey_64);

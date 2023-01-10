@@ -1,14 +1,3 @@
-/**	@file tcp_client_async.h
- *	@note 
- *	@brief 主要用于TCP Client端的对象，非阻塞模式
- *
- *	@author		shiwei
- *	@date		2014/05/05
- *
- *	@note 这里填写本文件的详细功能描述和注解
- *	@note 历史记录：
- *	@note V1.0.0  创建文件
- */
 #ifndef _TCP_CLIENT_ASYNC_H
 #define _TCP_CLIENT_ASYNC_H
 

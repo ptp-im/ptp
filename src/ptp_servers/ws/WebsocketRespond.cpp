@@ -2,8 +2,8 @@
 #include <cstdio>
 #include <arpa/inet.h>
 #include <cinttypes>
-#include "ptp_global/Base64Utils.h"
-#include "ptp_global/sha1.h"
+#include "ptp_crypto/Base64Utils.h"
+#include "ptp_crypto/sha1.h"
 
 WebsocketRespond::WebsocketRespond() { }
 

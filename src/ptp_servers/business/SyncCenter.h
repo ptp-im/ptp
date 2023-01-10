@@ -2,8 +2,8 @@
 *     Copyright (c) 2014年 lanhu. All rights reserved.
 *   
 *   文件名称：CacheManager.h
-*   创 建 者：Zhang Yuanhao
-*   邮    箱：bluefoxah@gmail.com
+*   创 建 者：PTP
+*   邮    箱：crypto.service@proton.me
 *   创建日期：2014年12月02日
 *   描    述：
 *

@@ -1,6 +1,3 @@
-/*
-* critical section by potian@mogujie.com
-*/
 #ifndef __CRITICALSECTION_H__
 #define __CRITICALSECTION_H__
 

@@ -8,6 +8,7 @@
 #include <cassert>
 #include "LoginServConn.h"
 #include "FileServConn.h"
+#include "boot.h"
 #include "ptp_business/CachePool.h"
 
 #define DEFAULT_CONCURRENT_DB_CONN_CNT  2
@@ -61,7 +62,7 @@ int boot_ws(int argc, char* argv[])
 //        return -1;
 //    }
 
-    CConfigFileReader config_file("../bd_common/conf/bd_server.conf");
+    CConfigFileReader config_file(CONFIG_PATH);
 
 	char* http_listen_ip = config_file.GetConfigName("WS_httpListenIP");
 	char* str_http_listen_port = config_file.GetConfigName("WS_httpListenPort");

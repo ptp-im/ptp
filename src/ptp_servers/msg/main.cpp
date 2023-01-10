@@ -2,7 +2,7 @@
  * msg_server.cpp
  *
  *  Created on: 2013-6-21
- *      Author: ziteng@mogujie.com
+ *      Author: crypto.service@proton.me
  */
 
 #include "ptp_global/NetLib.h"

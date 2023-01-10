@@ -1,14 +1,3 @@
-/**	@file tcp_session_async.h
- *	@note 
- *	@brief TCP Server accept到后的socket对象，非阻塞模式
- *
- *	@author		shiwei
- *	@date		2014/05/05
- *
- *	@note 这里填写本文件的详细功能描述和注解
- *	@note 历史记录：
- *	@note V1.0.0  创建文件
- */
 #ifndef _TCP_SESSION_ASYNC_H
 #define _TCP_SESSION_ASYNC_H
 

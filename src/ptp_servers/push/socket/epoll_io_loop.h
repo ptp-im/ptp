@@ -1,14 +1,3 @@
-/**	@file epoll_io_loop.h
- *	@note 
- *	@brief CEPOLLIOLoop类的头文件。
- *
- *	@author		shiwei
- *	@date		2014/03/20
- *
- *	@note 该类使用epoll的LT模式完成网络IO的读写
- *	@note 历史记录：
- *	@note V1.0.0  创建文件
- */
 #ifndef _EPOLL_IO_LOOP_H
 #define _EPOLL_IO_LOOP_H
 

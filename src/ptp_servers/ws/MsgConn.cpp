@@ -10,7 +10,7 @@
 #include "ImUser.h"
 #include "DBServConn.h"
 #include "ptp_global/Helpers.h"
-#include "ptp_global/aes_encryption.h"
+#include "ptp_crypto/aes_encryption.h"
 
 using namespace std;
 using namespace IM::BaseDefine;

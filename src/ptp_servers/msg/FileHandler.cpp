@@ -2,7 +2,7 @@
  * FileHandler.cpp
  *
  *  Created on: 2013-12-17
- *      Author: ziteng@mogujie.com
+ *      Author: crypto.service@proton.me
  */
 
 #include "FileHandler.h"
