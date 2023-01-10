@@ -21,25 +21,42 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __SECP256K1_H__
-#define __SECP256K1_H__
+#include "secp256k1.h"
 
-#include "ptp_crypto/ecdsa.h"
-#include "ptp_crypto/hasher.h"
+const ecdsa_curve secp256k1 = {
+	/* .prime */ {
+		/*.val =*/ {0x3ffffc2f, 0x3ffffffb, 0x3fffffff, 0x3fffffff, 0x3fffffff, 0x3fffffff, 0x3fffffff, 0x3fffffff, 0xffff}
+	},
 
-#include <cstdint>
+	/* G */ {
+		/*.x =*/{/*.val =*/{0x16f81798, 0x27ca056c, 0x1ce28d95, 0x26ff36cb, 0x70b0702, 0x18a573a, 0xbbac55a, 0x199fbe77, 0x79be}},
+		/*.y =*/{/*.val =*/{0x3b10d4b8, 0x311f423f, 0x28554199, 0x5ed1229, 0x1108a8fd, 0x13eff038, 0x3c4655da, 0x369dc9a8, 0x483a}}
+	},
 
-typedef struct {
-  const char *bip32_name;    // string for generating BIP32 xprv from seed
-  const ecdsa_curve *params; // ecdsa curve parameters, null for ed25519
+	/* order */ {
+		/*.val =*/{0x10364141, 0x3f497a33, 0x348a03bb, 0x2bb739ab, 0x3ffffeba, 0x3fffffff, 0x3fffffff, 0x3fffffff, 0xffff}
+	},
 
-  HasherType hasher_bip32;
-  HasherType hasher_base58;
-  HasherType hasher_sign;
-  HasherType hasher_pubkey;
-} curve_info;
+	/* order_half */ {
+		/*.val =*/{0x281b20a0, 0x3fa4bd19, 0x3a4501dd, 0x15db9cd5, 0x3fffff5d, 0x3fffffff, 0x3fffffff, 0x3fffffff, 0x7fff}
+	},
 
-extern const ecdsa_curve secp256k1;
-extern const curve_info secp256k1_info;
+	/* a */	0,
 
-#endif
+	/* b */ {
+		/*.val =*/{7}
+	}
+	,
+	/* cp */ {
+#include "secp256k1.table"
+    }
+};
+
+const curve_info secp256k1_info = {
+	"Bitcoin seed",
+	&secp256k1,
+	HASHER_SHA2,
+	HASHER_SHA2D,
+	HASHER_SHA2D,
+	HASHER_SHA2,
+};
