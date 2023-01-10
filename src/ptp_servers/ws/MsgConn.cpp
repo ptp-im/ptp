@@ -66,7 +66,6 @@ CMsgConn *FindWebSocketConnByHandle(uint32_t conn_handle) {
     if (it != g_websocket_conn_map.end()) {
         pConn = it->second;
     }
-
     return pConn;
 }
 

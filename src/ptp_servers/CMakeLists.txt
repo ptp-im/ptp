@@ -5,7 +5,6 @@ MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 AUX_SOURCE_DIRECTORY(./route SRC_LIST)
 AUX_SOURCE_DIRECTORY(./msfs SRC_LIST)
-#AUX_SOURCE_DIRECTORY(./push SRC_LIST)
 AUX_SOURCE_DIRECTORY(./login SRC_LIST)
 
 AUX_SOURCE_DIRECTORY(./ws SRC_LIST)
@@ -20,12 +19,16 @@ AUX_SOURCE_DIRECTORY(./ws/commands/Switch SRC_LIST)
 
 #AUX_SOURCE_DIRECTORY(./business SRC_LIST)
 
+AUX_SOURCE_DIRECTORY(../../include/jsoncpp SRC_LIST)
+
 add_library(${LIB_NAME_MAIN} STATIC ${SRC_LIST})
 
 INCLUDE_DIRECTORIES(./)
 INCLUDE_DIRECTORIES(./ws)
 INCLUDE_DIRECTORIES(../ptp_protobuf)
+INCLUDE_DIRECTORIES (../../include)
+INCLUDE_DIRECTORIES (../../include/jsoncpp)
 
 set(COMMON_LIBS pthread mysqlclient_r hiredis curl slog crypto secp256k1)
 
-TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} ${COMMON_LIBS} ptp_global ptp_crypto ptp_protobuf ptp_business)
+TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} ${COMMON_LIBS} ptp_global ptp_crypto ptp_protobuf ptp_business ptp_wallet)

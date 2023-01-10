@@ -17,6 +17,7 @@
 #include "ptp_crypto/secp256k1_helpers.h"
 #include "ptp_crypto/crypto_helpers.h"
 #include <array>
+#include "ptp_wallet/HDKey.h"
 
 using namespace PTP::Common;
 
@@ -33,7 +34,7 @@ namespace COMMAND {
         }
 
         while (true){
-            if(!msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
+            if(!msg.ParseFromArray(pPdu->GetBodyData(), (int)pPdu->GetBodyLength()))
             {
                 error = E_PB_PARSE_ERROR;
                 break;
@@ -47,16 +48,14 @@ namespace COMMAND {
             gen_random_bytes(aad,16);
             string msg_data = format_sign_msg_data(captcha,SignMsgType_ptp);
             unsigned char signOut65[65];
-            string prvKeyStr = "0x1ffe0fafed803ef0f357c8678d00089404545e8a9a9f72fb41e559ddaa9c531c";
-            string pubKey33Str = "0x02f0f6796be474b77707a0ae4962c20af84bb7fc3995c91fa2ee41d2803e101069";
-            string pubKeyStr = "0xf0f6796be474b77707a0ae4962c20af84bb7fc3995c91fa2ee41d2803e1010698217cd09b4a0753f00df3c13cd12ea39cd93c3ffc6733886347207aafbc5ac40";
-            auto pub_key = hex_to_string(pubKeyStr.substr(2));
-            string address = "0xf2472d9e07c721da4bf74ddd5c587ca7f5b3ee60";
-            secp256k1_context *ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY);
-            auto prv_key = hex_to_string(prvKeyStr.substr(2));
-            auto* prv_key_bytes = (unsigned char*) prv_key.data();
-            ecdsa_sign_recoverable(ctx,msg_data,prv_key_bytes,signOut65);
-            secp256k1_context_destroy(ctx);
+
+            PTPWallet::MnemonicHelper::MnemonicResult mnemonic = PTPWallet::MnemonicHelper::generate();
+            PTPWallet::HDKey hdKey = PTPWallet::HDKeyEncoder::makeEthRootKey(mnemonic.raw.data());
+            PTPWallet::HDKeyEncoder::makeEthExtendedKey(hdKey, PTP_HD_PATH);
+            string address = PTPWallet::HDKeyEncoder::getEthAddress(hdKey);
+            string prvKeyStr = "0x" + hdKey.privateKey.to_hex();
+            secp256k1_context *ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
+            ecdsa_sign_recoverable(ctx,msg_data,hdKey.privateKey.data(),signOut65);
             msg_rsp.set_sign(signOut65,65);
             msg_rsp.set_address(hex_to_string(address.substr(2)));
             msg_rsp.set_iv(iv,16);
@@ -74,10 +73,10 @@ namespace COMMAND {
         }
         msg_rsp.set_error(error);
         CImPdu pdu;
-        pdu.SetPBMsg(&msg_rsp);
-        pdu.SetServiceId(S_AUTH);
-        pdu.SetCommandId(CID_AuthCaptchaRes);
-        pdu.SetSeqNum(pPdu->GetSeqNum());
+        pdu.SetPBMsg(
+                &msg_rsp,
+                CID_AuthCaptchaRes,
+                pPdu->GetSeqNum());
         pMsgConn->SendPdu(&pdu);
     }
 };

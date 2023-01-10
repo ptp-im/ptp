@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 #include <array>
 #include "random.h"
-#include <secp256k1_extrakeys.h>
-#include <secp256k1_schnorrsig.h>
-#include <secp256k1_ecdh.h>
+#include <secp256k1/secp256k1_extrakeys.h>
+#include <secp256k1/secp256k1_schnorrsig.h>
+#include <secp256k1/secp256k1_ecdh.h>
 #include "ptp_global/Helpers.h"
 #include "ptp_crypto/secp256k1_helpers.h"
 #include "ptp_crypto/crypto_helpers.h"

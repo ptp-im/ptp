@@ -293,10 +293,11 @@ void CRouteServConn::_HandleMsgData(CImPdu* pPdu)
 {
     IM::Message::IMMsgData msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
-    if (CHECK_MSG_TYPE_GROUP(msg.msg_type())) {
-        s_group_chat->HandleGroupMessageBroadcast(pPdu);
-        return;
-    }
+    //TODO
+//    if (CHECK_MSG_TYPE_GROUP(msg.msg_type())) {
+//        s_group_chat->HandleGroupMessageBroadcast(pPdu);
+//        return;
+//    }
 	uint32_t from_user_id = msg.from_user_id();
 	uint32_t to_user_id = msg.to_session_id();
     uint32_t msg_id = msg.msg_id();

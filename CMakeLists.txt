@@ -17,9 +17,11 @@ INCLUDE_DIRECTORIES(./src/)
 LINK_DIRECTORIES(./lib)
 SET(LIBRARY_OUTPUT_PATH ./lib)
 
-INCLUDE_DIRECTORIES(./third_party/jsoncpp)
-INCLUDE_DIRECTORIES(./third_party/slog)
-#LINK_DIRECTORIES(./third_party/slog/lib)
+INCLUDE_DIRECTORIES(./include)
+INCLUDE_DIRECTORIES(./include/protobuf)
+INCLUDE_DIRECTORIES(./include/redis)
+INCLUDE_DIRECTORIES(./include/jsoncpp)
+INCLUDE_DIRECTORIES(./include/slog)
 
 if(APPLE)
     #mysql

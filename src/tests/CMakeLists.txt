@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.2.2)
+cmake_minimum_required(VERSION 2.8.12)
+project(PTP_test)
 
 option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
 option(INSTALL_GTEST "Enable installation of googletest. (Projects embedding googletest may want to turn this OFF.)" OFF)
@@ -40,11 +41,11 @@ file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
 file(COPY log4cxx.properties
         DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 
-
+include_directories (../ptp_protobuf)
 include_directories (../ptp_protobuf/v2)
 
 add_executable(test_global.run test_global.cpp)
-target_link_libraries(test_global.run PRIVATE gtest_main ptp_global)
+target_link_libraries(test_global.run PRIVATE gtest_main ptp_crypto ptp_global)
 
 add_executable(test_server_msfs.run test_server_msfs.cpp)
 target_link_libraries(test_server_msfs.run PRIVATE gtest_main ptp_servers ptp_global)

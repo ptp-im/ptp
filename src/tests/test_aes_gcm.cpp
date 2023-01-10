@@ -10,7 +10,7 @@
 #include <openssl/evp.h>
 #include <openssl/md5.h>
 #include <openssl/rand.h>
-#include <secp256k1_ecdh.h>
+#include <secp256k1/secp256k1_ecdh.h>
 
 using namespace std;
 
