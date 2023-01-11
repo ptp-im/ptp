@@ -48,13 +48,16 @@ add_executable(test_global.run test_global.cpp)
 target_link_libraries(test_global.run PRIVATE gtest_main ptp_crypto ptp_global)
 
 add_executable(test_server_msfs.run test_server_msfs.cpp)
-target_link_libraries(test_server_msfs.run PRIVATE gtest_main ptp_servers ptp_global)
+target_link_libraries(test_server_msfs.run PRIVATE gtest_main ptp_global)
 
 add_executable(test_server_route.run test_server_route.cpp)
-target_link_libraries(test_server_route.run PRIVATE gtest_main ptp_servers ptp_global)
+target_link_libraries(test_server_route.run PRIVATE gtest_main ptp_global)
 
 add_executable(test_server_login.run test_server_login.cpp)
-target_link_libraries(test_server_login.run PRIVATE gtest_main ptp_servers ptp_global)
+target_link_libraries(test_server_login.run PRIVATE gtest_main ptp_global)
+
+add_executable(test_server_msg.run test_server_msg.cpp)
+target_link_libraries(test_server_msg.run PRIVATE gtest_main ptp_server_msg ptp_business ptp_net ptp_global ptp_wallet ptp_crypto ptp_toolbox)
 
 add_executable(test_protobuf.run test_protobuf.cpp)
 target_link_libraries(test_protobuf.run PRIVATE gtest_main ptp_protobuf ptp_global)
@@ -67,6 +70,21 @@ target_link_libraries(test_slog.run PRIVATE gtest_main slog ptp_global)
 
 add_executable(test_wallet.run test_wallet.cpp)
 target_link_libraries(test_wallet.run PRIVATE gtest_main ptp_global ptp_wallet ptp_crypto ptp_toolbox)
+
+add_executable(test_net.run test_net.cpp)
+target_link_libraries(test_net.run PRIVATE gtest_main ptp_business ptp_net ptp_global ptp_wallet ptp_crypto ptp_toolbox)
+
+add_executable(test_net_utils.run test_net_utils.cpp)
+target_link_libraries(test_net_utils.run PRIVATE gtest_main ptp_business ptp_net ptp_global ptp_wallet ptp_crypto ptp_toolbox)
+
+add_executable(test_cachepool.run test_cachepool.cpp)
+target_link_libraries(test_cachepool.run PRIVATE gtest_main ptp_business ptp_net ptp_global ptp_wallet ptp_crypto ptp_toolbox)
+
+add_executable(test_dbpool.run test_dbpool.cpp)
+target_link_libraries(test_dbpool.run PRIVATE gtest_main ptp_business ptp_net ptp_global ptp_wallet ptp_crypto ptp_toolbox)
+
+add_executable(test_business.run test_business.cpp)
+target_link_libraries(test_business.run PRIVATE gtest_main ptp_business ptp_net ptp_global ptp_wallet ptp_crypto ptp_toolbox)
 
 add_executable(test_toolbox.run test_toolbox.cpp)
 target_link_libraries(test_toolbox.run PRIVATE gtest_main ptp_toolbox)

@@ -21,6 +21,11 @@ CSimpleBuffer::~CSimpleBuffer()
 	}
 }
 
+void CSimpleBuffer::Position(uint32_t offset)
+{
+    m_write_offset = offset;
+}
+
 void CSimpleBuffer::Extend(uint32_t len)
 {
 	m_alloc_size = m_write_offset + len;

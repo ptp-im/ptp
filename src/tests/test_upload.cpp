@@ -4,7 +4,7 @@
 #include <cstring>
 #include "curl/curl.h"
 #include "ptp_protobuf/PTP.File.pb.h"
-#include "ptp_global/ImPduBase.h"
+#include "ptp_protobuf/ImPdu.h"
 #include "ptp_global/SocketClient.h"
 #include "ptp_global/Helpers.h"
 #include "ptp_crypto/secp256k1_helpers.h"
@@ -80,7 +80,7 @@ TEST(ptp_common,handleRequestUrl) {
 //    msg.set_file_total_parts(1);
 //    msg.set_file_part(1);
 //
-//    CImPdu pdu;
+//    ImPdu pdu;
 //    pdu.SetPBMsg(&msg);
 //    pdu.SetServiceId(S_FILE);
 //    pdu.SetCommandId(CID_FileImgUploadReq);
@@ -137,7 +137,7 @@ TEST(ptp_common,handleRequestUrl) {
 //    msg.set_file_total_parts(1);
 //    msg.set_file_part(1);
 //
-//    CImPdu pdu;
+//    ImPdu pdu;
 //    pdu.SetPBMsg(&msg);
 //    pdu.SetServiceId(S_FILE);
 //    pdu.SetCommandId(CID_FileImgUploadReq);
@@ -170,7 +170,7 @@ TEST(ptp_common,handleRequestUrl) {
 ////    msg.set_file_total_parts(1);
 ////    msg.set_file_part(1);
 ////
-////    CImPdu pdu;
+////    ImPdu pdu;
 ////    pdu.SetPBMsg(&msg);
 ////    pdu.SetServiceId(S_FILE);
 ////    pdu.SetCommandId(CID_FileImgUploadReq);
@@ -210,7 +210,7 @@ TEST(ptp_common,handleRequestUrl) {
 ////    PTP::File::FileImgDownloadReq msg;
 ////    msg.set_file_path("g0/000/000/1672598092023246_123145375657_0_1_1.dat");
 ////
-////    CImPdu pdu;
+////    ImPdu pdu;
 ////    pdu.SetPBMsg(&msg);
 ////    pdu.SetServiceId(S_FILE);
 ////    pdu.SetCommandId(CID_FileImgDownloadReq);

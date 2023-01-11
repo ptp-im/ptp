@@ -1,5 +1,9 @@
 #include "ImPduBase.h"
 
+#ifdef ANDROID
+#else
+#endif
+
 CImPdu::CImPdu()
 {
 	m_pdu_header.version = IM_PDU_VERSION;
@@ -141,6 +145,10 @@ bool CImPdu::IsPduAvailable(uchar_t* buf, uint32_t len, uint32_t& pdu_len)
 
 void CImPdu::SetPBMsg(const google::protobuf::MessageLite* msg)
 {
+    if(msg != nullptr){
+        DEBUG_E("SetPBMsg error please use CImPdu");
+        return;
+    }
     m_buf.Read(NULL, m_buf.GetWriteOffset());
     m_buf.Write(NULL, sizeof(PduHeader_t));
     uint32_t msg_size = 0;
@@ -149,22 +157,6 @@ void CImPdu::SetPBMsg(const google::protobuf::MessageLite* msg)
     delete []szData;
     WriteHeader();
 }
-
-
-void CImPdu::SetPBMsg(const google::protobuf::MessageLite* msg,uint16_t command_id,uint16_t seq_num)
-{
-    m_pdu_header.command_id = command_id;
-    m_pdu_header.service_id = 0;
-    m_pdu_header.seq_num = seq_num;
-    m_buf.Read(NULL, m_buf.GetWriteOffset());
-    m_buf.Write(NULL, sizeof(PduHeader_t));
-    uint32_t msg_size = 0;
-    uchar_t* szData = new uchar_t[msg_size];
-    m_buf.Write(szData, msg_size);
-    delete []szData;
-    WriteHeader();
-}
-
 
 void CImPdu::SetPBMsg(unsigned char *buf, int len)
 {

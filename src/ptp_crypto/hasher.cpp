@@ -57,10 +57,15 @@ void hasher_Update(Hasher *hasher, const uint8_t *data, size_t length) {
 }
 
 void hasher_Final(Hasher *hasher, uint8_t hash[HASHER_DIGEST_LENGTH]) {
-    switch (hasher->type) {
-        case HASHER_SHA2:
-        case HASHER_SHA2D: sha256_Final(&hasher->ctx.sha2, hash);
-            break;
+    if(hasher->type == HASHER_SHA2 || hasher->type == HASHER_SHA2D){
+        sha256_Final(&hasher->ctx.sha2, hash);
+    }
+//
+//    switch (hasher->type) {
+//        case HASHER_SHA2:
+//        case HASHER_SHA2D:
+//
+//            break;
 //        case HASHER_SHA3: sha3_Final(&hasher->ctx.sha3, hash);
 //            break;
 //        case HASHER_SHA3K: keccak_Final(&hasher->ctx.sha3, hash);
@@ -68,15 +73,20 @@ void hasher_Final(Hasher *hasher, uint8_t hash[HASHER_DIGEST_LENGTH]) {
 //        case HASHER_BLAKE:
 //        case HASHER_BLAKED: blake256_Final(&hasher->ctx.blake, hash);
 //            break;
+//    }
+    if(hasher->type == HASHER_SHA2D){
+        hasher_Raw(HASHER_SHA2, hash, HASHER_DIGEST_LENGTH, hash);
+    }else if(hasher->type == HASHER_BLAKED){
+        hasher_Raw(HASHER_BLAKE, hash, HASHER_DIGEST_LENGTH, hash);
     }
-
-    switch (hasher->type) {
-        case HASHER_SHA2D: hasher_Raw(HASHER_SHA2, hash, HASHER_DIGEST_LENGTH, hash);
-            break;
-        case HASHER_BLAKED: hasher_Raw(HASHER_BLAKE, hash, HASHER_DIGEST_LENGTH, hash);
-            break;
-        default: break;
-    }
+//
+//    switch (hasher->type) {
+//        case HASHER_SHA2D: ;
+//            break;
+//        case HASHER_BLAKED: hasher_Raw(HASHER_BLAKE, hash, HASHER_DIGEST_LENGTH, hash);
+//            break;
+//        default: break;
+//    }
 }
 
 void hasher_Raw(HasherType type, const uint8_t *data, size_t length, uint8_t hash[HASHER_DIGEST_LENGTH]) {

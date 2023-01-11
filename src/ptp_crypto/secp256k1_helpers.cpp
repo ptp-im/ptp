@@ -46,8 +46,8 @@ void gen_ec_key_pair(secp256k1_context * ctx,unsigned char * prv_key, unsigned c
     unsigned char prv_key_[32];
     unsigned char pub_key_[65];
     secp256k1_pubkey pubkey;
-    secp256k1_context_randomize(ctx, randomize);
-    secp256k1_ec_pubkey_create(ctx, &pubkey, prv_key_);
+    auto ret = secp256k1_context_randomize(ctx, randomize);
+    auto ret1 = secp256k1_ec_pubkey_create(ctx, &pubkey, prv_key_);
     auto len = sizeof(pub_key_);
     secp256k1_ec_pubkey_serialize(ctx, pub_key_, &len, &pubkey, SECP256K1_EC_UNCOMPRESSED);
 //    pub_key_to_hex(pub_key_);
@@ -94,31 +94,7 @@ string recover_pub_key_from_sig_65(unsigned char * sig_65, string msg_data)
     return recover_pub_key_from_sig_64(sig_64,rec_id,msg_data);
 }
 
-string recover_pub_key_from_sig(string sig, string msg_data)
-{
-    if (sig.size() != 65) {
-//        log_error("error sig len");
-        return "";
-    }
-    auto _sig = sig.substr(0, 64);
-    return recover_pub_key_from_sig_64((unsigned char *) _sig.data(),sig[64],msg_data);
-}
-
-void ecdsa_sign_recoverable(secp256k1_context *ctx,string msg_data,unsigned char * prv_key,unsigned char *output65){
-    array<uint8_t, 32> msg_hash = keccak_256_hash(msg_data);
-    unsigned char sig_65[65];
-    unsigned char sig_64[64];
-    int rec_id;
-    secp256k1_ecdsa_recoverable_signature sig;
-    secp256k1_ecdsa_sign_recoverable(ctx, &sig, msg_hash.data(), prv_key, nullptr, nullptr);
-    secp256k1_ecdsa_recoverable_signature_serialize_compact(ctx,sig_64,&rec_id,&sig);
-    memcpy(sig_65,sig_64,64);
-    sig_65[64] = rec_id;
-    memcpy(output65,sig_65,65);
-    secp256k1_context_destroy(ctx);
-}
-
-bool recover_pub_key_from_sig_65(unsigned char * sig_65,string msg_data,unsigned char * pub_key_33,string& address)
+bool recover_pub_key_from_sig_65(unsigned char * sig_65,const string &msg_data,unsigned char * pub_key_33,string& address)
 {
     unsigned char sig_64[64];
     unsigned char pub_key_65[65];
@@ -166,13 +142,43 @@ bool recover_pub_key_from_sig_65(unsigned char * sig_65,string msg_data,unsigned
     return ret;
 }
 
-
-bool ecdh_create_share_key(secp256k1_pubkey *pub_key,string &prv_key,unsigned char *shared_key){
-    unsigned char prv_key_32[32];
-    memcpy(prv_key_32,prv_key.data(),32);
-    return ecdh_create_share_key(pub_key,prv_key,shared_key);
+bool recover_pub_key_and_address_from_sig(unsigned char * sig_65,const string &msg_data,unsigned char * pub_key,string& address){
+    return recover_pub_key_from_sig_65(sig_65,msg_data,pub_key,address);
 }
 
+string recover_pub_key_from_sig(string sig, string msg_data)
+{
+    if (sig.size() != 65) {
+//        log_error("error sig len");
+        return "";
+    }
+    auto _sig = sig.substr(0, 64);
+    return recover_pub_key_from_sig_64((unsigned char *) _sig.data(),sig[64],msg_data);
+}
+
+void ecdsa_sign_recoverable(secp256k1_context *ctx,string msg_data,unsigned char * prv_key,unsigned char *output65){
+    array<uint8_t, 32> msg_hash = keccak_256_hash(msg_data);
+    unsigned char sig_65[65];
+    unsigned char sig_64[64];
+    int rec_id;
+    secp256k1_ecdsa_recoverable_signature sig;
+    secp256k1_ecdsa_sign_recoverable(ctx, &sig, msg_hash.data(), prv_key, nullptr, nullptr);
+    secp256k1_ecdsa_recoverable_signature_serialize_compact(ctx,sig_64,&rec_id,&sig);
+    memcpy(sig_65,sig_64,64);
+    sig_65[64] = rec_id;
+    memcpy(output65,sig_65,65);
+    secp256k1_context_destroy(ctx);
+}
+
+bool ecdh_create_share_key(secp256k1_pubkey *pub_key,string &prv_key,unsigned char *shared_key){
+    secp256k1_context* ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
+    unsigned char prv_key_32[32];
+    string prv_key1 = hex_to_string(prv_key.substr(2));
+    memcpy(prv_key_32,prv_key1.data(),32);
+    auto ret = secp256k1_ecdh(ctx, shared_key, pub_key, prv_key_32, NULL, NULL);
+    secp256k1_context_destroy(ctx);
+    return ret;
+}
 
 bool ecdh_create_share_key(secp256k1_pubkey *pub_key,unsigned char *prv_key,unsigned char *shared_key){
     secp256k1_context* ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);

@@ -8,7 +8,7 @@
 #include "ptp_global/Helpers.h"
 #include "ptp_global/Utils.h"
 #include "ptp_global/Logger.h"
-#include "ptp_global/ImPduBase.h"
+#include "ptp_protobuf/ImPdu.h"
 #include "ptp_crypto/aes_encryption.h"
 #include "ptp_crypto/secp256k1_helpers.h"
 #include "ptp_crypto/crypto_helpers.h"
@@ -62,7 +62,7 @@ using namespace PTP::Common;
 //    msg_rsp.set_sign(signOut65,65);
 //    msg_rsp.set_error(NO_ERROR);
 //
-//    CImPdu pdu;
+//    ImPdu pdu;
 //    pdu.SetPBMsg(&msg_rsp);
 //    pdu.SetServiceId(S_AUTH);
 //    pdu.SetCommandId(CID_AuthCaptchaRes);
@@ -230,7 +230,7 @@ TEST(secp256k1, genKey) {
 //    PTP::Group::GroupPreCreateReq msg;
 //    msg.set_group_type(groupType);
 //
-//    CImPdu pdu;
+//    ImPdu pdu;
 //    pdu.SetPBMsg(&msg);
 //    pdu.SetServiceId(S_GROUP);
 //    pdu.SetCommandId(CID_GroupPreCreateReq);
@@ -271,7 +271,7 @@ TEST(secp256k1, genKey) {
 ////    msg11.add_members(memberUserAdr1);
 ////    msg11.add_members(memberUserAdr2);
 //
-//    CImPdu pdu11;
+//    ImPdu pdu11;
 //    pdu11.SetPBMsg(&msg11);
 //    pdu11.SetServiceId(S_GROUP);
 //    pdu11.SetCommandId(CID_GroupCreateReq);
@@ -323,7 +323,7 @@ TEST(secp256k1, genKey) {
 //    PTP::Group::GroupPreCreateReq msg;
 //    msg.set_group_type(groupType);
 //
-//    CImPdu pdu;
+//    ImPdu pdu;
 //    pdu.SetPBMsg(&msg);
 //    pdu.SetServiceId(S_GROUP);
 //    pdu.SetCommandId(CID_GroupPreCreateReq);
@@ -364,7 +364,7 @@ TEST(secp256k1, genKey) {
 //    msg11.set_avatar("groupAvatar");
 ////    msg11.add_members(memberUserAdr);
 //
-//    CImPdu pdu11;
+//    ImPdu pdu11;
 //    pdu11.SetPBMsg(&msg11);
 //    pdu11.SetServiceId(S_GROUP);
 //    pdu11.SetCommandId(CID_GroupCreateReq);
@@ -404,7 +404,7 @@ TEST(secp256k1, genKey) {
 //    string captcha = "test";
 ////    msg_rsp.set_captcha(captcha);
 ////    msg_rsp.set_error(PTP::Common::NO_ERROR);
-//    CImPdu pdu;
+//    ImPdu pdu;
 //    pdu.SetPBMsg(&msg_rsp);
 //    pdu.SetServiceId(S_AUTH);
 //    pdu.SetCommandId(CID_AuthCaptchaRes);
@@ -450,7 +450,7 @@ TEST(secp256k1, genKey) {
 //        int outBufLen = aes_gcm_decrypt(pPdu1->GetBodyData(), pPdu1->GetBodyLength(),shared_secret,iv,aad,  outBuf);
 //        ASSERT_EQ(outBufLen, pPdu->GetBodyLength());
 //
-//        CImPdu pdu2;
+//        ImPdu pdu2;
 //        pdu2.SetPBMsg(outBuf,outBufLen);
 //        pdu2.SetServiceId(pPdu1->GetServiceId());
 //        pdu2.SetCommandId(pPdu1->GetCommandId());

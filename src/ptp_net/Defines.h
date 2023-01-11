@@ -143,7 +143,7 @@ typedef struct ConnectiosManagerDelegate {
     virtual void onSessionCreated(int32_t instanceNum) = 0;
     virtual void onConnectionStateChanged(ConnectionState state, int32_t instanceNum) = 0;
     virtual void onUnparsedMessageReceived(int64_t reqMessageId, NativeByteBuffer *buffer, ConnectionType connectionType, int32_t instanceNum) = 0;
-    virtual void onNotify(NativeByteBuffer *buffer) = 0;
+    virtual void onNotify(NativeByteBuffer *buffer,int32_t instanceNum) = 0;
     virtual void onLogout(int32_t instanceNum) = 0;
     virtual void onUpdateConfig(TL_config *config, int32_t instanceNum) = 0;
     virtual void onInternalPushReceived(int32_t instanceNum) = 0;

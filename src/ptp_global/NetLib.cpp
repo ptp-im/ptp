@@ -13,7 +13,6 @@ int netlib_init()
 		ret = NETLIB_ERROR;
 	}
 #endif
-
 	return ret;
 }
 
@@ -36,7 +35,7 @@ int netlib_listen(
 		callback_t	callback,
 		void*		callback_data)
 {
-	CBaseSocket* pSocket = new CBaseSocket();
+	auto* pSocket = new CBaseSocket();
 	if (!pSocket)
 		return NETLIB_ERROR;
 
@@ -52,7 +51,7 @@ net_handle_t netlib_connect(
 		callback_t	callback, 
 		void*		callback_data)
 {
-	CBaseSocket* pSocket = new CBaseSocket();
+	auto* pSocket = new CBaseSocket();
 	if (!pSocket)
 		return NETLIB_INVALID_HANDLE;
 

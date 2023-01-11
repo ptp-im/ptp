@@ -7,6 +7,16 @@
 #include "ptp_global/Helpers.h"
 #include "ptp_global/Timer.h"
 #include "ptp_global/Utils.h"
+#include "ptp_global/BaseSocket.h"
+
+TEST(ptp_global, utils) {
+    int m_login_time = time(nullptr);
+    uint64_t m_login_time1 = time(nullptr);
+    ASSERT_EQ(m_login_time,m_login_time1);
+    CBaseSocket* pSocket = NULL;
+    CBaseSocket* pSocket1 = nullptr;
+    ASSERT_EQ(pSocket,pSocket1);
+}
 
 TEST(Timer, Timer) {
     Timer t;
@@ -178,7 +188,6 @@ TEST(Util, writePid) {
     DEBUG_D("buf ====>>>\n%s",buf);
     ASSERT_TRUE(string(buf, size) == to_string(curPid));
 }
-
 
 TEST(pt_net, CSimpleBuffer) {
     char const* str = "123456789";

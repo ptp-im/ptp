@@ -65,8 +65,6 @@ public:
     uint32_t GetLength();
     uchar_t* GetBodyData();
     uint32_t GetBodyLength();
-
-
     uint16_t GetVersion() { return m_pdu_header.version; }
     uint16_t GetFlag() { return m_pdu_header.flag; }
     uint16_t GetServiceId() { return m_pdu_header.service_id; }
@@ -87,9 +85,8 @@ public:
     static CImPdu* ReadPdu(uchar_t* buf, uint32_t len);
     void Write(uchar_t* buf, uint32_t len) { m_buf.Write((void*)buf, len); }
     int ReadPduHeader(uchar_t* buf, uint32_t len);
-    void SetPBMsg(const google::protobuf::MessageLite* msg);
-    void SetPBMsg(const google::protobuf::MessageLite* msg,uint16_t command_id,uint16_t seq_num = 0);
-    void SetPBMsg(unsigned char *buf, int len);
+    virtual void SetPBMsg(const google::protobuf::MessageLite* msg);
+    virtual void SetPBMsg(unsigned char *buf, int len);
 
 protected:
     CSimpleBuffer	m_buf;

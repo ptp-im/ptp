@@ -1,7 +1,6 @@
 #include "Logger.h"
 
 #ifdef ANDROID
-
 #include <stdio.h>
 #include <stdarg.h>
 #include <time.h>
@@ -139,7 +138,6 @@ void Logger::d(const char *message, ...) {
 
     va_end(argptr);
 }
-
 #else
     CSLog g_imlog = CSLog(LOG_MODULE_IM);
 #endif

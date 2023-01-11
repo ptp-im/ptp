@@ -61,7 +61,7 @@ void PTPWallet::HDKeyEncoder::makeEthExtendedKey(PTPWallet::HDKey& rootKey, cons
 
 string PTPWallet::HDKeyEncoder::getEthAddress(PTPWallet::HDKey& rootKey) {
     string address = ecdsa_get_public_address(rootKey.curve->params, rootKey.privateKey.cdata());
-    string address_hex = "0x"+ptp_toolbox::data::bytes_to_hex(reinterpret_cast<const uint8_t *>(address.data()),address.size());
+    string address_hex = ptp_toolbox::data::bytes_to_hex(reinterpret_cast<const uint8_t *>(address.data()),address.size());
     return address_hex;
 }
 

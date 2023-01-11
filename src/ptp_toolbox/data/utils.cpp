@@ -30,8 +30,9 @@ std::string ptp_toolbox::data::bytes_to_hex(const uint8_t* data, size_t len) {
     for (size_t i = 0; i < len; ++i) {
         ss << std::setw(2) << std::setfill('0') << (int) data[i];
     }
-
-    return ss.str();
+    std::string ox = "0x";
+    ox.append(ss.str());
+    return ox;
 }
 
 std::string ptp_toolbox::data::to_ascii(const std::vector<char>& input) {
