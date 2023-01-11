@@ -18,7 +18,7 @@ file(COPY log4cxx.properties
         DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 
 
-set(COMMON_LIBS pthread mysqlclient_r hiredis slog crypto secp256k1 ptp_global ptp_crypto ptp_protobuf ptp_wallet)
+set(COMMON_LIBS pthread mysqlclient_r curl hiredis slog crypto secp256k1 ptp_global ptp_crypto ptp_protobuf ptp_wallet)
 
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 AUX_SOURCE_DIRECTORY(./actions SRC_LIST)

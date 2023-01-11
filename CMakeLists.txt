@@ -14,7 +14,7 @@ MESSAGE( STATUS "CMAKE_INSTALL_RPATH: " "${CMAKE_INSTALL_PREFIX}/lib" )
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14  -g")
 
 file(MAKE_DIRECTORY ./build/conf)
-file(MAKE_DIRECTORY ./build/bind)
+file(MAKE_DIRECTORY ./build/bin)
 file(MAKE_DIRECTORY ./build/lib)
 file(MAKE_DIRECTORY ./build/log)
 
