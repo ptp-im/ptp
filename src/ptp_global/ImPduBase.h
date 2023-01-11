@@ -12,7 +12,7 @@
 
 
 #define ALLOC_FAIL_ASSERT(p) if (p == NULL) { \
-throw CPduException(m_pdu_header.service_id, m_pdu_header.command_id, ERROR_CODE_ALLOC_FAILED, "allocate failed"); \
+throw CPduException(m_pdu_header.command_id, ERROR_CODE_ALLOC_FAILED, "allocate failed"); \
 }
 
 #define CHECK_PB_PARSE_MSG(ret) { \
@@ -32,8 +32,6 @@ throw CPduException(m_pdu_header.service_id, m_pdu_header.command_id, ERROR_CODE
     }\
 }
 
-
-
 #ifdef WIN32
 #ifdef BUILD_PDU
 #define DLL_MODIFIER __declspec(dllexport)
@@ -44,15 +42,13 @@ throw CPduException(m_pdu_header.service_id, m_pdu_header.command_id, ERROR_CODE
 #define DLL_MODIFIER
 #endif
 
-//////////////////////////////
 typedef struct {
     uint32_t 	length;		  // the whole pdu length
     uint16_t 	version;	  // pdu version number
     uint16_t	flag;		  // not used
-    uint16_t	service_id;	  //
     uint16_t	command_id;	  //
     uint16_t	seq_num;     // 包序号
-    uint16_t    reversed;    // 保留
+    uint32_t    reversed;    // 保留
 } PduHeader_t;
 
 class DLL_MODIFIER CImPdu
@@ -67,7 +63,7 @@ public:
     uint32_t GetBodyLength();
     uint16_t GetVersion() { return m_pdu_header.version; }
     uint16_t GetFlag() { return m_pdu_header.flag; }
-    uint16_t GetServiceId() { return m_pdu_header.service_id; }
+    uint16_t GetServiceId() { return 0; }
     uint16_t GetCommandId() { return m_pdu_header.command_id; }
     uint16_t GetSeqNum() { return m_pdu_header.seq_num; }
     uint32_t GetReversed() { return m_pdu_header.reversed; }

@@ -5,8 +5,6 @@
 
 #define MIN_CACHE_CONN_CNT	2
 
-static string GlobalAuthKey;
-static string GlobalAuthToken;
 static string m_config_path;
 
 CacheManager* CacheManager::s_cache_manager = NULL;

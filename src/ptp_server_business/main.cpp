@@ -1,6 +1,8 @@
-#include "ptp_servers/business/boot_business.h"
+#include "ptp_server/BusinessSrvConn.h"
 
-int main(int argc, char *argv[]) {
-    boot_business(argc,argv);
+int main(int argc, char* argv[])
+{
+    run_ptp_server_business(argc,argv);
+    netlib_eventloop();
     return 0;
 }

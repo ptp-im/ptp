@@ -4,7 +4,9 @@
 #include "../Request.h"
 #include "../Response.h"
 
-namespace ACTION {
+namespace ACTION_AUTH {
+    void AuthCaptchaReq(CRequest* request, CResponse* response);
+    void AuthLoginReq(CRequest* request, CResponse* response);
     void ServerLoginReq(CRequest* request, CResponse* response);
     void ServerLoginRes(CRequest* request, CResponse* response);
 }

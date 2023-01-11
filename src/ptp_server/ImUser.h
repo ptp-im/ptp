@@ -29,6 +29,7 @@ public:
 
     bool IsMsgConnEmpty() { return m_conn_map.empty(); }
     void AddMsgConn(uint32_t handle, CMsgSrvConn *pMsgConn) { m_conn_map[handle] = pMsgConn; }
+    void DelMsgConn(uint32_t handle) { m_conn_map.erase(handle); }
     CMsgSrvConn *GetMsgConn(uint32_t handle);
     map<uint32_t, CMsgSrvConn *> &GetMsgConnMap() { return m_conn_map; }
     void BroadcastPdu(ImPdu *pPdu, CMsgSrvConn *pFromConn = nullptr);

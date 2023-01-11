@@ -13,10 +13,36 @@ MESSAGE( STATUS "CMAKE_INSTALL_RPATH: " "${CMAKE_INSTALL_PREFIX}/lib" )
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14  -g")
 
-INCLUDE_DIRECTORIES(./src/)
-LINK_DIRECTORIES(./lib)
-SET(LIBRARY_OUTPUT_PATH ../../lib)
+file(MAKE_DIRECTORY ./build/conf)
+file(MAKE_DIRECTORY ./build/bind)
+file(MAKE_DIRECTORY ./build/lib)
+file(MAKE_DIRECTORY ./build/log)
 
+file(COPY ./conf/bd_server.conf
+        DESTINATION ./build/conf)
+file(COPY ./lib/libprotobuf-lite.a
+        DESTINATION ./build/lib)
+file(COPY ./lib/libhiredis.a
+        DESTINATION ./build/lib)
+file(COPY ./lib/libsecp256k1.a
+        DESTINATION ./build/lib)
+file(COPY ./lib/libslog.dylib
+        DESTINATION ./build/lib)
+file(COPY ./lib/liblog4cxx.10.0.0.dylib
+        DESTINATION ./build/lib)
+file(COPY ./lib/liblog4cxx.10.dylib
+        DESTINATION ./build/lib)
+file(COPY ./lib/liblog4cxx.a
+        DESTINATION ./build/lib)
+file(COPY ./lib/liblog4cxx.dylib
+        DESTINATION ./build/lib)
+file(COPY ./lib/liblog4cxx.la
+        DESTINATION ./build/lib)
+
+LINK_DIRECTORIES(./build/lib)
+SET(LIBRARY_OUTPUT_PATH ./build/lib)
+
+INCLUDE_DIRECTORIES(./src/)
 INCLUDE_DIRECTORIES(./include)
 INCLUDE_DIRECTORIES(./include/protobuf)
 INCLUDE_DIRECTORIES(./include/redis)
@@ -38,20 +64,16 @@ else()
     LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
 endif()
 
-INCLUDE_DIRECTORIES(./include/protobuf)
-INCLUDE_DIRECTORIES(./include/redis)
-INCLUDE_DIRECTORIES(./include)
-
 add_subdirectory(src/ptp_crypto)
 add_subdirectory(src/ptp_toolbox)
 add_subdirectory(src/ptp_net)
 add_subdirectory(src/ptp_wallet)
 add_subdirectory(src/ptp_global)
 add_subdirectory(src/ptp_protobuf)
-add_subdirectory(src/ptp_business)
-#add_subdirectory(src/ptp_servers)
-#add_subdirectory(src/ptp_server_msfs)
+add_subdirectory(src/ptp_server)
+add_subdirectory(src/ptp_server_business)
 add_subdirectory(src/ptp_server_msg)
+#add_subdirectory(src/ptp_server_msfs)
 #add_subdirectory(src/ptp_server_push)
 #add_subdirectory(src/ptp_server_route)
 #add_subdirectory(src/ptp_server_login)

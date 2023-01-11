@@ -33,6 +33,14 @@ public:
 		m_error_msg = error_msg;
 	}
 
+    CPduException(uint32_t command_id, uint32_t error_code, const char* error_msg)
+    {
+        m_service_id = 0;
+        m_command_id = command_id;
+        m_error_code = error_code;
+        m_error_msg = error_msg;
+    }
+
 	CPduException(uint32_t error_code, const char* error_msg)
 	{
 		m_service_id = 0;

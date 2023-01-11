@@ -5,7 +5,7 @@ set(LIB_NAME_MAIN ptp_server_push)
 
 MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
 
-SET(EXECUTABLE_OUTPUT_PATH  ../../bin/${LIB_NAME_MAIN})
+SET(EXECUTABLE_OUTPUT_PATH  ../../build/bin/${LIB_NAME_MAIN})
 
 file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
 file(COPY log4cxx.properties

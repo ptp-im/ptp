@@ -26,7 +26,7 @@ void ImPdu::SetPBMsg(const google::protobuf::MessageLite* msg)
 void ImPdu::SetPBMsg(const google::protobuf::MessageLite* msg,uint16_t command_id,uint16_t seq_num)
 {
     m_pdu_header.command_id = command_id;
-    m_pdu_header.service_id = 0;
+    //m_pdu_header.service_id = 0;
     m_pdu_header.seq_num = seq_num;
     m_buf.Read(NULL, m_buf.GetWriteOffset());
     m_buf.Write(NULL, sizeof(PduHeader_t));

@@ -1,14 +1,16 @@
 #include "InterLogin.h"
-#include "ptp_business/CachePool.h"
+#include "CachePool.h"
 #include "ptp_crypto//secp256k1_helpers.h"
 #include "PTP.Auth.pb.h"
 
 using namespace PTP::Common;
 
-bool CInterLoginStrategy::ServerLogin(const string sign, const string &captcha, const string &address, PTP::Common::UserInfo *user, ERR &error){
+bool CInterLoginStrategy::ServerLogin(PTP::Server::ServerLoginReq *msg, PTP::Common::UserInfo *user, ERR &error){
     bool bRet = false;
     while (true) {
-        DEBUG_D("captcha:%s",captcha.c_str());
+        DEBUG_D("captcha:%s",msg->captcha().c_str());
+        DEBUG_D("address:%s",msg->address().c_str());
+        DEBUG_D("sign:%s", bytes_to_hex_string(reinterpret_cast<const uint8_t *>(msg->sign().c_str()), 65).c_str());
         CacheManager *pCacheManager = CacheManager::getInstance();
         CacheConn *pCacheConn = pCacheManager->GetCacheConn("auth");
         if (!pCacheConn) {
@@ -17,20 +19,23 @@ bool CInterLoginStrategy::ServerLogin(const string sign, const string &captcha, 
             break;
         }
 
-        string msg_data = format_sign_msg_data(captcha,SignMsgType_ptp);
+        string msg_data = format_sign_msg_data(msg->captcha(),SignMsgType_ptp);
 
         unsigned char pub_key_33[33];
         string address_hex;
-        auto ret = recover_pub_key_from_sig_65((unsigned char *)sign.data(),msg_data, pub_key_33,address_hex);
+
+        bool ret = recover_pub_key_and_address_from_sig((unsigned char *)msg->sign().c_str(), msg_data, pub_key_33, address_hex);
+        DEBUG_D("pub_key_33:%s", bytes_to_hex_string(pub_key_33, 33).c_str());
+        DEBUG_D("address_hex rec:%s", address_hex.c_str());
 
         if(!ret){
             error = E_LOGIN_ERROR;
             DEBUG_E("sign rec error");
             break;
         }
-        if(address_hex!=address){
+        if(address_hex!=msg->address()){
             error = E_LOGIN_ERROR;
-            DEBUG_E("client address:%s != %s",address_hex.c_str(), address.c_str());
+            DEBUG_E("client address:%s != %s",address_hex.c_str(), msg->address().c_str());
             break;
         }
 

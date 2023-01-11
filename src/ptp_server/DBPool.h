@@ -12,7 +12,6 @@
 #define DBPOOL_H_
 
 #include "ptp_global/Utils.h"
-#include "ptp_global/Logger.h"
 #include "ptp_global/ThreadPool.h"
 #include <mysql.h>
 
@@ -117,7 +116,7 @@ private:
 class CDBManager {
 public:
 	virtual ~CDBManager();
-
+    static void setConfigPath(const string &path);
 	static CDBManager* getInstance();
     static CDBManager* getInstance(const char* filename);
 

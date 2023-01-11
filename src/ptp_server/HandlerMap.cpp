@@ -1,13 +1,17 @@
 #include "HandlerMap.h"
 
 #include "actions/AuthAction.h"
+#include "actions/OtherAction.h"
 
 using namespace PTP::Common;
 
 void CHandlerMap::Init()
 {
-    m_handler_map.insert(make_pair(uint32_t(CID_ServerLoginReq), ACTION::ServerLoginReq));
-    m_handler_map.insert(make_pair(uint32_t(CID_ServerLoginRes), ACTION::ServerLoginRes));
+    m_handler_map.insert(make_pair(uint32_t(CID_AuthCaptchaReq),        ACTION_AUTH::AuthCaptchaReq));
+    m_handler_map.insert(make_pair(uint32_t(CID_AuthLoginReq),          ACTION_AUTH::AuthLoginReq));
+    m_handler_map.insert(make_pair(uint32_t(CID_ServerLoginReq),        ACTION_AUTH::ServerLoginReq));
+    m_handler_map.insert(make_pair(uint32_t(CID_ServerLoginRes),        ACTION_AUTH::ServerLoginRes));
+    m_handler_map.insert(make_pair(uint32_t(CID_HeartBeatNotify),       ACTION_OTHER::HeartBeatNotify));
 }
 
 CHandlerMap* CHandlerMap::s_handler_instance = NULL;

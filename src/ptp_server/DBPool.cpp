@@ -1,20 +1,9 @@
-/*
- * DBPool.cpp
- *
- *  Created on: 2014年7月22日
- *      Author: ziteng
- *  Modify By ZhangYuanhao
- *  2015-01-12
- *  enable config the max connection of every instance
- *  2015-01-25
- *  modify the charset.
- */
-
 #include "DBPool.h"
 #include "ptp_global/ConfigFileReader.h"
+#include "ptp_global/Logger.h"
 
 #define MIN_DB_CONN_CNT		2
-
+static string m_config_path;
 CDBManager* CDBManager::s_db_manager = NULL;
 
 CResultSet::CResultSet(MYSQL_RES* res)
@@ -250,7 +239,7 @@ CResultSet* CDBConn::ExecuteQuery(const char* sql_query,bool hide_debugger_sql)
 {
 	mysql_ping(m_mysql);
     if(!hide_debugger_sql){
-        DEBUG_D("> sql: %s",sql_query);
+        DEBUG_I("> sql: %s",sql_query);
     }
 	if (mysql_real_query(m_mysql, sql_query, strlen(sql_query))) {
 		DEBUG_I("mysql_real_query failed: %s, sql: %s", mysql_error(m_mysql), sql_query);
@@ -263,7 +252,7 @@ CResultSet* CDBConn::ExecuteQuery(const char* sql_query,bool hide_debugger_sql)
 		return NULL;
 	}
 
-	CResultSet* result_set = new CResultSet(res);
+	auto* result_set = new CResultSet(res);
 	return result_set;
 }
 
@@ -315,9 +304,8 @@ CDBPool::CDBPool(const char* pool_name, const char* db_server_ip, uint16_t db_se
 
 CDBPool::~CDBPool()
 {
-	for (list<CDBConn*>::iterator it = m_free_list.begin(); it != m_free_list.end(); it++) {
-		CDBConn* pConn = *it;
-		delete pConn;
+	for (auto pConn : m_free_list) {
+			delete pConn;
 	}
 
 	m_free_list.clear();
@@ -326,7 +314,7 @@ CDBPool::~CDBPool()
 int CDBPool::Init()
 {
 	for (int i = 0; i < m_db_cur_conn_cnt; i++) {
-		CDBConn* pDBConn = new CDBConn(this);
+		auto* pDBConn = new CDBConn(this);
 		int ret = pDBConn->Init();
 		if (ret) {
 			delete pDBConn;
@@ -352,7 +340,7 @@ CDBConn* CDBPool::GetDBConn()
 		if (m_db_cur_conn_cnt >= m_db_max_conn_cnt) {
 			m_free_notify.Wait();
 		} else {
-			CDBConn* pDBConn = new CDBConn(this);
+			auto* pDBConn = new CDBConn(this);
 			int ret = pDBConn->Init();
 			if (ret) {
 				DEBUG_I("Init DBConnecton failed");
@@ -379,7 +367,7 @@ void CDBPool::RelDBConn(CDBConn* pConn)
 {
 	m_free_notify.Lock();
 
-	list<CDBConn*>::iterator it = m_free_list.begin();
+	auto it = m_free_list.begin();
 	for (; it != m_free_list.end(); it++) {
 		if (*it == pConn) {
 			break;
@@ -431,7 +419,7 @@ CDBManager* CDBManager::getInstance(const char* filename)
     return s_db_manager;
 }
 int CDBManager::Init(){
-    return this->Init("../bd_common/conf/bd_server.conf");
+    return this->Init(m_config_path.c_str());
 }
 /*
  * 2015-01-12
@@ -439,6 +427,10 @@ int CDBManager::Init(){
  */
 int CDBManager::Init(const char* filename)
 {
+    if(!filename){
+        DEBUG_E("m_config_path is null,pls use `CDBManager::setConfigPath()`");
+        return 1;
+    }
 	CConfigFileReader config_file(filename);
 
 	char* db_instances = config_file.GetConfigName("DBInstances");
@@ -479,7 +471,7 @@ int CDBManager::Init(const char* filename)
 
 		int db_port = atoi(str_db_port);
         int db_maxconncnt = atoi(str_maxconncnt);
-		CDBPool* pDBPool = new CDBPool(pool_name, db_host, db_port, db_username, db_password, db_dbname, db_maxconncnt);
+		auto* pDBPool = new CDBPool(pool_name, db_host, db_port, db_username, db_password, db_dbname, db_maxconncnt);
 		if (pDBPool->Init()) {
 			DEBUG_I("init db instance failed: %s", pool_name);
 			return 3;
@@ -492,7 +484,7 @@ int CDBManager::Init(const char* filename)
 
 CDBConn* CDBManager::GetDBConn(const char* dbpool_name)
 {
-	map<string, CDBPool*>::iterator it = m_dbpool_map.find(dbpool_name);
+	auto it = m_dbpool_map.find(dbpool_name);
 	if (it == m_dbpool_map.end()) {
 		return NULL;
 	} else {
@@ -506,8 +498,12 @@ void CDBManager::RelDBConn(CDBConn* pConn)
 		return;
 	}
 
-	map<string, CDBPool*>::iterator it = m_dbpool_map.find(pConn->GetPoolName());
+	auto it = m_dbpool_map.find(pConn->GetPoolName());
 	if (it != m_dbpool_map.end()) {
 		it->second->RelDBConn(pConn);
 	}
+}
+
+void CDBManager::setConfigPath(const string &path) {
+    m_config_path = path;
 }

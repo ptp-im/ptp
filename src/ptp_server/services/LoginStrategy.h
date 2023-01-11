@@ -9,7 +9,7 @@
 class CLoginStrategy
 {
 public:
-    bool ServerLogin(const std::string sign, const std::string& captcha, const std::string &address, PTP::Common::UserInfo* user,PTP::Common::ERR& error);
+    bool ServerLogin(PTP::Server::ServerLoginReq *msg, PTP::Common::UserInfo* user,PTP::Common::ERR& error);
 };
 
 #endif /*defined(__LOGINSTRATEGY_H__) */

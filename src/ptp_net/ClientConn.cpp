@@ -32,7 +32,7 @@ static void msg_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t h
             if(it->first == get_current_account_id()){
                 CClientConn*  pConn = (CClientConn*)it->second;
                 if (pConn != NULL && pConn->IsOpen()) {
-                    if(timer_cnt > 0 && timer_cnt % 10 == 0 ){
+                    if(timer_cnt > 0 && timer_cnt % 29 == 0 ){
                         DEBUG_D("on_timer:%d",get_current_account_id());
                     }
                     pConn->OnTimer(cur_time);

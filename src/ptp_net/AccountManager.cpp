@@ -246,7 +246,7 @@ void AccountManager::handlePdu(CImPdu *pPdu){
         string msg_data = AccountManager::format_sign_msg_data(captcha);
         DEBUG_D("msg_data: %s", msg_data.c_str());
         DEBUG_D("server sign65Buf: %s", ptp_toolbox::data::bytes_to_hex(sign65Buf,65).c_str());
-        auto ret = recover_pub_key_from_sig_65(sign65Buf, msg_data, pub_key_33,srv_address_hex);
+        auto ret = recover_pub_key_and_address_from_sig(sign65Buf, msg_data, pub_key_33,srv_address_hex);
         DEBUG_D("server address: %s,captcha:%s", ptp_toolbox::data::bytes_to_hex(addressBuff,20).c_str(),captchaBuff);
         DEBUG_D("server address rec: %s", srv_address_hex.c_str());
         if(!ret){
@@ -254,7 +254,7 @@ void AccountManager::handlePdu(CImPdu *pPdu){
             return;
         }
 
-        if(srv_address_hex.substr(2) != ptp_toolbox::data::bytes_to_hex(addressBuff,20)){
+        if(srv_address_hex != ptp_toolbox::data::bytes_to_hex(addressBuff,20)){
             DEBUG_E("srv_address_hex error!");
             closeSocket();
             return;
@@ -274,11 +274,12 @@ void AccountManager::handlePdu(CImPdu *pPdu){
         DEBUG_D("server pubKey: %s", bytes_to_hex_string(pub_key_33,33).c_str());
         DEBUG_D("shared_secret: %s", ptp_toolbox::data::bytes_to_hex(shared_secret,32).c_str());
         m_sharedKeyHex = ptp_toolbox::data::bytes_to_hex(shared_secret,32);
-
+        unsigned char sign65Buf1[65] = { 0 };
+        signMessage(captcha,sign65Buf1);
         PTP::Auth::AuthLoginReq msg;
         msg.set_address(address);
         msg.set_captcha(captcha);
-        msg.set_sign(sign65Buf,65);
+        msg.set_sign(sign65Buf1,65);
         msg.set_client_version("1.0.1");
         msg.set_client_type(CLIENT_TYPE_ANDROID);
         ImPdu pdu;

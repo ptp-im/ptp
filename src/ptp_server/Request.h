@@ -13,8 +13,11 @@ public:
     ~CRequest();
     void SetPdu(ImPdu *pPdu){m_pPdu = pPdu;};
     ImPdu *GetPdu(){return m_pPdu;}
+    net_handle_t GetHandle(){return m_handle;}
+    void SetHandle(net_handle_t handle){m_handle = handle;}
 private:
-    ImPdu  *m_pPdu;
+    ImPdu           *m_pPdu;
+    net_handle_t    m_handle;
 };
 
 

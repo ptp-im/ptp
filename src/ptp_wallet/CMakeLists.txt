@@ -1,6 +1,7 @@
 if(ANDROID)
     INCLUDE_DIRECTORIES(../../../boringssl/include)
     LINK_DIRECTORIES(../../../boringssl/lib)
+    SET(LIBRARY_OUTPUT_PATH  ../../lib)
 elseif(APPLE)
     INCLUDE_DIRECTORIES(/usr/local/opt/openssl@1.1/include)
     LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
@@ -8,8 +9,6 @@ elseif(UNIX)
     INCLUDE_DIRECTORIES(/usr/local/opt/openssl@1.1/include)
     LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
 endif()
-
-SET(LIBRARY_OUTPUT_PATH ../../lib)
 
 INCLUDE_DIRECTORIES(./)
 INCLUDE_DIRECTORIES(../)

@@ -3,9 +3,9 @@
 #include "ptp_global/Logger.h"
 #include "ptp_protobuf/ImPdu.h"
 #include "ptp_protobuf/PTP.Auth.pb.h"
-#include "ptp_server_msg/MsgSrvConn.h"
+#include "ptp_server/MsgSrvConn.h"
 #include "ptp_crypto/secp256k1_helpers.h"
-#include "ptp_business/CachePool.h"
+#include "ptp_server/CachePool.h"
 #include "ptp_net/AccountManager.h"
 #include "ptp_net/ClientConn.h"
 
@@ -117,6 +117,11 @@ TEST(ptp_server_msg, Auth) {
     pMsgSrvConn->HandlePdu(&pdu_login);
     auto pPdu1 = pMsgSrvConn->ReadTestPdu();
     ASSERT_EQ(pPdu1->GetCommandId(),CID_AuthLoginRes);
+    PTP::Auth::AuthLoginRes msg_login_rsp;
+    res = msg_login_rsp.ParseFromArray(pPdu1->GetBodyData(), (int)pPdu1->GetBodyLength());
+    ASSERT_EQ(res,true);
+    DEBUG_D("uid: %d", msg_login_rsp.user_info().uid());
+    DEBUG_D("address: %s", msg_login_rsp.user_info().address().c_str());
 
 }
 
