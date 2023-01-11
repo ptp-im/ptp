@@ -3,7 +3,7 @@
 #include "ptp_global/Logger.h"
 #include "ptp_net/AccountManager.h"
 #include "ptp_net/ClientConn.h"
-#include "ptp_business/CachePool.h"
+//#include "ptp_business/CachePool.h"
 
 
 TEST(dbpool, dbpool) {

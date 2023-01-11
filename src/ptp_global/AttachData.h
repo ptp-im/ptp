@@ -8,7 +8,7 @@
 #ifndef ATTACHDATA_H_
 #define ATTACHDATA_H_
 
-#include "ptp_global/Utils.h"
+#include "Utils.h"
 
 enum {
     ATTACH_TYPE_HANDLE	= 1,

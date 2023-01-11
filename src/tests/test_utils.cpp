@@ -15,10 +15,10 @@
 #include "ptp_protobuf/PTP.Msg.pb.h"
 #include "ptp_protobuf/PTP.Auth.pb.h"
 #include "ptp_protobuf/PTP.Group.pb.h"
-#include "ptp_servers/ws/MsgConn.h"
+//#include "ptp_servers/ws/MsgConn.h"
 
-#include "ptp_business/CachePool.h"
-#include "ptp_servers/ws/ImUser.h"
+//#include "ptp_business/CachePool.h"
+//#include "ptp_servers/ws/ImUser.h"
 
 using namespace PTP::Common;
 //
