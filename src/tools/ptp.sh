@@ -71,8 +71,6 @@ function print_usage() {
   		echo "  $0 build ptp_crypto"
   		echo "  $0 build ptp_global"
   		echo "  $0 build ptp_wallet"
-  		echo "  $0 build ptp_toolbox"
-  		echo "  $0 build ptp_net"
   		echo "  $0 build ptp_server"
   		echo "  $0 build tests"
   		echo "  $0 build ptp_server_business"
@@ -84,6 +82,7 @@ function print_usage() {
   		echo "  $0 build_tools"
   		echo "  $0 clean_ptp"
   		echo "  $0 build_tests"
+  		echo "  $0 build_test"
   		echo "  $0 run_tests"
   		echo "  $0 run_test"
   		echo "  $0 clean_tests"
@@ -122,8 +121,13 @@ function build() {
 function run_test() {
   testName=$2
   if [ "$2" == "" ]; then
-    ls -al $PTP_DIR/build/bin/tests/
-    echo "[WARN] enter test name!!"
+      cd $PTP_DIR/build/bin/tests
+      tests=$(ls *.run | tr " " "\n")
+      for test in $tests
+      do
+        echo $0 "run_test $test"
+      done
+      cd $PTP_DIR
   else
     echo "run $testName"
     cd $PTP_DIR/build/bin/tests/
@@ -131,6 +135,26 @@ function run_test() {
   fi
 }
 
+function build_test() {
+  testName=$2
+  if [ "$2" == "" ]; then
+      cd $PTP_DIR/tests/
+      tests=$(ls ./ | grep test_ | tr " " "\n")
+      for test in $tests
+      do
+        echo $0 "build_test $test"
+      done
+      cd $PTP_DIR
+  else
+    echo "build $testName"
+      cd $PTP_DIR
+      cmake .
+      cd $PTP_DIR/tests/$testName
+      make
+      cd $PTP_DIR/build/bin/tests/
+      ./$testName.run
+  fi
+}
 
 # Change the current directory to the location of the script
 CUR_DIR=$(dirname "${REALPATH}")
@@ -164,6 +188,9 @@ case $1 in
   ;;
 	build_tests)
 		build_app tests
+  ;;
+	build_test)
+		build_test $@
   ;;
 	run_tests)
 		run_tests
