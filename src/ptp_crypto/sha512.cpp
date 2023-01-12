@@ -7,13 +7,13 @@
 
 #include <cstring>
 
-#if defined(__GNUC__) && (__GNUC__ < 5)
-#define SHA512_CONSTEXPR_VOID
-#else
-#define SHA512_CONSTEXPR_VOID constexpr
-#endif
+//#if defined(__GNUC__) && (__GNUC__ < 5)
+//#define SHA512_CONSTEXPR_VOID
+//#else
+//#define SHA512_CONSTEXPR_VOID constexpr
+//#endif
 
-
+#define SHA256_CONSTEXPR_VOID
 // Internal implementation code.
 namespace {
 /// Internal SHA-512 implementation.
