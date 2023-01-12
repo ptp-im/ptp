@@ -24,7 +24,8 @@ void Transform(uint32_t* s, const unsigned char* chunk, size_t blocks);
 //#else
 //#define SHA256_CONSTEXPR_VOID constexpr
 //#endif
-#define SHA256_CONSTEXPR_VOID constexpr
+#define SHA256_CONSTEXPR_VOID
+
 // Internal implementation code.
 namespace {
 /// Internal SHA-256 implementation.
