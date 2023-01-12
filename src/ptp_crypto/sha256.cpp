@@ -20,9 +20,9 @@ void Transform(uint32_t* s, const unsigned char* chunk, size_t blocks);
 #endif
 
 #if defined(__GNUC__) && (__GNUC__ < 5)
-#define SHA256_CONSTEXPR_VOID
+#define SHA512_CONSTEXPR_VOID constexpr
 #else
-#define SHA256_CONSTEXPR_VOID constexpr
+#define SHA512_CONSTEXPR_VOID
 #endif
 
 // Internal implementation code.
