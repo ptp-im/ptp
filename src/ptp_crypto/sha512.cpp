@@ -13,7 +13,7 @@
 //#define SHA512_CONSTEXPR_VOID constexpr
 //#endif
 
-#define SHA256_CONSTEXPR_VOID constexpr
+#define SHA512_CONSTEXPR_VOID
 // Internal implementation code.
 namespace {
 /// Internal SHA-512 implementation.
