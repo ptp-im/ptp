@@ -40,7 +40,7 @@ file(COPY ./lib/liblog4cxx.la
         DESTINATION ./build/lib)
 
 LINK_DIRECTORIES(./build/lib)
-SET(LIBRARY_OUTPUT_PATH ./build/lib)
+SET(LIBRARY_OUTPUT_PATH ../../build/lib)
 
 INCLUDE_DIRECTORIES(./src/)
 INCLUDE_DIRECTORIES(./include)
@@ -64,6 +64,7 @@ else()
     LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
 endif()
 
+add_subdirectory(src/tools)
 add_subdirectory(src/ptp_crypto)
 add_subdirectory(src/ptp_toolbox)
 add_subdirectory(src/ptp_net)

@@ -5,7 +5,7 @@ apps="business file push route msfs msg login"
 apps1="business|file|push|route|msfs|ws|msg|login"
 
 CUR_DIR=
-ROOT_DIR=
+PTP_DIR=
 VERSION=$2
 OS=`uname -s`
 if [ $OS" " ==  "Darwin"" " ];then
@@ -14,60 +14,64 @@ else
   SYSTEM="linux"
 fi
 
-get_cur_dir() {
-    # Get the fully qualified path to the script
-    case $0 in
-        /*)
-            SCRIPT="$0"
-            ;;
-        *)
-            PWD_DIR=$(pwd);
-            SCRIPT="${PWD_DIR}/$0"
-            ;;
-    esac
-    # Resolve the true real path without any sym links.
-    CHANGED=true
-    while [ "X$CHANGED" != "X" ]
-    do
-        # Change spaces to ":" so the tokens can be parsed.
-        SAFESCRIPT=`echo $SCRIPT | sed -e 's; ;:;g'`
-        # Get the real path to this script, resolving any symbolic links
-        TOKENS=`echo $SAFESCRIPT | sed -e 's;/; ;g'`
-        REALPATH=
-        for C in $TOKENS; do
-            # Change any ":" in the token back to a space.
-            C=`echo $C | sed -e 's;:; ;g'`
-            REALPATH="$REALPATH/$C"
-            # If REALPATH is a sym link, resolve it.  Loop for nested links.
-            while [ -h "$REALPATH" ] ; do
-                LS="`ls -ld "$REALPATH"`"
-                LINK="`expr "$LS" : '.*-> \(.*\)$'`"
-                if expr "$LINK" : '/.*' > /dev/null; then
-                    # LINK is absolute.
-                    REALPATH="$LINK"
-                else
-                    # LINK is relative.
-                    REALPATH="`dirname "$REALPATH"`""/$LINK"
-                fi
-            done
+# Get the fully qualified path to the script
+case $0 in
+    /*)
+        SCRIPT="$0"
+        ;;
+    *)
+        PWD_DIR=$(pwd);
+        SCRIPT="${PWD_DIR}/$0"
+        ;;
+esac
+# Resolve the true real path without any sym links.
+CHANGED=true
+while [ "X$CHANGED" != "X" ]
+do
+    # Change spaces to ":" so the tokens can be parsed.
+    SAFESCRIPT=`echo $SCRIPT | sed -e 's; ;:;g'`
+    # Get the real path to this script, resolving any symbolic links
+    TOKENS=`echo $SAFESCRIPT | sed -e 's;/; ;g'`
+    REALPATH=
+    for C in $TOKENS; do
+        # Change any ":" in the token back to a space.
+        C=`echo $C | sed -e 's;:; ;g'`
+        REALPATH="$REALPATH/$C"
+        # If REALPATH is a sym link, resolve it.  Loop for nested links.
+        while [ -h "$REALPATH" ] ; do
+            LS="`ls -ld "$REALPATH"`"
+            LINK="`expr "$LS" : '.*-> \(.*\)$'`"
+            if expr "$LINK" : '/.*' > /dev/null; then
+                # LINK is absolute.
+                REALPATH="$LINK"
+            else
+                # LINK is relative.
+                REALPATH="`dirname "$REALPATH"`""/$LINK"
+            fi
         done
-
-        if [ "$REALPATH" = "$SCRIPT" ]
-        then
-            CHANGED=""
-        else
-            SCRIPT="$REALPATH"
-        fi
     done
-    # Change the current directory to the location of the script
-    CUR_DIR=$(dirname "${REALPATH}")
-}
+
+    if [ "$REALPATH" = "$SCRIPT" ]
+    then
+        CHANGED=""
+    else
+        SCRIPT="$REALPATH"
+    fi
+done
+CUR_DIR=$(dirname "${REALPATH}")
+cd $CUR_DIR
+cd ../../
+PTP_DIR=$PWD
+echo CUR_DIR: $CUR_DIR
+echo PTP_DIR: $PTP_DIR
+echo SYSTEM: $SYSTEM
+echo "========"
 
 function run() {
-    name="bd_$1_server"
-    if [ -e $ROOT_DIR/$name  ]; then
+    name="ptp_server_$1"
+    if [ -e $BIN_DIR/$name  ]; then
       echo start... $name
-      cd $ROOT_DIR/$name
+      cd $BIN_DIR/$name
       killall $name
       if [ -e server.pid  ]; then
           pid=`cat server.pid`
@@ -85,10 +89,10 @@ function run() {
 
 
 function daeml_server() {
-    name="bd_$1_server"
-    if [ -e $ROOT_DIR/$name  ]; then
+    name="ptp_server_$1"
+    if [ -e $BIN_DIR/$name  ]; then
       echo start... $name
-      cd $ROOT_DIR/$name
+      cd $BIN_DIR/$name
       killall $name
       if [ -e server.pid  ]; then
           pid=`cat server.pid`
@@ -105,10 +109,10 @@ function daeml_server() {
 }
 
 function stop_server() {
-    name="bd_$1_server"
-    if [ -e $ROOT_DIR/$name  ]; then
+    name="ptp_server_$1"
+    if [ -e $BIN_DIR/$name  ]; then
       echo stop... $name
-      cd $ROOT_DIR/$name
+      cd $BIN_DIR/$name
       killall $name
       if [ -e server.pid  ]; then
           pid=`cat server.pid`
@@ -123,9 +127,9 @@ function stop_server() {
 }
 
 function look_server() {
-    name="bd_$1_server"
-    if [ -e $ROOT_DIR/$name  ]; then
-      cd $ROOT_DIR/$name
+    name="ptp_server_$1"
+    if [ -e $BIN_DIR/$name  ]; then
+      cd $BIN_DIR/$name
       pid="     "
       if [ -e server.pid  ]; then
           pid=`cat server.pid`
@@ -163,9 +167,9 @@ function look() {
   for server in $servers
   do
       if [ "$server" != "look" ]; then
-        name="bd_${server}_server"
-        if [ -e $ROOT_DIR/$name  ]; then
-          cd $ROOT_DIR/$name
+        name="ptp_server_${server}"
+        if [ -e $BIN_DIR/$name  ]; then
+          cd $BIN_DIR/$name
           pid="     "
           if [ -e server.pid  ]; then
               pid=`cat server.pid`
@@ -199,22 +203,21 @@ function stop() {
 }
 
 function log() {
-  tail -f ${ROOT_DIR}/bd_common/log/default.log
+  tail -f ${PTP_DIR}/build/bin/log/default.log
 }
 
 function log_clean() {
-  rm -f ${ROOT_DIR}/bd_common/log/default.log
+  rm -f ${PTP_DIR}/build/bin/log/default.log
 }
 
-
-get_cur_dir
 cd $CUR_DIR
 cd ../../
-ROOT_DIR=$PWD
-
+PTP_DIR=$PWD
+BIN_DIR=$PWD/build/bin
 echo SYSTEM: $SYSTEM
 echo CUR_DIR: $CUR_DIR
-echo ROOT_DIR: $ROOT_DIR
+echo PTP_DIR: $PTP_DIR
+echo BIN_DIR: $BIN_DIR
 echo "========"
 
 case $1 in

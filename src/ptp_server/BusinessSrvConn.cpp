@@ -376,7 +376,7 @@ int run_ptp_server_business(int argc, char* argv[])
 
     DEBUG_I("server start listen on: %s:%d", listen_ip,  listen_port);
     DEBUG_I("ptp_server_business looping...,pid=%d",getpid());
-    writePid("ptp_server_business.pid");
+    writePid();
     return 0;
 }
 

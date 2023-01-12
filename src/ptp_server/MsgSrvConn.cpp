@@ -353,7 +353,7 @@ int run_ptp_server_msg(int argc, char* argv[])
         init_business_serv_conn(db_server_list2, db_server_count2, concurrent_db_conn_cnt);
     }
     DEBUG_I("%s looping...,pid=%d",server_name.c_str(),getpid());
-    writePid(server_name+".pid");
+    writePid();
     return 0;
 }
 
