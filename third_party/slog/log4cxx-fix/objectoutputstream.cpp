@@ -36,8 +36,8 @@ ObjectOutputStream::ObjectOutputStream(OutputStreamPtr outputStream, Pool& p)
        objectHandle(0x7E0000),
        classDescriptions(new ClassDescriptionMap())
 {
-   char start[] = { 0xAC, 0xED, 0x00, 0x05 };
-   ByteBuffer buf(start, sizeof(start));
+   unsigned char start[] = { 0xAC, 0xED, 0x00, 0x05 };
+   ByteBuffer buf((char *)start, sizeof(start));
    os->write(buf, p);
 }
 
