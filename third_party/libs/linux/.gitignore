@@ -1,3 +1,5 @@
 !libprotobuf-lite.a
 !libsecp256k1.a
 !libhiredis.a
+!liblog4cxx.so
+!libslog.so
