@@ -84,22 +84,24 @@ else
   ./configure --prefix=$BUILD_DIR/log4cxx --with-apr=/usr --with-apr-util=/usr --with-charset=utf-8 --with-logchar=utf-8
 fi
 
-# cp $SRC_DIR/log4cxx-fix/inputstreamreader.cpp     ./src/main/cpp/
-# cp $SRC_DIR/log4cxx-fix/socketoutputstream.cpp    ./src/main/cpp/
-# cp $SRC_DIR/log4cxx-fix/console.cpp               ./src/examples/cpp/
-# make
-# make install
+cp $SRC_DIR/log4cxx-fix/inputstreamreader.cpp     ./src/main/cpp/
+cp $SRC_DIR/log4cxx-fix/socketoutputstream.cpp    ./src/main/cpp/
+cp $SRC_DIR/log4cxx-fix/console.cpp               ./src/examples/cpp/
+make
+make install
 
 if [ $SYSTEM ==  "mac" ];then
   cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.dylib $SRC_DIR/../../build/lib
+  cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.dylib $SRC_DIR/../libs/mac/
 else
   cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.so.10.0.0 $SRC_DIR/../../build/lib/liblog4cxx.so
+  cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.so.10.0.0 $SRC_DIR/../libs/linux/liblog4cxx.so
 fi
 
 cd $SRC_DIR
 cmake .
 make
-#rm -rf $BUILD_DIR
+rm -rf $BUILD_DIR
 
 if [ $? -eq 0 ]; then
   echo "==================================================="

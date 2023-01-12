@@ -1,4 +1,3 @@
-!libprotobuf-lite.a
-!libsecp256k1.a
-!liblog4cxx.a
-!libhiredis.a
+!*.a
+!*.so
+!*.dylib

@@ -18,6 +18,7 @@ build.ninja
 .DS_Store
 .idea
 *.log
+*.dylib
 Testing/
 bin/
 conanfile.txt
