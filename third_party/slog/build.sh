@@ -1,7 +1,6 @@
 SRC_DIR=
 BUILD_DIR=
 LOG4CXX=apache-log4cxx-0.10.0
-LOG4CXX=apache-log4cxx-1.0.0
 OS=`uname -s`
 
 if [ $OS" " ==  "Darwin"" " ];then
@@ -62,7 +61,6 @@ get_cur_dir() {
     echo BUILD_DIR: $BUILD_DIR
 }
 
-
 echo "=================================================="
 echo "start installing the development library [log4cxx]"
 echo "=================================================="
@@ -75,36 +73,31 @@ tar -xf $SRC_DIR/$LOG4CXX.tar.gz -C $BUILD_DIR
 
 cd $BUILD_DIR/$LOG4CXX
 
-#if [ $SYSTEM ==  "mac" ];then
-  #./configure --prefix=$BUILD_DIR/log4cxx --with-apr=/usr/local/opt/apr/bin/apr-1-config --with-apr-util=/usr/local/opt/apr-util/bin/apu-1-config --with-charset=utf-8 --with-logchar=utf-8
-  #cp $SRC_DIR/log4cxx-fix/simpledateformat.h ./src/main/include/log4cxx/helpers
-#else
-#  ./configure --prefix=$BUILD_DIR/log4cxx --with-apr=/usr --with-apr-util=/usr --with-charset=utf-8 --with-logchar=utf-8
-#fi
+if [ $SYSTEM ==  "mac" ];then
+  ./configure --prefix=$BUILD_DIR/log4cxx --with-apr=/usr/local/opt/apr/bin/apr-1-config --with-apr-util=/usr/local/opt/apr-util/bin/apu-1-config --with-charset=utf-8 --with-logchar=utf-8
+  cp $SRC_DIR/log4cxx-fix/simpledateformat.h ./src/main/include/log4cxx/helpers
+else
+  cp $SRC_DIR/log4cxx-fix/locationinfo.cpp     ./src/main/cpp/
+  ./configure --prefix=$BUILD_DIR/log4cxx --with-apr=/usr --with-apr-util=/usr --with-charset=utf-8 --with-logchar=utf-8
+fi
 
-#cp $SRC_DIR/log4cxx-fix/inputstreamreader.cpp     ./src/main/cpp/
-#cp $SRC_DIR/log4cxx-fix/socketoutputstream.cpp    ./src/main/cpp/
-#cp $SRC_DIR/log4cxx-fix/console.cpp               ./src/examples/cpp/
-#make
-#make install
+cp $SRC_DIR/log4cxx-fix/inputstreamreader.cpp     ./src/main/cpp/
+cp $SRC_DIR/log4cxx-fix/socketoutputstream.cpp    ./src/main/cpp/
+cp $SRC_DIR/log4cxx-fix/console.cpp               ./src/examples/cpp/
+make
+make install
+
+
+if [ $SYSTEM ==  "mac" ];then
+  cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.dylib   $SRC_DIR/../../build/lib
+else
+  cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.a $SRC_DIR/../../build/lib
+fi
+
+cd $SRC_DIR
 cmake .
 make
-sudo make install
-#
-#if [ $SYSTEM ==  "mac" ];then
-#  cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.*   $SRC_DIR/../../build/lib
-#else
-#  cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.so* $SRC_DIR/../../build/lib
-#fi
-#rm -rf $SRC_DIR/../../include/log4cxx
-#mkdir $SRC_DIR/../../include
-#cp -a $BUILD_DIR/log4cxx/include/log4cxx $SRC_DIR/../../include
-#
-#cd $SRC_DIR
-#cmake .
-#make
-
-#rm -rf $BUILD_DIR
+rm -rf $BUILD_DIR
 
 if [ $? -eq 0 ]; then
   echo "==================================================="

@@ -83,7 +83,9 @@ function print_usage() {
   		echo "  $0 build_server"
   		echo "  $0 build_tools"
   		echo "  $0 clean_ptp"
+  		echo "  $0 build_tests"
   		echo "  $0 run_tests"
+  		echo "  $0 run_test"
   		echo "  $0 clean_tests"
 }
 
@@ -117,6 +119,21 @@ function build() {
   done
 }
 
+function run_test() {
+
+
+  testName=$2
+  if [ "$2" == "" ]; then
+    ls -al $PTP_DIR/build/bin/tests/
+    echo "[WARN] enter test name!!"
+  else
+    echo "run $testName"
+    cd $PTP_DIR/build/bin/tests/
+    ./$testName
+  fi
+}
+
+
 # Change the current directory to the location of the script
 CUR_DIR=$(dirname "${REALPATH}")
 cd $CUR_DIR
@@ -147,8 +164,14 @@ case $1 in
 		cd $PTP_DIR
 		cmake .
   ;;
+	build_tests)
+		build_app tests
+  ;;
 	run_tests)
 		run_tests
+  ;;
+	run_test)
+		run_test $@
   ;;
 	clean_tests)
 		rm -rf $PTP_DIR/build/bin/tests
