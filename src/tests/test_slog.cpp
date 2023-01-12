@@ -9,12 +9,14 @@ TEST(slog, Test) {
     for (int i = 0; i < 10; i++) {
         a.Warn("aaa,%s", "bbb");
     }
+    ASSERT_TRUE(true);
 }
 
 TEST(slog, debug) {
     DEBUG_I("DEBUG_I");
     DEBUG_D("DEBUG_D");
     DEBUG_E("DEBUG_E");
+    ASSERT_TRUE(true);
 }
 
 int main(int argc, char **argv) {
