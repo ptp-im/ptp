@@ -13,6 +13,14 @@ if(APPLE)
             GIT_REPOSITORY /Users/jack/data/git/gtest.git
             GIT_TAG        release-1.11.0
     )
+elseif(UNIX)
+    MESSAGE( STATUS ===>>> tests UNIX )
+    MESSAGE( STATUS "GTEST release-1.11.0 APPLE" )
+    FetchContent_Declare(
+            googletest
+            GIT_REPOSITORY /Users/jack/data/git/gtest.git
+            GIT_TAG        release-1.11.0
+    )
 else()
     FetchContent_Declare(
             googletest

@@ -2,6 +2,7 @@
 #define LIBWALLY_MNEMONIC_H
 
 #include <vector>
+#include <stddef.h>
 
 struct words;
 

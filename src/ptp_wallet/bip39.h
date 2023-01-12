@@ -4,6 +4,7 @@
 
 #include <iomanip>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 

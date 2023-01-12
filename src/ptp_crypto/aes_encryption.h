@@ -1,5 +1,7 @@
 #ifndef AES_ENCRYPTION_H
 #define AES_ENCRYPTION_H
+#include <cstring>
+#include <algorithm>
 
 int aes_gcm_encrypt(const unsigned char *plaintext, int plaintext_len,
             const unsigned char *key, const unsigned char *iv,

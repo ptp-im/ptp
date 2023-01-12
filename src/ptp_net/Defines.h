@@ -11,9 +11,10 @@
 
 #include <functional>
 #include <list>
-#include <limits.h>
+#include <climits>
 #include <sstream>
-#include <inttypes.h>
+#include <cinttypes>
+
 
 #define USE_DEBUG_SESSION false
 #define READ_BUFFER_SIZE 1024 * 1024 * 2

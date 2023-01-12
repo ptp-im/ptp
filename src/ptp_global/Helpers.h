@@ -2,6 +2,7 @@
 #include <sstream>
 #include <fcntl.h>
 #include <iomanip>
+#include <cstring>
 #include <ctime>
 #include <unistd.h>
 #include <array>

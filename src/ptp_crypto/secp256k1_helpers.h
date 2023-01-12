@@ -2,6 +2,7 @@
 #define __secp256k1_helpers_H__
 
 #include <sstream>
+#include <cstring>
 #include "secp256k1/secp256k1_recovery.h"
 using namespace std;
 

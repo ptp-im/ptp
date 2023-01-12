@@ -53,7 +53,7 @@ clean_dir() {
   echo "clean $CMAKE_DIR"
   cd $CMAKE_DIR
   rm -rf CMakeCache.txt CMakeFiles CTestTestfile.cmake cmake_install.cmake Testing Makefile cmake-build-debug
-  rm -rf lib build
+  rm -rf lib build include
 }
 
 rm -rf CMakeCache.txt CMakeFiles CTestTestfile.cmake cmake_install.cmake Testing Makefile cmake-build-debug
@@ -74,5 +74,9 @@ clean_dir $CUR_DIR/src/ptp_toolbox
 clean_dir $CUR_DIR/src/ptp_wallet
 clean_dir $CUR_DIR/src/tests
 clean_dir $CUR_DIR/src/tools
+clean_dir $CUR_DIR/third_party/slog
 
-
+cd $CUR_DIR/third_party/protobuf
+rm -rf build
+cd $CUR_DIR/third_party/redis
+rm -rf build
