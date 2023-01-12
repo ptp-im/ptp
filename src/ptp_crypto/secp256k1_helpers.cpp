@@ -47,7 +47,13 @@ void gen_ec_key_pair(secp256k1_context * ctx,unsigned char * prv_key, unsigned c
     unsigned char pub_key_[65];
     secp256k1_pubkey pubkey;
     auto ret = secp256k1_context_randomize(ctx, randomize);
+    if(!ret){
+        return;
+    }
     auto ret1 = secp256k1_ec_pubkey_create(ctx, &pubkey, prv_key_);
+    if(!ret1){
+        return;
+    }
     auto len = sizeof(pub_key_);
     secp256k1_ec_pubkey_serialize(ctx, pub_key_, &len, &pubkey, SECP256K1_EC_UNCOMPRESSED);
 //    pub_key_to_hex(pub_key_);

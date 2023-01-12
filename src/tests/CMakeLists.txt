@@ -5,36 +5,28 @@ option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
 option(INSTALL_GTEST "Enable installation of googletest. (Projects embedding googletest may want to turn this OFF.)" OFF)
 
 MESSAGE( STATUS ===>>> tests )
-include(FetchContent)
-if(APPLE)
-    MESSAGE( STATUS "GTEST release-1.11.0 APPLE" )
-    FetchContent_Declare(
-            googletest
-            GIT_REPOSITORY /Users/jack/data/git/gtest.git
-            GIT_TAG        release-1.11.0
-    )
-elseif(UNIX)
-    MESSAGE( STATUS ===>>> tests UNIX )
-    MESSAGE( STATUS "GTEST release-1.11.0 APPLE" )
-    FetchContent_Declare(
-            googletest
-            GIT_REPOSITORY /Users/jack/data/git/gtest.git
-            GIT_TAG        release-1.11.0
-    )
-else()
-    FetchContent_Declare(
-            googletest
-            GIT_REPOSITORY https://github.com/google/googletest.git
-            GIT_TAG        release-1.11.0
-    )
-    MESSAGE( STATUS "GTEST release-1.11.0 LINUX" )
-endif()
 
-FetchContent_GetProperties(googletest)
-if(NOT googletest_POPULATED)
-    FetchContent_Populate(googletest)
-    add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR} EXCLUDE_FROM_ALL)
-endif()
+#include(FetchContent)
+#if(APPLE)
+#    MESSAGE( STATUS "GTEST release-1.11.0 APPLE" )
+#    FetchContent_Declare(
+#            googletest
+#            GIT_REPOSITORY /Users/jack/data/git/gtest.git
+#            GIT_TAG        release-1.11.0
+#    )
+#else()
+#    MESSAGE( STATUS "GTEST release-1.11.0 LINUX" )
+#    FetchContent_Declare(
+#            googletest
+#            GIT_REPOSITORY https://github.com/google/googletest.git
+#            GIT_TAG        release-1.11.0
+#    )
+#endif()
+#FetchContent_GetProperties(googletest)
+#if(NOT googletest_POPULATED)
+#    FetchContent_Populate(googletest)
+#    add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR} EXCLUDE_FROM_ALL)
+#endif()
 
 if (APPLE)
     add_definitions(-DGTEST_USE_OWN_TR1_TUPLE)
@@ -48,6 +40,9 @@ SET(EXECUTABLE_OUTPUT_PATH  ../../build/bin/tests)
 file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
 file(COPY log4cxx.properties
         DESTINATION ${EXECUTABLE_OUTPUT_PATH})
+
+include_directories (../../third_party/gtest/googlemock/include)
+include_directories (../../third_party/gtest/googletest/include)
 
 include_directories (../ptp_protobuf)
 include_directories (../ptp_protobuf/v2)

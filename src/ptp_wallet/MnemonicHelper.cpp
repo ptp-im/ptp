@@ -72,6 +72,7 @@ PTPWallet::MnemonicHelper::MnemonicResult PTPWallet::MnemonicHelper::encodeBytes
 }
 
 PTPWallet::MnemonicHelper::MnemonicResult PTPWallet::MnemonicHelper::entropyHexToMnemonic(const string& entropyHex, const char* lang) {
+    printf("lang:%s",lang);
     auto entropyBytes = ptp_toolbox::data::hex_to_bytes(entropyHex.data());
     return entropyToMnemonic(entropyBytes.data(),"en",16);
 }

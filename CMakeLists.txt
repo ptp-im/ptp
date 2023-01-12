@@ -5,6 +5,10 @@ if (POLICY CMP0048)
 endif (POLICY CMP0048)
 
 project(PTP)
+#cmake -DIS_DOCKER=OFF
+option(IS_DOCKER "IS DOCKER" OFF)
+
+MESSAGE( STATUS "IS_DOCKER: " "${IS_DOCKER}" )
 
 MESSAGE( STATUS "PROJECT_NAME: " ${PROJECT_NAME} )
 
@@ -21,36 +25,15 @@ file(COPY ./conf/bd_server.conf
 
 if(APPLE)
     MESSAGE( STATUS "APPLE: ========>>" cmake ... )
-
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14  -g")
-
     SET(LIBRARY_PATH ./third_party/libs/mac)
-    file(COPY ${LIBRARY_PATH}/libslog.dylib
-            DESTINATION ./build/lib)
-    file(COPY ${LIBRARY_PATH}/liblog4cxx.10.0.0.dylib
-            DESTINATION ./build/lib)
-    file(COPY ${LIBRARY_PATH}/liblog4cxx.10.dylib
-            DESTINATION ./build/lib)
-    file(COPY ${LIBRARY_PATH}/liblog4cxx.a
-            DESTINATION ./build/lib)
-    file(COPY ${LIBRARY_PATH}/liblog4cxx.dylib
-            DESTINATION ./build/lib)
-    file(COPY ${LIBRARY_PATH}/liblog4cxx.la
-            DESTINATION ./build/lib)
 elseif(UNIX)
     MESSAGE( STATUS "UNIX: ========>>" cmake ... )
-
     ADD_DEFINITIONS( -g -W -Wall -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DAC_HAS_INFO -DAC_HAS_WARNING -DAC_HAS_ERROR -DAC_HAS_CRITICAL -DTIXML_USE_STL -DAC_HAS_DEBUG -DLINUX_DAEMON -std=c++11 -DENCRYPT)
     SET(LIBRARY_PATH ./third_party/libs/linux)
-    file(COPY ${LIBRARY_PATH}/libslog.so
-            DESTINATION ./build/lib)
 endif()
 
-file(COPY ${LIBRARY_PATH}/libprotobuf-lite.a
-        DESTINATION ./build/lib)
-file(COPY ${LIBRARY_PATH}/libhiredis.a
-        DESTINATION ./build/lib)
-file(COPY ${LIBRARY_PATH}/libsecp256k1.a
+file(COPY ${LIBRARY_PATH}/
         DESTINATION ./build/lib)
 
 LINK_DIRECTORIES(./build/lib)
@@ -81,25 +64,21 @@ endif()
 add_subdirectory(src/tools)
 add_subdirectory(src/ptp_crypto)
 add_subdirectory(src/ptp_toolbox)
-#add_subdirectory(src/ptp_net)
+add_subdirectory(src/ptp_net)
 add_subdirectory(src/ptp_wallet)
 add_subdirectory(src/ptp_global)
 add_subdirectory(src/ptp_protobuf)
 add_subdirectory(src/ptp_server)
 add_subdirectory(src/ptp_server_business)
-add_subdirectory(src/ptp_server_msg)
+#add_subdirectory(src/ptp_server_msg)
 #add_subdirectory(src/ptp_server_msfs)
 #add_subdirectory(src/ptp_server_push)
 #add_subdirectory(src/ptp_server_route)
 #add_subdirectory(src/ptp_server_login)
 #add_subdirectory(src/ptp_server_ws)
-#add_subdirectory(src/ptp_server_business)
-#add_subdirectory(third_party/slog)
 
-if(APPLE)
-    add_subdirectory(src/tests)
-    enable_testing()
-endif()
-
+add_subdirectory(src/tests)
+add_subdirectory(third_party/gtest)
+enable_testing()
 
 

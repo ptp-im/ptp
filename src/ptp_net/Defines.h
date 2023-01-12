@@ -14,6 +14,7 @@
 #include <climits>
 #include <sstream>
 #include <cinttypes>
+#include <memory>
 
 
 #define USE_DEBUG_SESSION false

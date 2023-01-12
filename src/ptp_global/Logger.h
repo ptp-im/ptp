@@ -2,6 +2,7 @@
 #define Logger_H
 #include <string>
 #include <sstream>
+#include <cstring>
 
 #ifdef ANDROID
 
