@@ -74,9 +74,11 @@ cd build/$PROTOBUF
 ./configure --prefix=$CUR_DIR/build/protobuf
 make
 make install
-
+mkdir -p $PTP_DIR/build/lib
+rm -rf $PTP_DIR/include/protobuf
+mkdir $PTP_DIR/include/protobuf
 cp $CUR_DIR/build/protobuf/lib/libprotobuf-lite.a $PTP_DIR/build/lib
-cp -r $CUR_DIR/build/protobuf/include/* $PTP_DIR/include/protobuf
+cp -r $CUR_DIR/build/protobuf/include/google $PTP_DIR/include/protobuf
 
 if [ $? -eq 0 ]; then
   echo "==================================================="

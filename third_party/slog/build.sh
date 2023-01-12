@@ -68,9 +68,9 @@ echo "=================================================="
 
 get_cur_dir
 
-rm -rf $BUILD_DIR/log4cxx $BUILD_DIR/$LOG4CXX
+# rm -rf $BUILD_DIR/log4cxx $BUILD_DIR/$LOG4CXX
 mkdir -p $BUILD_DIR/log4cxx $SRC_DIR/../../include $SRC_DIR/../../build/lib
-tar -xf $SRC_DIR/$LOG4CXX.tar.gz -C $BUILD_DIR
+# tar -xf $SRC_DIR/$LOG4CXX.tar.gz -C $BUILD_DIR
 
 cd $BUILD_DIR/$LOG4CXX
 
