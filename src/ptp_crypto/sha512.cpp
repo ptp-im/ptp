@@ -8,9 +8,9 @@
 #include <cstring>
 
 #if defined(__GNUC__) && (__GNUC__ < 5)
-#define SHA512_CONSTEXPR_VOID constexpr
-#else
 #define SHA512_CONSTEXPR_VOID
+#else
+#define SHA512_CONSTEXPR_VOID constexpr
 #endif
 
 // Internal implementation code.
