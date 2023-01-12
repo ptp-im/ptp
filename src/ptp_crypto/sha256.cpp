@@ -18,13 +18,13 @@ void Transform(uint32_t* s, const unsigned char* chunk, size_t blocks);
 }
 #endif
 #endif
-
-#if defined(__GNUC__) && (__GNUC__ < 5)
-#define SHA256_CONSTEXPR_VOID
-#else
+//
+//#if defined(__GNUC__) && (__GNUC__ < 5)
+//#define SHA256_CONSTEXPR_VOID
+//#else
+//#define SHA256_CONSTEXPR_VOID constexpr
+//#endif
 #define SHA256_CONSTEXPR_VOID constexpr
-#endif
-
 // Internal implementation code.
 namespace {
 /// Internal SHA-256 implementation.
