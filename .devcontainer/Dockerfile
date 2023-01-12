@@ -9,7 +9,7 @@ RUN apt-get update \
     && redis \
     && libmariadb-dev libmariadb-dev-compat libmariadb3 libapr1 libapr1-dev libaprutil1-dev --fix-missing
 
-# redis-server --daemonize yes --requirepass s9mE_s3cUrE_prsS
+# redis-server --daemonize yes --requirepass s9mE_s3cUrE_prsS  -appendonly yes
 # redis-cli "CONFIG SET requirepass s9mE_s3cUrE_prsS"
 # AUTH s9mE_s3cUrE_prsS
 # killall redis-server
