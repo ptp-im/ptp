@@ -28,7 +28,7 @@ _deps
 *.pc
 node_modules
 *.lock
-
+third_party/gtest/googletest/generated/
 *.exe
 *.a
 src/log
