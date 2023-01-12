@@ -89,7 +89,7 @@ make install
 
 
 if [ $SYSTEM ==  "mac" ];then
-  cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.dylib   $SRC_DIR/../../build/lib
+  cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.dylib $SRC_DIR/../../build/lib
 else
   cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.a $SRC_DIR/../../build/lib
 fi
@@ -97,7 +97,7 @@ fi
 cd $SRC_DIR
 cmake .
 make
-rm -rf $BUILD_DIR
+#rm -rf $BUILD_DIR
 
 if [ $? -eq 0 ]; then
   echo "==================================================="

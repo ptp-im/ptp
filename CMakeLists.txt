@@ -77,8 +77,8 @@ add_subdirectory(src/ptp_server_msg)
 #add_subdirectory(src/ptp_server_login)
 #add_subdirectory(src/ptp_server_ws)
 
-add_subdirectory(src/tests)
 add_subdirectory(third_party/gtest)
+add_subdirectory(tests)
 enable_testing()
 
 
