@@ -4,12 +4,7 @@
 #include "ptp_crypto/secp256k1_helpers.h"
 #include "ptp_crypto/aes_encryption.h"
 #include "ptp_crypto/crypto_helpers.h"
-
-#include <string>
-#include <vector>
-#include <openssl/evp.h>
 #include <openssl/md5.h>
-#include <openssl/rand.h>
 #include <secp256k1/secp256k1_ecdh.h>
 
 using namespace std;

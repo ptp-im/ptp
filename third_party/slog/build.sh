@@ -69,24 +69,27 @@ echo "=================================================="
 
 get_cur_dir
 
-# rm -rf $BUILD_DIR/log4cxx $BUILD_DIR/$LOG4CXX
+rm -rf $BUILD_DIR/log4cxx $BUILD_DIR/$LOG4CXX
 mkdir -p $BUILD_DIR/log4cxx $SRC_DIR/../../include $SRC_DIR/../../build/lib
-# tar -xf $SRC_DIR/$LOG4CXX.tar.gz -C $BUILD_DIR
+tar -xf $SRC_DIR/$LOG4CXX.tar.gz -C $BUILD_DIR
 
 cd $BUILD_DIR/$LOG4CXX
 
-if [ $SYSTEM ==  "mac" ];then
-  ./configure --prefix=$BUILD_DIR/log4cxx --with-apr=/usr/local/opt/apr/bin/apr-1-config --with-apr-util=/usr/local/opt/apr-util/bin/apu-1-config --with-charset=utf-8 --with-logchar=utf-8
+#if [ $SYSTEM ==  "mac" ];then
+  #./configure --prefix=$BUILD_DIR/log4cxx --with-apr=/usr/local/opt/apr/bin/apr-1-config --with-apr-util=/usr/local/opt/apr-util/bin/apu-1-config --with-charset=utf-8 --with-logchar=utf-8
   #cp $SRC_DIR/log4cxx-fix/simpledateformat.h ./src/main/include/log4cxx/helpers
-else
-  ./configure --prefix=$BUILD_DIR/log4cxx --with-apr=/usr --with-apr-util=/usr --with-charset=utf-8 --with-logchar=utf-8
-fi
+#else
+#  ./configure --prefix=$BUILD_DIR/log4cxx --with-apr=/usr --with-apr-util=/usr --with-charset=utf-8 --with-logchar=utf-8
+#fi
 
 #cp $SRC_DIR/log4cxx-fix/inputstreamreader.cpp     ./src/main/cpp/
 #cp $SRC_DIR/log4cxx-fix/socketoutputstream.cpp    ./src/main/cpp/
 #cp $SRC_DIR/log4cxx-fix/console.cpp               ./src/examples/cpp/
+#make
+#make install
+cmake .
 make
-make install
+sudo make install
 #
 #if [ $SYSTEM ==  "mac" ];then
 #  cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.*   $SRC_DIR/../../build/lib
