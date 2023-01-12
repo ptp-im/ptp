@@ -54,7 +54,7 @@ if(APPLE)
     INCLUDE_DIRECTORIES(/usr/local/opt/openssl@1.1/include)
     LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
 else()
-
+    INCLUDE_DIRECTORIES(/usr/include/mariadb/)
 endif()
 
 add_subdirectory(src/tools)
