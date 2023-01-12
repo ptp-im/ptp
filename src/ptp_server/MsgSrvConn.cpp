@@ -307,9 +307,10 @@ int run_ptp_server_msg(int argc, char* argv[])
         DEBUG_E("config file miss ws_listen, exit... ");
         return -1;
     }
+    uint16_t MSG_ENABLE_BUSINESS_ASYNC = 0;
     char* MSG_ENABLE_BUSINESS_ASYNC_str = config_file.GetConfigName("MSG_ENABLE_BUSINESS_ASYNC");
     if (MSG_ENABLE_BUSINESS_ASYNC_str) {
-        uint16_t MSG_ENABLE_BUSINESS_ASYNC = atoi(MSG_ENABLE_BUSINESS_ASYNC_str);
+        MSG_ENABLE_BUSINESS_ASYNC = atoi(MSG_ENABLE_BUSINESS_ASYNC_str);
 
         if(MSG_ENABLE_BUSINESS_ASYNC == 1){
             set_enable_business_async(true);
@@ -327,31 +328,34 @@ int run_ptp_server_msg(int argc, char* argv[])
             return ret;
     }
 
-    //business client
-    uint32_t db_server_count = 0;
-    serv_info_t* db_server_list = read_server_config(&config_file, "MSG_DBServerIP", "MSG_DBServerPort", db_server_count);
+    if(MSG_ENABLE_BUSINESS_ASYNC == 1){
+        //business client
+        uint32_t db_server_count = 0;
+        serv_info_t* db_server_list = read_server_config(&config_file, "MSG_DBServerIP", "MSG_DBServerPort", db_server_count);
 
-    // 到BusinessServer的开多个并发的连接
-    uint32_t concurrent_db_conn_cnt = DEFAULT_CONCURRENT_DB_CONN_CNT;
-    uint32_t db_server_count2 = db_server_count * DEFAULT_CONCURRENT_DB_CONN_CNT;
-    char* concurrent_db_conn = config_file.GetConfigName("MSG_ConcurrentDBConnCnt");
-    if (concurrent_db_conn) {
-        concurrent_db_conn_cnt  = atoi(concurrent_db_conn);
-        db_server_count2 = db_server_count * concurrent_db_conn_cnt;
-    }
+        // 到BusinessServer的开多个并发的连接
+        uint32_t concurrent_db_conn_cnt = DEFAULT_CONCURRENT_DB_CONN_CNT;
+        uint32_t db_server_count2 = db_server_count * DEFAULT_CONCURRENT_DB_CONN_CNT;
+        char* concurrent_db_conn = config_file.GetConfigName("MSG_ConcurrentDBConnCnt");
+        if (concurrent_db_conn) {
+            concurrent_db_conn_cnt  = atoi(concurrent_db_conn);
+            db_server_count2 = db_server_count * concurrent_db_conn_cnt;
+        }
 
-    serv_info_t* db_server_list2 = NULL;
-    if (db_server_count2 > 0) {
-        db_server_list2 = new serv_info_t [ db_server_count2];
-        for (uint32_t i = 0; i < db_server_count2; i++) {
-            db_server_list2[i].server_ip = db_server_list[i / concurrent_db_conn_cnt].server_ip.c_str();
-            db_server_list2[i].server_port = db_server_list[i / concurrent_db_conn_cnt].server_port;
+        serv_info_t* db_server_list2 = NULL;
+        if (db_server_count2 > 0) {
+            db_server_list2 = new serv_info_t [ db_server_count2];
+            for (uint32_t i = 0; i < db_server_count2; i++) {
+                db_server_list2[i].server_ip = db_server_list[i / concurrent_db_conn_cnt].server_ip.c_str();
+                db_server_list2[i].server_port = db_server_list[i / concurrent_db_conn_cnt].server_port;
+            }
+        }
+
+        if (db_server_count > 0) {
+            init_business_serv_conn(db_server_list2, db_server_count2, concurrent_db_conn_cnt);
         }
     }
 
-    if (db_server_count > 0) {
-        init_business_serv_conn(db_server_list2, db_server_count2, concurrent_db_conn_cnt);
-    }
     DEBUG_I("%s looping...,pid=%d",server_name.c_str(),getpid());
     writePid();
     return 0;
