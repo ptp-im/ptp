@@ -92,7 +92,8 @@ if [ $SYSTEM ==  "mac" ];then
 else
   cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.so* $SRC_DIR/../../build/lib
 fi
-rm -rf $SRC_DIR/../../include
+rm -rf $SRC_DIR/../../include/log4cxx
+mkdir $SRC_DIR/../../include
 cp -a $BUILD_DIR/log4cxx/include/log4cxx $SRC_DIR/../../include
 
 cd $SRC_DIR
