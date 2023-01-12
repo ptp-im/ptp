@@ -91,7 +91,7 @@ fi
 # make install
 
 if [ $SYSTEM ==  "mac" ];then
-  cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.dylib   $SRC_DIR/../../build/lib
+  cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.dylib $SRC_DIR/../../build/lib
 else
   cp -fa $BUILD_DIR/log4cxx/lib/liblog4cxx.so.10.0.0 $SRC_DIR/../../build/lib/liblog4cxx.so
 fi
