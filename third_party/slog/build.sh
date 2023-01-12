@@ -67,9 +67,9 @@ echo "=================================================="
 
 get_cur_dir
 
-rm -rf $BUILD_DIR/log4cxx $BUILD_DIR/$LOG4CXX
+#rm -rf $BUILD_DIR/log4cxx $BUILD_DIR/$LOG4CXX
 mkdir -p $BUILD_DIR/log4cxx $SRC_DIR/../../include $SRC_DIR/../../build/lib
-tar -xf $SRC_DIR/$LOG4CXX.tar.gz -C $BUILD_DIR
+#tar -xf $SRC_DIR/$LOG4CXX.tar.gz -C $BUILD_DIR
 
 cd $BUILD_DIR/$LOG4CXX
 
@@ -78,6 +78,8 @@ if [ $SYSTEM ==  "mac" ];then
   cp $SRC_DIR/log4cxx-fix/simpledateformat.h ./src/main/include/log4cxx/helpers
 else
   cp $SRC_DIR/log4cxx-fix/locationinfo.cpp     ./src/main/cpp/
+  cp $SRC_DIR/log4cxx-fix/loggingevent.cpp     ./src/main/cpp/
+  cp $SRC_DIR/log4cxx-fix/objectoutputstream.cpp     ./src/main/cpp/
   ./configure --prefix=$BUILD_DIR/log4cxx --with-apr=/usr --with-apr-util=/usr --with-charset=utf-8 --with-logchar=utf-8
 fi
 
@@ -97,7 +99,7 @@ fi
 cd $SRC_DIR
 cmake .
 make
-rm -rf $BUILD_DIR
+#rm -rf $BUILD_DIR
 
 if [ $? -eq 0 ]; then
   echo "==================================================="

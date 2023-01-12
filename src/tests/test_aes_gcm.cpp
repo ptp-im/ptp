@@ -9,55 +9,60 @@
 
 using namespace std;
 
-TEST(test_random, TestIntegerOne_One) {
-    unsigned char iv[16] = { 0 };
-    gen_random_bytes(iv,16);
-    ASSERT_TRUE(sizeof(iv) ==16);
+TEST(test_random, TestIntegerOne_One)
+{
+    unsigned char iv[16] = {0};
+    gen_random_bytes(iv, 16);
+    ASSERT_TRUE(sizeof(iv) == 16);
 }
 
-TEST(test_aes_gcm_encrypt1, TestIntegerOne_One) {
+TEST(test_aes_gcm_encrypt1, TestIntegerOne_One)
+{
 
     string g_data = "Across the Great Wall we can reach every corner in the world.";
 
-    unsigned char key[32] = { 0 };
-    unsigned char iv[16] = { 0 };
-    unsigned char aad[16] = { 0 };
+    unsigned char key[32] = {0};
+    unsigned char iv[16] = {0};
+    unsigned char aad[16] = {0};
     int inLen = g_data.length();
     int encLen = 0;
     unsigned char encData[1024];
 
     string aadHex = "0x38f6f3c737eb1a1e187e9c673fce44d0";
-    memcpy(aad, hex_to_string(aadHex.substr(2)).data(),16);
+    memcpy(aad, hex_to_string(aadHex.substr(2)).data(), 16);
     string ivHex = "0x38f6f3c737eb1a1e187e9c673fce44d0";
-    memcpy(iv, hex_to_string(ivHex.substr(2)).data(),16);
+    memcpy(iv, hex_to_string(ivHex.substr(2)).data(), 16);
     string shared_secret_str = "0xe054f683521261beb71b95d6394eaeb9895291584aaa6e63e4b239a912fe4978";
-    memcpy(key, hex_to_string(shared_secret_str.substr(2)).data(),32);
+    memcpy(key, hex_to_string(shared_secret_str.substr(2)).data(), 32);
 
-    encLen = aes_gcm_encrypt((const unsigned char*)&g_data[0], inLen,
-                             key, iv,aad, encData);
+    encLen = aes_gcm_encrypt((const unsigned char *)&g_data[0], inLen,
+                             key, iv, aad, encData);
 
-    if (encLen > 0) {
-        std::cout << bytes_to_hex_string(encData,encLen) << std::endl;
+    if (encLen > 0)
+    {
+        std::cout << bytes_to_hex_string(encData, encLen) << std::endl;
     }
     ASSERT_TRUE(encLen > 0);
 
     unsigned char decData[1024];
 
     int decLen = aes_gcm_decrypt(
-            encData, encLen,
-            key, iv,
-            aad,
-            decData);
+        encData, encLen,
+        key, iv,
+        aad,
+        decData);
 
-    if (decLen > 0) {
-        std::cout << std::string{ decData, decData + decLen } << std::endl;
+    if (decLen > 0)
+    {
+        std::cout << std::string{decData, decData + decLen} << std::endl;
     }
     ASSERT_TRUE(decLen > 0);
-    string data = std::string{ decData, decData + decLen };
+    string data = std::string{decData, decData + decLen};
     ASSERT_EQ(data, g_data);
 }
 
-TEST(test_aes_gcm_encrypt, TestIntegerOne_One) {
+TEST(test_aes_gcm_encrypt, TestIntegerOne_One)
+{
     unsigned char seckey1[32];
     unsigned char seckey2[32];
 
@@ -81,27 +86,27 @@ TEST(test_aes_gcm_encrypt, TestIntegerOne_One) {
 
     auto prv_key1 = hex_to_string(prvKeyStr1.substr(2));
     auto pub_key33_11 = hex_to_string(pubKeyStr33_1.substr(2));
-    memcpy(seckey1,prv_key1.data(),32);
-    memcpy(pubKey11,pub_key33_11.data(),33);
+    memcpy(seckey1, prv_key1.data(), 32);
+    memcpy(pubKey11, pub_key33_11.data(), 33);
 
     string prvKeyStr2 = "0x1ffe0fafed803ef0f357c8678d00089404545e8a9a9f72fb41e559ddaa9c531c";
     string pubKeyStr33_2 = "0x02f0f6796be474b77707a0ae4962c20af84bb7fc3995c91fa2ee41d2803e101069";
     string pubKeyStr2 = "0xf0f6796be474b77707a0ae4962c20af84bb7fc3995c91fa2ee41d2803e1010698217cd09b4a0753f00df3c13cd12ea39cd93c3ffc6733886347207aafbc5ac40";
     string address2 = "0xf2472d9e07c721da4bf74ddd5c587ca7f5b3ee60";
     auto prv_key2 = hex_to_string(prvKeyStr2.substr(2));
-    memcpy(seckey2,prv_key2.data(),32);
+    memcpy(seckey2, prv_key2.data(), 32);
     auto pub_key33_22 = hex_to_string(pubKeyStr33_2.substr(2));
-    memcpy(pubKey22,pub_key33_22.data(),33);
+    memcpy(pubKey22, pub_key33_22.data(), 33);
     /* The specification in secp256k1.h states that `secp256k1_ec_pubkey_create`
      * needs a context object initialized for signing, which is why we create
      * a context with the SECP256K1_CONTEXT_SIGN flag.
      * (The docs for `secp256k1_ecdh` don't require any special context, just
      * some initialized context) */
-    secp256k1_context* ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
+    secp256k1_context *ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
 
-    return_val = secp256k1_ec_pubkey_parse(ctx,&pubkey1,pubKey11,33);
+    return_val = secp256k1_ec_pubkey_parse(ctx, &pubkey1, pubKey11, 33);
     ASSERT_TRUE(return_val);
-    return_val = secp256k1_ec_pubkey_parse(ctx,&pubkey2,pubKey22,33);
+    return_val = secp256k1_ec_pubkey_parse(ctx, &pubkey2, pubKey22, 33);
     ASSERT_TRUE(return_val);
     /* Serialize pubkey1 in a compressed form (33 bytes), should always return 1 */
     len = sizeof(compressed_pubkey1);
@@ -133,7 +138,6 @@ TEST(test_aes_gcm_encrypt, TestIntegerOne_One) {
     return_val = memcmp(shared_secret1, shared_secret2, sizeof(shared_secret1));
     assert(return_val == 0);
 
-
     /* This will clear everything from the context and free the memory */
     secp256k1_context_destroy(ctx);
 
@@ -148,12 +152,13 @@ TEST(test_aes_gcm_encrypt, TestIntegerOne_One) {
     memset(seckey2, 0, sizeof(seckey2));
     memset(shared_secret1, 0, sizeof(shared_secret1));
     memset(shared_secret2, 0, sizeof(shared_secret2));
-    ASSERT_EQ(bytes_to_hex_string(shared_secret1,32), bytes_to_hex_string(shared_secret2,32));
+    ASSERT_EQ(bytes_to_hex_string(shared_secret1, 32), bytes_to_hex_string(shared_secret2, 32));
     string message = "test";
     string message1;
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
