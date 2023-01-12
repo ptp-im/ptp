@@ -24,6 +24,8 @@ bin/
 conanfile.txt
 _deps
 .cmake
+*.cmake
+*.pc
 node_modules
 *.lock
 
