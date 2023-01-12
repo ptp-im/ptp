@@ -62,23 +62,22 @@ get_cur_dir() {
 
 
 echo "=================================================="
-echo "start installing the development library [log4cxx]"
+echo "start installing the development library [secp256k1]"
 echo "=================================================="
 
 get_cur_dir
 cd $SRC_DIR
 ./autogen.sh
-./configure
+./configure --enable-static=yes --enable-tests=no --enable-module-ecdh --enable-module-recovery --enable-module-extrakeys --enable-module-schnorrsig --disable-benchmark
 make
-make check
-#make install
+cp .libs/libsecp256k1.a ../../build/lib
 
 if [ $? -eq 0 ]; then
   echo "==================================================="
-  echo "development library installation complete.[log4cxx]"
+  echo "development library installation complete.[secp256k1]"
   echo "==================================================="
   sleep 1s
 else
-    echo "make [log4cxx] failed";
+    echo "make [secp256k1] failed";
     exit;
 fi
