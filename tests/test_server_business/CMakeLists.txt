@@ -3,6 +3,6 @@ set(TEST_NAME test_server_business)
 MESSAGE( STATUS ===>>> ${TEST_NAME} )
 
 add_executable(${TEST_NAME}.run ${TEST_NAME}.cpp)
-target_link_libraries(${TEST_NAME}.run PRIVATE gtest_main ptp_global)
+target_link_libraries(${TEST_NAME}.run PRIVATE gtest_main)
 
 

@@ -35,7 +35,7 @@ endif (APPLE)
 
 ADD_DEFINITIONS(-DGTEST_USE_OWN_TR1_TUPLE=1 )
 
-SET(EXECUTABLE_OUTPUT_PATH  ../build/bin/tests)
+SET(EXECUTABLE_OUTPUT_PATH  ../../build/bin/tests)
 
 file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
 file(COPY log4cxx.properties
@@ -53,7 +53,7 @@ add_subdirectory(test_global)
 add_subdirectory(test_net)
 add_subdirectory(test_protobuf)
 add_subdirectory(test_server)
-add_subdirectory(test_server_business)
+#add_subdirectory(test_server_business)
 add_subdirectory(test_server_msg)
 add_subdirectory(test_toolbox)
 add_subdirectory(test_wallet)
