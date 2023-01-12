@@ -50,15 +50,11 @@ if(APPLE)
     #mysql
     INCLUDE_DIRECTORIES(/usr/local/Cellar/mariadb/10.5.9/include/mysql)
     LINK_DIRECTORIES(/usr/local/Cellar/mariadb/10.5.9/lib)
-
     #openssl
     INCLUDE_DIRECTORIES(/usr/local/opt/openssl@1.1/include)
     LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
 else()
-    INCLUDE_DIRECTORIES(/usr/include/mysql)
-    LINK_DIRECTORIES(/usr/lib64/mysql)
-    INCLUDE_DIRECTORIES(/usr/local/opt/openssl@1.1/include)
-    LINK_DIRECTORIES(/usr/local/opt/openssl@1.1/lib)
+
 endif()
 
 add_subdirectory(src/tools)
