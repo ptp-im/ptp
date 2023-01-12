@@ -67,25 +67,23 @@ function build_app() {
 
 function print_usage() {
   echo "Usage: "
+  		echo "  $0 clean_tests"
+  		echo "  $0 clean_ptp"
+  		echo "  $0 cmake"
+  		echo "  $0 build_all"
   		echo "  $0 build ptp_protobuf"
   		echo "  $0 build ptp_crypto"
   		echo "  $0 build ptp_global"
   		echo "  $0 build ptp_wallet"
   		echo "  $0 build ptp_server"
-  		echo "  $0 build tests"
   		echo "  $0 build ptp_server_business"
   		echo "  $0 build ptp_server_msg"
-  		echo "  $0 build ptp_server_file ptp_server_route ptp_server_login ptp_server_push ptp_server_ws ptp_server_msfs"
-  		echo "  $0 cmake"
-  		echo "  $0 build_all"
   		echo "  $0 build_server"
   		echo "  $0 build_tools"
-  		echo "  $0 clean_ptp"
   		echo "  $0 build_tests"
   		echo "  $0 build_test"
   		echo "  $0 run_tests"
   		echo "  $0 run_test"
-  		echo "  $0 clean_tests"
 }
 
 function run_tests() {

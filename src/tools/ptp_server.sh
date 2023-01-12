@@ -244,9 +244,15 @@ case $1 in
   ;;
 	*)
 		echo "Usage: "
+		echo "  $0 run msg"
+		echo "  $0 run business"
 		echo "  $0 run [${apps1}]"
 		echo "  $0 daeml ${apps}"
+		echo "  $0 stop msg"
+		echo "  $0 stop business"
 		echo "  $0 stop ${apps}"
+		echo "  $0 look msg"
+		echo "  $0 look business"
 		echo "  $0 look ${apps}"
 		echo "  $0 look_server [${apps1}]"
 		echo "  $0 log"
