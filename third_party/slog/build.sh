@@ -79,6 +79,7 @@ if [ $SYSTEM ==  "mac" ];then
   cp $SRC_DIR/log4cxx-fix/simpledateformat.h ./src/main/include/log4cxx/helpers
 else
   ./configure --prefix=$BUILD_DIR/log4cxx --with-apr=/usr --with-apr-util=/usr --with-charset=utf-8 --with-logchar=utf-8
+  cp $SRC_DIR/log4cxx-fix/locationinfo.cpp               ./src/examples/cpp/
 fi
 
 cp $SRC_DIR/log4cxx-fix/inputstreamreader.cpp     ./src/main/cpp/
