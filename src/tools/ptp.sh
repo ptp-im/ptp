@@ -120,8 +120,6 @@ function build() {
 }
 
 function run_test() {
-
-
   testName=$2
   if [ "$2" == "" ]; then
     ls -al $PTP_DIR/build/bin/tests/

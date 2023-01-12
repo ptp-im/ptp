@@ -39,7 +39,6 @@ file(COPY ${LIBRARY_PATH}/
 LINK_DIRECTORIES(./build/lib)
 SET(LIBRARY_OUTPUT_PATH ../../build/lib)
 
-
 INCLUDE_DIRECTORIES(/usr/local/include)
 LINK_DIRECTORIES(/usr/local/lib)
 
