@@ -39,6 +39,10 @@ file(COPY ${LIBRARY_PATH}/
 LINK_DIRECTORIES(./build/lib)
 SET(LIBRARY_OUTPUT_PATH ../../build/lib)
 
+
+INCLUDE_DIRECTORIES(/usr/local/include)
+LINK_DIRECTORIES(/usr/local/lib)
+
 INCLUDE_DIRECTORIES(./src/)
 INCLUDE_DIRECTORIES(./include)
 INCLUDE_DIRECTORIES(./include/protobuf)
@@ -66,7 +70,7 @@ add_subdirectory(src/ptp_global)
 add_subdirectory(src/ptp_protobuf)
 add_subdirectory(src/ptp_server)
 add_subdirectory(src/ptp_server_business)
-#add_subdirectory(src/ptp_server_msg)
+add_subdirectory(src/ptp_server_msg)
 #add_subdirectory(src/ptp_server_msfs)
 #add_subdirectory(src/ptp_server_push)
 #add_subdirectory(src/ptp_server_route)
