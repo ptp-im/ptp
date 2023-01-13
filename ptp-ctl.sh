@@ -222,6 +222,10 @@ case $1 in
 	build_tools)
 		build tools
   ;;
+	run_redis_dev_server)
+		cd /opt && sudo redis-server --appendonly yes --daemonize yes --requirepass s9mE_s3cUrE_prsS
+		cd $CUR_DIR
+  ;;
 	*)
 		print_usage
 		;;

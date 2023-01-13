@@ -26,9 +26,3 @@ RUN sh clean.sh
 # docker push sanfun/ptp-cpp:1.0.1
 # docker push sanfun/ptp-cpp:0-ubuntu-20.04
 #
-# apt-cache search redis
-# apt-get -y install redis-server
-# cd /opt && sudo redis-server --appendonly yes --daemonize yes --requirepass s9mE_s3cUrE_prsS
-# redis-cli "CONFIG SET requirepass s9mE_s3cUrE_prsS"
-# AUTH s9mE_s3cUrE_prsS
-# killall redis-server
