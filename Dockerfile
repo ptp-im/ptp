@@ -15,7 +15,9 @@ ADD     ./  /workspaces/ptp/
 
 RUN sh clean.sh
 
-# docker build -t ptp-cpp:1.0.1 -f Dockerfile ./
+# docker build -t ptp-cpp:latest -f Dockerfile ./
+# docker run -it ptp-cpp:latest bash
+#
 # docker tag ptp-cpp:1.0.1 sanfun/ptp-cpp:1.0.1
 # docker tag sanfun/ptp-cpp:1.0.1 sanfun/ptp-cpp:latest
 # docker tag sanfun/ptp-cpp:1.0.1 sanfun/ptp-cpp:0-ubuntu-20.04
@@ -23,7 +25,7 @@ RUN sh clean.sh
 # docker push sanfun/ptp-cpp:latest
 # docker push sanfun/ptp-cpp:1.0.1
 # docker push sanfun/ptp-cpp:0-ubuntu-20.04
-# docker run -it ptp_server bash
+#
 # apt-cache search redis
 # apt-get -y install redis-server
 # cd /opt && sudo redis-server --appendonly yes --daemonize yes --requirepass s9mE_s3cUrE_prsS

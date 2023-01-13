@@ -36,6 +36,9 @@ endif()
 file(COPY ${LIBRARY_PATH}/
         DESTINATION ./build/lib)
 
+file(COPY ptp-server.sh
+        DESTINATION ../build)
+
 LINK_DIRECTORIES(./build/lib)
 SET(LIBRARY_OUTPUT_PATH ../../build/lib)
 

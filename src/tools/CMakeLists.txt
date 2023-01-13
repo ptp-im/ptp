@@ -6,11 +6,6 @@ project(${LIB_NAME_MAIN})
 if(COMMAND cmake_policy)
     cmake_policy(SET CMP0003 NEW)
 
-file(COPY ptp.sh
-        DESTINATION ../../build/bin)
-
-file(COPY ptp_server.sh
-        DESTINATION ../../build/bin)
 
 endif(COMMAND cmake_policy)
 MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
