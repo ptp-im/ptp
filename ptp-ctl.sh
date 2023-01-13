@@ -191,6 +191,12 @@ function clean_ptp() {
       cd $CUR_DIR
       rm -rf build
 }
+
+function run_redis_dev_server() {
+  cd /opt && sudo redis-server --appendonly yes --daemonize yes --requirepass s9mE_s3cUrE_prsS
+  cd $CUR_DIR
+  ps aux |  grep redis-server
+}
 function print_usage() {
   echo "Usage: "
   		echo "  $0 build_docker"
@@ -264,13 +270,11 @@ case $1 in
 	init_dev)
     if [ $SYSTEM"" ==  "linux" ];then
       sudo cp $CUR_DIR/third_party/libs/linux/* /usr/local/lib
-      echo "init_dev ok!!" > /tmp/t.log
+      run_redis_dev_server >> /tmp/init_redis.log
     fi
   ;;
 	run_redis_dev_server)
-		cd /opt && sudo redis-server --appendonly yes --daemonize yes --requirepass s9mE_s3cUrE_prsS
-		cd $CUR_DIR
-		ps aux |  grep redis-server
+    run_redis_dev_server
   ;;
 	build_docker)
 		docker build -t ptp-cpp:latest -f Dockerfile ./
