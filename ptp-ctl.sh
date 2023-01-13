@@ -205,7 +205,7 @@ function print_usage() {
   		echo "  $0 clean_ptp"
   		echo "  $0 cmake"
   		echo "  $0 run_redis_dev_server"
-  		echo "  $0 int_dev"
+  		echo "  $0 init_dev"
   		echo "  $0 build_all"
   		echo "  $0 build tools"
   		echo "  $0 build_tests"
