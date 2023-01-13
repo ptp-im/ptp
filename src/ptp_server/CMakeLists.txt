@@ -11,15 +11,13 @@ MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
 
 INCLUDE_DIRECTORIES(./)
 INCLUDE_DIRECTORIES(../ptp_protobuf/)
-
+SET(LIBRARY_OUTPUT_PATH ../../build/lib)
 SET(EXECUTABLE_OUTPUT_PATH  ../../build/bin/${LIB_NAME_MAIN})
 file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
 file(COPY log4cxx.properties
         DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 
-
 set(COMMON_LIBS pthread mysqlclient_r curl hiredis slog crypto secp256k1 ptp_global ptp_crypto ptp_protobuf ptp_wallet)
-
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 AUX_SOURCE_DIRECTORY(./actions SRC_LIST)
 AUX_SOURCE_DIRECTORY(./models SRC_LIST)

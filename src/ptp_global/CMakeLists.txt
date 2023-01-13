@@ -10,7 +10,7 @@ if(ANDROID)
 endif()
 
 add_library(${LIB_NAME_MAIN} STATIC ${SRC_LIST})
-
+SET(LIBRARY_OUTPUT_PATH ../../build/lib)
 if(NOT ANDROID)
     TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} slog)
 else()

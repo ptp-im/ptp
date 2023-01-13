@@ -37,6 +37,9 @@ ADD_DEFINITIONS(-DGTEST_USE_OWN_TR1_TUPLE=1 )
 
 SET(EXECUTABLE_OUTPUT_PATH  ../build/bin/tests)
 
+file(COPY ./log4cxx.properties
+        DESTINATION ${EXECUTABLE_OUTPUT_PATH})
+
 file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
 
 include_directories (../third_party/gtest/googlemock/include)

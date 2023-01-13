@@ -20,10 +20,6 @@ file(MAKE_DIRECTORY ./build/bin)
 file(MAKE_DIRECTORY ./build/lib)
 file(MAKE_DIRECTORY ./build/log)
 
-
-file(COPY tests/log4cxx.properties
-        DESTINATION ./build/bin/tests)
-
 file(COPY ./conf/bd_server.conf
         DESTINATION ./build/conf)
 
@@ -31,20 +27,18 @@ if(APPLE)
     MESSAGE( STATUS "APPLE: ========>>" cmake ... )
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14  -g")
     SET(LIBRARY_PATH ./third_party/libs/mac)
+    file(COPY ${LIBRARY_PATH}/
+            DESTINATION /usr/local/lib)
+
 elseif(UNIX)
     MESSAGE( STATUS "UNIX: ========>>" cmake ... )
     ADD_DEFINITIONS( -g -W -Wall -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DAC_HAS_INFO -DAC_HAS_WARNING -DAC_HAS_ERROR -DAC_HAS_CRITICAL -DTIXML_USE_STL -DAC_HAS_DEBUG -DLINUX_DAEMON -std=c++11 -DENCRYPT)
     SET(LIBRARY_PATH ./third_party/libs/linux)
 endif()
-
-file(COPY ${LIBRARY_PATH}/
-        DESTINATION /usr/local/lib)
-
 file(COPY ptp-server.sh
         DESTINATION ./build)
 
 LINK_DIRECTORIES(./build/lib)
-SET(LIBRARY_OUTPUT_PATH ../../build/lib)
 
 INCLUDE_DIRECTORIES(/usr/local/include)
 LINK_DIRECTORIES(/usr/local/lib)

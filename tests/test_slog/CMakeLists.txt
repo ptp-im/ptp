@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.12)
 set(TEST_NAME test_slog)
 MESSAGE( STATUS ===>>> ${TEST_NAME} )
-
+SET(EXECUTABLE_OUTPUT_PATH  ../../build/bin/tests)
 add_executable(${TEST_NAME}.run main.cpp)
 target_link_libraries(${TEST_NAME}.run PRIVATE gtest_main slog)

@@ -61,9 +61,7 @@ PTP_DIR=$CUR_DIR
 echo $0
 echo PTP_DIR: $PTP_DIR
 echo SYSTEM: $SYSTEM
-echo $PTP_DIR > $PTP_DIR/test.log
 echo "========================================"
-
 
 function build_app() {
   APP_NAME=$1
@@ -147,7 +145,7 @@ clean_dir() {
   echo "clean $CMAKE_DIR"
   cd $CMAKE_DIR
   rm -rf CMakeCache.txt CMakeFiles CTestTestfile.cmake cmake_install.cmake Testing Makefile cmake-build-debug
-  rm -rf lib build include
+  rm -rf build
 }
 
 
@@ -190,6 +188,8 @@ function clean_ptp() {
       rm -rf build
       cd $CUR_DIR/third_party/log4cxx
       rm -rf build
+      cd $CUR_DIR
+      rm -rf build
 }
 function print_usage() {
   echo "Usage: "
@@ -199,6 +199,7 @@ function print_usage() {
   		echo "  $0 clean_ptp"
   		echo "  $0 cmake"
   		echo "  $0 run_redis_dev_server"
+  		echo "  $0 int_dev"
   		echo "  $0 build_all"
   		echo "  $0 build tools"
   		echo "  $0 build_tests"
@@ -259,6 +260,12 @@ case $1 in
   ;;
 	build_tools)
 		build tools
+  ;;
+	init_dev)
+    if [ $SYSTEM"" ==  "linux" ];then
+      sudo cp $CUR_DIR/third_party/libs/linux/* /usr/local/lib
+      echo "init_dev ok!!" > /tmp/t.log
+    fi
   ;;
 	run_redis_dev_server)
 		cd /opt && sudo redis-server --appendonly yes --daemonize yes --requirepass s9mE_s3cUrE_prsS

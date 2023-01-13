@@ -1,12 +1,7 @@
-#SET(LIBRARY_OUTPUT_PATH  ../../lib)
 set(LIB_NAME_MAIN ptp_protobuf)
 MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
-
-#INCLUDE_DIRECTORIES(../../third_party/protobuf)
-
+SET(LIBRARY_OUTPUT_PATH ../../build/lib)
 AUX_SOURCE_DIRECTORY(./ SRC_LIST)
 AUX_SOURCE_DIRECTORY(./v2 SRC_LIST)
-
 add_library(${LIB_NAME_MAIN} STATIC ${SRC_LIST})
-
 TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} ptp_global protobuf-lite)
