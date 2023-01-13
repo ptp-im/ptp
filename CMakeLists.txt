@@ -4,7 +4,7 @@ if (POLICY CMP0048)
     cmake_policy(SET CMP0048 NEW)
 endif (POLICY CMP0048)
 
-project(PTP)
+project(ptp-ctl)
 #cmake -DIS_DOCKER=OFF
 option(IS_DOCKER "IS DOCKER" OFF)
 
