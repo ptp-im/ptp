@@ -1,5 +1,6 @@
+# shellcheck disable=SC1113
 #/bin/sh
-#start or stop the server
+
 CUR_DIR=
 PTP_DIR=
 VERSION=$2
@@ -55,6 +56,17 @@ do
     fi
 done
 
+
+# Change the current directory to the location of the script
+CUR_DIR=$(dirname "${REALPATH}")
+PTP_DIR=$CUR_DIR
+echo $0
+echo PTP_DIR: $PTP_DIR
+echo SYSTEM: $SYSTEM
+echo $PTP_DIR > $PTP_DIR/test.log
+echo "========================================"
+
+
 function build_app() {
   APP_NAME=$1
   APP_PATH=$PTP_DIR/src/$APP_NAME
@@ -63,27 +75,6 @@ function build_app() {
   cd $APP_PATH
   make
   echo " ===>  build $APP_PATH "
-}
-
-function print_usage() {
-  echo "Usage: "
-  		echo "  $0 clean_tests"
-  		echo "  $0 clean_ptp"
-  		echo "  $0 cmake"
-  		echo "  $0 build_all"
-  		echo "  $0 build ptp_protobuf"
-  		echo "  $0 build ptp_crypto"
-  		echo "  $0 build ptp_global"
-  		echo "  $0 build ptp_wallet"
-  		echo "  $0 build ptp_server"
-  		echo "  $0 build ptp_server_business"
-  		echo "  $0 build ptp_server_msg"
-  		echo "  $0 build_server"
-  		echo "  $0 build_tools"
-  		echo "  $0 build_tests"
-  		echo "  $0 build_test"
-  		echo "  $0 run_tests"
-  		echo "  $0 run_test"
 }
 
 function run_tests() {
@@ -154,16 +145,41 @@ function build_test() {
   fi
 }
 
-# Change the current directory to the location of the script
-CUR_DIR=$(dirname "${REALPATH}")
-PTP_DIR=$CUR_DIR
-echo PTP_DIR: $PTP_DIR
-echo SYSTEM: $SYSTEM
-echo $PTP_DIR > $PTP_DIR/test.log
-echo "========================================"
+function print_usage() {
+  echo "Usage: "
+  		echo "  $0 clean_tests"
+  		echo "  $0 clean_ptp"
+  		echo "  $0 cmake"
+  		echo "  $0 build_all"
+  		echo "  $0 build tools"
+  		echo "  $0 build_tests"
+  		echo "  $0 run_tests"
+  		echo "  $0 build ptp_protobuf"
+  		echo "  $0 build ptp_crypto"
+  		echo "  $0 build ptp_global"
+  		echo "  $0 build ptp_wallet"
+  		echo "  $0 build ptp_server"
+  		echo "  $0 build ptp_server_msg"
+  		echo "  $0 build_test"
+  		echo "  $0 run_test"
+  		echo "  $0 run"
+}
+
+function run_server() {
+  name=$2
+  if [ "$2" == "" ]; then
+      echo "$0 run msg"
+      echo "$0 run business"
+      cd $PTP_DIR
+  else
+    sh ptp-server.sh run $name
+  fi
+}
+
 
 case $1 in
 	build)
+		# shellcheck disable=SC2068
 		build $@
   ;;
 	clean_ptp)
@@ -186,13 +202,19 @@ case $1 in
 		build_app tests
   ;;
 	build_test)
+		# shellcheck disable=SC2068
 		build_test $@
   ;;
 	run_tests)
 		run_tests
   ;;
 	run_test)
+		# shellcheck disable=SC2068
 		run_test $@
+  ;;
+	run)
+		# shellcheck disable=SC2068
+		run_server $@
   ;;
 	clean_tests)
 		rm -rf $PTP_DIR/build/bin/tests

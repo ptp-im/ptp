@@ -1,3 +1,4 @@
+# shellcheck disable=SC1113
 #/bin/sh
 #start or stop the server
 apps="business file push route msfs msg login"
@@ -58,6 +59,21 @@ do
         SCRIPT="$REALPATH"
     fi
 done
+# Change the current directory to the location of the script
+CUR_DIR=$(dirname "${REALPATH}")
+if [ -e $CUR_DIR/build ]; then
+  PTP_DIR=$CUR_DIR/build
+else
+  PTP_DIR=$CUR_DIR
+fi
+
+BIN_DIR=$PTP_DIR/bin
+echo $0
+echo CUR_DIR: $CUR_DIR
+echo PTP_DIR: $PTP_DIR
+echo BIN_DIR: $BIN_DIR
+echo SYSTEM: $SYSTEM
+echo "========================================"
 
 
 function run() {
@@ -194,19 +210,6 @@ function stop() {
       fi
   done
 }
-
-if [ -e $CUR_DIR/build  ]; then
-  PTP_DIR=$CUR_DIR/build
-else
-  PTP_DIR=$CUR_DIR
-fi
-
-BIN_DIR=$PTP_DIR/bin
-
-echo PTP_DIR: $PTP_DIR
-echo BIN_DIR: $BIN_DIR
-echo SYSTEM: $SYSTEM
-echo "========================================"
 
 case $1 in
 	run)
