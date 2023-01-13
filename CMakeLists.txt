@@ -20,6 +20,10 @@ file(MAKE_DIRECTORY ./build/bin)
 file(MAKE_DIRECTORY ./build/lib)
 file(MAKE_DIRECTORY ./build/log)
 
+
+file(COPY tests/log4cxx.properties
+        DESTINATION ./build/bin/tests)
+
 file(COPY ./conf/bd_server.conf
         DESTINATION ./build/conf)
 
@@ -34,10 +38,10 @@ elseif(UNIX)
 endif()
 
 file(COPY ${LIBRARY_PATH}/
-        DESTINATION ./build/lib)
+        DESTINATION /usr/local/lib)
 
 file(COPY ptp-server.sh
-        DESTINATION ../build)
+        DESTINATION ./build)
 
 LINK_DIRECTORIES(./build/lib)
 SET(LIBRARY_OUTPUT_PATH ../../build/lib)
@@ -46,6 +50,7 @@ INCLUDE_DIRECTORIES(/usr/local/include)
 LINK_DIRECTORIES(/usr/local/lib)
 
 INCLUDE_DIRECTORIES(./src/)
+INCLUDE_DIRECTORIES(./src/slog)
 INCLUDE_DIRECTORIES(./include)
 INCLUDE_DIRECTORIES(./include/protobuf)
 INCLUDE_DIRECTORIES(./include/redis)
@@ -78,7 +83,7 @@ add_subdirectory(src/ptp_server_msg)
 #add_subdirectory(src/ptp_server_route)
 #add_subdirectory(src/ptp_server_login)
 #add_subdirectory(src/ptp_server_ws)
-
+add_subdirectory(src/slog)
 add_subdirectory(third_party/gtest)
 add_subdirectory(tests)
 enable_testing()

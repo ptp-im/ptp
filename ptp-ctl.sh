@@ -1,6 +1,4 @@
-# shellcheck disable=SC1113
-#/bin/sh
-
+#!/usr/bin/env bash
 CUR_DIR=
 PTP_DIR=
 VERSION=$2
@@ -89,7 +87,6 @@ function run_tests() {
     chmod +x $test
     ./$test
   done
-
 }
 
 function build() {
@@ -145,11 +142,63 @@ function build_test() {
   fi
 }
 
+clean_dir() {
+  CMAKE_DIR=$1
+  echo "clean $CMAKE_DIR"
+  cd $CMAKE_DIR
+  rm -rf CMakeCache.txt CMakeFiles CTestTestfile.cmake cmake_install.cmake Testing Makefile cmake-build-debug
+  rm -rf lib build include
+}
+
+
+function run_server() {
+  name=$2
+  if [ "$2" == "" ]; then
+      echo "$0 run msg"
+      echo "$0 run business"
+      cd $PTP_DIR
+  else
+    $PTP_DIR/ptp-server.sh run $name
+  fi
+}
+
+function clean_ptp() {
+  cd $CUR_DIR
+      rm -rf CMakeCache.txt CMakeFiles CTestTestfile.cmake cmake_install.cmake Testing Makefile cmake-build-debug
+
+      clean_dir $CUR_DIR/tests
+      dirs=$(ls $CUR_DIR/tests | tr " " "\n")
+      for dir in $dirs
+      do
+        if [ -d $CUR_DIR/tests/$dir ]; then
+              clean_dir $CUR_DIR/tests/$dir
+        fi
+      done
+      dirs=$(ls $CUR_DIR/src | tr " " "\n")
+      for dir in $dirs
+      do
+        if [ -d $CUR_DIR/src/$dir ]; then
+              clean_dir $CUR_DIR/src/$dir
+        fi
+      done
+      clean_dir $CUR_DIR/third_party/gtest
+      clean_dir $CUR_DIR/third_party/gtest/googlemock
+      clean_dir $CUR_DIR/third_party/gtest/googletest
+      cd $CUR_DIR/third_party/protobuf
+      rm -rf build
+      cd $CUR_DIR/third_party/redis
+      rm -rf build
+      cd $CUR_DIR/third_party/log4cxx
+      rm -rf build
+}
 function print_usage() {
   echo "Usage: "
+  		echo "  $0 build_docker"
+  		echo "  $0 run_docker"
   		echo "  $0 clean_tests"
   		echo "  $0 clean_ptp"
   		echo "  $0 cmake"
+  		echo "  $0 run_redis_dev_server"
   		echo "  $0 build_all"
   		echo "  $0 build tools"
   		echo "  $0 build_tests"
@@ -163,17 +212,7 @@ function print_usage() {
   		echo "  $0 build_test"
   		echo "  $0 run_test"
   		echo "  $0 run"
-}
-
-function run_server() {
-  name=$2
-  if [ "$2" == "" ]; then
-      echo "$0 run msg"
-      echo "$0 run business"
-      cd $PTP_DIR
-  else
-    sh ptp-server.sh run $name
-  fi
+  		echo "  $0 run msg"
 }
 
 
@@ -183,8 +222,7 @@ case $1 in
 		build $@
   ;;
 	clean_ptp)
-    cd $PTP_DIR
-    sh clean.sh
+    clean_ptp
   ;;
 	build_all)
 		cd $PTP_DIR
@@ -225,6 +263,14 @@ case $1 in
 	run_redis_dev_server)
 		cd /opt && sudo redis-server --appendonly yes --daemonize yes --requirepass s9mE_s3cUrE_prsS
 		cd $CUR_DIR
+		ps aux |  grep redis-server
+  ;;
+	build_docker)
+		docker build -t ptp-cpp:latest -f Dockerfile ./
+		docker run -it ptp-cpp:latest bash
+  ;;
+	run_docker)
+		docker run -it ptp-cpp:latest bash
   ;;
 	*)
 		print_usage

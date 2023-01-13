@@ -35,11 +35,9 @@ endif (APPLE)
 
 ADD_DEFINITIONS(-DGTEST_USE_OWN_TR1_TUPLE=1 )
 
-SET(EXECUTABLE_OUTPUT_PATH  ../../build/bin/tests)
+SET(EXECUTABLE_OUTPUT_PATH  ../build/bin/tests)
 
 file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
-file(COPY log4cxx.properties
-        DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 
 include_directories (../third_party/gtest/googlemock/include)
 include_directories (../third_party/gtest/googletest/include)
@@ -57,3 +55,4 @@ add_subdirectory(test_server_business)
 add_subdirectory(test_server_msg)
 add_subdirectory(test_toolbox)
 add_subdirectory(test_wallet)
+add_subdirectory(test_slog)

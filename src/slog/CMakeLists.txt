@@ -1,0 +1,6 @@
+INCLUDE_DIRECTORIES(./)
+INCLUDE_DIRECTORIES(../../include)
+set(LIB_NAME_MAIN slog)
+
+add_library(${LIB_NAME_MAIN} STATIC slog_api.cpp)
+TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} log4cxx)

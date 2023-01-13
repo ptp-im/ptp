@@ -1,5 +1,4 @@
-# shellcheck disable=SC1113
-#/bin/sh
+#!/usr/bin/env bash
 #start or stop the server
 apps="business file push route msfs msg login"
 #apps="business file push route msfs ws msg login"
@@ -74,7 +73,6 @@ echo PTP_DIR: $PTP_DIR
 echo BIN_DIR: $BIN_DIR
 echo SYSTEM: $SYSTEM
 echo "========================================"
-
 
 function run() {
     name="ptp_server_$1"

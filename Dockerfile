@@ -13,7 +13,7 @@ FROM sanfun/ptp-cpp:0-${VARIANT}
 #WORKDIR     /workspaces/ptp/
 ADD     ./  /workspaces/ptp/
 
-RUN sh clean.sh
+RUN chmod +x ./ptp-ctl.sh && ./ptp-ctl.sh clean_ptp
 
 # docker build -t ptp-cpp:latest -f Dockerfile ./
 # docker run -it ptp-cpp:latest bash
