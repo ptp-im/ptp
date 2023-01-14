@@ -5,7 +5,7 @@
 #include "ptp_protobuf/ImPdu.h"
 #include "Response.h"
 #include "Request.h"
-#include "define.h"
+#include "FileConfig.h"
 
 typedef struct {
 	uint32_t msg_id;

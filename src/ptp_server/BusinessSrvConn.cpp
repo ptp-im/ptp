@@ -9,7 +9,7 @@
 #include "CachePool.h"
 #include "HttpClient.h"
 #include "SyncCenter.h"
-#include "define.h"
+#include "FileConfig.h"
 //
 //#include "models/AudioModel.h"
 //#include "models/MessageModel.h"

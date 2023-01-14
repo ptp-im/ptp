@@ -10,7 +10,7 @@
 #include "BusinessClientConn.h"
 #include "PTP.Auth.pb.h"
 #include "PTP.Other.pb.h"
-#include "slog_api.h"
+#include "FileConfig.h"
 
 using namespace PTP::Common;
 

@@ -65,7 +65,7 @@ echo "========================================"
 
 function run_tests() {
   cd $PTP_DIR
-  cmake .
+  run_cmake
   cd $PTP_DIR/src/tests
   make
   cd $PTP_DIR/build/bin
@@ -111,7 +111,7 @@ function build_app() {
   else
     echo "build $app"
       cd $PTP_DIR
-      cmake .
+      run_cmake
       cd $PTP_DIR/src/$app
       make
       if [ -e main.cpp  ]; then
@@ -134,7 +134,7 @@ function build_test() {
   else
     echo "build $testName"
       cd $PTP_DIR
-      cmake .
+      run_cmake
       cd $PTP_DIR/tests/$testName
       make
       cd $PTP_DIR/build/bin/
@@ -204,7 +204,15 @@ function print_usage() {
   		echo "  $0 build"
   		echo "  $0 run"
 }
-
+function run_cmake() {
+		cd $PTP_DIR
+		echo run_cmake ...
+		if [ $SYSTEM"" ==  "linux" ];then
+		  echo "sudo cp $CUR_DIR/third_party/libs/linux/* /usr/local/lib"
+      sudo cp $CUR_DIR/third_party/libs/linux/* /usr/local/lib
+    fi
+		cmake .
+}
 
 case $1 in
 	build)
@@ -216,7 +224,7 @@ case $1 in
   ;;
 	build_all)
 		cd $PTP_DIR
-		cmake .
+		run_cmake
 		make
   ;;
 	build_server)
@@ -224,10 +232,10 @@ case $1 in
   ;;
 	cmake)
 		cd $PTP_DIR
-		cmake .
+		run_cmake
   ;;
 	build_tests)
-	  cmake .
+	  run_cmake
 	  cd $CUR_DIR/tests
     make
   ;;
@@ -264,10 +272,11 @@ case $1 in
   ;;
 	build_docker)
 		docker build -t ptp-cpp:latest -f Dockerfile ./
-		docker run -it ptp-cpp:latest bash
+		docker run -v $PTP_DIR/docker/prod/build:/workspaces/ptp/build -it ptp-cpp:latest bash
   ;;
 	run_docker)
-		docker run -it ptp-cpp:latest bash
+	  mkdir -p $PTP_DIR/docker/prod/build
+		docker run -v $PTP_DIR/docker/prod/build:/workspaces/ptp/build -it ptp-cpp:latest bash
   ;;
 	*)
 		print_usage

@@ -2,7 +2,7 @@
 
 #include "ptp_global/Logger.h"
 #include "ptp_global/Helpers.h"
-#include "ptp_server/define.h"
+#include "ptp_server/FileConfig.h"
 
 
 TEST(test_server, replace_str) {
