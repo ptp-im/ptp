@@ -3,11 +3,14 @@ FROM ubuntu:latest
 COPY ./build/include  /usr/local/include
 COPY ./build/bin  /usr/local/bin
 COPY ./build/lib  /usr/local/lib
-#COPY ./build/lib-gnu   /usr/lib/x86_64-linux-gnu/
+COPY ./build/x86_64-linux-gnu   /usr/lib/x86_64-linux-gnu/
+
+WORKDIR /workspaces/ptp/
 
 # cp -a ../../include/ ./build/include
 # cp -a ../../third_party/libs/linux/ ./build/lib
-# cp -a ../../third_party/libs/linux-gnu ./build/lib-gnu
+# cp -a ../../third_party/libs/x86_64-linux-gnu/ ./build/x86_64-linux-gnu
+
 # docker build -t ptp:latest -f Dockerfile ./
 # docker run -it ptp:latest bash
 #
