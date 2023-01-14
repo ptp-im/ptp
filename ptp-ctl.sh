@@ -222,7 +222,6 @@ function run_cmake() {
 }
 function copy_to_build() {
 		if [ $SYSTEM"" ==  "linux" ];then
-
 		  mkdir -p $PTP_DIR/build/x86_64-linux-gnu
 		  cd /usr/lib/x86_64-linux-gnu
 
@@ -238,6 +237,11 @@ function copy_to_build() {
 
 		  cp libaprutil-1.so.0 $PTP_DIR/build/x86_64-linux-gnu
 		  cp libaprutil-1.so.0.6.1 $PTP_DIR/build/x86_64-linux-gnu
+
+		  cp libexpat.so.1 $PTP_DIR/build/x86_64-linux-gnu
+		  cp libexpat.so.1.6.11 $PTP_DIR/build/x86_64-linux-gnu
+
+		  cp libmysqlclient_r.so $PTP_DIR/build/x86_64-linux-gnu
     fi
 }
 function run_docker() {

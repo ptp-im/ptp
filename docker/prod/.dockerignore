@@ -1,2 +1,4 @@
 #log4cxx.properties
-*.log
+build/bin/*.log
+build/bin/log
+build/bin/config

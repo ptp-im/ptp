@@ -4,7 +4,7 @@
 #include <curl/curl.h>
 #include "ptp_global/Utils.h"
 #include "ptp_global/ImConn.h"
-#include "HandlerMap.h"
+#include "actions/HandlerMap.h"
 
 typedef struct {
 	uint32_t	conn_uuid;

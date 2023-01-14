@@ -13,8 +13,8 @@
 
 using namespace std;
 
-#define CONFIG_PATH             "../conf/bd_server.conf"
-#define LOG_PATH                "../log/default.log"
+#define CONFIG_PATH             "conf/bd_server.conf"
+#define LOG_PATH                "log/default.log"
 
 static string CONFIG_CONF = "" \
 "MSG_ListenIP=0.0.0.0\n" \

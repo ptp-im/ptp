@@ -17,7 +17,7 @@ TEST(slog, slog_set_append_enableStdout) {
 }
 
 TEST(slog, slog_set_append_disableStdout) {
-    slog_set_append(false,true,true,"default.log");
+    slog_set_append(false,true,true,"log/default.log");
     CSLog b("test");
     b.Debug("stdout:false,debug:true,file:true");
     ASSERT_TRUE(true);

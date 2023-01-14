@@ -6,7 +6,7 @@
 #include "ptp_global/version.h"
 #include "CachePool.h"
 #include "ImUser.h"
-#include "HandlerMap.h"
+#include "actions/HandlerMap.h"
 #include "BusinessClientConn.h"
 #include "PTP.Auth.pb.h"
 #include "PTP.Other.pb.h"

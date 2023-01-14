@@ -3,7 +3,7 @@
 #include "ptp_global/Task.h"
 #include "ptp_global/Utils.h"
 #include "ptp_global/ImPduBase.h"
-#include "HandlerMap.h"
+#include "actions/HandlerMap.h"
 
 
 class CProxyTask:public CTask

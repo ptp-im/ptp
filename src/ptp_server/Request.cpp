@@ -5,6 +5,7 @@
 #include "Request.h"
 
 CRequest::CRequest() {
+    m_isBusinessConn = false;
     m_pPdu = new ImPdu();
 }
 
@@ -12,6 +13,11 @@ CRequest::~CRequest() {
     if(m_pPdu != NULL){
         m_pPdu = NULL;
     }
+}
+
+
+void CRequest::SetIsBusinessConn(bool isBusinessConn) {
+    m_isBusinessConn = isBusinessConn;
 }
 //
 //void CRequest::SetPdu(ImPdu *pPdu) {

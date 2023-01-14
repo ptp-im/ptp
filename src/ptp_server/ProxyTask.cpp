@@ -28,6 +28,7 @@ void CProxyTask::run()
         DEBUG_I("CProxyTask::run cid=%d,pid:%d", m_pPdu->GetCommandId(),getpid());
 		if (m_pdu_handler) {
             CRequest request;
+            request.SetIsBusinessConn(true);
             request.SetHandle((int)m_conn_uuid);
             CResponse response;
             request.SetPdu(m_pPdu);
