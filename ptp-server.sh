@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
-#start or stop the server
-apps="business file push route msfs msg login"
-#apps="business file push route msfs ws msg login"
-apps1="business|file|push|route|msfs|ws|msg|login"
-
 CUR_DIR=
 PTP_DIR=
 VERSION=$2

@@ -5,311 +5,338 @@
 
 #include <algorithm>
 
-#include <google/protobuf/stubs/common.h>
-#include <google/protobuf/stubs/port.h>
 #include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/wire_format_lite_inl.h>
+#include <google/protobuf/extension_set.h>
+#include <google/protobuf/wire_format_lite.h>
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
-// This is a temporary google only hack
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-#include "third_party/protobuf/version.h"
-#endif
 // @@protoc_insertion_point(includes)
+#include <google/protobuf/port_def.inc>
 
-namespace protobuf_PTP_2eCommon_2eproto {
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_PTP_2eCommon_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_UserInfo;
-}  // namespace protobuf_PTP_2eCommon_2eproto
+PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace PTP {
 namespace Server {
-class ServerLoginReqDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<ServerLoginReq>
-      _instance;
-} _ServerLoginReq_default_instance_;
-class ServerLoginResDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<ServerLoginRes>
-      _instance;
-} _ServerLoginRes_default_instance_;
+PROTOBUF_CONSTEXPR ServerLoginReq::ServerLoginReq(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.address_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.captcha_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.sign_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.attach_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+struct ServerLoginReqDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ServerLoginReqDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ServerLoginReqDefaultTypeInternal() {}
+  union {
+    ServerLoginReq _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ServerLoginReqDefaultTypeInternal _ServerLoginReq_default_instance_;
+PROTOBUF_CONSTEXPR ServerLoginRes::ServerLoginRes(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.attach_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.user_info_)*/nullptr
+  , /*decltype(_impl_.error_)*/0} {}
+struct ServerLoginResDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ServerLoginResDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ServerLoginResDefaultTypeInternal() {}
+  union {
+    ServerLoginRes _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ServerLoginResDefaultTypeInternal _ServerLoginRes_default_instance_;
 }  // namespace Server
 }  // namespace PTP
-namespace protobuf_PTP_2eServer_2eproto {
-static void InitDefaultsServerLoginReq() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Server::_ServerLoginReq_default_instance_;
-    new (ptr) ::PTP::Server::ServerLoginReq();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Server::ServerLoginReq::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_ServerLoginReq =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsServerLoginReq}, {}};
-
-static void InitDefaultsServerLoginRes() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Server::_ServerLoginRes_default_instance_;
-    new (ptr) ::PTP::Server::ServerLoginRes();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Server::ServerLoginRes::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<1> scc_info_ServerLoginRes =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsServerLoginRes}, {
-      &protobuf_PTP_2eCommon_2eproto::scc_info_UserInfo.base,}};
-
-void InitDefaults() {
-  ::google::protobuf::internal::InitSCC(&scc_info_ServerLoginReq.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_ServerLoginRes.base);
-}
-
-}  // namespace protobuf_PTP_2eServer_2eproto
 namespace PTP {
 namespace Server {
 
 // ===================================================================
 
-void ServerLoginReq::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ServerLoginReq::kAddressFieldNumber;
-const int ServerLoginReq::kCaptchaFieldNumber;
-const int ServerLoginReq::kSignFieldNumber;
-const int ServerLoginReq::kAttachDataFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class ServerLoginReq::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ServerLoginReq>()._impl_._has_bits_);
+  static void set_has_address(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_captcha(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_sign(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_attach_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000007) ^ 0x00000007) != 0;
+  }
+};
 
-ServerLoginReq::ServerLoginReq()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eServer_2eproto::scc_info_ServerLoginReq.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Server.ServerLoginReq)
+ServerLoginReq::ServerLoginReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Server.ServerLoginReq)
 }
 ServerLoginReq::ServerLoginReq(const ServerLoginReq& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_address()) {
-    address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ServerLoginReq* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.address_){}
+    , decltype(_impl_.captcha_){}
+    , decltype(_impl_.sign_){}
+    , decltype(_impl_.attach_data_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.address_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_address()) {
+    _this->_impl_.address_.Set(from._internal_address(), 
+      _this->GetArenaForAllocation());
   }
-  captcha_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_captcha()) {
-    captcha_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.captcha_);
+  _impl_.captcha_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.captcha_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_captcha()) {
+    _this->_impl_.captcha_.Set(from._internal_captcha(), 
+      _this->GetArenaForAllocation());
   }
-  sign_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_sign()) {
-    sign_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sign_);
+  _impl_.sign_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.sign_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_sign()) {
+    _this->_impl_.sign_.Set(from._internal_sign(), 
+      _this->GetArenaForAllocation());
   }
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_attach_data()) {
-    attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_attach_data()) {
+    _this->_impl_.attach_data_.Set(from._internal_attach_data(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:PTP.Server.ServerLoginReq)
 }
 
-void ServerLoginReq::SharedCtor() {
-  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  captcha_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sign_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void ServerLoginReq::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.address_){}
+    , decltype(_impl_.captcha_){}
+    , decltype(_impl_.sign_){}
+    , decltype(_impl_.attach_data_){}
+  };
+  _impl_.address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.address_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.captcha_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.captcha_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.sign_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.sign_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ServerLoginReq::~ServerLoginReq() {
   // @@protoc_insertion_point(destructor:PTP.Server.ServerLoginReq)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void ServerLoginReq::SharedDtor() {
-  address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  captcha_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sign_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  attach_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void ServerLoginReq::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.address_.Destroy();
+  _impl_.captcha_.Destroy();
+  _impl_.sign_.Destroy();
+  _impl_.attach_data_.Destroy();
 }
 
 void ServerLoginReq::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const ServerLoginReq& ServerLoginReq::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eServer_2eproto::scc_info_ServerLoginReq.base);
-  return *internal_default_instance();
-}
-
 
 void ServerLoginReq::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Server.ServerLoginReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 15u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      address_.ClearNonDefaultToEmptyNoArena();
+      _impl_.address_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      captcha_.ClearNonDefaultToEmptyNoArena();
+      _impl_.captcha_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      sign_.ClearNonDefaultToEmptyNoArena();
+      _impl_.sign_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      attach_data_.ClearNonDefaultToEmptyNoArena();
+      _impl_.attach_data_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool ServerLoginReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Server.ServerLoginReq)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* ServerLoginReq::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required string address = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_address()));
-        } else {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_address();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required string captcha = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_captcha()));
-        } else {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_captcha();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required bytes sign = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_sign()));
-        } else {
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_sign();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional bytes attach_data = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_attach_data();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Server.ServerLoginReq)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Server.ServerLoginReq)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void ServerLoginReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Server.ServerLoginReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* ServerLoginReq::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Server.ServerLoginReq)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string address = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->address(), output);
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_address(), target);
   }
 
   // required string captcha = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->captcha(), output);
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_captcha(), target);
   }
 
   // required bytes sign = 3;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      3, this->sign(), output);
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_sign(), target);
   }
 
   // optional bytes attach_data = 4;
   if (cached_has_bits & 0x00000008u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      4, this->attach_data(), output);
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_attach_data(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Server.ServerLoginReq)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Server.ServerLoginReq)
+  return target;
 }
 
 size_t ServerLoginReq::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:PTP.Server.ServerLoginReq)
   size_t total_size = 0;
 
-  if (has_address()) {
+  if (_internal_has_address()) {
     // required string address = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->address());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_address());
   }
 
-  if (has_captcha()) {
+  if (_internal_has_captcha()) {
     // required string captcha = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->captcha());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_captcha());
   }
 
-  if (has_sign()) {
+  if (_internal_has_sign()) {
     // required bytes sign = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->sign());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_sign());
   }
 
   return total_size;
@@ -318,70 +345,74 @@ size_t ServerLoginReq::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Server.ServerLoginReq)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
-  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
     // required string address = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->address());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_address());
 
     // required string captcha = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->captcha());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_captcha());
 
     // required bytes sign = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->sign());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_sign());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   // optional bytes attach_data = 4;
-  if (has_attach_data()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000008u) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->attach_data());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_attach_data());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ServerLoginReq::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const ServerLoginReq*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ServerLoginReq*>(
+      &from));
 }
 
 void ServerLoginReq::MergeFrom(const ServerLoginReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Server.ServerLoginReq)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  ServerLoginReq* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Server.ServerLoginReq)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 15u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_address();
-      address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
+      _this->_internal_set_address(from._internal_address());
     }
     if (cached_has_bits & 0x00000002u) {
-      set_has_captcha();
-      captcha_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.captcha_);
+      _this->_internal_set_captcha(from._internal_captcha());
     }
     if (cached_has_bits & 0x00000004u) {
-      set_has_sign();
-      sign_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sign_);
+      _this->_internal_set_sign(from._internal_sign());
     }
     if (cached_has_bits & 0x00000008u) {
-      set_has_attach_data();
-      attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+      _this->_internal_set_attach_data(from._internal_attach_data());
     }
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ServerLoginReq::CopyFrom(const ServerLoginReq& from) {
@@ -392,290 +423,318 @@ void ServerLoginReq::CopyFrom(const ServerLoginReq& from) {
 }
 
 bool ServerLoginReq::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void ServerLoginReq::Swap(ServerLoginReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void ServerLoginReq::InternalSwap(ServerLoginReq* other) {
   using std::swap;
-  address_.Swap(&other->address_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  captcha_.Swap(&other->captcha_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  sign_.Swap(&other->sign_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  attach_data_.Swap(&other->attach_data_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.address_, lhs_arena,
+      &other->_impl_.address_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.captcha_, lhs_arena,
+      &other->_impl_.captcha_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.sign_, lhs_arena,
+      &other->_impl_.sign_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.attach_data_, lhs_arena,
+      &other->_impl_.attach_data_, rhs_arena
+  );
 }
 
-::std::string ServerLoginReq::GetTypeName() const {
+std::string ServerLoginReq::GetTypeName() const {
   return "PTP.Server.ServerLoginReq";
 }
 
 
 // ===================================================================
 
-void ServerLoginRes::InitAsDefaultInstance() {
-  ::PTP::Server::_ServerLoginRes_default_instance_._instance.get_mutable()->user_info_ = const_cast< ::PTP::Common::UserInfo*>(
-      ::PTP::Common::UserInfo::internal_default_instance());
+class ServerLoginRes::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ServerLoginRes>()._impl_._has_bits_);
+  static void set_has_error(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static const ::PTP::Common::UserInfo& user_info(const ServerLoginRes* msg);
+  static void set_has_user_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_attach_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000004) ^ 0x00000004) != 0;
+  }
+};
+
+const ::PTP::Common::UserInfo&
+ServerLoginRes::_Internal::user_info(const ServerLoginRes* msg) {
+  return *msg->_impl_.user_info_;
 }
 void ServerLoginRes::clear_user_info() {
-  if (user_info_ != NULL) user_info_->Clear();
-  clear_has_user_info();
+  if (_impl_.user_info_ != nullptr) _impl_.user_info_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ServerLoginRes::kErrorFieldNumber;
-const int ServerLoginRes::kUserInfoFieldNumber;
-const int ServerLoginRes::kAttachDataFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-ServerLoginRes::ServerLoginRes()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eServer_2eproto::scc_info_ServerLoginRes.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Server.ServerLoginRes)
+ServerLoginRes::ServerLoginRes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Server.ServerLoginRes)
 }
 ServerLoginRes::ServerLoginRes(const ServerLoginRes& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_attach_data()) {
-    attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ServerLoginRes* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.attach_data_){}
+    , decltype(_impl_.user_info_){nullptr}
+    , decltype(_impl_.error_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_attach_data()) {
+    _this->_impl_.attach_data_.Set(from._internal_attach_data(), 
+      _this->GetArenaForAllocation());
   }
-  if (from.has_user_info()) {
-    user_info_ = new ::PTP::Common::UserInfo(*from.user_info_);
-  } else {
-    user_info_ = NULL;
+  if (from._internal_has_user_info()) {
+    _this->_impl_.user_info_ = new ::PTP::Common::UserInfo(*from._impl_.user_info_);
   }
-  error_ = from.error_;
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:PTP.Server.ServerLoginRes)
 }
 
-void ServerLoginRes::SharedCtor() {
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&user_info_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&error_) -
-      reinterpret_cast<char*>(&user_info_)) + sizeof(error_));
+inline void ServerLoginRes::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.attach_data_){}
+    , decltype(_impl_.user_info_){nullptr}
+    , decltype(_impl_.error_){0}
+  };
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ServerLoginRes::~ServerLoginRes() {
   // @@protoc_insertion_point(destructor:PTP.Server.ServerLoginRes)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void ServerLoginRes::SharedDtor() {
-  attach_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete user_info_;
+inline void ServerLoginRes::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.attach_data_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.user_info_;
 }
 
 void ServerLoginRes::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const ServerLoginRes& ServerLoginRes::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eServer_2eproto::scc_info_ServerLoginRes.base);
-  return *internal_default_instance();
-}
-
 
 void ServerLoginRes::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Server.ServerLoginRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      attach_data_.ClearNonDefaultToEmptyNoArena();
+      _impl_.attach_data_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(user_info_ != NULL);
-      user_info_->Clear();
+      GOOGLE_DCHECK(_impl_.user_info_ != nullptr);
+      _impl_.user_info_->Clear();
     }
   }
-  error_ = 0;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_.error_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool ServerLoginRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Server.ServerLoginRes)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(16383u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* ServerLoginRes::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required .PTP.Common.ERR error = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::PTP::Common::ERR_IsValid(value)) {
-            set_error(static_cast< ::PTP::Common::ERR >(value));
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::PTP::Common::ERR_IsValid(val))) {
+            _internal_set_error(static_cast<::PTP::Common::ERR>(val));
           } else {
-            unknown_fields_stream.WriteVarint32(8u);
-            unknown_fields_stream.WriteVarint32(
-                static_cast< ::google::protobuf::uint32>(value));
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else {
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional .PTP.Common.UserInfo user_info = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_user_info()));
-        } else {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_user_info(), ptr);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional bytes attach_data = 20;
-      case 20: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(162u /* 162 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
+          auto str = _internal_mutable_attach_data();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Server.ServerLoginRes)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Server.ServerLoginRes)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void ServerLoginRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Server.ServerLoginRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* ServerLoginRes::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Server.ServerLoginRes)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required .PTP.Common.ERR error = 1;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->error(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
   }
 
   // optional .PTP.Common.UserInfo user_info = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      2, this->_internal_user_info(), output);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::user_info(this),
+        _Internal::user_info(this).GetCachedSize(), target, stream);
   }
 
   // optional bytes attach_data = 20;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
+    target = stream->WriteBytesMaybeAliased(
+        20, this->_internal_attach_data(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Server.ServerLoginRes)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Server.ServerLoginRes)
+  return target;
 }
 
 size_t ServerLoginRes::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Server.ServerLoginRes)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
   // required .PTP.Common.ERR error = 1;
-  if (has_error()) {
+  if (_internal_has_error()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
-  if (_has_bits_[0 / 32] & 3u) {
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     // optional bytes attach_data = 20;
-    if (has_attach_data()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->attach_data());
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_attach_data());
     }
 
     // optional .PTP.Common.UserInfo user_info = 2;
-    if (has_user_info()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *user_info_);
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.user_info_);
     }
 
   }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ServerLoginRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const ServerLoginRes*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ServerLoginRes*>(
+      &from));
 }
 
 void ServerLoginRes::MergeFrom(const ServerLoginRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Server.ServerLoginRes)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  ServerLoginRes* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Server.ServerLoginRes)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 7u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_attach_data();
-      attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+      _this->_internal_set_attach_data(from._internal_attach_data());
     }
     if (cached_has_bits & 0x00000002u) {
-      mutable_user_info()->::PTP::Common::UserInfo::MergeFrom(from.user_info());
+      _this->_internal_mutable_user_info()->::PTP::Common::UserInfo::MergeFrom(
+          from._internal_user_info());
     }
     if (cached_has_bits & 0x00000004u) {
-      error_ = from.error_;
+      _this->_impl_.error_ = from._impl_.error_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ServerLoginRes::CopyFrom(const ServerLoginRes& from) {
@@ -686,28 +745,32 @@ void ServerLoginRes::CopyFrom(const ServerLoginRes& from) {
 }
 
 bool ServerLoginRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000004) != 0x00000004) return false;
-  if (has_user_info()) {
-    if (!this->user_info_->IsInitialized()) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
+  if (_internal_has_user_info()) {
+    if (!_impl_.user_info_->IsInitialized()) return false;
   }
   return true;
 }
 
-void ServerLoginRes::Swap(ServerLoginRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void ServerLoginRes::InternalSwap(ServerLoginRes* other) {
   using std::swap;
-  attach_data_.Swap(&other->attach_data_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(user_info_, other->user_info_);
-  swap(error_, other->error_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.attach_data_, lhs_arena,
+      &other->_impl_.attach_data_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ServerLoginRes, _impl_.error_)
+      + sizeof(ServerLoginRes::_impl_.error_)
+      - PROTOBUF_FIELD_OFFSET(ServerLoginRes, _impl_.user_info_)>(
+          reinterpret_cast<char*>(&_impl_.user_info_),
+          reinterpret_cast<char*>(&other->_impl_.user_info_));
 }
 
-::std::string ServerLoginRes::GetTypeName() const {
+std::string ServerLoginRes::GetTypeName() const {
   return "PTP.Server.ServerLoginRes";
 }
 
@@ -715,15 +778,16 @@ void ServerLoginRes::InternalSwap(ServerLoginRes* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Server
 }  // namespace PTP
-namespace google {
-namespace protobuf {
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Server::ServerLoginReq* Arena::CreateMaybeMessage< ::PTP::Server::ServerLoginReq >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Server::ServerLoginReq >(arena);
+PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::PTP::Server::ServerLoginReq*
+Arena::CreateMaybeMessage< ::PTP::Server::ServerLoginReq >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Server::ServerLoginReq >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Server::ServerLoginRes* Arena::CreateMaybeMessage< ::PTP::Server::ServerLoginRes >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Server::ServerLoginRes >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Server::ServerLoginRes*
+Arena::CreateMaybeMessage< ::PTP::Server::ServerLoginRes >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Server::ServerLoginRes >(arena);
 }
-}  // namespace protobuf
-}  // namespace google
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
+#include <google/protobuf/port_undef.inc>

@@ -5,345 +5,337 @@
 
 #include <algorithm>
 
-#include <google/protobuf/stubs/common.h>
-#include <google/protobuf/stubs/port.h>
 #include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/wire_format_lite_inl.h>
+#include <google/protobuf/extension_set.h>
+#include <google/protobuf/wire_format_lite.h>
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
-// This is a temporary google only hack
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-#include "third_party/protobuf/version.h"
-#endif
 // @@protoc_insertion_point(includes)
+#include <google/protobuf/port_def.inc>
 
-namespace protobuf_PTP_2eCommon_2eproto {
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_PTP_2eCommon_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_DevicesInfo;
-}  // namespace protobuf_PTP_2eCommon_2eproto
+PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace PTP {
 namespace Switch {
-class SwitchPtpReqDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<SwitchPtpReq>
-      _instance;
-} _SwitchPtpReq_default_instance_;
-class SwitchPtpResDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<SwitchPtpRes>
-      _instance;
-} _SwitchPtpRes_default_instance_;
-class SwitchPtpNotifyDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<SwitchPtpNotify>
-      _instance;
-} _SwitchPtpNotify_default_instance_;
-class SwitchDevicesReqDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<SwitchDevicesReq>
-      _instance;
-} _SwitchDevicesReq_default_instance_;
-class SwitchDevicesNotifyDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<SwitchDevicesNotify>
-      _instance;
-} _SwitchDevicesNotify_default_instance_;
+PROTOBUF_CONSTEXPR SwitchPtpReq::SwitchPtpReq(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.to_adr_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.switch_type_)*/1} {}
+struct SwitchPtpReqDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SwitchPtpReqDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SwitchPtpReqDefaultTypeInternal() {}
+  union {
+    SwitchPtpReq _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SwitchPtpReqDefaultTypeInternal _SwitchPtpReq_default_instance_;
+PROTOBUF_CONSTEXPR SwitchPtpRes::SwitchPtpRes(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.error_)*/0} {}
+struct SwitchPtpResDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SwitchPtpResDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SwitchPtpResDefaultTypeInternal() {}
+  union {
+    SwitchPtpRes _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SwitchPtpResDefaultTypeInternal _SwitchPtpRes_default_instance_;
+PROTOBUF_CONSTEXPR SwitchPtpNotify::SwitchPtpNotify(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.from_adr_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.switch_type_)*/1} {}
+struct SwitchPtpNotifyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SwitchPtpNotifyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SwitchPtpNotifyDefaultTypeInternal() {}
+  union {
+    SwitchPtpNotify _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SwitchPtpNotifyDefaultTypeInternal _SwitchPtpNotify_default_instance_;
+PROTOBUF_CONSTEXPR SwitchDevicesReq::SwitchDevicesReq(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.browser_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.browser_version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.os_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.os_version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.client_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.is_intel_)*/false} {}
+struct SwitchDevicesReqDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SwitchDevicesReqDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SwitchDevicesReqDefaultTypeInternal() {}
+  union {
+    SwitchDevicesReq _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SwitchDevicesReqDefaultTypeInternal _SwitchDevicesReq_default_instance_;
+PROTOBUF_CONSTEXPR SwitchDevicesNotify::SwitchDevicesNotify(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.devices_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SwitchDevicesNotifyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SwitchDevicesNotifyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SwitchDevicesNotifyDefaultTypeInternal() {}
+  union {
+    SwitchDevicesNotify _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SwitchDevicesNotifyDefaultTypeInternal _SwitchDevicesNotify_default_instance_;
 }  // namespace Switch
 }  // namespace PTP
-namespace protobuf_PTP_2eSwitch_2eproto {
-static void InitDefaultsSwitchPtpReq() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Switch::_SwitchPtpReq_default_instance_;
-    new (ptr) ::PTP::Switch::SwitchPtpReq();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Switch::SwitchPtpReq::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_SwitchPtpReq =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsSwitchPtpReq}, {}};
-
-static void InitDefaultsSwitchPtpRes() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Switch::_SwitchPtpRes_default_instance_;
-    new (ptr) ::PTP::Switch::SwitchPtpRes();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Switch::SwitchPtpRes::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_SwitchPtpRes =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsSwitchPtpRes}, {}};
-
-static void InitDefaultsSwitchPtpNotify() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Switch::_SwitchPtpNotify_default_instance_;
-    new (ptr) ::PTP::Switch::SwitchPtpNotify();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Switch::SwitchPtpNotify::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_SwitchPtpNotify =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsSwitchPtpNotify}, {}};
-
-static void InitDefaultsSwitchDevicesReq() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Switch::_SwitchDevicesReq_default_instance_;
-    new (ptr) ::PTP::Switch::SwitchDevicesReq();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Switch::SwitchDevicesReq::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_SwitchDevicesReq =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsSwitchDevicesReq}, {}};
-
-static void InitDefaultsSwitchDevicesNotify() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Switch::_SwitchDevicesNotify_default_instance_;
-    new (ptr) ::PTP::Switch::SwitchDevicesNotify();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Switch::SwitchDevicesNotify::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<1> scc_info_SwitchDevicesNotify =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsSwitchDevicesNotify}, {
-      &protobuf_PTP_2eCommon_2eproto::scc_info_DevicesInfo.base,}};
-
-void InitDefaults() {
-  ::google::protobuf::internal::InitSCC(&scc_info_SwitchPtpReq.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_SwitchPtpRes.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_SwitchPtpNotify.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_SwitchDevicesReq.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_SwitchDevicesNotify.base);
-}
-
-}  // namespace protobuf_PTP_2eSwitch_2eproto
 namespace PTP {
 namespace Switch {
 
 // ===================================================================
 
-void SwitchPtpReq::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SwitchPtpReq::kToAdrFieldNumber;
-const int SwitchPtpReq::kDataFieldNumber;
-const int SwitchPtpReq::kSwitchTypeFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class SwitchPtpReq::_Internal {
+ public:
+  using HasBits = decltype(std::declval<SwitchPtpReq>()._impl_._has_bits_);
+  static void set_has_to_adr(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_switch_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000007) ^ 0x00000007) != 0;
+  }
+};
 
-SwitchPtpReq::SwitchPtpReq()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eSwitch_2eproto::scc_info_SwitchPtpReq.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Switch.SwitchPtpReq)
+SwitchPtpReq::SwitchPtpReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Switch.SwitchPtpReq)
 }
 SwitchPtpReq::SwitchPtpReq(const SwitchPtpReq& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  to_adr_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_to_adr()) {
-    to_adr_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.to_adr_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SwitchPtpReq* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.to_adr_){}
+    , decltype(_impl_.data_){}
+    , decltype(_impl_.switch_type_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.to_adr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.to_adr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_to_adr()) {
+    _this->_impl_.to_adr_.Set(from._internal_to_adr(), 
+      _this->GetArenaForAllocation());
   }
-  data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_data()) {
-    data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.data_);
+  _impl_.data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_data()) {
+    _this->_impl_.data_.Set(from._internal_data(), 
+      _this->GetArenaForAllocation());
   }
-  switch_type_ = from.switch_type_;
+  _this->_impl_.switch_type_ = from._impl_.switch_type_;
   // @@protoc_insertion_point(copy_constructor:PTP.Switch.SwitchPtpReq)
 }
 
-void SwitchPtpReq::SharedCtor() {
-  to_adr_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  switch_type_ = 1;
+inline void SwitchPtpReq::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.to_adr_){}
+    , decltype(_impl_.data_){}
+    , decltype(_impl_.switch_type_){1}
+  };
+  _impl_.to_adr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.to_adr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SwitchPtpReq::~SwitchPtpReq() {
   // @@protoc_insertion_point(destructor:PTP.Switch.SwitchPtpReq)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void SwitchPtpReq::SharedDtor() {
-  to_adr_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void SwitchPtpReq::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.to_adr_.Destroy();
+  _impl_.data_.Destroy();
 }
 
 void SwitchPtpReq::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const SwitchPtpReq& SwitchPtpReq::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eSwitch_2eproto::scc_info_SwitchPtpReq.base);
-  return *internal_default_instance();
-}
-
 
 void SwitchPtpReq::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Switch.SwitchPtpReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 7u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      to_adr_.ClearNonDefaultToEmptyNoArena();
+      _impl_.to_adr_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      data_.ClearNonDefaultToEmptyNoArena();
+      _impl_.data_.ClearNonDefaultToEmpty();
     }
-    switch_type_ = 1;
+    _impl_.switch_type_ = 1;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool SwitchPtpReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Switch.SwitchPtpReq)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* SwitchPtpReq::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required string to_adr = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_to_adr()));
-        } else {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_to_adr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required string data = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_data()));
-        } else {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_data();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required .PTP.Common.SwitchType switch_type = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::PTP::Common::SwitchType_IsValid(value)) {
-            set_switch_type(static_cast< ::PTP::Common::SwitchType >(value));
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::PTP::Common::SwitchType_IsValid(val))) {
+            _internal_set_switch_type(static_cast<::PTP::Common::SwitchType>(val));
           } else {
-            unknown_fields_stream.WriteVarint32(24u);
-            unknown_fields_stream.WriteVarint32(
-                static_cast< ::google::protobuf::uint32>(value));
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
           }
-        } else {
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Switch.SwitchPtpReq)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Switch.SwitchPtpReq)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void SwitchPtpReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Switch.SwitchPtpReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* SwitchPtpReq::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Switch.SwitchPtpReq)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string to_adr = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->to_adr(), output);
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_to_adr(), target);
   }
 
   // required string data = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->data(), output);
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_data(), target);
   }
 
   // required .PTP.Common.SwitchType switch_type = 3;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      3, this->switch_type(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_switch_type(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Switch.SwitchPtpReq)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Switch.SwitchPtpReq)
+  return target;
 }
 
 size_t SwitchPtpReq::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:PTP.Switch.SwitchPtpReq)
   size_t total_size = 0;
 
-  if (has_to_adr()) {
+  if (_internal_has_to_adr()) {
     // required string to_adr = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->to_adr());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_to_adr());
   }
 
-  if (has_data()) {
+  if (_internal_has_data()) {
     // required string data = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->data());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_data());
   }
 
-  if (has_switch_type()) {
+  if (_internal_has_switch_type()) {
     // required .PTP.Common.SwitchType switch_type = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->switch_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_switch_type());
   }
 
   return total_size;
@@ -352,58 +344,63 @@ size_t SwitchPtpReq::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Switch.SwitchPtpReq)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
-  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
     // required string to_adr = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->to_adr());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_to_adr());
 
     // required string data = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->data());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_data());
 
     // required .PTP.Common.SwitchType switch_type = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->switch_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_switch_type());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SwitchPtpReq::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const SwitchPtpReq*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SwitchPtpReq*>(
+      &from));
 }
 
 void SwitchPtpReq::MergeFrom(const SwitchPtpReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Switch.SwitchPtpReq)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  SwitchPtpReq* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Switch.SwitchPtpReq)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 7u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_to_adr();
-      to_adr_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.to_adr_);
+      _this->_internal_set_to_adr(from._internal_to_adr());
     }
     if (cached_has_bits & 0x00000002u) {
-      set_has_data();
-      data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.data_);
+      _this->_internal_set_data(from._internal_data());
     }
     if (cached_has_bits & 0x00000004u) {
-      switch_type_ = from.switch_type_;
+      _this->_impl_.switch_type_ = from._impl_.switch_type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SwitchPtpReq::CopyFrom(const SwitchPtpReq& from) {
@@ -414,192 +411,207 @@ void SwitchPtpReq::CopyFrom(const SwitchPtpReq& from) {
 }
 
 bool SwitchPtpReq::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void SwitchPtpReq::Swap(SwitchPtpReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void SwitchPtpReq::InternalSwap(SwitchPtpReq* other) {
   using std::swap;
-  to_adr_.Swap(&other->to_adr_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  data_.Swap(&other->data_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(switch_type_, other->switch_type_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.to_adr_, lhs_arena,
+      &other->_impl_.to_adr_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.data_, lhs_arena,
+      &other->_impl_.data_, rhs_arena
+  );
+  swap(_impl_.switch_type_, other->_impl_.switch_type_);
 }
 
-::std::string SwitchPtpReq::GetTypeName() const {
+std::string SwitchPtpReq::GetTypeName() const {
   return "PTP.Switch.SwitchPtpReq";
 }
 
 
 // ===================================================================
 
-void SwitchPtpRes::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SwitchPtpRes::kErrorFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class SwitchPtpRes::_Internal {
+ public:
+  using HasBits = decltype(std::declval<SwitchPtpRes>()._impl_._has_bits_);
+  static void set_has_error(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
+  }
+};
 
-SwitchPtpRes::SwitchPtpRes()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eSwitch_2eproto::scc_info_SwitchPtpRes.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Switch.SwitchPtpRes)
+SwitchPtpRes::SwitchPtpRes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Switch.SwitchPtpRes)
 }
 SwitchPtpRes::SwitchPtpRes(const SwitchPtpRes& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  error_ = from.error_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SwitchPtpRes* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:PTP.Switch.SwitchPtpRes)
 }
 
-void SwitchPtpRes::SharedCtor() {
-  error_ = 0;
+inline void SwitchPtpRes::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_){0}
+  };
 }
 
 SwitchPtpRes::~SwitchPtpRes() {
   // @@protoc_insertion_point(destructor:PTP.Switch.SwitchPtpRes)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void SwitchPtpRes::SharedDtor() {
+inline void SwitchPtpRes::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void SwitchPtpRes::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const SwitchPtpRes& SwitchPtpRes::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eSwitch_2eproto::scc_info_SwitchPtpRes.base);
-  return *internal_default_instance();
-}
-
 
 void SwitchPtpRes::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Switch.SwitchPtpRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  error_ = 0;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_.error_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool SwitchPtpRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Switch.SwitchPtpRes)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* SwitchPtpRes::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required .PTP.Common.ERR error = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::PTP::Common::ERR_IsValid(value)) {
-            set_error(static_cast< ::PTP::Common::ERR >(value));
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::PTP::Common::ERR_IsValid(val))) {
+            _internal_set_error(static_cast<::PTP::Common::ERR>(val));
           } else {
-            unknown_fields_stream.WriteVarint32(8u);
-            unknown_fields_stream.WriteVarint32(
-                static_cast< ::google::protobuf::uint32>(value));
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else {
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Switch.SwitchPtpRes)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Switch.SwitchPtpRes)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void SwitchPtpRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Switch.SwitchPtpRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* SwitchPtpRes::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Switch.SwitchPtpRes)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required .PTP.Common.ERR error = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->error(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Switch.SwitchPtpRes)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Switch.SwitchPtpRes)
+  return target;
 }
 
 size_t SwitchPtpRes::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Switch.SwitchPtpRes)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
   // required .PTP.Common.ERR error = 1;
-  if (has_error()) {
+  if (_internal_has_error()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SwitchPtpRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const SwitchPtpRes*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SwitchPtpRes*>(
+      &from));
 }
 
 void SwitchPtpRes::MergeFrom(const SwitchPtpRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Switch.SwitchPtpRes)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  SwitchPtpRes* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Switch.SwitchPtpRes)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_error()) {
-    set_error(from.error());
+  if (from._internal_has_error()) {
+    _this->_internal_set_error(from._internal_error());
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SwitchPtpRes::CopyFrom(const SwitchPtpRes& from) {
@@ -610,238 +622,256 @@ void SwitchPtpRes::CopyFrom(const SwitchPtpRes& from) {
 }
 
 bool SwitchPtpRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void SwitchPtpRes::Swap(SwitchPtpRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void SwitchPtpRes::InternalSwap(SwitchPtpRes* other) {
   using std::swap;
-  swap(error_, other->error_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.error_, other->_impl_.error_);
 }
 
-::std::string SwitchPtpRes::GetTypeName() const {
+std::string SwitchPtpRes::GetTypeName() const {
   return "PTP.Switch.SwitchPtpRes";
 }
 
 
 // ===================================================================
 
-void SwitchPtpNotify::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SwitchPtpNotify::kFromAdrFieldNumber;
-const int SwitchPtpNotify::kDataFieldNumber;
-const int SwitchPtpNotify::kSwitchTypeFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class SwitchPtpNotify::_Internal {
+ public:
+  using HasBits = decltype(std::declval<SwitchPtpNotify>()._impl_._has_bits_);
+  static void set_has_from_adr(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_switch_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000007) ^ 0x00000007) != 0;
+  }
+};
 
-SwitchPtpNotify::SwitchPtpNotify()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eSwitch_2eproto::scc_info_SwitchPtpNotify.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Switch.SwitchPtpNotify)
+SwitchPtpNotify::SwitchPtpNotify(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Switch.SwitchPtpNotify)
 }
 SwitchPtpNotify::SwitchPtpNotify(const SwitchPtpNotify& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  from_adr_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_from_adr()) {
-    from_adr_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.from_adr_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SwitchPtpNotify* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.from_adr_){}
+    , decltype(_impl_.data_){}
+    , decltype(_impl_.switch_type_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.from_adr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.from_adr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_from_adr()) {
+    _this->_impl_.from_adr_.Set(from._internal_from_adr(), 
+      _this->GetArenaForAllocation());
   }
-  data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_data()) {
-    data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.data_);
+  _impl_.data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_data()) {
+    _this->_impl_.data_.Set(from._internal_data(), 
+      _this->GetArenaForAllocation());
   }
-  switch_type_ = from.switch_type_;
+  _this->_impl_.switch_type_ = from._impl_.switch_type_;
   // @@protoc_insertion_point(copy_constructor:PTP.Switch.SwitchPtpNotify)
 }
 
-void SwitchPtpNotify::SharedCtor() {
-  from_adr_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  switch_type_ = 1;
+inline void SwitchPtpNotify::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.from_adr_){}
+    , decltype(_impl_.data_){}
+    , decltype(_impl_.switch_type_){1}
+  };
+  _impl_.from_adr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.from_adr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SwitchPtpNotify::~SwitchPtpNotify() {
   // @@protoc_insertion_point(destructor:PTP.Switch.SwitchPtpNotify)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void SwitchPtpNotify::SharedDtor() {
-  from_adr_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void SwitchPtpNotify::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.from_adr_.Destroy();
+  _impl_.data_.Destroy();
 }
 
 void SwitchPtpNotify::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const SwitchPtpNotify& SwitchPtpNotify::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eSwitch_2eproto::scc_info_SwitchPtpNotify.base);
-  return *internal_default_instance();
-}
-
 
 void SwitchPtpNotify::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Switch.SwitchPtpNotify)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 7u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      from_adr_.ClearNonDefaultToEmptyNoArena();
+      _impl_.from_adr_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      data_.ClearNonDefaultToEmptyNoArena();
+      _impl_.data_.ClearNonDefaultToEmpty();
     }
-    switch_type_ = 1;
+    _impl_.switch_type_ = 1;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool SwitchPtpNotify::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Switch.SwitchPtpNotify)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* SwitchPtpNotify::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required string from_adr = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_from_adr()));
-        } else {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_from_adr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required string data = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_data()));
-        } else {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_data();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required .PTP.Common.SwitchType switch_type = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::PTP::Common::SwitchType_IsValid(value)) {
-            set_switch_type(static_cast< ::PTP::Common::SwitchType >(value));
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::PTP::Common::SwitchType_IsValid(val))) {
+            _internal_set_switch_type(static_cast<::PTP::Common::SwitchType>(val));
           } else {
-            unknown_fields_stream.WriteVarint32(24u);
-            unknown_fields_stream.WriteVarint32(
-                static_cast< ::google::protobuf::uint32>(value));
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
           }
-        } else {
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Switch.SwitchPtpNotify)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Switch.SwitchPtpNotify)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void SwitchPtpNotify::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Switch.SwitchPtpNotify)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* SwitchPtpNotify::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Switch.SwitchPtpNotify)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string from_adr = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->from_adr(), output);
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_from_adr(), target);
   }
 
   // required string data = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->data(), output);
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_data(), target);
   }
 
   // required .PTP.Common.SwitchType switch_type = 3;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      3, this->switch_type(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_switch_type(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Switch.SwitchPtpNotify)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Switch.SwitchPtpNotify)
+  return target;
 }
 
 size_t SwitchPtpNotify::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:PTP.Switch.SwitchPtpNotify)
   size_t total_size = 0;
 
-  if (has_from_adr()) {
+  if (_internal_has_from_adr()) {
     // required string from_adr = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->from_adr());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_from_adr());
   }
 
-  if (has_data()) {
+  if (_internal_has_data()) {
     // required string data = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->data());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_data());
   }
 
-  if (has_switch_type()) {
+  if (_internal_has_switch_type()) {
     // required .PTP.Common.SwitchType switch_type = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->switch_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_switch_type());
   }
 
   return total_size;
@@ -850,58 +880,63 @@ size_t SwitchPtpNotify::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Switch.SwitchPtpNotify)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
-  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
     // required string from_adr = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->from_adr());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_from_adr());
 
     // required string data = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->data());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_data());
 
     // required .PTP.Common.SwitchType switch_type = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->switch_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_switch_type());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SwitchPtpNotify::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const SwitchPtpNotify*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SwitchPtpNotify*>(
+      &from));
 }
 
 void SwitchPtpNotify::MergeFrom(const SwitchPtpNotify& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Switch.SwitchPtpNotify)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  SwitchPtpNotify* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Switch.SwitchPtpNotify)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 7u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_from_adr();
-      from_adr_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.from_adr_);
+      _this->_internal_set_from_adr(from._internal_from_adr());
     }
     if (cached_has_bits & 0x00000002u) {
-      set_has_data();
-      data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.data_);
+      _this->_internal_set_data(from._internal_data());
     }
     if (cached_has_bits & 0x00000004u) {
-      switch_type_ = from.switch_type_;
+      _this->_impl_.switch_type_ = from._impl_.switch_type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SwitchPtpNotify::CopyFrom(const SwitchPtpNotify& from) {
@@ -912,336 +947,387 @@ void SwitchPtpNotify::CopyFrom(const SwitchPtpNotify& from) {
 }
 
 bool SwitchPtpNotify::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void SwitchPtpNotify::Swap(SwitchPtpNotify* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void SwitchPtpNotify::InternalSwap(SwitchPtpNotify* other) {
   using std::swap;
-  from_adr_.Swap(&other->from_adr_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  data_.Swap(&other->data_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(switch_type_, other->switch_type_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.from_adr_, lhs_arena,
+      &other->_impl_.from_adr_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.data_, lhs_arena,
+      &other->_impl_.data_, rhs_arena
+  );
+  swap(_impl_.switch_type_, other->_impl_.switch_type_);
 }
 
-::std::string SwitchPtpNotify::GetTypeName() const {
+std::string SwitchPtpNotify::GetTypeName() const {
   return "PTP.Switch.SwitchPtpNotify";
 }
 
 
 // ===================================================================
 
-void SwitchDevicesReq::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SwitchDevicesReq::kBrowserNameFieldNumber;
-const int SwitchDevicesReq::kBrowserVersionFieldNumber;
-const int SwitchDevicesReq::kOsNameFieldNumber;
-const int SwitchDevicesReq::kOsVersionFieldNumber;
-const int SwitchDevicesReq::kIsIntelFieldNumber;
-const int SwitchDevicesReq::kClientIdFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class SwitchDevicesReq::_Internal {
+ public:
+  using HasBits = decltype(std::declval<SwitchDevicesReq>()._impl_._has_bits_);
+  static void set_has_browser_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_browser_version(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_os_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_os_version(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_is_intel(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static void set_has_client_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x0000003f) ^ 0x0000003f) != 0;
+  }
+};
 
-SwitchDevicesReq::SwitchDevicesReq()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eSwitch_2eproto::scc_info_SwitchDevicesReq.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Switch.SwitchDevicesReq)
+SwitchDevicesReq::SwitchDevicesReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Switch.SwitchDevicesReq)
 }
 SwitchDevicesReq::SwitchDevicesReq(const SwitchDevicesReq& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  browser_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_browser_name()) {
-    browser_name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.browser_name_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SwitchDevicesReq* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.browser_name_){}
+    , decltype(_impl_.browser_version_){}
+    , decltype(_impl_.os_name_){}
+    , decltype(_impl_.os_version_){}
+    , decltype(_impl_.client_id_){}
+    , decltype(_impl_.is_intel_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.browser_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.browser_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_browser_name()) {
+    _this->_impl_.browser_name_.Set(from._internal_browser_name(), 
+      _this->GetArenaForAllocation());
   }
-  browser_version_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_browser_version()) {
-    browser_version_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.browser_version_);
+  _impl_.browser_version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.browser_version_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_browser_version()) {
+    _this->_impl_.browser_version_.Set(from._internal_browser_version(), 
+      _this->GetArenaForAllocation());
   }
-  os_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_os_name()) {
-    os_name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.os_name_);
+  _impl_.os_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.os_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_os_name()) {
+    _this->_impl_.os_name_.Set(from._internal_os_name(), 
+      _this->GetArenaForAllocation());
   }
-  os_version_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_os_version()) {
-    os_version_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.os_version_);
+  _impl_.os_version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.os_version_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_os_version()) {
+    _this->_impl_.os_version_.Set(from._internal_os_version(), 
+      _this->GetArenaForAllocation());
   }
-  client_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_client_id()) {
-    client_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.client_id_);
+  _impl_.client_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.client_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_client_id()) {
+    _this->_impl_.client_id_.Set(from._internal_client_id(), 
+      _this->GetArenaForAllocation());
   }
-  is_intel_ = from.is_intel_;
+  _this->_impl_.is_intel_ = from._impl_.is_intel_;
   // @@protoc_insertion_point(copy_constructor:PTP.Switch.SwitchDevicesReq)
 }
 
-void SwitchDevicesReq::SharedCtor() {
-  browser_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  browser_version_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  os_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  os_version_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  client_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  is_intel_ = false;
+inline void SwitchDevicesReq::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.browser_name_){}
+    , decltype(_impl_.browser_version_){}
+    , decltype(_impl_.os_name_){}
+    , decltype(_impl_.os_version_){}
+    , decltype(_impl_.client_id_){}
+    , decltype(_impl_.is_intel_){false}
+  };
+  _impl_.browser_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.browser_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.browser_version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.browser_version_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.os_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.os_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.os_version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.os_version_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.client_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.client_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SwitchDevicesReq::~SwitchDevicesReq() {
   // @@protoc_insertion_point(destructor:PTP.Switch.SwitchDevicesReq)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void SwitchDevicesReq::SharedDtor() {
-  browser_name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  browser_version_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  os_name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  os_version_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  client_id_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void SwitchDevicesReq::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.browser_name_.Destroy();
+  _impl_.browser_version_.Destroy();
+  _impl_.os_name_.Destroy();
+  _impl_.os_version_.Destroy();
+  _impl_.client_id_.Destroy();
 }
 
 void SwitchDevicesReq::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const SwitchDevicesReq& SwitchDevicesReq::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eSwitch_2eproto::scc_info_SwitchDevicesReq.base);
-  return *internal_default_instance();
-}
-
 
 void SwitchDevicesReq::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Switch.SwitchDevicesReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 31u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      browser_name_.ClearNonDefaultToEmptyNoArena();
+      _impl_.browser_name_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      browser_version_.ClearNonDefaultToEmptyNoArena();
+      _impl_.browser_version_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      os_name_.ClearNonDefaultToEmptyNoArena();
+      _impl_.os_name_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      os_version_.ClearNonDefaultToEmptyNoArena();
+      _impl_.os_version_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000010u) {
-      client_id_.ClearNonDefaultToEmptyNoArena();
+      _impl_.client_id_.ClearNonDefaultToEmpty();
     }
   }
-  is_intel_ = false;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_.is_intel_ = false;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool SwitchDevicesReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Switch.SwitchDevicesReq)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* SwitchDevicesReq::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required string browser_name = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_browser_name()));
-        } else {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_browser_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required string browser_version = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_browser_version()));
-        } else {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_browser_version();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required string os_name = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_os_name()));
-        } else {
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_os_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required string os_version = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_os_version()));
-        } else {
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_os_version();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required bool is_intel = 5;
-      case 5: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(40u /* 40 & 0xFF */)) {
-          set_has_is_intel();
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &is_intel_)));
-        } else {
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _Internal::set_has_is_intel(&has_bits);
+          _impl_.is_intel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required string client_id = 9;
-      case 9: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(74u /* 74 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_client_id()));
-        } else {
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          auto str = _internal_mutable_client_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Switch.SwitchDevicesReq)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Switch.SwitchDevicesReq)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void SwitchDevicesReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Switch.SwitchDevicesReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* SwitchDevicesReq::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Switch.SwitchDevicesReq)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string browser_name = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->browser_name(), output);
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_browser_name(), target);
   }
 
   // required string browser_version = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->browser_version(), output);
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_browser_version(), target);
   }
 
   // required string os_name = 3;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->os_name(), output);
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_os_name(), target);
   }
 
   // required string os_version = 4;
   if (cached_has_bits & 0x00000008u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      4, this->os_version(), output);
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_os_version(), target);
   }
 
   // required bool is_intel = 5;
   if (cached_has_bits & 0x00000020u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(5, this->is_intel(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_is_intel(), target);
   }
 
   // required string client_id = 9;
   if (cached_has_bits & 0x00000010u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      9, this->client_id(), output);
+    target = stream->WriteStringMaybeAliased(
+        9, this->_internal_client_id(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Switch.SwitchDevicesReq)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Switch.SwitchDevicesReq)
+  return target;
 }
 
 size_t SwitchDevicesReq::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:PTP.Switch.SwitchDevicesReq)
   size_t total_size = 0;
 
-  if (has_browser_name()) {
+  if (_internal_has_browser_name()) {
     // required string browser_name = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->browser_name());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_browser_name());
   }
 
-  if (has_browser_version()) {
+  if (_internal_has_browser_version()) {
     // required string browser_version = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->browser_version());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_browser_version());
   }
 
-  if (has_os_name()) {
+  if (_internal_has_os_name()) {
     // required string os_name = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->os_name());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_os_name());
   }
 
-  if (has_os_version()) {
+  if (_internal_has_os_version()) {
     // required string os_version = 4;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->os_version());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_os_version());
   }
 
-  if (has_client_id()) {
+  if (_internal_has_client_id()) {
     // required string client_id = 9;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->client_id());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_client_id());
   }
 
-  if (has_is_intel()) {
+  if (_internal_has_is_intel()) {
     // required bool is_intel = 5;
     total_size += 1 + 1;
   }
@@ -1252,33 +1338,31 @@ size_t SwitchDevicesReq::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Switch.SwitchDevicesReq)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
-  if (((_has_bits_[0] & 0x0000003f) ^ 0x0000003f) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x0000003f) ^ 0x0000003f) == 0) {  // All required fields are present.
     // required string browser_name = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->browser_name());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_browser_name());
 
     // required string browser_version = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->browser_version());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_browser_version());
 
     // required string os_name = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->os_name());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_os_name());
 
     // required string os_version = 4;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->os_version());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_os_version());
 
     // required string client_id = 9;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->client_id());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_client_id());
 
     // required bool is_intel = 5;
     total_size += 1 + 1;
@@ -1286,50 +1370,54 @@ size_t SwitchDevicesReq::ByteSizeLong() const {
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SwitchDevicesReq::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const SwitchDevicesReq*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SwitchDevicesReq*>(
+      &from));
 }
 
 void SwitchDevicesReq::MergeFrom(const SwitchDevicesReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Switch.SwitchDevicesReq)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  SwitchDevicesReq* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Switch.SwitchDevicesReq)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 63u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_browser_name();
-      browser_name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.browser_name_);
+      _this->_internal_set_browser_name(from._internal_browser_name());
     }
     if (cached_has_bits & 0x00000002u) {
-      set_has_browser_version();
-      browser_version_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.browser_version_);
+      _this->_internal_set_browser_version(from._internal_browser_version());
     }
     if (cached_has_bits & 0x00000004u) {
-      set_has_os_name();
-      os_name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.os_name_);
+      _this->_internal_set_os_name(from._internal_os_name());
     }
     if (cached_has_bits & 0x00000008u) {
-      set_has_os_version();
-      os_version_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.os_version_);
+      _this->_internal_set_os_version(from._internal_os_version());
     }
     if (cached_has_bits & 0x00000010u) {
-      set_has_client_id();
-      client_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.client_id_);
+      _this->_internal_set_client_id(from._internal_client_id());
     }
     if (cached_has_bits & 0x00000020u) {
-      is_intel_ = from.is_intel_;
+      _this->_impl_.is_intel_ = from._impl_.is_intel_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SwitchDevicesReq::CopyFrom(const SwitchDevicesReq& from) {
@@ -1340,197 +1428,210 @@ void SwitchDevicesReq::CopyFrom(const SwitchDevicesReq& from) {
 }
 
 bool SwitchDevicesReq::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void SwitchDevicesReq::Swap(SwitchDevicesReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void SwitchDevicesReq::InternalSwap(SwitchDevicesReq* other) {
   using std::swap;
-  browser_name_.Swap(&other->browser_name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  browser_version_.Swap(&other->browser_version_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  os_name_.Swap(&other->os_name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  os_version_.Swap(&other->os_version_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  client_id_.Swap(&other->client_id_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(is_intel_, other->is_intel_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.browser_name_, lhs_arena,
+      &other->_impl_.browser_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.browser_version_, lhs_arena,
+      &other->_impl_.browser_version_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.os_name_, lhs_arena,
+      &other->_impl_.os_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.os_version_, lhs_arena,
+      &other->_impl_.os_version_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.client_id_, lhs_arena,
+      &other->_impl_.client_id_, rhs_arena
+  );
+  swap(_impl_.is_intel_, other->_impl_.is_intel_);
 }
 
-::std::string SwitchDevicesReq::GetTypeName() const {
+std::string SwitchDevicesReq::GetTypeName() const {
   return "PTP.Switch.SwitchDevicesReq";
 }
 
 
 // ===================================================================
 
-void SwitchDevicesNotify::InitAsDefaultInstance() {
-}
-void SwitchDevicesNotify::clear_devices() {
-  devices_.Clear();
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SwitchDevicesNotify::kDevicesFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class SwitchDevicesNotify::_Internal {
+ public:
+};
 
-SwitchDevicesNotify::SwitchDevicesNotify()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eSwitch_2eproto::scc_info_SwitchDevicesNotify.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Switch.SwitchDevicesNotify)
+void SwitchDevicesNotify::clear_devices() {
+  _impl_.devices_.Clear();
+}
+SwitchDevicesNotify::SwitchDevicesNotify(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Switch.SwitchDevicesNotify)
 }
 SwitchDevicesNotify::SwitchDevicesNotify(const SwitchDevicesNotify& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      devices_(from.devices_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SwitchDevicesNotify* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.devices_){from._impl_.devices_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:PTP.Switch.SwitchDevicesNotify)
 }
 
-void SwitchDevicesNotify::SharedCtor() {
+inline void SwitchDevicesNotify::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.devices_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 SwitchDevicesNotify::~SwitchDevicesNotify() {
   // @@protoc_insertion_point(destructor:PTP.Switch.SwitchDevicesNotify)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void SwitchDevicesNotify::SharedDtor() {
+inline void SwitchDevicesNotify::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.devices_.~RepeatedPtrField();
 }
 
 void SwitchDevicesNotify::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const SwitchDevicesNotify& SwitchDevicesNotify::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eSwitch_2eproto::scc_info_SwitchDevicesNotify.base);
-  return *internal_default_instance();
-}
-
 
 void SwitchDevicesNotify::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Switch.SwitchDevicesNotify)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  devices_.Clear();
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_.devices_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool SwitchDevicesNotify::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Switch.SwitchDevicesNotify)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* SwitchDevicesNotify::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // repeated .PTP.Common.DevicesInfo devices = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-                input, add_devices()));
-        } else {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_devices(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Switch.SwitchDevicesNotify)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Switch.SwitchDevicesNotify)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void SwitchDevicesNotify::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Switch.SwitchDevicesNotify)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* SwitchDevicesNotify::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Switch.SwitchDevicesNotify)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .PTP.Common.DevicesInfo devices = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->devices_size()); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      1,
-      this->devices(static_cast<int>(i)),
-      output);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_devices_size()); i < n; i++) {
+    const auto& repfield = this->_internal_devices(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Switch.SwitchDevicesNotify)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Switch.SwitchDevicesNotify)
+  return target;
 }
 
 size_t SwitchDevicesNotify::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Switch.SwitchDevicesNotify)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
   // repeated .PTP.Common.DevicesInfo devices = 1;
-  {
-    unsigned int count = static_cast<unsigned int>(this->devices_size());
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSize(
-          this->devices(static_cast<int>(i)));
-    }
+  total_size += 1UL * this->_internal_devices_size();
+  for (const auto& msg : this->_impl_.devices_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SwitchDevicesNotify::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const SwitchDevicesNotify*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SwitchDevicesNotify*>(
+      &from));
 }
 
 void SwitchDevicesNotify::MergeFrom(const SwitchDevicesNotify& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Switch.SwitchDevicesNotify)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  SwitchDevicesNotify* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Switch.SwitchDevicesNotify)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  devices_.MergeFrom(from.devices_);
+  _this->_impl_.devices_.MergeFrom(from._impl_.devices_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SwitchDevicesNotify::CopyFrom(const SwitchDevicesNotify& from) {
@@ -1541,22 +1642,18 @@ void SwitchDevicesNotify::CopyFrom(const SwitchDevicesNotify& from) {
 }
 
 bool SwitchDevicesNotify::IsInitialized() const {
-  if (!::google::protobuf::internal::AllAreInitialized(this->devices())) return false;
+  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_impl_.devices_))
+    return false;
   return true;
 }
 
-void SwitchDevicesNotify::Swap(SwitchDevicesNotify* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void SwitchDevicesNotify::InternalSwap(SwitchDevicesNotify* other) {
   using std::swap;
-  CastToBase(&devices_)->InternalSwap(CastToBase(&other->devices_));
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.devices_.InternalSwap(&other->_impl_.devices_);
 }
 
-::std::string SwitchDevicesNotify::GetTypeName() const {
+std::string SwitchDevicesNotify::GetTypeName() const {
   return "PTP.Switch.SwitchDevicesNotify";
 }
 
@@ -1564,24 +1661,28 @@ void SwitchDevicesNotify::InternalSwap(SwitchDevicesNotify* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Switch
 }  // namespace PTP
-namespace google {
-namespace protobuf {
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Switch::SwitchPtpReq* Arena::CreateMaybeMessage< ::PTP::Switch::SwitchPtpReq >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Switch::SwitchPtpReq >(arena);
+PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::PTP::Switch::SwitchPtpReq*
+Arena::CreateMaybeMessage< ::PTP::Switch::SwitchPtpReq >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Switch::SwitchPtpReq >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Switch::SwitchPtpRes* Arena::CreateMaybeMessage< ::PTP::Switch::SwitchPtpRes >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Switch::SwitchPtpRes >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Switch::SwitchPtpRes*
+Arena::CreateMaybeMessage< ::PTP::Switch::SwitchPtpRes >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Switch::SwitchPtpRes >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Switch::SwitchPtpNotify* Arena::CreateMaybeMessage< ::PTP::Switch::SwitchPtpNotify >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Switch::SwitchPtpNotify >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Switch::SwitchPtpNotify*
+Arena::CreateMaybeMessage< ::PTP::Switch::SwitchPtpNotify >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Switch::SwitchPtpNotify >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Switch::SwitchDevicesReq* Arena::CreateMaybeMessage< ::PTP::Switch::SwitchDevicesReq >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Switch::SwitchDevicesReq >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Switch::SwitchDevicesReq*
+Arena::CreateMaybeMessage< ::PTP::Switch::SwitchDevicesReq >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Switch::SwitchDevicesReq >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Switch::SwitchDevicesNotify* Arena::CreateMaybeMessage< ::PTP::Switch::SwitchDevicesNotify >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Switch::SwitchDevicesNotify >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Switch::SwitchDevicesNotify*
+Arena::CreateMaybeMessage< ::PTP::Switch::SwitchDevicesNotify >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Switch::SwitchDevicesNotify >(arena);
 }
-}  // namespace protobuf
-}  // namespace google
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
+#include <google/protobuf/port_undef.inc>

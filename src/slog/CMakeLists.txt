@@ -2,7 +2,6 @@ INCLUDE_DIRECTORIES(./)
 INCLUDE_DIRECTORIES(../../include)
 set(LIB_NAME_MAIN slog)
 
-SET(LIBRARY_OUTPUT_PATH ../../build/lib)
 LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
 
 add_library(${LIB_NAME_MAIN} STATIC slog_api.cpp)

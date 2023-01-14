@@ -52,7 +52,8 @@ do
         SCRIPT="$REALPATH"
     fi
 done
-PROTOBUF=protobuf-3.6.1
+
+PROTOBUF=protobuf-3.21.12
 CUR_DIR=$(dirname "${REALPATH}")
 cd $CUR_DIR
 cd ../../
@@ -68,17 +69,15 @@ echo "start installing the development library [protobuf]"
 echo "=================================================="
 cd $CUR_DIR
 rm -rf build
-mkdir build build/protobuf
+mkdir build
+
 tar -xvf $CUR_DIR/$PROTOBUF.tar.gz -C build
 cd build/$PROTOBUF
-./configure --prefix=$CUR_DIR/build/protobuf
+./configure --prefix=/usr/local/
 make
 make install
-mkdir -p $PTP_DIR/build/lib
-rm -rf $PTP_DIR/include/protobuf
-mkdir $PTP_DIR/include/protobuf
-cp $CUR_DIR/build/protobuf/lib/libprotobuf-lite.a $PTP_DIR/build/lib
-cp -r $CUR_DIR/build/protobuf/include/google $PTP_DIR/include/protobuf
+
+rm -rf $CUR_DIR/build
 
 if [ $? -eq 0 ]; then
   echo "==================================================="

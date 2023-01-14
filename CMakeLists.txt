@@ -8,7 +8,7 @@ project(ptp-ctl)
 MESSAGE( STATUS "PROJECT_NAME: " ${PROJECT_NAME} )
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 MESSAGE( STATUS "CMAKE_INSTALL_RPATH: " "${CMAKE_INSTALL_PREFIX}/lib" )
-file(MAKE_DIRECTORY ./build/conf)
+
 file(MAKE_DIRECTORY ./build/bin)
 file(MAKE_DIRECTORY ./build/lib)
 file(MAKE_DIRECTORY ./build/data/msfs)
@@ -17,30 +17,26 @@ file(MAKE_DIRECTORY ./build/log)
 if(APPLE)
     MESSAGE( STATUS "APPLE: ========>>" cmake ... )
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14  -g")
-    SET(LIBRARY_PATH ./third_party/libs/mac)
-    file(COPY ${LIBRARY_PATH}/
-            DESTINATION /usr/local/lib)
-
 elseif(UNIX)
     MESSAGE( STATUS "UNIX: ========>>" cmake ... )
     ADD_DEFINITIONS( -g -W -Wall -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DAC_HAS_INFO -DAC_HAS_WARNING -DAC_HAS_ERROR -DAC_HAS_CRITICAL -DTIXML_USE_STL -DAC_HAS_DEBUG -DLINUX_DAEMON -std=c++11 -DENCRYPT)
-    SET(LIBRARY_PATH ./third_party/libs/linux)
 endif()
-file(COPY ptp-server.sh
-        DESTINATION ./build)
 
-LINK_DIRECTORIES(./build/lib)
+file(COPY ptp-server.sh DESTINATION ./build)
+SET(LIBRARY_OUTPUT_PATH /usr/local/lib/ptp)
+file(MAKE_DIRECTORY /usr/local/bin)
 
+LINK_DIRECTORIES(/usr/local/lib/ptp)
 INCLUDE_DIRECTORIES(/usr/local/include)
 LINK_DIRECTORIES(/usr/local/lib)
 
 INCLUDE_DIRECTORIES(./src/)
 INCLUDE_DIRECTORIES(./src/slog)
+INCLUDE_DIRECTORIES(./src/ptp_protobuf)
+
 INCLUDE_DIRECTORIES(./include)
-INCLUDE_DIRECTORIES(./include/protobuf)
-INCLUDE_DIRECTORIES(./include/redis)
+INCLUDE_DIRECTORIES(./include/hiredis)
 INCLUDE_DIRECTORIES(./include/jsoncpp)
-INCLUDE_DIRECTORIES(./include/slog)
 
 if(APPLE)
     #mysql

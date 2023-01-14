@@ -5,397 +5,409 @@
 
 #include <algorithm>
 
-#include <google/protobuf/stubs/common.h>
-#include <google/protobuf/stubs/port.h>
 #include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/wire_format_lite_inl.h>
+#include <google/protobuf/extension_set.h>
+#include <google/protobuf/wire_format_lite.h>
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
-// This is a temporary google only hack
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-#include "third_party/protobuf/version.h"
-#endif
 // @@protoc_insertion_point(includes)
+#include <google/protobuf/port_def.inc>
+
+PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
 
 namespace PTP {
 namespace File {
-class FileImgUploadReqDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<FileImgUploadReq>
-      _instance;
-} _FileImgUploadReq_default_instance_;
-class FileImgUploadResDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<FileImgUploadRes>
-      _instance;
-} _FileImgUploadRes_default_instance_;
-class FileImgDownloadReqDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<FileImgDownloadReq>
-      _instance;
-} _FileImgDownloadReq_default_instance_;
-class FileImgDownloadResDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<FileImgDownloadRes>
-      _instance;
-} _FileImgDownloadRes_default_instance_;
+PROTOBUF_CONSTEXPR FileImgUploadReq::FileImgUploadReq(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.file_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.file_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.attach_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.file_part_)*/0u
+  , /*decltype(_impl_.file_total_parts_)*/0u
+  , /*decltype(_impl_.auth_uid_)*/0u} {}
+struct FileImgUploadReqDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FileImgUploadReqDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FileImgUploadReqDefaultTypeInternal() {}
+  union {
+    FileImgUploadReq _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileImgUploadReqDefaultTypeInternal _FileImgUploadReq_default_instance_;
+PROTOBUF_CONSTEXPR FileImgUploadRes::FileImgUploadRes(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.file_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.attach_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_.auth_uid_)*/0u} {}
+struct FileImgUploadResDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FileImgUploadResDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FileImgUploadResDefaultTypeInternal() {}
+  union {
+    FileImgUploadRes _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileImgUploadResDefaultTypeInternal _FileImgUploadRes_default_instance_;
+PROTOBUF_CONSTEXPR FileImgDownloadReq::FileImgDownloadReq(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.file_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.attach_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.auth_uid_)*/0u} {}
+struct FileImgDownloadReqDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FileImgDownloadReqDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FileImgDownloadReqDefaultTypeInternal() {}
+  union {
+    FileImgDownloadReq _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileImgDownloadReqDefaultTypeInternal _FileImgDownloadReq_default_instance_;
+PROTOBUF_CONSTEXPR FileImgDownloadRes::FileImgDownloadRes(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.file_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.attach_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_.auth_uid_)*/0u} {}
+struct FileImgDownloadResDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FileImgDownloadResDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FileImgDownloadResDefaultTypeInternal() {}
+  union {
+    FileImgDownloadRes _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileImgDownloadResDefaultTypeInternal _FileImgDownloadRes_default_instance_;
 }  // namespace File
 }  // namespace PTP
-namespace protobuf_PTP_2eFile_2eproto {
-static void InitDefaultsFileImgUploadReq() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::File::_FileImgUploadReq_default_instance_;
-    new (ptr) ::PTP::File::FileImgUploadReq();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::File::FileImgUploadReq::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_FileImgUploadReq =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsFileImgUploadReq}, {}};
-
-static void InitDefaultsFileImgUploadRes() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::File::_FileImgUploadRes_default_instance_;
-    new (ptr) ::PTP::File::FileImgUploadRes();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::File::FileImgUploadRes::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_FileImgUploadRes =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsFileImgUploadRes}, {}};
-
-static void InitDefaultsFileImgDownloadReq() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::File::_FileImgDownloadReq_default_instance_;
-    new (ptr) ::PTP::File::FileImgDownloadReq();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::File::FileImgDownloadReq::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_FileImgDownloadReq =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsFileImgDownloadReq}, {}};
-
-static void InitDefaultsFileImgDownloadRes() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::File::_FileImgDownloadRes_default_instance_;
-    new (ptr) ::PTP::File::FileImgDownloadRes();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::File::FileImgDownloadRes::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_FileImgDownloadRes =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsFileImgDownloadRes}, {}};
-
-void InitDefaults() {
-  ::google::protobuf::internal::InitSCC(&scc_info_FileImgUploadReq.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_FileImgUploadRes.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_FileImgDownloadReq.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_FileImgDownloadRes.base);
-}
-
-}  // namespace protobuf_PTP_2eFile_2eproto
 namespace PTP {
 namespace File {
 
 // ===================================================================
 
-void FileImgUploadReq::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int FileImgUploadReq::kFileIdFieldNumber;
-const int FileImgUploadReq::kFilePartFieldNumber;
-const int FileImgUploadReq::kFileTotalPartsFieldNumber;
-const int FileImgUploadReq::kFileDataFieldNumber;
-const int FileImgUploadReq::kAttachDataFieldNumber;
-const int FileImgUploadReq::kAuthUidFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class FileImgUploadReq::_Internal {
+ public:
+  using HasBits = decltype(std::declval<FileImgUploadReq>()._impl_._has_bits_);
+  static void set_has_file_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_file_part(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_file_total_parts(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_file_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_attach_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_auth_uid(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x0000001b) ^ 0x0000001b) != 0;
+  }
+};
 
-FileImgUploadReq::FileImgUploadReq()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eFile_2eproto::scc_info_FileImgUploadReq.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.File.FileImgUploadReq)
+FileImgUploadReq::FileImgUploadReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.File.FileImgUploadReq)
 }
 FileImgUploadReq::FileImgUploadReq(const FileImgUploadReq& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  file_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_file_id()) {
-    file_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_id_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FileImgUploadReq* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_id_){}
+    , decltype(_impl_.file_data_){}
+    , decltype(_impl_.attach_data_){}
+    , decltype(_impl_.file_part_){}
+    , decltype(_impl_.file_total_parts_){}
+    , decltype(_impl_.auth_uid_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.file_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_file_id()) {
+    _this->_impl_.file_id_.Set(from._internal_file_id(), 
+      _this->GetArenaForAllocation());
   }
-  file_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_file_data()) {
-    file_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_data_);
+  _impl_.file_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_file_data()) {
+    _this->_impl_.file_data_.Set(from._internal_file_data(), 
+      _this->GetArenaForAllocation());
   }
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_attach_data()) {
-    attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_attach_data()) {
+    _this->_impl_.attach_data_.Set(from._internal_attach_data(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&file_part_, &from.file_part_,
-    static_cast<size_t>(reinterpret_cast<char*>(&auth_uid_) -
-    reinterpret_cast<char*>(&file_part_)) + sizeof(auth_uid_));
+  ::memcpy(&_impl_.file_part_, &from._impl_.file_part_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.auth_uid_) -
+    reinterpret_cast<char*>(&_impl_.file_part_)) + sizeof(_impl_.auth_uid_));
   // @@protoc_insertion_point(copy_constructor:PTP.File.FileImgUploadReq)
 }
 
-void FileImgUploadReq::SharedCtor() {
-  file_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  file_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&file_part_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&auth_uid_) -
-      reinterpret_cast<char*>(&file_part_)) + sizeof(auth_uid_));
+inline void FileImgUploadReq::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_id_){}
+    , decltype(_impl_.file_data_){}
+    , decltype(_impl_.attach_data_){}
+    , decltype(_impl_.file_part_){0u}
+    , decltype(_impl_.file_total_parts_){0u}
+    , decltype(_impl_.auth_uid_){0u}
+  };
+  _impl_.file_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.file_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FileImgUploadReq::~FileImgUploadReq() {
   // @@protoc_insertion_point(destructor:PTP.File.FileImgUploadReq)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void FileImgUploadReq::SharedDtor() {
-  file_id_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  file_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  attach_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void FileImgUploadReq::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.file_id_.Destroy();
+  _impl_.file_data_.Destroy();
+  _impl_.attach_data_.Destroy();
 }
 
 void FileImgUploadReq::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const FileImgUploadReq& FileImgUploadReq::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eFile_2eproto::scc_info_FileImgUploadReq.base);
-  return *internal_default_instance();
-}
-
 
 void FileImgUploadReq::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.File.FileImgUploadReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 7u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      file_id_.ClearNonDefaultToEmptyNoArena();
+      _impl_.file_id_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      file_data_.ClearNonDefaultToEmptyNoArena();
+      _impl_.file_data_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      attach_data_.ClearNonDefaultToEmptyNoArena();
+      _impl_.attach_data_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 56u) {
-    ::memset(&file_part_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&auth_uid_) -
-        reinterpret_cast<char*>(&file_part_)) + sizeof(auth_uid_));
+  if (cached_has_bits & 0x00000038u) {
+    ::memset(&_impl_.file_part_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.auth_uid_) -
+        reinterpret_cast<char*>(&_impl_.file_part_)) + sizeof(_impl_.auth_uid_));
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool FileImgUploadReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.File.FileImgUploadReq)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(16383u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* FileImgUploadReq::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required string file_id = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_file_id()));
-        } else {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_file_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required uint32 file_part = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
-          set_has_file_part();
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &file_part_)));
-        } else {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_file_part(&has_bits);
+          _impl_.file_part_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required uint32 file_total_parts = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
-          set_has_file_total_parts();
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &file_total_parts_)));
-        } else {
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _Internal::set_has_file_total_parts(&has_bits);
+          _impl_.file_total_parts_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required bytes file_data = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_file_data()));
-        } else {
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_file_data();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional bytes attach_data = 20;
-      case 20: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(162u /* 162 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
+          auto str = _internal_mutable_attach_data();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional uint32 auth_uid = 21;
-      case 21: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(168u /* 168 & 0xFF */)) {
-          set_has_auth_uid();
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &auth_uid_)));
-        } else {
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 168)) {
+          _Internal::set_has_auth_uid(&has_bits);
+          _impl_.auth_uid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.File.FileImgUploadReq)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.File.FileImgUploadReq)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void FileImgUploadReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.File.FileImgUploadReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* FileImgUploadReq::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.File.FileImgUploadReq)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string file_id = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->file_id(), output);
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_file_id(), target);
   }
 
   // required uint32 file_part = 2;
   if (cached_has_bits & 0x00000008u) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->file_part(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_file_part(), target);
   }
 
   // required uint32 file_total_parts = 3;
   if (cached_has_bits & 0x00000010u) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->file_total_parts(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_file_total_parts(), target);
   }
 
   // required bytes file_data = 4;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      4, this->file_data(), output);
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_file_data(), target);
   }
 
   // optional bytes attach_data = 20;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
+    target = stream->WriteBytesMaybeAliased(
+        20, this->_internal_attach_data(), target);
   }
 
   // optional uint32 auth_uid = 21;
   if (cached_has_bits & 0x00000020u) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(21, this->auth_uid(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(21, this->_internal_auth_uid(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.File.FileImgUploadReq)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.File.FileImgUploadReq)
+  return target;
 }
 
 size_t FileImgUploadReq::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:PTP.File.FileImgUploadReq)
   size_t total_size = 0;
 
-  if (has_file_id()) {
+  if (_internal_has_file_id()) {
     // required string file_id = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->file_id());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_file_id());
   }
 
-  if (has_file_data()) {
+  if (_internal_has_file_data()) {
     // required bytes file_data = 4;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->file_data());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_file_data());
   }
 
-  if (has_file_part()) {
+  if (_internal_has_file_part()) {
     // required uint32 file_part = 2;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->file_part());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_file_part());
   }
 
-  if (has_file_total_parts()) {
+  if (_internal_has_file_total_parts()) {
     // required uint32 file_total_parts = 3;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->file_total_parts());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_file_total_parts());
   }
 
   return total_size;
@@ -404,88 +416,89 @@ size_t FileImgUploadReq::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.File.FileImgUploadReq)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
-  if (((_has_bits_[0] & 0x0000001b) ^ 0x0000001b) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x0000001b) ^ 0x0000001b) == 0) {  // All required fields are present.
     // required string file_id = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->file_id());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_file_id());
 
     // required bytes file_data = 4;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->file_data());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_file_data());
 
     // required uint32 file_part = 2;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->file_part());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_file_part());
 
     // required uint32 file_total_parts = 3;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->file_total_parts());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_file_total_parts());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   // optional bytes attach_data = 20;
-  if (has_attach_data()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000004u) {
     total_size += 2 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->attach_data());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_attach_data());
   }
 
   // optional uint32 auth_uid = 21;
-  if (has_auth_uid()) {
+  if (cached_has_bits & 0x00000020u) {
     total_size += 2 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->auth_uid());
+      ::_pbi::WireFormatLite::UInt32Size(
+        this->_internal_auth_uid());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void FileImgUploadReq::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const FileImgUploadReq*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const FileImgUploadReq*>(
+      &from));
 }
 
 void FileImgUploadReq::MergeFrom(const FileImgUploadReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.File.FileImgUploadReq)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  FileImgUploadReq* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.File.FileImgUploadReq)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 63u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_file_id();
-      file_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_id_);
+      _this->_internal_set_file_id(from._internal_file_id());
     }
     if (cached_has_bits & 0x00000002u) {
-      set_has_file_data();
-      file_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_data_);
+      _this->_internal_set_file_data(from._internal_file_data());
     }
     if (cached_has_bits & 0x00000004u) {
-      set_has_attach_data();
-      attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+      _this->_internal_set_attach_data(from._internal_attach_data());
     }
     if (cached_has_bits & 0x00000008u) {
-      file_part_ = from.file_part_;
+      _this->_impl_.file_part_ = from._impl_.file_part_;
     }
     if (cached_has_bits & 0x00000010u) {
-      file_total_parts_ = from.file_total_parts_;
+      _this->_impl_.file_total_parts_ = from._impl_.file_total_parts_;
     }
     if (cached_has_bits & 0x00000020u) {
-      auth_uid_ = from.auth_uid_;
+      _this->_impl_.auth_uid_ = from._impl_.auth_uid_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FileImgUploadReq::CopyFrom(const FileImgUploadReq& from) {
@@ -496,321 +509,354 @@ void FileImgUploadReq::CopyFrom(const FileImgUploadReq& from) {
 }
 
 bool FileImgUploadReq::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000001b) != 0x0000001b) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void FileImgUploadReq::Swap(FileImgUploadReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void FileImgUploadReq::InternalSwap(FileImgUploadReq* other) {
   using std::swap;
-  file_id_.Swap(&other->file_id_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  file_data_.Swap(&other->file_data_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  attach_data_.Swap(&other->attach_data_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(file_part_, other->file_part_);
-  swap(file_total_parts_, other->file_total_parts_);
-  swap(auth_uid_, other->auth_uid_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.file_id_, lhs_arena,
+      &other->_impl_.file_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.file_data_, lhs_arena,
+      &other->_impl_.file_data_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.attach_data_, lhs_arena,
+      &other->_impl_.attach_data_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FileImgUploadReq, _impl_.auth_uid_)
+      + sizeof(FileImgUploadReq::_impl_.auth_uid_)
+      - PROTOBUF_FIELD_OFFSET(FileImgUploadReq, _impl_.file_part_)>(
+          reinterpret_cast<char*>(&_impl_.file_part_),
+          reinterpret_cast<char*>(&other->_impl_.file_part_));
 }
 
-::std::string FileImgUploadReq::GetTypeName() const {
+std::string FileImgUploadReq::GetTypeName() const {
   return "PTP.File.FileImgUploadReq";
 }
 
 
 // ===================================================================
 
-void FileImgUploadRes::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int FileImgUploadRes::kErrorFieldNumber;
-const int FileImgUploadRes::kFilePathFieldNumber;
-const int FileImgUploadRes::kAttachDataFieldNumber;
-const int FileImgUploadRes::kAuthUidFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class FileImgUploadRes::_Internal {
+ public:
+  using HasBits = decltype(std::declval<FileImgUploadRes>()._impl_._has_bits_);
+  static void set_has_error(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_file_path(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_attach_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_auth_uid(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
+  }
+};
 
-FileImgUploadRes::FileImgUploadRes()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eFile_2eproto::scc_info_FileImgUploadRes.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.File.FileImgUploadRes)
+FileImgUploadRes::FileImgUploadRes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.File.FileImgUploadRes)
 }
 FileImgUploadRes::FileImgUploadRes(const FileImgUploadRes& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  file_path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_file_path()) {
-    file_path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_path_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FileImgUploadRes* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_path_){}
+    , decltype(_impl_.attach_data_){}
+    , decltype(_impl_.error_){}
+    , decltype(_impl_.auth_uid_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.file_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_file_path()) {
+    _this->_impl_.file_path_.Set(from._internal_file_path(), 
+      _this->GetArenaForAllocation());
   }
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_attach_data()) {
-    attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_attach_data()) {
+    _this->_impl_.attach_data_.Set(from._internal_attach_data(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&error_, &from.error_,
-    static_cast<size_t>(reinterpret_cast<char*>(&auth_uid_) -
-    reinterpret_cast<char*>(&error_)) + sizeof(auth_uid_));
+  ::memcpy(&_impl_.error_, &from._impl_.error_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.auth_uid_) -
+    reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.auth_uid_));
   // @@protoc_insertion_point(copy_constructor:PTP.File.FileImgUploadRes)
 }
 
-void FileImgUploadRes::SharedCtor() {
-  file_path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&error_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&auth_uid_) -
-      reinterpret_cast<char*>(&error_)) + sizeof(auth_uid_));
+inline void FileImgUploadRes::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_path_){}
+    , decltype(_impl_.attach_data_){}
+    , decltype(_impl_.error_){0}
+    , decltype(_impl_.auth_uid_){0u}
+  };
+  _impl_.file_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FileImgUploadRes::~FileImgUploadRes() {
   // @@protoc_insertion_point(destructor:PTP.File.FileImgUploadRes)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void FileImgUploadRes::SharedDtor() {
-  file_path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  attach_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void FileImgUploadRes::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.file_path_.Destroy();
+  _impl_.attach_data_.Destroy();
 }
 
 void FileImgUploadRes::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const FileImgUploadRes& FileImgUploadRes::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eFile_2eproto::scc_info_FileImgUploadRes.base);
-  return *internal_default_instance();
-}
-
 
 void FileImgUploadRes::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.File.FileImgUploadRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      file_path_.ClearNonDefaultToEmptyNoArena();
+      _impl_.file_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      attach_data_.ClearNonDefaultToEmptyNoArena();
+      _impl_.attach_data_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 12u) {
-    ::memset(&error_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&auth_uid_) -
-        reinterpret_cast<char*>(&error_)) + sizeof(auth_uid_));
+  if (cached_has_bits & 0x0000000cu) {
+    ::memset(&_impl_.error_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.auth_uid_) -
+        reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.auth_uid_));
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool FileImgUploadRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.File.FileImgUploadRes)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(16383u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* FileImgUploadRes::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // optional .PTP.Common.ERR error = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::PTP::Common::ERR_IsValid(value)) {
-            set_error(static_cast< ::PTP::Common::ERR >(value));
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::PTP::Common::ERR_IsValid(val))) {
+            _internal_set_error(static_cast<::PTP::Common::ERR>(val));
           } else {
-            unknown_fields_stream.WriteVarint32(8u);
-            unknown_fields_stream.WriteVarint32(
-                static_cast< ::google::protobuf::uint32>(value));
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else {
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required string file_path = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_file_path()));
-        } else {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_file_path();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional bytes attach_data = 20;
-      case 20: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(162u /* 162 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
+          auto str = _internal_mutable_attach_data();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional uint32 auth_uid = 21;
-      case 21: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(168u /* 168 & 0xFF */)) {
-          set_has_auth_uid();
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &auth_uid_)));
-        } else {
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 168)) {
+          _Internal::set_has_auth_uid(&has_bits);
+          _impl_.auth_uid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.File.FileImgUploadRes)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.File.FileImgUploadRes)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void FileImgUploadRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.File.FileImgUploadRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* FileImgUploadRes::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.File.FileImgUploadRes)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .PTP.Common.ERR error = 1;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->error(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
   }
 
   // required string file_path = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->file_path(), output);
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_file_path(), target);
   }
 
   // optional bytes attach_data = 20;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
+    target = stream->WriteBytesMaybeAliased(
+        20, this->_internal_attach_data(), target);
   }
 
   // optional uint32 auth_uid = 21;
   if (cached_has_bits & 0x00000008u) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(21, this->auth_uid(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(21, this->_internal_auth_uid(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.File.FileImgUploadRes)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.File.FileImgUploadRes)
+  return target;
 }
 
 size_t FileImgUploadRes::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.File.FileImgUploadRes)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
   // required string file_path = 2;
-  if (has_file_path()) {
+  if (_internal_has_file_path()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->file_path());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_file_path());
   }
-  if (_has_bits_[0 / 32] & 14u) {
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000000eu) {
     // optional bytes attach_data = 20;
-    if (has_attach_data()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->attach_data());
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_attach_data());
     }
 
     // optional .PTP.Common.ERR error = 1;
-    if (has_error()) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
     }
 
     // optional uint32 auth_uid = 21;
-    if (has_auth_uid()) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->auth_uid());
+        ::_pbi::WireFormatLite::UInt32Size(
+          this->_internal_auth_uid());
     }
 
   }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void FileImgUploadRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const FileImgUploadRes*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const FileImgUploadRes*>(
+      &from));
 }
 
 void FileImgUploadRes::MergeFrom(const FileImgUploadRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.File.FileImgUploadRes)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  FileImgUploadRes* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.File.FileImgUploadRes)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 15u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_file_path();
-      file_path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_path_);
+      _this->_internal_set_file_path(from._internal_file_path());
     }
     if (cached_has_bits & 0x00000002u) {
-      set_has_attach_data();
-      attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+      _this->_internal_set_attach_data(from._internal_attach_data());
     }
     if (cached_has_bits & 0x00000004u) {
-      error_ = from.error_;
+      _this->_impl_.error_ = from._impl_.error_;
     }
     if (cached_has_bits & 0x00000008u) {
-      auth_uid_ = from.auth_uid_;
+      _this->_impl_.auth_uid_ = from._impl_.auth_uid_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FileImgUploadRes::CopyFrom(const FileImgUploadRes& from) {
@@ -821,273 +867,310 @@ void FileImgUploadRes::CopyFrom(const FileImgUploadRes& from) {
 }
 
 bool FileImgUploadRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void FileImgUploadRes::Swap(FileImgUploadRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void FileImgUploadRes::InternalSwap(FileImgUploadRes* other) {
   using std::swap;
-  file_path_.Swap(&other->file_path_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  attach_data_.Swap(&other->attach_data_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(error_, other->error_);
-  swap(auth_uid_, other->auth_uid_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.file_path_, lhs_arena,
+      &other->_impl_.file_path_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.attach_data_, lhs_arena,
+      &other->_impl_.attach_data_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FileImgUploadRes, _impl_.auth_uid_)
+      + sizeof(FileImgUploadRes::_impl_.auth_uid_)
+      - PROTOBUF_FIELD_OFFSET(FileImgUploadRes, _impl_.error_)>(
+          reinterpret_cast<char*>(&_impl_.error_),
+          reinterpret_cast<char*>(&other->_impl_.error_));
 }
 
-::std::string FileImgUploadRes::GetTypeName() const {
+std::string FileImgUploadRes::GetTypeName() const {
   return "PTP.File.FileImgUploadRes";
 }
 
 
 // ===================================================================
 
-void FileImgDownloadReq::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int FileImgDownloadReq::kFilePathFieldNumber;
-const int FileImgDownloadReq::kAttachDataFieldNumber;
-const int FileImgDownloadReq::kAuthUidFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class FileImgDownloadReq::_Internal {
+ public:
+  using HasBits = decltype(std::declval<FileImgDownloadReq>()._impl_._has_bits_);
+  static void set_has_file_path(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_attach_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_auth_uid(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
+  }
+};
 
-FileImgDownloadReq::FileImgDownloadReq()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eFile_2eproto::scc_info_FileImgDownloadReq.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.File.FileImgDownloadReq)
+FileImgDownloadReq::FileImgDownloadReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.File.FileImgDownloadReq)
 }
 FileImgDownloadReq::FileImgDownloadReq(const FileImgDownloadReq& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  file_path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_file_path()) {
-    file_path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_path_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FileImgDownloadReq* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_path_){}
+    , decltype(_impl_.attach_data_){}
+    , decltype(_impl_.auth_uid_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.file_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_file_path()) {
+    _this->_impl_.file_path_.Set(from._internal_file_path(), 
+      _this->GetArenaForAllocation());
   }
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_attach_data()) {
-    attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_attach_data()) {
+    _this->_impl_.attach_data_.Set(from._internal_attach_data(), 
+      _this->GetArenaForAllocation());
   }
-  auth_uid_ = from.auth_uid_;
+  _this->_impl_.auth_uid_ = from._impl_.auth_uid_;
   // @@protoc_insertion_point(copy_constructor:PTP.File.FileImgDownloadReq)
 }
 
-void FileImgDownloadReq::SharedCtor() {
-  file_path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  auth_uid_ = 0u;
+inline void FileImgDownloadReq::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_path_){}
+    , decltype(_impl_.attach_data_){}
+    , decltype(_impl_.auth_uid_){0u}
+  };
+  _impl_.file_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FileImgDownloadReq::~FileImgDownloadReq() {
   // @@protoc_insertion_point(destructor:PTP.File.FileImgDownloadReq)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void FileImgDownloadReq::SharedDtor() {
-  file_path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  attach_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void FileImgDownloadReq::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.file_path_.Destroy();
+  _impl_.attach_data_.Destroy();
 }
 
 void FileImgDownloadReq::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const FileImgDownloadReq& FileImgDownloadReq::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eFile_2eproto::scc_info_FileImgDownloadReq.base);
-  return *internal_default_instance();
-}
-
 
 void FileImgDownloadReq::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.File.FileImgDownloadReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      file_path_.ClearNonDefaultToEmptyNoArena();
+      _impl_.file_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      attach_data_.ClearNonDefaultToEmptyNoArena();
+      _impl_.attach_data_.ClearNonDefaultToEmpty();
     }
   }
-  auth_uid_ = 0u;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_.auth_uid_ = 0u;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool FileImgDownloadReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.File.FileImgDownloadReq)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(16383u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* FileImgDownloadReq::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required string file_path = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_file_path()));
-        } else {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_file_path();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional bytes attach_data = 20;
-      case 20: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(162u /* 162 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
+          auto str = _internal_mutable_attach_data();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional uint32 auth_uid = 21;
-      case 21: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(168u /* 168 & 0xFF */)) {
-          set_has_auth_uid();
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &auth_uid_)));
-        } else {
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 168)) {
+          _Internal::set_has_auth_uid(&has_bits);
+          _impl_.auth_uid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.File.FileImgDownloadReq)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.File.FileImgDownloadReq)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void FileImgDownloadReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.File.FileImgDownloadReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* FileImgDownloadReq::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.File.FileImgDownloadReq)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string file_path = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->file_path(), output);
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_file_path(), target);
   }
 
   // optional bytes attach_data = 20;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
+    target = stream->WriteBytesMaybeAliased(
+        20, this->_internal_attach_data(), target);
   }
 
   // optional uint32 auth_uid = 21;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(21, this->auth_uid(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(21, this->_internal_auth_uid(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.File.FileImgDownloadReq)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.File.FileImgDownloadReq)
+  return target;
 }
 
 size_t FileImgDownloadReq::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.File.FileImgDownloadReq)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
   // required string file_path = 1;
-  if (has_file_path()) {
+  if (_internal_has_file_path()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->file_path());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_file_path());
   }
-  if (_has_bits_[0 / 32] & 6u) {
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000006u) {
     // optional bytes attach_data = 20;
-    if (has_attach_data()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->attach_data());
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_attach_data());
     }
 
     // optional uint32 auth_uid = 21;
-    if (has_auth_uid()) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->auth_uid());
+        ::_pbi::WireFormatLite::UInt32Size(
+          this->_internal_auth_uid());
     }
 
   }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void FileImgDownloadReq::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const FileImgDownloadReq*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const FileImgDownloadReq*>(
+      &from));
 }
 
 void FileImgDownloadReq::MergeFrom(const FileImgDownloadReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.File.FileImgDownloadReq)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  FileImgDownloadReq* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.File.FileImgDownloadReq)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 7u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_file_path();
-      file_path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_path_);
+      _this->_internal_set_file_path(from._internal_file_path());
     }
     if (cached_has_bits & 0x00000002u) {
-      set_has_attach_data();
-      attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+      _this->_internal_set_attach_data(from._internal_attach_data());
     }
     if (cached_has_bits & 0x00000004u) {
-      auth_uid_ = from.auth_uid_;
+      _this->_impl_.auth_uid_ = from._impl_.auth_uid_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FileImgDownloadReq::CopyFrom(const FileImgDownloadReq& from) {
@@ -1098,318 +1181,343 @@ void FileImgDownloadReq::CopyFrom(const FileImgDownloadReq& from) {
 }
 
 bool FileImgDownloadReq::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void FileImgDownloadReq::Swap(FileImgDownloadReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void FileImgDownloadReq::InternalSwap(FileImgDownloadReq* other) {
   using std::swap;
-  file_path_.Swap(&other->file_path_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  attach_data_.Swap(&other->attach_data_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(auth_uid_, other->auth_uid_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.file_path_, lhs_arena,
+      &other->_impl_.file_path_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.attach_data_, lhs_arena,
+      &other->_impl_.attach_data_, rhs_arena
+  );
+  swap(_impl_.auth_uid_, other->_impl_.auth_uid_);
 }
 
-::std::string FileImgDownloadReq::GetTypeName() const {
+std::string FileImgDownloadReq::GetTypeName() const {
   return "PTP.File.FileImgDownloadReq";
 }
 
 
 // ===================================================================
 
-void FileImgDownloadRes::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int FileImgDownloadRes::kErrorFieldNumber;
-const int FileImgDownloadRes::kFileDataFieldNumber;
-const int FileImgDownloadRes::kAttachDataFieldNumber;
-const int FileImgDownloadRes::kAuthUidFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class FileImgDownloadRes::_Internal {
+ public:
+  using HasBits = decltype(std::declval<FileImgDownloadRes>()._impl_._has_bits_);
+  static void set_has_error(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_file_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_attach_data(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_auth_uid(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+};
 
-FileImgDownloadRes::FileImgDownloadRes()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eFile_2eproto::scc_info_FileImgDownloadRes.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.File.FileImgDownloadRes)
+FileImgDownloadRes::FileImgDownloadRes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.File.FileImgDownloadRes)
 }
 FileImgDownloadRes::FileImgDownloadRes(const FileImgDownloadRes& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  file_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_file_data()) {
-    file_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_data_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FileImgDownloadRes* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_data_){}
+    , decltype(_impl_.attach_data_){}
+    , decltype(_impl_.error_){}
+    , decltype(_impl_.auth_uid_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.file_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_file_data()) {
+    _this->_impl_.file_data_.Set(from._internal_file_data(), 
+      _this->GetArenaForAllocation());
   }
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_attach_data()) {
-    attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_attach_data()) {
+    _this->_impl_.attach_data_.Set(from._internal_attach_data(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&error_, &from.error_,
-    static_cast<size_t>(reinterpret_cast<char*>(&auth_uid_) -
-    reinterpret_cast<char*>(&error_)) + sizeof(auth_uid_));
+  ::memcpy(&_impl_.error_, &from._impl_.error_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.auth_uid_) -
+    reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.auth_uid_));
   // @@protoc_insertion_point(copy_constructor:PTP.File.FileImgDownloadRes)
 }
 
-void FileImgDownloadRes::SharedCtor() {
-  file_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  attach_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&error_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&auth_uid_) -
-      reinterpret_cast<char*>(&error_)) + sizeof(auth_uid_));
+inline void FileImgDownloadRes::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_data_){}
+    , decltype(_impl_.attach_data_){}
+    , decltype(_impl_.error_){0}
+    , decltype(_impl_.auth_uid_){0u}
+  };
+  _impl_.file_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.attach_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attach_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FileImgDownloadRes::~FileImgDownloadRes() {
   // @@protoc_insertion_point(destructor:PTP.File.FileImgDownloadRes)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void FileImgDownloadRes::SharedDtor() {
-  file_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  attach_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void FileImgDownloadRes::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.file_data_.Destroy();
+  _impl_.attach_data_.Destroy();
 }
 
 void FileImgDownloadRes::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const FileImgDownloadRes& FileImgDownloadRes::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eFile_2eproto::scc_info_FileImgDownloadRes.base);
-  return *internal_default_instance();
-}
-
 
 void FileImgDownloadRes::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.File.FileImgDownloadRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      file_data_.ClearNonDefaultToEmptyNoArena();
+      _impl_.file_data_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      attach_data_.ClearNonDefaultToEmptyNoArena();
+      _impl_.attach_data_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 12u) {
-    ::memset(&error_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&auth_uid_) -
-        reinterpret_cast<char*>(&error_)) + sizeof(auth_uid_));
+  if (cached_has_bits & 0x0000000cu) {
+    ::memset(&_impl_.error_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.auth_uid_) -
+        reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.auth_uid_));
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool FileImgDownloadRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.File.FileImgDownloadRes)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(16383u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* FileImgDownloadRes::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // optional .PTP.Common.ERR error = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::PTP::Common::ERR_IsValid(value)) {
-            set_error(static_cast< ::PTP::Common::ERR >(value));
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::PTP::Common::ERR_IsValid(val))) {
+            _internal_set_error(static_cast<::PTP::Common::ERR>(val));
           } else {
-            unknown_fields_stream.WriteVarint32(8u);
-            unknown_fields_stream.WriteVarint32(
-                static_cast< ::google::protobuf::uint32>(value));
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
-        } else {
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional bytes file_data = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_file_data()));
-        } else {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_file_data();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional bytes attach_data = 20;
-      case 20: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(162u /* 162 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
+          auto str = _internal_mutable_attach_data();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional uint32 auth_uid = 21;
-      case 21: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(168u /* 168 & 0xFF */)) {
-          set_has_auth_uid();
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &auth_uid_)));
-        } else {
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 168)) {
+          _Internal::set_has_auth_uid(&has_bits);
+          _impl_.auth_uid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.File.FileImgDownloadRes)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.File.FileImgDownloadRes)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void FileImgDownloadRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.File.FileImgDownloadRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* FileImgDownloadRes::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.File.FileImgDownloadRes)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .PTP.Common.ERR error = 1;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->error(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
   }
 
   // optional bytes file_data = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      2, this->file_data(), output);
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_file_data(), target);
   }
 
   // optional bytes attach_data = 20;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
+    target = stream->WriteBytesMaybeAliased(
+        20, this->_internal_attach_data(), target);
   }
 
   // optional uint32 auth_uid = 21;
   if (cached_has_bits & 0x00000008u) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(21, this->auth_uid(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(21, this->_internal_auth_uid(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.File.FileImgDownloadRes)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.File.FileImgDownloadRes)
+  return target;
 }
 
 size_t FileImgDownloadRes::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.File.FileImgDownloadRes)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-  if (_has_bits_[0 / 32] & 15u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
     // optional bytes file_data = 2;
-    if (has_file_data()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->file_data());
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_file_data());
     }
 
     // optional bytes attach_data = 20;
-    if (has_attach_data()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->attach_data());
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_attach_data());
     }
 
     // optional .PTP.Common.ERR error = 1;
-    if (has_error()) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
     }
 
     // optional uint32 auth_uid = 21;
-    if (has_auth_uid()) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->auth_uid());
+        ::_pbi::WireFormatLite::UInt32Size(
+          this->_internal_auth_uid());
     }
 
   }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void FileImgDownloadRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const FileImgDownloadRes*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const FileImgDownloadRes*>(
+      &from));
 }
 
 void FileImgDownloadRes::MergeFrom(const FileImgDownloadRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.File.FileImgDownloadRes)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  FileImgDownloadRes* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.File.FileImgDownloadRes)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 15u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_file_data();
-      file_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_data_);
+      _this->_internal_set_file_data(from._internal_file_data());
     }
     if (cached_has_bits & 0x00000002u) {
-      set_has_attach_data();
-      attach_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attach_data_);
+      _this->_internal_set_attach_data(from._internal_attach_data());
     }
     if (cached_has_bits & 0x00000004u) {
-      error_ = from.error_;
+      _this->_impl_.error_ = from._impl_.error_;
     }
     if (cached_has_bits & 0x00000008u) {
-      auth_uid_ = from.auth_uid_;
+      _this->_impl_.auth_uid_ = from._impl_.auth_uid_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FileImgDownloadRes::CopyFrom(const FileImgDownloadRes& from) {
@@ -1423,23 +1531,29 @@ bool FileImgDownloadRes::IsInitialized() const {
   return true;
 }
 
-void FileImgDownloadRes::Swap(FileImgDownloadRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void FileImgDownloadRes::InternalSwap(FileImgDownloadRes* other) {
   using std::swap;
-  file_data_.Swap(&other->file_data_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  attach_data_.Swap(&other->attach_data_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(error_, other->error_);
-  swap(auth_uid_, other->auth_uid_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.file_data_, lhs_arena,
+      &other->_impl_.file_data_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.attach_data_, lhs_arena,
+      &other->_impl_.attach_data_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FileImgDownloadRes, _impl_.auth_uid_)
+      + sizeof(FileImgDownloadRes::_impl_.auth_uid_)
+      - PROTOBUF_FIELD_OFFSET(FileImgDownloadRes, _impl_.error_)>(
+          reinterpret_cast<char*>(&_impl_.error_),
+          reinterpret_cast<char*>(&other->_impl_.error_));
 }
 
-::std::string FileImgDownloadRes::GetTypeName() const {
+std::string FileImgDownloadRes::GetTypeName() const {
   return "PTP.File.FileImgDownloadRes";
 }
 
@@ -1447,21 +1561,24 @@ void FileImgDownloadRes::InternalSwap(FileImgDownloadRes* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace File
 }  // namespace PTP
-namespace google {
-namespace protobuf {
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::File::FileImgUploadReq* Arena::CreateMaybeMessage< ::PTP::File::FileImgUploadReq >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::File::FileImgUploadReq >(arena);
+PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::PTP::File::FileImgUploadReq*
+Arena::CreateMaybeMessage< ::PTP::File::FileImgUploadReq >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::File::FileImgUploadReq >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::File::FileImgUploadRes* Arena::CreateMaybeMessage< ::PTP::File::FileImgUploadRes >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::File::FileImgUploadRes >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::File::FileImgUploadRes*
+Arena::CreateMaybeMessage< ::PTP::File::FileImgUploadRes >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::File::FileImgUploadRes >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::File::FileImgDownloadReq* Arena::CreateMaybeMessage< ::PTP::File::FileImgDownloadReq >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::File::FileImgDownloadReq >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::File::FileImgDownloadReq*
+Arena::CreateMaybeMessage< ::PTP::File::FileImgDownloadReq >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::File::FileImgDownloadReq >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::File::FileImgDownloadRes* Arena::CreateMaybeMessage< ::PTP::File::FileImgDownloadRes >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::File::FileImgDownloadRes >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::File::FileImgDownloadRes*
+Arena::CreateMaybeMessage< ::PTP::File::FileImgDownloadRes >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::File::FileImgDownloadRes >(arena);
 }
-}  // namespace protobuf
-}  // namespace google
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
+#include <google/protobuf/port_undef.inc>

@@ -1,8 +1,8 @@
 #include "ImPdu.h"
 
-#include "IM.BaseDefine.pb.h"
+//#include "IM.BaseDefine.pb.h"
 
-using namespace IM::BaseDefine;
+//using namespace IM::BaseDefine;
 
 ImPdu::ImPdu(){};
 
@@ -10,7 +10,7 @@ void ImPdu::SetPBMsg(const google::protobuf::MessageLite* msg)
 {
     m_buf.Read(NULL, m_buf.GetWriteOffset());
     m_buf.Write(NULL, sizeof(PduHeader_t));
-    uint32_t msg_size = msg->ByteSize();
+    uint32_t msg_size = msg->ByteSizeLong();
     auto* szData = new uchar_t[msg_size];
     ALLOC_FAIL_ASSERT(szData)
     if (!msg->SerializeToArray(szData, (int)msg_size))
@@ -30,7 +30,7 @@ void ImPdu::SetPBMsg(const google::protobuf::MessageLite* msg,uint16_t command_i
     m_pdu_header.seq_num = seq_num;
     m_buf.Read(NULL, m_buf.GetWriteOffset());
     m_buf.Write(NULL, sizeof(PduHeader_t));
-    uint32_t msg_size = msg->ByteSize();
+    uint32_t msg_size = msg->ByteSizeLong();
     auto* szData = new uchar_t[msg_size];
     ALLOC_FAIL_ASSERT(szData)
     if (!msg->SerializeToArray(szData, (int)msg_size))

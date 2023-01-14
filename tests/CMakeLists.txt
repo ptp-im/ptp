@@ -35,12 +35,9 @@ endif (APPLE)
 
 ADD_DEFINITIONS(-DGTEST_USE_OWN_TR1_TUPLE=1 )
 
-SET(EXECUTABLE_OUTPUT_PATH  ../build/bin)
+SET(EXECUTABLE_OUTPUT_PATH  /usr/local/bin)
 
-file(COPY ./log4cxx.properties
-        DESTINATION ${EXECUTABLE_OUTPUT_PATH})
-
-file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
+file(COPY ./log4cxx.properties DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 
 include_directories (../third_party/gtest/googlemock/include)
 include_directories (../third_party/gtest/googletest/include)

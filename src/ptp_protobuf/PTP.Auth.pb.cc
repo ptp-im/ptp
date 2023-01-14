@@ -5,270 +5,240 @@
 
 #include <algorithm>
 
-#include <google/protobuf/stubs/common.h>
-#include <google/protobuf/stubs/port.h>
 #include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/wire_format_lite_inl.h>
+#include <google/protobuf/extension_set.h>
+#include <google/protobuf/wire_format_lite.h>
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
-// This is a temporary google only hack
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-#include "third_party/protobuf/version.h"
-#endif
 // @@protoc_insertion_point(includes)
+#include <google/protobuf/port_def.inc>
 
-namespace protobuf_PTP_2eCommon_2eproto {
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_PTP_2eCommon_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_UserInfo;
-}  // namespace protobuf_PTP_2eCommon_2eproto
+PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace PTP {
 namespace Auth {
-class AuthCaptchaReqDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<AuthCaptchaReq>
-      _instance;
-} _AuthCaptchaReq_default_instance_;
-class AuthCaptchaResDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<AuthCaptchaRes>
-      _instance;
-} _AuthCaptchaRes_default_instance_;
-class AuthLoginReqDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<AuthLoginReq>
-      _instance;
-} _AuthLoginReq_default_instance_;
-class AuthLoginResDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<AuthLoginRes>
-      _instance;
-} _AuthLoginRes_default_instance_;
-class AuthLogoutReqDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<AuthLogoutReq>
-      _instance;
-} _AuthLogoutReq_default_instance_;
-class AuthLogoutResDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<AuthLogoutRes>
-      _instance;
-} _AuthLogoutRes_default_instance_;
+PROTOBUF_CONSTEXPR AuthCaptchaReq::AuthCaptchaReq(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
+struct AuthCaptchaReqDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthCaptchaReqDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthCaptchaReqDefaultTypeInternal() {}
+  union {
+    AuthCaptchaReq _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthCaptchaReqDefaultTypeInternal _AuthCaptchaReq_default_instance_;
+PROTOBUF_CONSTEXPR AuthCaptchaRes::AuthCaptchaRes(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.captcha_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.address_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.iv_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.aad_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.sign_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.error_)*/0} {}
+struct AuthCaptchaResDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthCaptchaResDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthCaptchaResDefaultTypeInternal() {}
+  union {
+    AuthCaptchaRes _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthCaptchaResDefaultTypeInternal _AuthCaptchaRes_default_instance_;
+PROTOBUF_CONSTEXPR AuthLoginReq::AuthLoginReq(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.address_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.captcha_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.client_version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.sign_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.client_type_)*/1} {}
+struct AuthLoginReqDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthLoginReqDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthLoginReqDefaultTypeInternal() {}
+  union {
+    AuthLoginReq _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthLoginReqDefaultTypeInternal _AuthLoginReq_default_instance_;
+PROTOBUF_CONSTEXPR AuthLoginRes::AuthLoginRes(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.user_info_)*/nullptr
+  , /*decltype(_impl_.error_)*/0} {}
+struct AuthLoginResDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthLoginResDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthLoginResDefaultTypeInternal() {}
+  union {
+    AuthLoginRes _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthLoginResDefaultTypeInternal _AuthLoginRes_default_instance_;
+PROTOBUF_CONSTEXPR AuthLogoutReq::AuthLogoutReq(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
+struct AuthLogoutReqDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthLogoutReqDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthLogoutReqDefaultTypeInternal() {}
+  union {
+    AuthLogoutReq _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthLogoutReqDefaultTypeInternal _AuthLogoutReq_default_instance_;
+PROTOBUF_CONSTEXPR AuthLogoutRes::AuthLogoutRes(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.error_)*/0} {}
+struct AuthLogoutResDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthLogoutResDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthLogoutResDefaultTypeInternal() {}
+  union {
+    AuthLogoutRes _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthLogoutResDefaultTypeInternal _AuthLogoutRes_default_instance_;
 }  // namespace Auth
 }  // namespace PTP
-namespace protobuf_PTP_2eAuth_2eproto {
-static void InitDefaultsAuthCaptchaReq() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Auth::_AuthCaptchaReq_default_instance_;
-    new (ptr) ::PTP::Auth::AuthCaptchaReq();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Auth::AuthCaptchaReq::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_AuthCaptchaReq =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsAuthCaptchaReq}, {}};
-
-static void InitDefaultsAuthCaptchaRes() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Auth::_AuthCaptchaRes_default_instance_;
-    new (ptr) ::PTP::Auth::AuthCaptchaRes();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Auth::AuthCaptchaRes::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_AuthCaptchaRes =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsAuthCaptchaRes}, {}};
-
-static void InitDefaultsAuthLoginReq() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Auth::_AuthLoginReq_default_instance_;
-    new (ptr) ::PTP::Auth::AuthLoginReq();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Auth::AuthLoginReq::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_AuthLoginReq =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsAuthLoginReq}, {}};
-
-static void InitDefaultsAuthLoginRes() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Auth::_AuthLoginRes_default_instance_;
-    new (ptr) ::PTP::Auth::AuthLoginRes();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Auth::AuthLoginRes::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<1> scc_info_AuthLoginRes =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsAuthLoginRes}, {
-      &protobuf_PTP_2eCommon_2eproto::scc_info_UserInfo.base,}};
-
-static void InitDefaultsAuthLogoutReq() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Auth::_AuthLogoutReq_default_instance_;
-    new (ptr) ::PTP::Auth::AuthLogoutReq();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Auth::AuthLogoutReq::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_AuthLogoutReq =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsAuthLogoutReq}, {}};
-
-static void InitDefaultsAuthLogoutRes() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Auth::_AuthLogoutRes_default_instance_;
-    new (ptr) ::PTP::Auth::AuthLogoutRes();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Auth::AuthLogoutRes::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_AuthLogoutRes =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsAuthLogoutRes}, {}};
-
-void InitDefaults() {
-  ::google::protobuf::internal::InitSCC(&scc_info_AuthCaptchaReq.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_AuthCaptchaRes.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_AuthLoginReq.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_AuthLoginRes.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_AuthLogoutReq.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_AuthLogoutRes.base);
-}
-
-}  // namespace protobuf_PTP_2eAuth_2eproto
 namespace PTP {
 namespace Auth {
 
 // ===================================================================
 
-void AuthCaptchaReq::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class AuthCaptchaReq::_Internal {
+ public:
+};
 
-AuthCaptchaReq::AuthCaptchaReq()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eAuth_2eproto::scc_info_AuthCaptchaReq.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Auth.AuthCaptchaReq)
+AuthCaptchaReq::AuthCaptchaReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Auth.AuthCaptchaReq)
 }
 AuthCaptchaReq::AuthCaptchaReq(const AuthCaptchaReq& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AuthCaptchaReq* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:PTP.Auth.AuthCaptchaReq)
 }
 
-void AuthCaptchaReq::SharedCtor() {
+inline void AuthCaptchaReq::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 AuthCaptchaReq::~AuthCaptchaReq() {
   // @@protoc_insertion_point(destructor:PTP.Auth.AuthCaptchaReq)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void AuthCaptchaReq::SharedDtor() {
+inline void AuthCaptchaReq::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void AuthCaptchaReq::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const AuthCaptchaReq& AuthCaptchaReq::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eAuth_2eproto::scc_info_AuthCaptchaReq.base);
-  return *internal_default_instance();
-}
-
 
 void AuthCaptchaReq::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Auth.AuthCaptchaReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool AuthCaptchaReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Auth.AuthCaptchaReq)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0) {
-      goto success;
+const char* AuthCaptchaReq::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-    DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-        input, tag, &unknown_fields_stream));
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Auth.AuthCaptchaReq)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Auth.AuthCaptchaReq)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void AuthCaptchaReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Auth.AuthCaptchaReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* AuthCaptchaReq::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Auth.AuthCaptchaReq)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Auth.AuthCaptchaReq)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Auth.AuthCaptchaReq)
+  return target;
 }
 
 size_t AuthCaptchaReq::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Auth.AuthCaptchaReq)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AuthCaptchaReq::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const AuthCaptchaReq*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthCaptchaReq*>(
+      &from));
 }
 
 void AuthCaptchaReq::MergeFrom(const AuthCaptchaReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthCaptchaReq)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  AuthCaptchaReq* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthCaptchaReq)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AuthCaptchaReq::CopyFrom(const AuthCaptchaReq& from) {
@@ -282,338 +252,379 @@ bool AuthCaptchaReq::IsInitialized() const {
   return true;
 }
 
-void AuthCaptchaReq::Swap(AuthCaptchaReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void AuthCaptchaReq::InternalSwap(AuthCaptchaReq* other) {
   using std::swap;
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
 }
 
-::std::string AuthCaptchaReq::GetTypeName() const {
+std::string AuthCaptchaReq::GetTypeName() const {
   return "PTP.Auth.AuthCaptchaReq";
 }
 
 
 // ===================================================================
 
-void AuthCaptchaRes::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int AuthCaptchaRes::kCaptchaFieldNumber;
-const int AuthCaptchaRes::kAddressFieldNumber;
-const int AuthCaptchaRes::kIvFieldNumber;
-const int AuthCaptchaRes::kAadFieldNumber;
-const int AuthCaptchaRes::kSignFieldNumber;
-const int AuthCaptchaRes::kErrorFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class AuthCaptchaRes::_Internal {
+ public:
+  using HasBits = decltype(std::declval<AuthCaptchaRes>()._impl_._has_bits_);
+  static void set_has_captcha(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_address(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_iv(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_aad(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_sign(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_error(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x0000003f) ^ 0x0000003f) != 0;
+  }
+};
 
-AuthCaptchaRes::AuthCaptchaRes()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eAuth_2eproto::scc_info_AuthCaptchaRes.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Auth.AuthCaptchaRes)
+AuthCaptchaRes::AuthCaptchaRes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Auth.AuthCaptchaRes)
 }
 AuthCaptchaRes::AuthCaptchaRes(const AuthCaptchaRes& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  captcha_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_captcha()) {
-    captcha_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.captcha_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AuthCaptchaRes* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.captcha_){}
+    , decltype(_impl_.address_){}
+    , decltype(_impl_.iv_){}
+    , decltype(_impl_.aad_){}
+    , decltype(_impl_.sign_){}
+    , decltype(_impl_.error_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.captcha_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.captcha_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_captcha()) {
+    _this->_impl_.captcha_.Set(from._internal_captcha(), 
+      _this->GetArenaForAllocation());
   }
-  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_address()) {
-    address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
+  _impl_.address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.address_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_address()) {
+    _this->_impl_.address_.Set(from._internal_address(), 
+      _this->GetArenaForAllocation());
   }
-  iv_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_iv()) {
-    iv_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.iv_);
+  _impl_.iv_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.iv_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_iv()) {
+    _this->_impl_.iv_.Set(from._internal_iv(), 
+      _this->GetArenaForAllocation());
   }
-  aad_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_aad()) {
-    aad_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.aad_);
+  _impl_.aad_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.aad_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_aad()) {
+    _this->_impl_.aad_.Set(from._internal_aad(), 
+      _this->GetArenaForAllocation());
   }
-  sign_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_sign()) {
-    sign_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sign_);
+  _impl_.sign_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.sign_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_sign()) {
+    _this->_impl_.sign_.Set(from._internal_sign(), 
+      _this->GetArenaForAllocation());
   }
-  error_ = from.error_;
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:PTP.Auth.AuthCaptchaRes)
 }
 
-void AuthCaptchaRes::SharedCtor() {
-  captcha_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  iv_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  aad_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sign_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  error_ = 0;
+inline void AuthCaptchaRes::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.captcha_){}
+    , decltype(_impl_.address_){}
+    , decltype(_impl_.iv_){}
+    , decltype(_impl_.aad_){}
+    , decltype(_impl_.sign_){}
+    , decltype(_impl_.error_){0}
+  };
+  _impl_.captcha_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.captcha_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.address_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.iv_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.iv_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.aad_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.aad_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.sign_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.sign_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 AuthCaptchaRes::~AuthCaptchaRes() {
   // @@protoc_insertion_point(destructor:PTP.Auth.AuthCaptchaRes)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void AuthCaptchaRes::SharedDtor() {
-  captcha_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  iv_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  aad_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sign_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void AuthCaptchaRes::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.captcha_.Destroy();
+  _impl_.address_.Destroy();
+  _impl_.iv_.Destroy();
+  _impl_.aad_.Destroy();
+  _impl_.sign_.Destroy();
 }
 
 void AuthCaptchaRes::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const AuthCaptchaRes& AuthCaptchaRes::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eAuth_2eproto::scc_info_AuthCaptchaRes.base);
-  return *internal_default_instance();
-}
-
 
 void AuthCaptchaRes::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Auth.AuthCaptchaRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 31u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      captcha_.ClearNonDefaultToEmptyNoArena();
+      _impl_.captcha_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      address_.ClearNonDefaultToEmptyNoArena();
+      _impl_.address_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      iv_.ClearNonDefaultToEmptyNoArena();
+      _impl_.iv_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      aad_.ClearNonDefaultToEmptyNoArena();
+      _impl_.aad_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000010u) {
-      sign_.ClearNonDefaultToEmptyNoArena();
+      _impl_.sign_.ClearNonDefaultToEmpty();
     }
   }
-  error_ = 0;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_.error_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool AuthCaptchaRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Auth.AuthCaptchaRes)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* AuthCaptchaRes::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required string captcha = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_captcha()));
-        } else {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_captcha();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required bytes address = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_address()));
-        } else {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_address();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required bytes iv = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_iv()));
-        } else {
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_iv();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required bytes aad = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_aad()));
-        } else {
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_aad();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required bytes sign = 5;
-      case 5: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_sign()));
-        } else {
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_sign();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required .PTP.Common.ERR error = 6;
-      case 6: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(48u /* 48 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::PTP::Common::ERR_IsValid(value)) {
-            set_error(static_cast< ::PTP::Common::ERR >(value));
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::PTP::Common::ERR_IsValid(val))) {
+            _internal_set_error(static_cast<::PTP::Common::ERR>(val));
           } else {
-            unknown_fields_stream.WriteVarint32(48u);
-            unknown_fields_stream.WriteVarint32(
-                static_cast< ::google::protobuf::uint32>(value));
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(6, val, mutable_unknown_fields());
           }
-        } else {
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Auth.AuthCaptchaRes)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Auth.AuthCaptchaRes)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void AuthCaptchaRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Auth.AuthCaptchaRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* AuthCaptchaRes::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Auth.AuthCaptchaRes)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string captcha = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->captcha(), output);
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_captcha(), target);
   }
 
   // required bytes address = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      2, this->address(), output);
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_address(), target);
   }
 
   // required bytes iv = 3;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      3, this->iv(), output);
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_iv(), target);
   }
 
   // required bytes aad = 4;
   if (cached_has_bits & 0x00000008u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      4, this->aad(), output);
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_aad(), target);
   }
 
   // required bytes sign = 5;
   if (cached_has_bits & 0x00000010u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      5, this->sign(), output);
+    target = stream->WriteBytesMaybeAliased(
+        5, this->_internal_sign(), target);
   }
 
   // required .PTP.Common.ERR error = 6;
   if (cached_has_bits & 0x00000020u) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      6, this->error(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      6, this->_internal_error(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Auth.AuthCaptchaRes)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Auth.AuthCaptchaRes)
+  return target;
 }
 
 size_t AuthCaptchaRes::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:PTP.Auth.AuthCaptchaRes)
   size_t total_size = 0;
 
-  if (has_captcha()) {
+  if (_internal_has_captcha()) {
     // required string captcha = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->captcha());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_captcha());
   }
 
-  if (has_address()) {
+  if (_internal_has_address()) {
     // required bytes address = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->address());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_address());
   }
 
-  if (has_iv()) {
+  if (_internal_has_iv()) {
     // required bytes iv = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->iv());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_iv());
   }
 
-  if (has_aad()) {
+  if (_internal_has_aad()) {
     // required bytes aad = 4;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->aad());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_aad());
   }
 
-  if (has_sign()) {
+  if (_internal_has_sign()) {
     // required bytes sign = 5;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->sign());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_sign());
   }
 
-  if (has_error()) {
+  if (_internal_has_error()) {
     // required .PTP.Common.ERR error = 6;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   return total_size;
@@ -622,85 +633,87 @@ size_t AuthCaptchaRes::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Auth.AuthCaptchaRes)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
-  if (((_has_bits_[0] & 0x0000003f) ^ 0x0000003f) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x0000003f) ^ 0x0000003f) == 0) {  // All required fields are present.
     // required string captcha = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->captcha());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_captcha());
 
     // required bytes address = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->address());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_address());
 
     // required bytes iv = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->iv());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_iv());
 
     // required bytes aad = 4;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->aad());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_aad());
 
     // required bytes sign = 5;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->sign());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_sign());
 
     // required .PTP.Common.ERR error = 6;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AuthCaptchaRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const AuthCaptchaRes*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthCaptchaRes*>(
+      &from));
 }
 
 void AuthCaptchaRes::MergeFrom(const AuthCaptchaRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthCaptchaRes)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  AuthCaptchaRes* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthCaptchaRes)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 63u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_captcha();
-      captcha_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.captcha_);
+      _this->_internal_set_captcha(from._internal_captcha());
     }
     if (cached_has_bits & 0x00000002u) {
-      set_has_address();
-      address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
+      _this->_internal_set_address(from._internal_address());
     }
     if (cached_has_bits & 0x00000004u) {
-      set_has_iv();
-      iv_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.iv_);
+      _this->_internal_set_iv(from._internal_iv());
     }
     if (cached_has_bits & 0x00000008u) {
-      set_has_aad();
-      aad_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.aad_);
+      _this->_internal_set_aad(from._internal_aad());
     }
     if (cached_has_bits & 0x00000010u) {
-      set_has_sign();
-      sign_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sign_);
+      _this->_internal_set_sign(from._internal_sign());
     }
     if (cached_has_bits & 0x00000020u) {
-      error_ = from.error_;
+      _this->_impl_.error_ = from._impl_.error_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AuthCaptchaRes::CopyFrom(const AuthCaptchaRes& from) {
@@ -711,311 +724,357 @@ void AuthCaptchaRes::CopyFrom(const AuthCaptchaRes& from) {
 }
 
 bool AuthCaptchaRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void AuthCaptchaRes::Swap(AuthCaptchaRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void AuthCaptchaRes::InternalSwap(AuthCaptchaRes* other) {
   using std::swap;
-  captcha_.Swap(&other->captcha_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  address_.Swap(&other->address_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  iv_.Swap(&other->iv_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  aad_.Swap(&other->aad_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  sign_.Swap(&other->sign_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(error_, other->error_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.captcha_, lhs_arena,
+      &other->_impl_.captcha_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.address_, lhs_arena,
+      &other->_impl_.address_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.iv_, lhs_arena,
+      &other->_impl_.iv_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.aad_, lhs_arena,
+      &other->_impl_.aad_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.sign_, lhs_arena,
+      &other->_impl_.sign_, rhs_arena
+  );
+  swap(_impl_.error_, other->_impl_.error_);
 }
 
-::std::string AuthCaptchaRes::GetTypeName() const {
+std::string AuthCaptchaRes::GetTypeName() const {
   return "PTP.Auth.AuthCaptchaRes";
 }
 
 
 // ===================================================================
 
-void AuthLoginReq::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int AuthLoginReq::kAddressFieldNumber;
-const int AuthLoginReq::kCaptchaFieldNumber;
-const int AuthLoginReq::kClientTypeFieldNumber;
-const int AuthLoginReq::kClientVersionFieldNumber;
-const int AuthLoginReq::kSignFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class AuthLoginReq::_Internal {
+ public:
+  using HasBits = decltype(std::declval<AuthLoginReq>()._impl_._has_bits_);
+  static void set_has_address(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_captcha(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_client_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_client_version(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_sign(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x0000001b) ^ 0x0000001b) != 0;
+  }
+};
 
-AuthLoginReq::AuthLoginReq()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eAuth_2eproto::scc_info_AuthLoginReq.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Auth.AuthLoginReq)
+AuthLoginReq::AuthLoginReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Auth.AuthLoginReq)
 }
 AuthLoginReq::AuthLoginReq(const AuthLoginReq& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_address()) {
-    address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AuthLoginReq* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.address_){}
+    , decltype(_impl_.captcha_){}
+    , decltype(_impl_.client_version_){}
+    , decltype(_impl_.sign_){}
+    , decltype(_impl_.client_type_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.address_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_address()) {
+    _this->_impl_.address_.Set(from._internal_address(), 
+      _this->GetArenaForAllocation());
   }
-  captcha_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_captcha()) {
-    captcha_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.captcha_);
+  _impl_.captcha_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.captcha_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_captcha()) {
+    _this->_impl_.captcha_.Set(from._internal_captcha(), 
+      _this->GetArenaForAllocation());
   }
-  client_version_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_client_version()) {
-    client_version_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.client_version_);
+  _impl_.client_version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.client_version_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_client_version()) {
+    _this->_impl_.client_version_.Set(from._internal_client_version(), 
+      _this->GetArenaForAllocation());
   }
-  sign_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_sign()) {
-    sign_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sign_);
+  _impl_.sign_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.sign_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_sign()) {
+    _this->_impl_.sign_.Set(from._internal_sign(), 
+      _this->GetArenaForAllocation());
   }
-  client_type_ = from.client_type_;
+  _this->_impl_.client_type_ = from._impl_.client_type_;
   // @@protoc_insertion_point(copy_constructor:PTP.Auth.AuthLoginReq)
 }
 
-void AuthLoginReq::SharedCtor() {
-  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  captcha_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  client_version_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sign_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  client_type_ = 1;
+inline void AuthLoginReq::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.address_){}
+    , decltype(_impl_.captcha_){}
+    , decltype(_impl_.client_version_){}
+    , decltype(_impl_.sign_){}
+    , decltype(_impl_.client_type_){1}
+  };
+  _impl_.address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.address_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.captcha_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.captcha_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.client_version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.client_version_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.sign_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.sign_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 AuthLoginReq::~AuthLoginReq() {
   // @@protoc_insertion_point(destructor:PTP.Auth.AuthLoginReq)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void AuthLoginReq::SharedDtor() {
-  address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  captcha_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  client_version_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sign_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void AuthLoginReq::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.address_.Destroy();
+  _impl_.captcha_.Destroy();
+  _impl_.client_version_.Destroy();
+  _impl_.sign_.Destroy();
 }
 
 void AuthLoginReq::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const AuthLoginReq& AuthLoginReq::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eAuth_2eproto::scc_info_AuthLoginReq.base);
-  return *internal_default_instance();
-}
-
 
 void AuthLoginReq::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Auth.AuthLoginReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 31u) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      address_.ClearNonDefaultToEmptyNoArena();
+      _impl_.address_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      captcha_.ClearNonDefaultToEmptyNoArena();
+      _impl_.captcha_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      client_version_.ClearNonDefaultToEmptyNoArena();
+      _impl_.client_version_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      sign_.ClearNonDefaultToEmptyNoArena();
+      _impl_.sign_.ClearNonDefaultToEmpty();
     }
-    client_type_ = 1;
+    _impl_.client_type_ = 1;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool AuthLoginReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Auth.AuthLoginReq)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* AuthLoginReq::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required string address = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_address()));
-        } else {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_address();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required string captcha = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_captcha()));
-        } else {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_captcha();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required .PTP.Common.ClientType client_type = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::PTP::Common::ClientType_IsValid(value)) {
-            set_client_type(static_cast< ::PTP::Common::ClientType >(value));
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::PTP::Common::ClientType_IsValid(val))) {
+            _internal_set_client_type(static_cast<::PTP::Common::ClientType>(val));
           } else {
-            unknown_fields_stream.WriteVarint32(24u);
-            unknown_fields_stream.WriteVarint32(
-                static_cast< ::google::protobuf::uint32>(value));
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
           }
-        } else {
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional string client_version = 5;
-      case 5: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_client_version()));
-        } else {
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_client_version();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required bytes sign = 6;
-      case 6: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(50u /* 50 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_sign()));
-        } else {
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          auto str = _internal_mutable_sign();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Auth.AuthLoginReq)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Auth.AuthLoginReq)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void AuthLoginReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Auth.AuthLoginReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* AuthLoginReq::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Auth.AuthLoginReq)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string address = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->address(), output);
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_address(), target);
   }
 
   // required string captcha = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->captcha(), output);
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_captcha(), target);
   }
 
   // required .PTP.Common.ClientType client_type = 3;
   if (cached_has_bits & 0x00000010u) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      3, this->client_type(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_client_type(), target);
   }
 
   // optional string client_version = 5;
   if (cached_has_bits & 0x00000004u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->client_version(), output);
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_client_version(), target);
   }
 
   // required bytes sign = 6;
   if (cached_has_bits & 0x00000008u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      6, this->sign(), output);
+    target = stream->WriteBytesMaybeAliased(
+        6, this->_internal_sign(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Auth.AuthLoginReq)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Auth.AuthLoginReq)
+  return target;
 }
 
 size_t AuthLoginReq::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:PTP.Auth.AuthLoginReq)
   size_t total_size = 0;
 
-  if (has_address()) {
+  if (_internal_has_address()) {
     // required string address = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->address());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_address());
   }
 
-  if (has_captcha()) {
+  if (_internal_has_captcha()) {
     // required string captcha = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->captcha());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_captcha());
   }
 
-  if (has_sign()) {
+  if (_internal_has_sign()) {
     // required bytes sign = 6;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->sign());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_sign());
   }
 
-  if (has_client_type()) {
+  if (_internal_has_client_type()) {
     // required .PTP.Common.ClientType client_type = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->client_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_client_type());
   }
 
   return total_size;
@@ -1024,78 +1083,82 @@ size_t AuthLoginReq::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Auth.AuthLoginReq)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
-  if (((_has_bits_[0] & 0x0000001b) ^ 0x0000001b) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x0000001b) ^ 0x0000001b) == 0) {  // All required fields are present.
     // required string address = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->address());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_address());
 
     // required string captcha = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->captcha());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_captcha());
 
     // required bytes sign = 6;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->sign());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_sign());
 
     // required .PTP.Common.ClientType client_type = 3;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->client_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_client_type());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   // optional string client_version = 5;
-  if (has_client_version()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000004u) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->client_version());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_client_version());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AuthLoginReq::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const AuthLoginReq*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthLoginReq*>(
+      &from));
 }
 
 void AuthLoginReq::MergeFrom(const AuthLoginReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthLoginReq)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  AuthLoginReq* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthLoginReq)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 31u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_address();
-      address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
+      _this->_internal_set_address(from._internal_address());
     }
     if (cached_has_bits & 0x00000002u) {
-      set_has_captcha();
-      captcha_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.captcha_);
+      _this->_internal_set_captcha(from._internal_captcha());
     }
     if (cached_has_bits & 0x00000004u) {
-      set_has_client_version();
-      client_version_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.client_version_);
+      _this->_internal_set_client_version(from._internal_client_version());
     }
     if (cached_has_bits & 0x00000008u) {
-      set_has_sign();
-      sign_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sign_);
+      _this->_internal_set_sign(from._internal_sign());
     }
     if (cached_has_bits & 0x00000010u) {
-      client_type_ = from.client_type_;
+      _this->_impl_.client_type_ = from._impl_.client_type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AuthLoginReq::CopyFrom(const AuthLoginReq& from) {
@@ -1106,248 +1169,269 @@ void AuthLoginReq::CopyFrom(const AuthLoginReq& from) {
 }
 
 bool AuthLoginReq::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000001b) != 0x0000001b) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void AuthLoginReq::Swap(AuthLoginReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void AuthLoginReq::InternalSwap(AuthLoginReq* other) {
   using std::swap;
-  address_.Swap(&other->address_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  captcha_.Swap(&other->captcha_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  client_version_.Swap(&other->client_version_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  sign_.Swap(&other->sign_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(client_type_, other->client_type_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.address_, lhs_arena,
+      &other->_impl_.address_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.captcha_, lhs_arena,
+      &other->_impl_.captcha_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.client_version_, lhs_arena,
+      &other->_impl_.client_version_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.sign_, lhs_arena,
+      &other->_impl_.sign_, rhs_arena
+  );
+  swap(_impl_.client_type_, other->_impl_.client_type_);
 }
 
-::std::string AuthLoginReq::GetTypeName() const {
+std::string AuthLoginReq::GetTypeName() const {
   return "PTP.Auth.AuthLoginReq";
 }
 
 
 // ===================================================================
 
-void AuthLoginRes::InitAsDefaultInstance() {
-  ::PTP::Auth::_AuthLoginRes_default_instance_._instance.get_mutable()->user_info_ = const_cast< ::PTP::Common::UserInfo*>(
-      ::PTP::Common::UserInfo::internal_default_instance());
+class AuthLoginRes::_Internal {
+ public:
+  using HasBits = decltype(std::declval<AuthLoginRes>()._impl_._has_bits_);
+  static void set_has_error(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static const ::PTP::Common::UserInfo& user_info(const AuthLoginRes* msg);
+  static void set_has_user_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000002) ^ 0x00000002) != 0;
+  }
+};
+
+const ::PTP::Common::UserInfo&
+AuthLoginRes::_Internal::user_info(const AuthLoginRes* msg) {
+  return *msg->_impl_.user_info_;
 }
 void AuthLoginRes::clear_user_info() {
-  if (user_info_ != NULL) user_info_->Clear();
-  clear_has_user_info();
+  if (_impl_.user_info_ != nullptr) _impl_.user_info_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int AuthLoginRes::kErrorFieldNumber;
-const int AuthLoginRes::kUserInfoFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-AuthLoginRes::AuthLoginRes()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eAuth_2eproto::scc_info_AuthLoginRes.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Auth.AuthLoginRes)
+AuthLoginRes::AuthLoginRes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Auth.AuthLoginRes)
 }
 AuthLoginRes::AuthLoginRes(const AuthLoginRes& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_user_info()) {
-    user_info_ = new ::PTP::Common::UserInfo(*from.user_info_);
-  } else {
-    user_info_ = NULL;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AuthLoginRes* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.user_info_){nullptr}
+    , decltype(_impl_.error_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_user_info()) {
+    _this->_impl_.user_info_ = new ::PTP::Common::UserInfo(*from._impl_.user_info_);
   }
-  error_ = from.error_;
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:PTP.Auth.AuthLoginRes)
 }
 
-void AuthLoginRes::SharedCtor() {
-  ::memset(&user_info_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&error_) -
-      reinterpret_cast<char*>(&user_info_)) + sizeof(error_));
+inline void AuthLoginRes::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.user_info_){nullptr}
+    , decltype(_impl_.error_){0}
+  };
 }
 
 AuthLoginRes::~AuthLoginRes() {
   // @@protoc_insertion_point(destructor:PTP.Auth.AuthLoginRes)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void AuthLoginRes::SharedDtor() {
-  if (this != internal_default_instance()) delete user_info_;
+inline void AuthLoginRes::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.user_info_;
 }
 
 void AuthLoginRes::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const AuthLoginRes& AuthLoginRes::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eAuth_2eproto::scc_info_AuthLoginRes.base);
-  return *internal_default_instance();
-}
-
 
 void AuthLoginRes::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Auth.AuthLoginRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(user_info_ != NULL);
-    user_info_->Clear();
+    GOOGLE_DCHECK(_impl_.user_info_ != nullptr);
+    _impl_.user_info_->Clear();
   }
-  error_ = 0;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_.error_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool AuthLoginRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Auth.AuthLoginRes)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* AuthLoginRes::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required .PTP.Common.ERR error = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::PTP::Common::ERR_IsValid(value)) {
-            set_error(static_cast< ::PTP::Common::ERR >(value));
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::PTP::Common::ERR_IsValid(val))) {
+            _internal_set_error(static_cast<::PTP::Common::ERR>(val));
           } else {
-            unknown_fields_stream.WriteVarint32(16u);
-            unknown_fields_stream.WriteVarint32(
-                static_cast< ::google::protobuf::uint32>(value));
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
           }
-        } else {
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // optional .PTP.Common.UserInfo user_info = 5;
-      case 5: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_user_info()));
-        } else {
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_user_info(), ptr);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Auth.AuthLoginRes)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Auth.AuthLoginRes)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void AuthLoginRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Auth.AuthLoginRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* AuthLoginRes::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Auth.AuthLoginRes)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required .PTP.Common.ERR error = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->error(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_error(), target);
   }
 
   // optional .PTP.Common.UserInfo user_info = 5;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      5, this->_internal_user_info(), output);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, _Internal::user_info(this),
+        _Internal::user_info(this).GetCachedSize(), target, stream);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Auth.AuthLoginRes)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Auth.AuthLoginRes)
+  return target;
 }
 
 size_t AuthLoginRes::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Auth.AuthLoginRes)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
   // required .PTP.Common.ERR error = 2;
-  if (has_error()) {
+  if (_internal_has_error()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   // optional .PTP.Common.UserInfo user_info = 5;
-  if (has_user_info()) {
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *user_info_);
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.user_info_);
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AuthLoginRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const AuthLoginRes*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthLoginRes*>(
+      &from));
 }
 
 void AuthLoginRes::MergeFrom(const AuthLoginRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthLoginRes)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  AuthLoginRes* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthLoginRes)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 3u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      mutable_user_info()->::PTP::Common::UserInfo::MergeFrom(from.user_info());
+      _this->_internal_mutable_user_info()->::PTP::Common::UserInfo::MergeFrom(
+          from._internal_user_info());
     }
     if (cached_has_bits & 0x00000002u) {
-      error_ = from.error_;
+      _this->_impl_.error_ = from._impl_.error_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AuthLoginRes::CopyFrom(const AuthLoginRes& from) {
@@ -1358,147 +1442,155 @@ void AuthLoginRes::CopyFrom(const AuthLoginRes& from) {
 }
 
 bool AuthLoginRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
-  if (has_user_info()) {
-    if (!this->user_info_->IsInitialized()) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
+  if (_internal_has_user_info()) {
+    if (!_impl_.user_info_->IsInitialized()) return false;
   }
   return true;
 }
 
-void AuthLoginRes::Swap(AuthLoginRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void AuthLoginRes::InternalSwap(AuthLoginRes* other) {
   using std::swap;
-  swap(user_info_, other->user_info_);
-  swap(error_, other->error_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(AuthLoginRes, _impl_.error_)
+      + sizeof(AuthLoginRes::_impl_.error_)
+      - PROTOBUF_FIELD_OFFSET(AuthLoginRes, _impl_.user_info_)>(
+          reinterpret_cast<char*>(&_impl_.user_info_),
+          reinterpret_cast<char*>(&other->_impl_.user_info_));
 }
 
-::std::string AuthLoginRes::GetTypeName() const {
+std::string AuthLoginRes::GetTypeName() const {
   return "PTP.Auth.AuthLoginRes";
 }
 
 
 // ===================================================================
 
-void AuthLogoutReq::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class AuthLogoutReq::_Internal {
+ public:
+};
 
-AuthLogoutReq::AuthLogoutReq()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eAuth_2eproto::scc_info_AuthLogoutReq.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Auth.AuthLogoutReq)
+AuthLogoutReq::AuthLogoutReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Auth.AuthLogoutReq)
 }
 AuthLogoutReq::AuthLogoutReq(const AuthLogoutReq& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AuthLogoutReq* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:PTP.Auth.AuthLogoutReq)
 }
 
-void AuthLogoutReq::SharedCtor() {
+inline void AuthLogoutReq::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 AuthLogoutReq::~AuthLogoutReq() {
   // @@protoc_insertion_point(destructor:PTP.Auth.AuthLogoutReq)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void AuthLogoutReq::SharedDtor() {
+inline void AuthLogoutReq::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void AuthLogoutReq::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const AuthLogoutReq& AuthLogoutReq::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eAuth_2eproto::scc_info_AuthLogoutReq.base);
-  return *internal_default_instance();
-}
-
 
 void AuthLogoutReq::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Auth.AuthLogoutReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool AuthLogoutReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Auth.AuthLogoutReq)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0) {
-      goto success;
+const char* AuthLogoutReq::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-    DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-        input, tag, &unknown_fields_stream));
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Auth.AuthLogoutReq)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Auth.AuthLogoutReq)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void AuthLogoutReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Auth.AuthLogoutReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* AuthLogoutReq::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Auth.AuthLogoutReq)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Auth.AuthLogoutReq)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Auth.AuthLogoutReq)
+  return target;
 }
 
 size_t AuthLogoutReq::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Auth.AuthLogoutReq)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AuthLogoutReq::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const AuthLogoutReq*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthLogoutReq*>(
+      &from));
 }
 
 void AuthLogoutReq::MergeFrom(const AuthLogoutReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthLogoutReq)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  AuthLogoutReq* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthLogoutReq)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AuthLogoutReq::CopyFrom(const AuthLogoutReq& from) {
@@ -1512,183 +1604,191 @@ bool AuthLogoutReq::IsInitialized() const {
   return true;
 }
 
-void AuthLogoutReq::Swap(AuthLogoutReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void AuthLogoutReq::InternalSwap(AuthLogoutReq* other) {
   using std::swap;
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
 }
 
-::std::string AuthLogoutReq::GetTypeName() const {
+std::string AuthLogoutReq::GetTypeName() const {
   return "PTP.Auth.AuthLogoutReq";
 }
 
 
 // ===================================================================
 
-void AuthLogoutRes::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int AuthLogoutRes::kErrorFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class AuthLogoutRes::_Internal {
+ public:
+  using HasBits = decltype(std::declval<AuthLogoutRes>()._impl_._has_bits_);
+  static void set_has_error(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
+  }
+};
 
-AuthLogoutRes::AuthLogoutRes()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eAuth_2eproto::scc_info_AuthLogoutRes.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Auth.AuthLogoutRes)
+AuthLogoutRes::AuthLogoutRes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Auth.AuthLogoutRes)
 }
 AuthLogoutRes::AuthLogoutRes(const AuthLogoutRes& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  error_ = from.error_;
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AuthLogoutRes* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:PTP.Auth.AuthLogoutRes)
 }
 
-void AuthLogoutRes::SharedCtor() {
-  error_ = 0;
+inline void AuthLogoutRes::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_){0}
+  };
 }
 
 AuthLogoutRes::~AuthLogoutRes() {
   // @@protoc_insertion_point(destructor:PTP.Auth.AuthLogoutRes)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void AuthLogoutRes::SharedDtor() {
+inline void AuthLogoutRes::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void AuthLogoutRes::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const AuthLogoutRes& AuthLogoutRes::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eAuth_2eproto::scc_info_AuthLogoutRes.base);
-  return *internal_default_instance();
-}
-
 
 void AuthLogoutRes::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Auth.AuthLogoutRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  error_ = 0;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_.error_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool AuthLogoutRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Auth.AuthLogoutRes)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* AuthLogoutRes::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required .PTP.Common.ERR error = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::PTP::Common::ERR_IsValid(value)) {
-            set_error(static_cast< ::PTP::Common::ERR >(value));
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::PTP::Common::ERR_IsValid(val))) {
+            _internal_set_error(static_cast<::PTP::Common::ERR>(val));
           } else {
-            unknown_fields_stream.WriteVarint32(24u);
-            unknown_fields_stream.WriteVarint32(
-                static_cast< ::google::protobuf::uint32>(value));
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
           }
-        } else {
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Auth.AuthLogoutRes)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Auth.AuthLogoutRes)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void AuthLogoutRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Auth.AuthLogoutRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* AuthLogoutRes::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Auth.AuthLogoutRes)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required .PTP.Common.ERR error = 3;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      3, this->error(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_error(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Auth.AuthLogoutRes)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Auth.AuthLogoutRes)
+  return target;
 }
 
 size_t AuthLogoutRes::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Auth.AuthLogoutRes)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
   // required .PTP.Common.ERR error = 3;
-  if (has_error()) {
+  if (_internal_has_error()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AuthLogoutRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const AuthLogoutRes*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthLogoutRes*>(
+      &from));
 }
 
 void AuthLogoutRes::MergeFrom(const AuthLogoutRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthLogoutRes)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  AuthLogoutRes* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Auth.AuthLogoutRes)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_error()) {
-    set_error(from.error());
+  if (from._internal_has_error()) {
+    _this->_internal_set_error(from._internal_error());
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AuthLogoutRes::CopyFrom(const AuthLogoutRes& from) {
@@ -1699,22 +1799,18 @@ void AuthLogoutRes::CopyFrom(const AuthLogoutRes& from) {
 }
 
 bool AuthLogoutRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void AuthLogoutRes::Swap(AuthLogoutRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void AuthLogoutRes::InternalSwap(AuthLogoutRes* other) {
   using std::swap;
-  swap(error_, other->error_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.error_, other->_impl_.error_);
 }
 
-::std::string AuthLogoutRes::GetTypeName() const {
+std::string AuthLogoutRes::GetTypeName() const {
   return "PTP.Auth.AuthLogoutRes";
 }
 
@@ -1722,27 +1818,32 @@ void AuthLogoutRes::InternalSwap(AuthLogoutRes* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Auth
 }  // namespace PTP
-namespace google {
-namespace protobuf {
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Auth::AuthCaptchaReq* Arena::CreateMaybeMessage< ::PTP::Auth::AuthCaptchaReq >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Auth::AuthCaptchaReq >(arena);
+PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::PTP::Auth::AuthCaptchaReq*
+Arena::CreateMaybeMessage< ::PTP::Auth::AuthCaptchaReq >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Auth::AuthCaptchaReq >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Auth::AuthCaptchaRes* Arena::CreateMaybeMessage< ::PTP::Auth::AuthCaptchaRes >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Auth::AuthCaptchaRes >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Auth::AuthCaptchaRes*
+Arena::CreateMaybeMessage< ::PTP::Auth::AuthCaptchaRes >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Auth::AuthCaptchaRes >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Auth::AuthLoginReq* Arena::CreateMaybeMessage< ::PTP::Auth::AuthLoginReq >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Auth::AuthLoginReq >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Auth::AuthLoginReq*
+Arena::CreateMaybeMessage< ::PTP::Auth::AuthLoginReq >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Auth::AuthLoginReq >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Auth::AuthLoginRes* Arena::CreateMaybeMessage< ::PTP::Auth::AuthLoginRes >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Auth::AuthLoginRes >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Auth::AuthLoginRes*
+Arena::CreateMaybeMessage< ::PTP::Auth::AuthLoginRes >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Auth::AuthLoginRes >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Auth::AuthLogoutReq* Arena::CreateMaybeMessage< ::PTP::Auth::AuthLogoutReq >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Auth::AuthLogoutReq >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Auth::AuthLogoutReq*
+Arena::CreateMaybeMessage< ::PTP::Auth::AuthLogoutReq >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Auth::AuthLogoutReq >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Auth::AuthLogoutRes* Arena::CreateMaybeMessage< ::PTP::Auth::AuthLogoutRes >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Auth::AuthLogoutRes >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Auth::AuthLogoutRes*
+Arena::CreateMaybeMessage< ::PTP::Auth::AuthLogoutRes >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Auth::AuthLogoutRes >(arena);
 }
-}  // namespace protobuf
-}  // namespace google
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
+#include <google/protobuf/port_undef.inc>

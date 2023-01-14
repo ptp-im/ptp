@@ -67,10 +67,8 @@ echo "=================================================="
 
 get_cur_dir
 
-rm -rf $BUILD_DIR/log4cxx $BUILD_DIR/$LOG4CXX
-mkdir -p $BUILD_DIR/log4cxx $SRC_DIR/../../include $SRC_DIR/../../build/lib
+rm -rf $BUILD_DIR/$LOG4CXX
 tar -xf $SRC_DIR/$LOG4CXX.tar.gz -C $BUILD_DIR
-
 cd $BUILD_DIR/$LOG4CXX
 
 if [ $SYSTEM ==  "mac" ];then
@@ -91,13 +89,7 @@ cp $SRC_DIR/log4cxx-fix/console.cpp               ./src/examples/cpp/
 make
 make install
 
-if [ $SYSTEM ==  "mac" ];then
-  cp -fa /usr/local/lib/liblog4cxx.10.dylib $SRC_DIR/../libs/mac/
-else
-  cp -fa /usr/local/lib/liblog4cxx.so.10.0.0 $SRC_DIR/../libs/linux/liblog4cxx.so
-fi
-
-#rm -rf $BUILD_DIR
+rm -rf $BUILD_DIR
 
 if [ $? -eq 0 ]; then
   echo "==================================================="

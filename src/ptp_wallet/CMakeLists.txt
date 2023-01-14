@@ -4,7 +4,6 @@ if(ANDROID)
     SET(LIBRARY_OUTPUT_PATH  ../../lib)
     LINK_DIRECTORIES(../../lib)
 elseif()
-    SET(LIBRARY_OUTPUT_PATH ../../build/lib)
     LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
 endif()
 

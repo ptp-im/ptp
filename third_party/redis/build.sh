@@ -68,14 +68,12 @@ echo "start installing the development library [redis]"
 echo "=================================================="
 cd $CUR_DIR
 rm -rf build
-mkdir -p build $PTP_DIR/build/lib $PTP_DIR/include/redis
+mkdir -p build
 unzip $CUR_DIR/$HIREDIS.zip -d build
 cd build/$HIREDIS
 make
-
-cp -a libhiredis.a $PTP_DIR/build/lib
-cp -a hiredis.h async.h read.h sds.h adapters $PTP_DIR/include/redis
-
+make install
+rm -rf $CUR_DIR/build
 if [ $? -eq 0 ]; then
   echo "==================================================="
   echo "development library installation complete.[redis]"

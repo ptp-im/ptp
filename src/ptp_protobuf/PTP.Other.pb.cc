@@ -5,206 +5,189 @@
 
 #include <algorithm>
 
-#include <google/protobuf/stubs/common.h>
-#include <google/protobuf/stubs/port.h>
 #include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/wire_format_lite_inl.h>
+#include <google/protobuf/extension_set.h>
+#include <google/protobuf/wire_format_lite.h>
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
-// This is a temporary google only hack
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-#include "third_party/protobuf/version.h"
-#endif
 // @@protoc_insertion_point(includes)
+#include <google/protobuf/port_def.inc>
+
+PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
 
 namespace PTP {
 namespace Other {
-class HeartBeatNotifyDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<HeartBeatNotify>
-      _instance;
-} _HeartBeatNotify_default_instance_;
-class CaptchaReqDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<CaptchaReq>
-      _instance;
-} _CaptchaReq_default_instance_;
-class CaptchaResDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<CaptchaRes>
-      _instance;
-} _CaptchaRes_default_instance_;
+PROTOBUF_CONSTEXPR HeartBeatNotify::HeartBeatNotify(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
+struct HeartBeatNotifyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR HeartBeatNotifyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~HeartBeatNotifyDefaultTypeInternal() {}
+  union {
+    HeartBeatNotify _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HeartBeatNotifyDefaultTypeInternal _HeartBeatNotify_default_instance_;
+PROTOBUF_CONSTEXPR CaptchaReq::CaptchaReq(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
+struct CaptchaReqDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CaptchaReqDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CaptchaReqDefaultTypeInternal() {}
+  union {
+    CaptchaReq _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CaptchaReqDefaultTypeInternal _CaptchaReq_default_instance_;
+PROTOBUF_CONSTEXPR CaptchaRes::CaptchaRes(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.captcha_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.error_)*/0} {}
+struct CaptchaResDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CaptchaResDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CaptchaResDefaultTypeInternal() {}
+  union {
+    CaptchaRes _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CaptchaResDefaultTypeInternal _CaptchaRes_default_instance_;
 }  // namespace Other
 }  // namespace PTP
-namespace protobuf_PTP_2eOther_2eproto {
-static void InitDefaultsHeartBeatNotify() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Other::_HeartBeatNotify_default_instance_;
-    new (ptr) ::PTP::Other::HeartBeatNotify();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Other::HeartBeatNotify::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_HeartBeatNotify =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsHeartBeatNotify}, {}};
-
-static void InitDefaultsCaptchaReq() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Other::_CaptchaReq_default_instance_;
-    new (ptr) ::PTP::Other::CaptchaReq();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Other::CaptchaReq::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_CaptchaReq =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsCaptchaReq}, {}};
-
-static void InitDefaultsCaptchaRes() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::PTP::Other::_CaptchaRes_default_instance_;
-    new (ptr) ::PTP::Other::CaptchaRes();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::PTP::Other::CaptchaRes::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_CaptchaRes =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsCaptchaRes}, {}};
-
-void InitDefaults() {
-  ::google::protobuf::internal::InitSCC(&scc_info_HeartBeatNotify.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_CaptchaReq.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_CaptchaRes.base);
-}
-
-}  // namespace protobuf_PTP_2eOther_2eproto
 namespace PTP {
 namespace Other {
 
 // ===================================================================
 
-void HeartBeatNotify::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class HeartBeatNotify::_Internal {
+ public:
+};
 
-HeartBeatNotify::HeartBeatNotify()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eOther_2eproto::scc_info_HeartBeatNotify.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Other.HeartBeatNotify)
+HeartBeatNotify::HeartBeatNotify(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Other.HeartBeatNotify)
 }
 HeartBeatNotify::HeartBeatNotify(const HeartBeatNotify& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  HeartBeatNotify* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:PTP.Other.HeartBeatNotify)
 }
 
-void HeartBeatNotify::SharedCtor() {
+inline void HeartBeatNotify::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 HeartBeatNotify::~HeartBeatNotify() {
   // @@protoc_insertion_point(destructor:PTP.Other.HeartBeatNotify)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void HeartBeatNotify::SharedDtor() {
+inline void HeartBeatNotify::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void HeartBeatNotify::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const HeartBeatNotify& HeartBeatNotify::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eOther_2eproto::scc_info_HeartBeatNotify.base);
-  return *internal_default_instance();
-}
-
 
 void HeartBeatNotify::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Other.HeartBeatNotify)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool HeartBeatNotify::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Other.HeartBeatNotify)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0) {
-      goto success;
+const char* HeartBeatNotify::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-    DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-        input, tag, &unknown_fields_stream));
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Other.HeartBeatNotify)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Other.HeartBeatNotify)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void HeartBeatNotify::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Other.HeartBeatNotify)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* HeartBeatNotify::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Other.HeartBeatNotify)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Other.HeartBeatNotify)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Other.HeartBeatNotify)
+  return target;
 }
 
 size_t HeartBeatNotify::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Other.HeartBeatNotify)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void HeartBeatNotify::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const HeartBeatNotify*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const HeartBeatNotify*>(
+      &from));
 }
 
 void HeartBeatNotify::MergeFrom(const HeartBeatNotify& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Other.HeartBeatNotify)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  HeartBeatNotify* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Other.HeartBeatNotify)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void HeartBeatNotify::CopyFrom(const HeartBeatNotify& from) {
@@ -218,138 +201,141 @@ bool HeartBeatNotify::IsInitialized() const {
   return true;
 }
 
-void HeartBeatNotify::Swap(HeartBeatNotify* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void HeartBeatNotify::InternalSwap(HeartBeatNotify* other) {
   using std::swap;
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
 }
 
-::std::string HeartBeatNotify::GetTypeName() const {
+std::string HeartBeatNotify::GetTypeName() const {
   return "PTP.Other.HeartBeatNotify";
 }
 
 
 // ===================================================================
 
-void CaptchaReq::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class CaptchaReq::_Internal {
+ public:
+};
 
-CaptchaReq::CaptchaReq()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eOther_2eproto::scc_info_CaptchaReq.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Other.CaptchaReq)
+CaptchaReq::CaptchaReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Other.CaptchaReq)
 }
 CaptchaReq::CaptchaReq(const CaptchaReq& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CaptchaReq* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:PTP.Other.CaptchaReq)
 }
 
-void CaptchaReq::SharedCtor() {
+inline void CaptchaReq::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 CaptchaReq::~CaptchaReq() {
   // @@protoc_insertion_point(destructor:PTP.Other.CaptchaReq)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void CaptchaReq::SharedDtor() {
+inline void CaptchaReq::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void CaptchaReq::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const CaptchaReq& CaptchaReq::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eOther_2eproto::scc_info_CaptchaReq.base);
-  return *internal_default_instance();
-}
-
 
 void CaptchaReq::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Other.CaptchaReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool CaptchaReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Other.CaptchaReq)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0) {
-      goto success;
+const char* CaptchaReq::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-    DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-        input, tag, &unknown_fields_stream));
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Other.CaptchaReq)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Other.CaptchaReq)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void CaptchaReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Other.CaptchaReq)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* CaptchaReq::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Other.CaptchaReq)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Other.CaptchaReq)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Other.CaptchaReq)
+  return target;
 }
 
 size_t CaptchaReq::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Other.CaptchaReq)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CaptchaReq::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const CaptchaReq*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CaptchaReq*>(
+      &from));
 }
 
 void CaptchaReq::MergeFrom(const CaptchaReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Other.CaptchaReq)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  CaptchaReq* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Other.CaptchaReq)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CaptchaReq::CopyFrom(const CaptchaReq& from) {
@@ -363,196 +349,205 @@ bool CaptchaReq::IsInitialized() const {
   return true;
 }
 
-void CaptchaReq::Swap(CaptchaReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void CaptchaReq::InternalSwap(CaptchaReq* other) {
   using std::swap;
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
 }
 
-::std::string CaptchaReq::GetTypeName() const {
+std::string CaptchaReq::GetTypeName() const {
   return "PTP.Other.CaptchaReq";
 }
 
 
 // ===================================================================
 
-void CaptchaRes::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int CaptchaRes::kCaptchaFieldNumber;
-const int CaptchaRes::kErrorFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class CaptchaRes::_Internal {
+ public:
+  using HasBits = decltype(std::declval<CaptchaRes>()._impl_._has_bits_);
+  static void set_has_captcha(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_error(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000003) ^ 0x00000003) != 0;
+  }
+};
 
-CaptchaRes::CaptchaRes()
-  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_PTP_2eOther_2eproto::scc_info_CaptchaRes.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:PTP.Other.CaptchaRes)
+CaptchaRes::CaptchaRes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:PTP.Other.CaptchaRes)
 }
 CaptchaRes::CaptchaRes(const CaptchaRes& from)
-  : ::google::protobuf::MessageLite(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  captcha_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_captcha()) {
-    captcha_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.captcha_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CaptchaRes* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.captcha_){}
+    , decltype(_impl_.error_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.captcha_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.captcha_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_captcha()) {
+    _this->_impl_.captcha_.Set(from._internal_captcha(), 
+      _this->GetArenaForAllocation());
   }
-  error_ = from.error_;
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:PTP.Other.CaptchaRes)
 }
 
-void CaptchaRes::SharedCtor() {
-  captcha_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  error_ = 0;
+inline void CaptchaRes::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.captcha_){}
+    , decltype(_impl_.error_){0}
+  };
+  _impl_.captcha_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.captcha_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CaptchaRes::~CaptchaRes() {
   // @@protoc_insertion_point(destructor:PTP.Other.CaptchaRes)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
 }
 
-void CaptchaRes::SharedDtor() {
-  captcha_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void CaptchaRes::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.captcha_.Destroy();
 }
 
 void CaptchaRes::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
-const CaptchaRes& CaptchaRes::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_PTP_2eOther_2eproto::scc_info_CaptchaRes.base);
-  return *internal_default_instance();
-}
-
 
 void CaptchaRes::Clear() {
 // @@protoc_insertion_point(message_clear_start:PTP.Other.CaptchaRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    captcha_.ClearNonDefaultToEmptyNoArena();
+    _impl_.captcha_.ClearNonDefaultToEmpty();
   }
-  error_ = 0;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
+  _impl_.error_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
-bool CaptchaRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
-      &_internal_metadata_);
-  ::google::protobuf::io::StringOutputStream unknown_fields_output(
-      unknown_fields_setter.buffer());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_output, false);
-  // @@protoc_insertion_point(parse_start:PTP.Other.CaptchaRes)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* CaptchaRes::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
       // required string captcha = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_captcha()));
-        } else {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_captcha();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
+        continue;
       // required .PTP.Common.ERR error = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::PTP::Common::ERR_IsValid(value)) {
-            set_error(static_cast< ::PTP::Common::ERR >(value));
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::PTP::Common::ERR_IsValid(val))) {
+            _internal_set_error(static_cast<::PTP::Common::ERR>(val));
           } else {
-            unknown_fields_stream.WriteVarint32(16u);
-            unknown_fields_stream.WriteVarint32(
-                static_cast< ::google::protobuf::uint32>(value));
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
           }
-        } else {
+        } else
           goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:PTP.Other.CaptchaRes)
-  return true;
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:PTP.Other.CaptchaRes)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
 }
 
-void CaptchaRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:PTP.Other.CaptchaRes)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+uint8_t* CaptchaRes::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Other.CaptchaRes)
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string captcha = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->captcha(), output);
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_captcha(), target);
   }
 
   // required .PTP.Common.ERR error = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->error(), output);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_error(), target);
   }
 
-  output->WriteRaw(_internal_metadata_.unknown_fields().data(),
-                   static_cast<int>(_internal_metadata_.unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:PTP.Other.CaptchaRes)
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Other.CaptchaRes)
+  return target;
 }
 
 size_t CaptchaRes::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:PTP.Other.CaptchaRes)
   size_t total_size = 0;
 
-  if (has_captcha()) {
+  if (_internal_has_captcha()) {
     // required string captcha = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->captcha());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_captcha());
   }
 
-  if (has_error()) {
+  if (_internal_has_error()) {
     // required .PTP.Common.ERR error = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   return total_size;
@@ -561,49 +556,55 @@ size_t CaptchaRes::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Other.CaptchaRes)
   size_t total_size = 0;
 
-  total_size += _internal_metadata_.unknown_fields().size();
-
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required string captcha = 1;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->captcha());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_captcha());
 
     // required .PTP.Common.ERR error = 2;
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CaptchaRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const CaptchaRes*>(&from));
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CaptchaRes*>(
+      &from));
 }
 
 void CaptchaRes::MergeFrom(const CaptchaRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:PTP.Other.CaptchaRes)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  CaptchaRes* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Other.CaptchaRes)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 3u) {
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_captcha();
-      captcha_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.captcha_);
+      _this->_internal_set_captcha(from._internal_captcha());
     }
     if (cached_has_bits & 0x00000002u) {
-      error_ = from.error_;
+      _this->_impl_.error_ = from._impl_.error_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CaptchaRes::CopyFrom(const CaptchaRes& from) {
@@ -614,24 +615,24 @@ void CaptchaRes::CopyFrom(const CaptchaRes& from) {
 }
 
 bool CaptchaRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void CaptchaRes::Swap(CaptchaRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void CaptchaRes::InternalSwap(CaptchaRes* other) {
   using std::swap;
-  captcha_.Swap(&other->captcha_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(error_, other->error_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.captcha_, lhs_arena,
+      &other->_impl_.captcha_, rhs_arena
+  );
+  swap(_impl_.error_, other->_impl_.error_);
 }
 
-::std::string CaptchaRes::GetTypeName() const {
+std::string CaptchaRes::GetTypeName() const {
   return "PTP.Other.CaptchaRes";
 }
 
@@ -639,18 +640,20 @@ void CaptchaRes::InternalSwap(CaptchaRes* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Other
 }  // namespace PTP
-namespace google {
-namespace protobuf {
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Other::HeartBeatNotify* Arena::CreateMaybeMessage< ::PTP::Other::HeartBeatNotify >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Other::HeartBeatNotify >(arena);
+PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::PTP::Other::HeartBeatNotify*
+Arena::CreateMaybeMessage< ::PTP::Other::HeartBeatNotify >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Other::HeartBeatNotify >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Other::CaptchaReq* Arena::CreateMaybeMessage< ::PTP::Other::CaptchaReq >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Other::CaptchaReq >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Other::CaptchaReq*
+Arena::CreateMaybeMessage< ::PTP::Other::CaptchaReq >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Other::CaptchaReq >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::PTP::Other::CaptchaRes* Arena::CreateMaybeMessage< ::PTP::Other::CaptchaRes >(Arena* arena) {
-  return Arena::CreateInternal< ::PTP::Other::CaptchaRes >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Other::CaptchaRes*
+Arena::CreateMaybeMessage< ::PTP::Other::CaptchaRes >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Other::CaptchaRes >(arena);
 }
-}  // namespace protobuf
-}  // namespace google
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
+#include <google/protobuf/port_undef.inc>

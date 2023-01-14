@@ -3,7 +3,7 @@ FROM ubuntu:latest
 COPY ./build/include  /usr/local/include
 COPY ./build/bin  /usr/local/bin
 COPY ./build/lib  /usr/local/lib
-COPY ./build/lib-gnu   /usr/lib/x86_64-linux-gnu/
+#COPY ./build/lib-gnu   /usr/lib/x86_64-linux-gnu/
 
 # cp -a ../../include/ ./build/include
 # cp -a ../../third_party/libs/linux/ ./build/lib

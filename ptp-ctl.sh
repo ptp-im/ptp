@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 CUR_DIR=
 PTP_DIR=
-VERSION=$2
 OS=`uname -s`
 if [ $OS" " ==  "Darwin"" " ];then
   SYSTEM="mac"
@@ -68,7 +67,7 @@ function run_tests() {
   run_cmake
   cd $PTP_DIR/src/tests
   make
-  cd $PTP_DIR/build/bin
+  cd /usr/local/bin
   tests=$(ls *.run | tr " " "\n")
   for test in $tests
   do
@@ -81,7 +80,7 @@ function run_tests() {
 function run_test() {
   testName=$2
   if [ "$2" == "" ]; then
-      cd $PTP_DIR/build/bin
+      cd /usr/local/bin
       tests=$(ls *.run | tr " " "\n")
       for test in $tests
       do
@@ -90,7 +89,7 @@ function run_test() {
       cd $PTP_DIR
   else
     echo "run $testName"
-    cd $PTP_DIR/build/bin/
+    cd /usr/local/bin/
     ./$testName
   fi
 }
@@ -115,7 +114,7 @@ function build_app() {
       cd $PTP_DIR/src/$app
       make
       if [ -e main.cpp  ]; then
-        cd $PTP_DIR/build/bin
+        cd /usr/local/bin
         ./$app
       fi
   fi
@@ -137,7 +136,7 @@ function build_test() {
       run_cmake
       cd $PTP_DIR/tests/$testName
       make
-      cd $PTP_DIR/build/bin/
+      cd /usr/local/bin/
       ./$testName.run
   fi
 }
@@ -178,6 +177,8 @@ function clean_ptp() {
       rm -rf build
       cd $CUR_DIR/third_party/log4cxx
       rm -rf build
+      cd $CUR_DIR/third_party/secp256k1
+      rm -rf build
       cd $CUR_DIR
       rm -rf build
 }
@@ -192,6 +193,7 @@ function print_usage() {
   		echo "  $0 build_docker"
   		echo "  $0 run_docker"
   		echo "  $0 clean_tests"
+  		echo "  $0 copy_to_build"
   		echo "  $0 clean_ptp"
   		echo "  $0 cmake"
   		echo "  $0 run_redis_dev_server"
@@ -204,16 +206,52 @@ function print_usage() {
   		echo "  $0 build"
   		echo "  $0 run"
 }
+
+function copy_to_lib() {
+		if [ $SYSTEM"" ==  "linux" ];then
+      sudo cp "$CUR_DIR"/third_party/libs/linux/* /usr/local/lib
+      sudo cp "$CUR_DIR"/third_party/libs/x86_64-linux-gnu/* /usr/lib/x86_64-linux-gnu
+    fi
+}
+
 function run_cmake() {
 		cd $PTP_DIR
 		echo run_cmake ...
-		if [ $SYSTEM"" ==  "linux" ];then
-		  echo "sudo cp $CUR_DIR/third_party/libs/linux/* /usr/local/lib"
-      sudo cp $CUR_DIR/third_party/libs/linux/* /usr/local/lib
-    fi
+		copy_to_lib
 		cmake .
 }
+function copy_to_build() {
+		if [ $SYSTEM"" ==  "linux" ];then
+		  cp -a /usr/local/bin/daeml $PTP_DIR/build/bin
+		  cp -a /usr/local/bin/ptp_server* $PTP_DIR/build/bin
 
+		  cp -a /usr/local/lib/ptp/libslog.a $PTP_DIR/build/lib
+		  cp -a /usr/local/lib/ptp/libptp_* $PTP_DIR/build/lib
+
+		  mkdir -p $PTP_DIR/build/lib/ptp /usr/local/lib/ptp
+		  cp -a /usr/local/lib/ptp/* $PTP_DIR/build/lib/ptp
+
+		  mkdir -p $PTP_DIR/build/x86_64-linux-gnu
+		  cd /usr/lib/x86_64-linux-gnu
+
+		  cp libcurl.so $PTP_DIR/build/x86_64-linux-gnu
+		  cp libcurl.so.4 $PTP_DIR/build/x86_64-linux-gnu
+		  cp libcurl.so.4.6.0 $PTP_DIR/build/x86_64-linux-gnu
+
+		  cp libcrypto.so $PTP_DIR/build/x86_64-linux-gnu
+		  cp libcrypto.so.1.1 $PTP_DIR/build/x86_64-linux-gnu
+
+		  cp libapr-1.so.0 $PTP_DIR/build/x86_64-linux-gnu
+		  cp libapr-1.so.0.6.5 $PTP_DIR/build/x86_64-linux-gnu
+
+		  cp libaprutil-1.so.0 $PTP_DIR/build/x86_64-linux-gnu
+		  cp libaprutil-1.so.0.6.1 $PTP_DIR/build/x86_64-linux-gnu
+    fi
+}
+function run_docker() {
+    mkdir -p "$PTP_DIR"/docker/prod/build
+    docker run -v "$PTP_DIR"/docker/prod/build:/workspaces/ptp/build -it ptp-cpp:latest bash
+}
 case $1 in
 	build)
 		# shellcheck disable=SC2068
@@ -254,17 +292,17 @@ case $1 in
 		./ptp-server.sh run
   ;;
 	clean_tests)
-		rm -rf $PTP_DIR/build/bin/*.run
-		rm -rf $PTP_DIR/build/bin/*.log
-		rm -rf $PTP_DIR/build/bin/log4cxx.properties
+		rm -rf /usr/local/bin/*.run
+		rm -rf /usr/local/bin/*.log
+		rm -rf /usr/local/bin/log4cxx.properties
   ;;
 	build_tools)
 		build tools
   ;;
 	init_dev)
     if [ $SYSTEM"" ==  "linux" ];then
-      sudo cp $CUR_DIR/third_party/libs/linux/* /usr/local/lib
-      run_redis_dev_server >> /tmp/init_redis.log
+      copy_to_lib
+      run_redis_dev_server
     fi
   ;;
 	run_redis_dev_server)
@@ -272,11 +310,13 @@ case $1 in
   ;;
 	build_docker)
 		docker build -t ptp-cpp:latest -f Dockerfile ./
-		docker run -v $PTP_DIR/docker/prod/build:/workspaces/ptp/build -it ptp-cpp:latest bash
+		run_docker
   ;;
 	run_docker)
-	  mkdir -p $PTP_DIR/docker/prod/build
-		docker run -v $PTP_DIR/docker/prod/build:/workspaces/ptp/build -it ptp-cpp:latest bash
+	  run_docker
+  ;;
+	copy_to_build)
+	  copy_to_build
   ;;
 	*)
 		print_usage
