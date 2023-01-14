@@ -63,22 +63,12 @@ echo PTP_DIR: $PTP_DIR
 echo SYSTEM: $SYSTEM
 echo "========================================"
 
-function build_app() {
-  APP_NAME=$1
-  APP_PATH=$PTP_DIR/src/$APP_NAME
-  cd $PTP_DIR
-  cmake .
-  cd $APP_PATH
-  make
-  echo " ===>  build $APP_PATH "
-}
-
 function run_tests() {
   cd $PTP_DIR
   cmake .
   cd $PTP_DIR/src/tests
   make
-  cd $PTP_DIR/build/bin/tests
+  cd $PTP_DIR/build/bin
   tests=$(ls *.run | tr " " "\n")
   for test in $tests
   do
@@ -87,25 +77,11 @@ function run_tests() {
   done
 }
 
-function build() {
-  servers_str=$@
-  if [ "$servers_str" == "build" ]; then
-    print_usage
-  fi
-  servers=$(echo $servers_str | tr " " "\n")
-  for server in $servers
-  do
-    if [ "$server" != "build" ]; then
-      name="${server}"
-      build_app $name
-    fi
-  done
-}
 
 function run_test() {
   testName=$2
   if [ "$2" == "" ]; then
-      cd $PTP_DIR/build/bin/tests
+      cd $PTP_DIR/build/bin
       tests=$(ls *.run | tr " " "\n")
       for test in $tests
       do
@@ -114,8 +90,34 @@ function run_test() {
       cd $PTP_DIR
   else
     echo "run $testName"
-    cd $PTP_DIR/build/bin/tests/
+    cd $PTP_DIR/build/bin/
     ./$testName
+  fi
+}
+
+
+function build_app() {
+  app=$2
+  if [ "$2" == "" ]; then
+      cd $PTP_DIR/src/
+      apps=$(ls ./ | tr " " "\n")
+      for app in $apps
+      do
+        if [ -d $CUR_DIR/src/$app ]; then
+           echo $0 "build $app"
+        fi
+      done
+      cd $PTP_DIR
+  else
+    echo "build $app"
+      cd $PTP_DIR
+      cmake .
+      cd $PTP_DIR/src/$app
+      make
+      if [ -e main.cpp  ]; then
+        cd $PTP_DIR/build/bin
+        ./$app
+      fi
   fi
 }
 
@@ -135,7 +137,7 @@ function build_test() {
       cmake .
       cd $PTP_DIR/tests/$testName
       make
-      cd $PTP_DIR/build/bin/tests/
+      cd $PTP_DIR/build/bin/
       ./$testName.run
   fi
 }
@@ -146,18 +148,6 @@ clean_dir() {
   cd $CMAKE_DIR
   rm -rf CMakeCache.txt CMakeFiles CTestTestfile.cmake cmake_install.cmake Testing Makefile cmake-build-debug
   rm -rf build
-}
-
-
-function run_server() {
-  name=$2
-  if [ "$2" == "" ]; then
-      echo "$0 run msg"
-      echo "$0 run business"
-      cd $PTP_DIR
-  else
-    $PTP_DIR/ptp-server.sh run $name
-  fi
 }
 
 function clean_ptp() {
@@ -207,26 +197,19 @@ function print_usage() {
   		echo "  $0 run_redis_dev_server"
   		echo "  $0 init_dev"
   		echo "  $0 build_all"
-  		echo "  $0 build tools"
   		echo "  $0 build_tests"
-  		echo "  $0 run_tests"
-  		echo "  $0 build ptp_protobuf"
-  		echo "  $0 build ptp_crypto"
-  		echo "  $0 build ptp_global"
-  		echo "  $0 build ptp_wallet"
-  		echo "  $0 build ptp_server"
-  		echo "  $0 build ptp_server_msg"
   		echo "  $0 build_test"
+  		echo "  $0 run_tests"
   		echo "  $0 run_test"
+  		echo "  $0 build"
   		echo "  $0 run"
-  		echo "  $0 run msg"
 }
 
 
 case $1 in
 	build)
 		# shellcheck disable=SC2068
-		build $@
+		build_app $@
   ;;
 	clean_ptp)
     clean_ptp
@@ -244,7 +227,9 @@ case $1 in
 		cmake .
   ;;
 	build_tests)
-		build_app tests
+	  cmake .
+	  cd $CUR_DIR/tests
+    make
   ;;
 	build_test)
 		# shellcheck disable=SC2068
@@ -258,11 +243,12 @@ case $1 in
 		run_test $@
   ;;
 	run)
-		# shellcheck disable=SC2068
-		run_server $@
+		./ptp-server.sh run
   ;;
 	clean_tests)
-		rm -rf $PTP_DIR/build/bin/tests
+		rm -rf $PTP_DIR/build/bin/*.run
+		rm -rf $PTP_DIR/build/bin/*.log
+		rm -rf $PTP_DIR/build/bin/log4cxx.properties
   ;;
 	build_tools)
 		build tools

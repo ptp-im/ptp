@@ -9,12 +9,15 @@
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
 #include "slog_api.h"
+#include <cstdarg>
 #include "log4cxx/logger.h"
-#include "log4cxx/basicconfigurator.h"
 #include "log4cxx/propertyconfigurator.h"
 #include "log4cxx/helpers/exception.h"
-#include <cstdarg>
+#include <log4cxx/helpers/properties.h>
+#include <log4cxx/logmanager.h>
+
 using namespace log4cxx;
+using namespace log4cxx::helpers;
 
 #define MAX_LOG_LENGTH   1024 * 10
 
@@ -158,4 +161,43 @@ void CSLog::Fatal(const char *format, ...)
     va_end(args);
     m_log->Fatal(szBuffer);
 }
+
+void slog_set_append(bool enableConsole,bool isDebug,bool enableRollingFileAppender,const std::string &fileName){
+    Properties props;
+    std::string rootLogger;
+    if(isDebug){
+        rootLogger.append("DEBUG, ");
+    }else{
+        rootLogger.append("INFO, ");
+    }
+    if(enableConsole){
+        rootLogger.append("stdout");
+    }
+
+    if(enableRollingFileAppender){
+        rootLogger.append(", default");
+    }
+    props.put(LOG4CXX_STR("log4j.rootLogger"),LOG4CXX_STR(rootLogger));
+    props.put(LOG4CXX_STR("log4j.additivity.org.apache"), LOG4CXX_STR("false"));
+    if(enableConsole){
+        props.put(LOG4CXX_STR("log4j.appender.stdout"), LOG4CXX_STR("org.apache.log4j.ConsoleAppender"));
+        props.put(LOG4CXX_STR("log4j.appender.stdout.layout"), LOG4CXX_STR("org.apache.log4j.PatternLayout"));
+        props.put(LOG4CXX_STR("log4j.appender.stdout.layout.ConversionPattern"), LOG4CXX_STR("%d{HH:mm:ss,SSS} [ %t ] [ %-5p ] - %m%n"));
+    }
+    if(enableRollingFileAppender){
+        std::string Threshold = isDebug ? "DEBUG": "INFO";
+        props.put(LOG4CXX_STR("log4j.appender.default"), LOG4CXX_STR("org.apache.log4j.RollingFileAppender"));
+        props.put(LOG4CXX_STR("log4j.appender.default.File"), LOG4CXX_STR(fileName));
+        props.put(LOG4CXX_STR("log4j.appender.default.MaxFileSize"), LOG4CXX_STR("10MB"));
+        props.put(LOG4CXX_STR("log4j.appender.default.MaxBackupIndex"), LOG4CXX_STR("12"));
+        props.put(LOG4CXX_STR("log4j.appender.default.Append"), LOG4CXX_STR("true"));
+        props.put(LOG4CXX_STR("log4j.appender.default.Threshold"), LOG4CXX_STR(Threshold));
+        props.put(LOG4CXX_STR("log4j.appender.default.layout"), LOG4CXX_STR("org.apache.log4j.PatternLayout"));
+        props.put(LOG4CXX_STR("log4j.appender.default.layout.ConversionPattern"), LOG4CXX_STR("%d [ %-5p ] [ %t ] - %m%n"));
+    }
+    PropertyConfigurator::configure(props);
+
+}
+
+
 #pragma GCC diagnostic pop

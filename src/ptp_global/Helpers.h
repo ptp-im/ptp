@@ -62,9 +62,14 @@ unsigned char fromHex(const unsigned char &x);
 string URLEncode(const string &sIn);
 string URLDecode(const string &sIn);
 //const char* memfind(const char *src_str,size_t src_len, const char *sub_str, size_t sub_len, bool flag = true);
+bool file_exists(const char * name);
+void make_dir(const char * dir);
+void remove_file(const char * name);
 int64_t get_file_size(const char *path);
 void get_file_content(const char *path,char * fileBuf,uint64_t fileSize);
-
+string get_file_name (const string& path);
+string get_dir_path (const string& path);
+void replace_string(string &config,const string &str,const string &replace_str);
 /**
  * @todo
  * @param str

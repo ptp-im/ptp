@@ -280,15 +280,22 @@ void proxy_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void
 
 int run_ptp_server_business(int argc, char* argv[])
 {
-    if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
-        printf("Server Version: DBProxyServer/%s\n", VERSION);
-        printf("Server Build: %s %s\n", __DATE__, __TIME__);
-        return 0;
+    bool isDebug = false;
+    for (int i = 0; i < argc; ++i) {
+        if(strcmp(argv[i], "--debug") == 0){
+            isDebug = true;
+        }else if(strcmp(argv[i], "--debug") == 0){
+
+        }
     }
+    string server_name = "ptp_server_business";
+    slog_set_append(true,isDebug, true,"../log/default.log");
+    DEBUG_I("Server Version: %s: %s",server_name.c_str(), VERSION);
+    DEBUG_I("Server Run At: %s %s", __DATE__, __TIME__);
+    DEBUG_I("%s max files can open: %d ", server_name.c_str(),getdtablesize());
 
     signal(SIGPIPE, SIG_IGN);
-    srand(time(NULL));
-
+    srand(time(nullptr));
     CacheManager::setConfigPath(CONFIG_PATH);
     CacheManager* pCacheManager = CacheManager::getInstance();
     if (!pCacheManager) {
@@ -375,8 +382,8 @@ int run_ptp_server_business(int argc, char* argv[])
     }
 
     DEBUG_I("server start listen on: %s:%d", listen_ip,  listen_port);
-    DEBUG_I("ptp_server_business looping...,pid=%d",getpid());
-    writePid();
+    DEBUG_I("ptp_server_business looping...");
+    writePid(server_name);
     return 0;
 }
 

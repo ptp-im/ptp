@@ -1,4 +1,5 @@
 #include "Helpers.h"
+#include <fstream>
 
 using namespace std;
 
@@ -138,7 +139,7 @@ void replace_mark(string& str, uint32_t new_value, uint32_t& begin_pos)
 }
 
 void writePid(){
-    writePid("server.pid");
+    writePid("server");
 }
 
 void writePid(const string &name)
@@ -151,7 +152,11 @@ void writePid(const string &name)
     curPid = (uint32_t) getpid();
 #endif
 
-    FILE* f = fopen(name.c_str(), "w");
+    string path;
+    path.append("/tmp/");
+    path.append(name);
+    path.append(".pid");
+    FILE* f = fopen(path.c_str(), "w");
     assert(f);
     char szPid[32];
     snprintf(szPid, sizeof(szPid), "%d", curPid);
@@ -220,6 +225,28 @@ string URLDecode(const string &sIn)
     return sOut;
 }
 
+bool file_exists(const char * name) {
+    struct stat buffer{};
+    return (stat (name, &buffer) == 0);
+}
+
+void make_dir(const char * dir) {
+    char tmp[256];
+    char *p = NULL;
+    size_t len;
+
+    snprintf(tmp, sizeof(tmp),"%s",dir);
+    len = strlen(tmp);
+    if (tmp[len - 1] == '/')
+        tmp[len - 1] = 0;
+    for (p = tmp + 1; *p; p++)
+        if (*p == '/') {
+            *p = 0;
+            mkdir(tmp, S_IRWXU);
+            *p = '/';
+        }
+    mkdir(tmp, S_IRWXU);
+}
 
 int64_t get_file_size(const char *path)
 {
@@ -242,13 +269,33 @@ void get_file_content(const char *path,char * fileBuf,uint64_t fileSize){
     }
 }
 
+void remove_file(const char * name){
+    remove(name);
+}
+
+string get_file_name(const string& path)
+{
+    size_t found;
+    found=path.find_last_of("/\\");
+    return path.substr(found+1);
+}
+
+string get_dir_path (const string& path)
+{
+    size_t found;
+    found=path.find_last_of("/\\");
+    return path.substr(0,found);
+}
 void put_file_content(const char *path,char * fileBuf,uint64_t fileSize){
-    int flags = O_RDWR | O_CREAT | O_EXCL;
-    int m_file = open(path, flags);
-    if(m_file){
-        pwrite(m_file, fileBuf, fileSize, 0);
-        close(m_file);
-    }
+    ofstream my_file;
+    my_file.open (path);
+    my_file << fileBuf;
+    my_file.close();
+}
+
+void replace_string(string &str,const string &org_str,const string &replace_str){
+    int index = (int)str.find_first_of(org_str);
+    str.replace(index,org_str.size(),replace_str);
 }
 //
 //const char* memfind(const char *src_str,size_t src_len, const char *sub_str, size_t sub_len, bool flag)

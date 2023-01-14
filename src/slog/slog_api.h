@@ -8,8 +8,8 @@
 
 #ifndef __slog__slog_api__
 #define __slog__slog_api__
-
-#include <stdio.h>
+#include <iostream>
+#include <cstdio>
 
 #define WATCH_DELAY_TIME     10 * 1000
 
@@ -31,6 +31,6 @@ private:
     CSLogObject* m_log;
 };
 
-
+void slog_set_append(bool enableConsole,bool isDebug,bool enableRollingFileAppender,const std::string &fileName);
 
 #endif /* defined(__slog__slog_api__) */

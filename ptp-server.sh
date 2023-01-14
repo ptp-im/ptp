@@ -74,168 +74,145 @@ echo BIN_DIR: $BIN_DIR
 echo SYSTEM: $SYSTEM
 echo "========================================"
 
-function run() {
-    name="ptp_server_$1"
-    if [ -e $BIN_DIR/$name  ]; then
-      echo start... $name
-      cd $BIN_DIR/$name
-      killall $name
-      if [ -e server.pid  ]; then
-          pid=`cat server.pid`
-          echo "kill pid=$pid"
-          kill -9 $pid
-          ./$name
-      else
-          ./$name
-      fi
-      sleep 1
+function run_backend() {
+  app=$2
+  if [ "$app" == "" ]; then
+      cd $BIN_DIR/
+      apps=$(ls ./ | tr " " "\n")
+      for app in $apps
+      do
+        if [[ $app == *"."* ]]; then
+          continue
+        fi
+        if [[ $app == "daeml" ]]; then
+          continue
+        fi
+        echo $0 "run_backend $app"
+      done
+      cd $PTP_DIR
+  else
+    echo start... $app
+    cd $BIN_DIR
+    killall $app
+    if [ -e "/tmp/$app.pid"  ]; then
+        pid=`cat /tmp/$app.pid`
+        echo "kill pid=$pid"
+        kill -9 $pid
+        ./daeml ./$app
     else
-      echo " ===>  $name not exists"
+        ./daeml ./$app
     fi
+  fi
 }
 
-
-function daeml_server() {
-    name="ptp_server_$1"
-    if [ -e $BIN_DIR/$name  ]; then
-      echo start... $name
-      cd $BIN_DIR/$name
-      killall $name
-      if [ -e server.pid  ]; then
-          pid=`cat server.pid`
-          echo "kill pid=$pid"
-          kill -9 $pid
-          ../daeml ./$name
-      else
-          ../daeml ./$name
-      fi
+function run() {
+  app=$2
+  if [ "$app" == "" ]; then
+      cd $BIN_DIR/
+      apps=$(ls ./ | tr " " "\n")
+      for app in $apps
+      do
+        if [[ $app == *"."* ]]; then
+          continue
+        fi
+        if [[ $app == "daeml" ]]; then
+          continue
+        fi
+        echo $0 "run $app"
+      done
+      cd $PTP_DIR
+  else
+    echo start... $app
+    cd $BIN_DIR
+    killall $app
+    if [ -e "/tmp/$app.pid"  ]; then
+        pid=`cat /tmp/$app.pid`
+        echo "kill pid=$pid"
+        kill -9 $pid
+        ./$app
     else
-      echo " ===>  $name not exists"
+        ./$app
     fi
-
+  fi
 }
 
 function stop_server() {
-    name="ptp_server_$1"
-    if [ -e $BIN_DIR/$name  ]; then
-      echo stop... $name
-      cd $BIN_DIR/$name
-      killall $name
-      if [ -e server.pid  ]; then
-          pid=`cat server.pid`
-          echo "kill pid=$pid"
-          kill -9 $pid
-          rm -rf server.pid
+  app=$2
+  if [ "$app" == "" ]; then
+    cd $BIN_DIR/
+    apps=$(ls ./ | tr " " "\n")
+    for app in $apps
+    do
+      if [[ $app == *"."* ]]; then
+        continue
       fi
-    else
-      echo " ===>  $name not exists"
-    fi
-
-}
-
-function look_server() {
-    name="ptp_server_$1"
-    if [ -e $BIN_DIR/$name  ]; then
-      cd $BIN_DIR/$name
-      pid="     "
-      if [ -e server.pid  ]; then
-          pid=`cat server.pid`
-          process_count=`ps aux | grep $name |grep $pid | wc -l`
-      else
-        process_count=`ps aux | grep $name | wc -l`
+      if [[ $app == "daeml" ]]; then
+        continue
       fi
-      echo "pid=$pid, process_cnt=$process_count $name"
-      look_server $1
-    else
-      echo " ===>  $name not exists"
+      echo $0 "stop $app"
+    done
+    cd $PTP_DIR
+  else
+    echo stop... $app
+    cd $BIN_DIR
+    killall $app
+    if [ -e "/tmp/$app.pid"  ]; then
+      pid=`cat /tmp/$app.pid`
+      echo "kill pid=$pid"
+      kill -9 $pid
     fi
-
-}
-function daeml() {
-  servers_str=$@
-  if [ "$servers_str" == "daeml" ]; then
-    servers_str=$apps
   fi
-  servers=$(echo $servers_str | tr " " "\n")
-  for server in $servers
-  do
-      if [ "$server" != "daeml" ]; then
-        daeml_server $server
-      fi
-  done
 }
 
 function look() {
-  servers_str=$@
-  if [ "$servers_str" == "look" ]; then
-    servers_str=$apps
-  fi
-  servers=$(echo $servers_str | tr " " "\n")
-  for server in $servers
-  do
-      if [ "$server" != "look" ]; then
-        name="ptp_server_${server}"
-        if [ -e $BIN_DIR/$name  ]; then
-          cd $BIN_DIR/$name
-          pid="     "
-          if [ -e server.pid  ]; then
-              pid=`cat server.pid`
-              process_count=`ps aux | grep $name |grep $pid | wc -l`
-          else
-            process_count=`ps aux | grep $name | wc -l`
-          fi
-          echo "pid=$pid, process_cnt=$process_count $name"
-        else
-          echo " ===>  $name not exists"
+  app=$2
+  if [ "$app" == "" ]; then
+      cd $BIN_DIR/
+      apps=$(ls ./ | tr " " "\n")
+      for app in $apps
+      do
+        if [[ $app == *"."* ]]; then
+          continue
         fi
-      fi
-  done
-  echo "===================="
-  sleep 2
-  look $@
-}
-
-function stop() {
-  servers_str=$@
-  if [ "$servers_str" == "stop" ]; then
-    servers_str=$apps
+        if [[ $app == "daeml" ]]; then
+          continue
+        fi
+        echo $0 "look $app"
+      done
+      cd $PTP_DIR
+  else
+    cd $BIN_DIR
+    pid="     "
+    if [ -e /tmp/$app.pid  ]; then
+        pid=`cat /tmp/$app.pid`
+        process_count=`ps aux | grep $app |grep $pid | wc -l`
+    else
+      process_count=`ps aux | grep $app | wc -l`
+    fi
+    echo "pid=$pid, process_cnt=$process_count $app"
+    sleep 1
+    look $@
   fi
-  servers=$(echo $servers_str | tr " " "\n")
-  for server in $servers
-  do
-      if [ "$server" != "stop" ]; then
-        stop_server $server
-      fi
-  done
 }
 
 case $1 in
 	run)
-		run $2
+		run $@
   ;;
-	daeml)
-		daeml $@
+	run_backend)
+		run_backend $@
   ;;
 	stop)
-		stop $@
-  ;;
-	log)
-		log $@
+		stop_server $@
   ;;
 	look)
 		look $@
   ;;
-	look_server)
-		look_server $2
-  ;;
-	log_clean)
-		log_clean $@
-  ;;
 	*)
 		echo "Usage: "
-		echo "  $0 run msg"
-		echo "  $0 daeml msg"
-		echo "  $0 stop msg"
-		echo "  $0 look msg"
+		echo "  $0 run"
+		echo "  $0 run_backend"
+		echo "  $0 stop"
+		echo "  $0 look"
 		;;
 esac

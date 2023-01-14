@@ -10,6 +10,7 @@
 #include "BusinessClientConn.h"
 #include "PTP.Auth.pb.h"
 #include "PTP.Other.pb.h"
+#include "slog_api.h"
 
 using namespace PTP::Common;
 
@@ -284,16 +285,25 @@ ImPdu * CMsgSrvConn::ReadTestPdu() {
 
 int run_ptp_server_msg(int argc, char* argv[])
 {
-    string server_name = "ptp_server_msg";
-    if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
-        printf("Server Version: %s: %s\n",server_name.c_str(), VERSION);
-        printf("Server Build: %s %s\n", __DATE__, __TIME__);
-        return 0;
+    bool isDebug = false;
+    for (int i = 0; i < argc; ++i) {
+        if(strcmp(argv[i], "--debug") == 0){
+            isDebug = true;
+        }else if(strcmp(argv[i], "--debug") == 0){
+
+        }
     }
+    string server_name = "ptp_server_msg";
+    slog_set_append(true,isDebug, true,LOG_PATH);
+    DEBUG_I("Server Version: %s: %s",server_name.c_str(), VERSION);
+    DEBUG_I("Server Run At: %s %s", __DATE__, __TIME__);
+    DEBUG_I("%s max files can open: %d ", server_name.c_str(),getdtablesize());
     signal(SIGPIPE, SIG_IGN);
     srand(time(nullptr));
-    DEBUG_I("%s max files can open: %d ", server_name.c_str(),getdtablesize());
-
+    if(!init_server_config()){
+        DEBUG_E("init_server_config failed");
+        return -1;
+    }
     CacheManager::setConfigPath(CONFIG_PATH);
     CacheManager* pCacheManager = CacheManager::getInstance();
     if (!pCacheManager) {
@@ -311,11 +321,9 @@ int run_ptp_server_msg(int argc, char* argv[])
     char* MSG_ENABLE_BUSINESS_ASYNC_str = config_file.GetConfigName("MSG_ENABLE_BUSINESS_ASYNC");
     if (MSG_ENABLE_BUSINESS_ASYNC_str) {
         MSG_ENABLE_BUSINESS_ASYNC = atoi(MSG_ENABLE_BUSINESS_ASYNC_str);
-
         if(MSG_ENABLE_BUSINESS_ASYNC == 1){
             set_enable_business_async(true);
         }
-
     }
     uint16_t msg_listen_port = atoi(msg_listen_port_str);
     int ret = netlib_init();
@@ -356,8 +364,8 @@ int run_ptp_server_msg(int argc, char* argv[])
         }
     }
 
-    DEBUG_I("%s looping...,pid=%d",server_name.c_str(),getpid());
-    writePid();
+    DEBUG_I("%s looping...",server_name.c_str());
+    writePid(server_name);
     return 0;
 }
 

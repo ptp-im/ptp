@@ -10,6 +10,47 @@
 #include "ptp_global/BaseSocket.h"
 #include "ptp_global/SocketClient.h"
 
+TEST(ptp_global, remove_file) {
+    if(file_exists("./file_test.log")){
+        remove_file("./file_test.log");
+        ASSERT_EQ(file_exists("./file_test.log"),false);
+    }else{
+        string content = "ss";
+        put_file_content("./file_test.log",(char *)content.c_str(),2);
+        ASSERT_EQ(file_exists("./file_test.log"),true);
+        remove_file("./file_test.log");
+        ASSERT_EQ(file_exists("./file_test.log"),false);
+    }
+
+}
+
+TEST(ptp_global, mkdir) {
+    if(!file_exists("../_mkdir_test")){
+        make_dir("../_mkdir_test/_mkdir_test");
+        ASSERT_EQ(file_exists("../_mkdir_test/_mkdir_test"),true);
+    }else{
+        make_dir("../_mkdir_test/_mkdir_test/_mkdir_test");
+        ASSERT_EQ(file_exists("../_mkdir_test/_mkdir_test/_mkdir_test"),true);
+    }
+    make_dir("/_mkdir_test/_mkdir_test");
+    ASSERT_EQ(file_exists("/_mkdir_test/_mkdir_test"),false);
+}
+
+TEST(ptp_global, get_file_name) {
+    ASSERT_EQ(get_file_name("/t/tt/test_global.run"),"test_global.run");
+}
+
+TEST(ptp_global, get_dir_path) {
+    ASSERT_EQ(get_dir_path("/t/tt/test_global.run"),"/t/tt");
+}
+
+TEST(ptp_global, file_exists) {
+    ASSERT_EQ(file_exists("test_global.run"),true);
+    ASSERT_EQ(file_exists("."),true);
+    ASSERT_EQ(file_exists("./t"),false);
+    ASSERT_EQ(file_exists("test_global1.run"),false);
+}
+
 TEST(ptp_global, utils) {
     int m_login_time = time(nullptr);
     uint64_t m_login_time1 = time(nullptr);

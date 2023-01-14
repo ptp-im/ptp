@@ -52,9 +52,9 @@ TEST(ptp_wallet, genWords) {
     ASSERT_EQ(mnemonicResult1.raw,words);
 
     auto entropy = ptp_toolbox::data::bytes_to_hex(entropyBytes,16);
-    ASSERT_EQ("9b762a3291903615bbc60e4f98ca7390", entropy);
+    ASSERT_EQ("0x9b762a3291903615bbc60e4f98ca7390", entropy);
 
-    PTPWallet::MnemonicHelper::MnemonicResult mnemonicResult21 = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy, "en");
+    PTPWallet::MnemonicHelper::MnemonicResult mnemonicResult21 = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy.substr(2), "en");
     ASSERT_EQ(words,mnemonicResult21.raw);
     PTPWallet::HDKey hdKey1 = PTPWallet::HDKeyEncoder::makeEthRootKey(mnemonicResult21.raw.data());
     PTPWallet::HDKeyEncoder::makeEthExtendedKey(hdKey1, "m/44'/60'/0'/0/0");

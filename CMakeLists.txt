@@ -3,25 +3,16 @@ cmake_policy(SET CMP0015 NEW)
 if (POLICY CMP0048)
     cmake_policy(SET CMP0048 NEW)
 endif (POLICY CMP0048)
-
 project(ptp-ctl)
-#cmake -DIS_DOCKER=OFF
-option(IS_DOCKER "IS DOCKER" OFF)
-
-MESSAGE( STATUS "IS_DOCKER: " "${IS_DOCKER}" )
 
 MESSAGE( STATUS "PROJECT_NAME: " ${PROJECT_NAME} )
-
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 MESSAGE( STATUS "CMAKE_INSTALL_RPATH: " "${CMAKE_INSTALL_PREFIX}/lib" )
-
 file(MAKE_DIRECTORY ./build/conf)
 file(MAKE_DIRECTORY ./build/bin)
 file(MAKE_DIRECTORY ./build/lib)
+file(MAKE_DIRECTORY ./build/data/msfs)
 file(MAKE_DIRECTORY ./build/log)
-
-file(COPY ./conf/bd_server.conf
-        DESTINATION ./build/conf)
 
 if(APPLE)
     MESSAGE( STATUS "APPLE: ========>>" cmake ... )

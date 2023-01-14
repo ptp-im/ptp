@@ -35,7 +35,7 @@ endif (APPLE)
 
 ADD_DEFINITIONS(-DGTEST_USE_OWN_TR1_TUPLE=1 )
 
-SET(EXECUTABLE_OUTPUT_PATH  ../build/bin/tests)
+SET(EXECUTABLE_OUTPUT_PATH  ../build/bin)
 
 file(COPY ./log4cxx.properties
         DESTINATION ${EXECUTABLE_OUTPUT_PATH})
