@@ -20,7 +20,7 @@
 #include "ptp_global/Condition.h"
 #include "ptp_global/ImPduBase.h"
 #include "ptp_global/global_define.h"
-#include "IM.BaseDefine.pb.h"
+//#include "IM.BaseDefine.pb.h"
 
 class CSyncCenter
 {

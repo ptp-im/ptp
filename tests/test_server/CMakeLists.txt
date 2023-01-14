@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.12)
 set(TEST_NAME test_server)
 MESSAGE( STATUS ===>>> ${TEST_NAME} )
-#SET(EXECUTABLE_OUTPUT_PATH  /usr/local/bin)
+
 
 add_executable(test_server.run test_server.cpp)
 target_link_libraries(test_server.run PRIVATE gtest_main ptp_server ptp_global)

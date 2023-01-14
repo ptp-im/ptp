@@ -1,9 +1,10 @@
 #include "BusinessClientConn.h"
 #include "MsgSrvConn.h"
 #include "HandlerMap.h"
-#include "IM.Other.pb.h"
+#include "PTP.Common.pb.h"
+#include "PTP.Other.pb.h"
 
-using namespace IM::BaseDefine;
+using namespace PTP::Common;
 
 static CHandlerMap* s_handler_map;
 
@@ -163,11 +164,11 @@ void CBusinessClientConn::OnClose()
 void CBusinessClientConn::OnTimer(uint64_t curr_tick)
 {
 	if (curr_tick > m_last_send_tick + SERVER_HEARTBEAT_INTERVAL) {
-        IM::Other::IMHeartBeat msg;
+        PTP::Other::HeartBeatNotify msg;
         ImPdu pdu;
         pdu.SetPBMsg(&msg);
-        pdu.SetServiceId(SID_OTHER);
-        pdu.SetCommandId(CID_OTHER_HEARTBEAT);
+        pdu.SetServiceId(0);
+        pdu.SetCommandId(CID_HeartBeatNotify);
 		SendPdu(&pdu);
 	}
 
@@ -187,12 +188,12 @@ void CBusinessClientConn::HandlePdu(CImPdu* pPdu)
             DEBUG_I("CBusinessClientConn::HandlePdu cid=%d,pid:%d", pPdu->GetCommandId(),getpid());
             pMsgSrvConn->HandleNextResponse((ImPdu *)pPdu);
         }else{
-            if(pPdu->GetCommandId() != CID_OTHER_HEARTBEAT){
+            if(pPdu->GetCommandId() != CID_HeartBeatNotify){
                 DEBUG_E("CBusinessClientConn handler pMsgSrvConn is null for packet type: %d", pPdu->GetCommandId());
             }
         }
     } else {
-        if(pPdu->GetCommandId() != CID_OTHER_HEARTBEAT){
+        if(pPdu->GetCommandId() != CID_HeartBeatNotify){
             DEBUG_E("CBusinessClientConn no handler for packet type: %d", pPdu->GetCommandId());
         }
     }

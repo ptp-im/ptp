@@ -1,8 +1,8 @@
 #include "ImUser.h"
-#include "IM.Login.pb.h"
+//#include "IM.Login.pb.h"
 #include "CachePool.h"
 
-using namespace ::IM::BaseDefine;
+//using namespace ::IM::BaseDefine;
 
 CImUser::CImUser(const string &address_hex) {
     m_address_hex = address_hex;

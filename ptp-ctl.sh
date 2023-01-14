@@ -67,7 +67,7 @@ function run_tests() {
   run_cmake
   cd $PTP_DIR/src/tests
   make
-  cd /usr/local/bin
+  cd  $PTP_DIR/build/bin
   tests=$(ls *.run | tr " " "\n")
   for test in $tests
   do
@@ -80,7 +80,7 @@ function run_tests() {
 function run_test() {
   testName=$2
   if [ "$2" == "" ]; then
-      cd /usr/local/bin
+      cd  $PTP_DIR/build/bin
       tests=$(ls *.run | tr " " "\n")
       for test in $tests
       do
@@ -89,7 +89,7 @@ function run_test() {
       cd $PTP_DIR
   else
     echo "run $testName"
-    cd /usr/local/bin/
+    cd  $PTP_DIR/build/bin/
     ./$testName
   fi
 }
@@ -114,7 +114,7 @@ function build_app() {
       cd $PTP_DIR/src/$app
       make
       if [ -e main.cpp  ]; then
-        cd /usr/local/bin
+        cd  $PTP_DIR/build/bin
         ./$app
       fi
   fi
@@ -136,7 +136,7 @@ function build_test() {
       run_cmake
       cd $PTP_DIR/tests/$testName
       make
-      cd /usr/local/bin/
+      cd  $PTP_DIR/build/bin/
       ./$testName.run
   fi
 }
@@ -222,14 +222,6 @@ function run_cmake() {
 }
 function copy_to_build() {
 		if [ $SYSTEM"" ==  "linux" ];then
-		  cp -a /usr/local/bin/daeml $PTP_DIR/build/bin
-		  cp -a /usr/local/bin/ptp_server* $PTP_DIR/build/bin
-
-		  cp -a /usr/local/lib/ptp/libslog.a $PTP_DIR/build/lib
-		  cp -a /usr/local/lib/ptp/libptp_* $PTP_DIR/build/lib
-
-		  mkdir -p $PTP_DIR/build/lib/ptp /usr/local/lib/ptp
-		  cp -a /usr/local/lib/ptp/* $PTP_DIR/build/lib/ptp
 
 		  mkdir -p $PTP_DIR/build/x86_64-linux-gnu
 		  cd /usr/lib/x86_64-linux-gnu
@@ -292,9 +284,9 @@ case $1 in
 		./ptp-server.sh run
   ;;
 	clean_tests)
-		rm -rf /usr/local/bin/*.run
-		rm -rf /usr/local/bin/*.log
-		rm -rf /usr/local/bin/log4cxx.properties
+		rm -rf  $PTP_DIR/build/bin/*.run
+		rm -rf  $PTP_DIR/build/bin/*.log
+		rm -rf  $PTP_DIR/build/bin/log4cxx.properties
   ;;
 	build_tools)
 		build tools
