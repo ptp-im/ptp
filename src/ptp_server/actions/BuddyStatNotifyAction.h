@@ -12,8 +12,8 @@
 #ifndef __BUDDYSTATNOTIFYACTION_H__
 #define __BUDDYSTATNOTIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_BUDDY {
     void BuddyStatNotifyAction(CRequest* request, CResponse *response);

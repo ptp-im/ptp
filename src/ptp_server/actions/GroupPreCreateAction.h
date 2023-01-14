@@ -12,11 +12,11 @@
 #ifndef __GROUPPRECREATEACTION_H__
 #define __GROUPPRECREATEACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_GROUP {
-    void GroupPreCreateReqAction(CReuest *request, CResponse *response);
+    void GroupPreCreateReqAction(CRequest *request, CResponse *response);
     void GroupPreCreateResAction(CRequest* request, CResponse *response);
 };
 

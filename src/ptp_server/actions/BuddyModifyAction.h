@@ -12,11 +12,11 @@
 #ifndef __BUDDYMODIFYACTION_H__
 #define __BUDDYMODIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_BUDDY {
-    void BuddyModifyReqAction(CReuest *request, CResponse *response);
+    void BuddyModifyReqAction(CRequest *request, CResponse *response);
     void BuddyModifyResAction(CRequest* request, CResponse *response);
 };
 

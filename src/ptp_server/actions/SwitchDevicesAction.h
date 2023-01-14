@@ -12,11 +12,11 @@
 #ifndef __SWITCHDEVICESACTION_H__
 #define __SWITCHDEVICESACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_SWITCH {
-    void SwitchDevicesReqAction(CReuest *request, CResponse *response);
+    void SwitchDevicesReqAction(CRequest *request, CResponse *response);
 };
 
 #endif /*defined(__SWITCHDEVICESACTION_H__) */

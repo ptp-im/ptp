@@ -12,11 +12,11 @@
 #ifndef __MSGACTION_H__
 #define __MSGACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_MSG {
-    void MsgReqAction(CReuest *request, CResponse *response);
+    void MsgReqAction(CRequest *request, CResponse *response);
     void MsgResAction(CRequest* request, CResponse *response);
 };
 

@@ -12,11 +12,11 @@
 #ifndef __GROUPREMOVESESSIONACTION_H__
 #define __GROUPREMOVESESSIONACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_GROUP {
-    void GroupRemoveSessionReqAction(CReuest *request, CResponse *response);
+    void GroupRemoveSessionReqAction(CRequest *request, CResponse *response);
     void GroupRemoveSessionResAction(CRequest* request, CResponse *response);
 };
 

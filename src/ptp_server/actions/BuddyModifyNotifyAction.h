@@ -12,8 +12,8 @@
 #ifndef __BUDDYMODIFYNOTIFYACTION_H__
 #define __BUDDYMODIFYNOTIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_BUDDY {
     void BuddyModifyNotifyAction(CRequest* request, CResponse *response);

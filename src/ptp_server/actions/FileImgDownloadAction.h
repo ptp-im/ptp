@@ -12,11 +12,11 @@
 #ifndef __FILEIMGDOWNLOADACTION_H__
 #define __FILEIMGDOWNLOADACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_FILE {
-    void FileImgDownloadReqAction(CReuest *request, CResponse *response);
+    void FileImgDownloadReqAction(CRequest *request, CResponse *response);
     void FileImgDownloadResAction(CRequest* request, CResponse *response);
 };
 

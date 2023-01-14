@@ -12,8 +12,8 @@
 #ifndef __SWITCHPTPNOTIFYACTION_H__
 #define __SWITCHPTPNOTIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_SWITCH {
     void SwitchPtpNotifyAction(CRequest* request, CResponse *response);

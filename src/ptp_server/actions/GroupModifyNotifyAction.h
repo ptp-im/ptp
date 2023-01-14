@@ -12,8 +12,8 @@
 #ifndef __GROUPMODIFYNOTIFYACTION_H__
 #define __GROUPMODIFYNOTIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_GROUP {
     void GroupModifyNotifyAction(CRequest* request, CResponse *response);

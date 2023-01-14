@@ -12,11 +12,11 @@
 #ifndef __MSGGETMAXIDACTION_H__
 #define __MSGGETMAXIDACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_MSG {
-    void MsgGetMaxIdReqAction(CReuest *request, CResponse *response);
+    void MsgGetMaxIdReqAction(CRequest *request, CResponse *response);
     void MsgGetMaxIdResAction(CRequest* request, CResponse *response);
 };
 

@@ -12,11 +12,11 @@
 #ifndef __CAPTCHAACTION_H__
 #define __CAPTCHAACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_OTHER {
-    void CaptchaReqAction(CReuest *request, CResponse *response);
+    void CaptchaReqAction(CRequest *request, CResponse *response);
 };
 
 #endif /*defined(__CAPTCHAACTION_H__) */

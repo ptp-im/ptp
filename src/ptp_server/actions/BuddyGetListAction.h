@@ -12,11 +12,11 @@
 #ifndef __BUDDYGETLISTACTION_H__
 #define __BUDDYGETLISTACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_BUDDY {
-    void BuddyGetListReqAction(CReuest *request, CResponse *response);
+    void BuddyGetListReqAction(CRequest *request, CResponse *response);
     void BuddyGetListResAction(CRequest* request, CResponse *response);
 };
 

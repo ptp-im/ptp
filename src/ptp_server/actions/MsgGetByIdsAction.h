@@ -12,11 +12,11 @@
 #ifndef __MSGGETBYIDSACTION_H__
 #define __MSGGETBYIDSACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_MSG {
-    void MsgGetByIdsReqAction(CReuest *request, CResponse *response);
+    void MsgGetByIdsReqAction(CRequest *request, CResponse *response);
     void MsgGetByIdsResAction(CRequest* request, CResponse *response);
 };
 

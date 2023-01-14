@@ -12,8 +12,8 @@
 #ifndef __SWITCHDEVICESNOTIFYACTION_H__
 #define __SWITCHDEVICESNOTIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_SWITCH {
     void SwitchDevicesNotifyAction(CRequest* request, CResponse *response);

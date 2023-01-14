@@ -10,7 +10,7 @@
 #include "ptp_net/ClientConn.h"
 
 uint32_t accountId              = 1001;
-#define CONFIG_PATH             "../../conf/bd_server.conf"
+#define CONFIG_PATH             "conf/bd_server.conf"
 
 
 class Delegate : public ConnectiosManagerDelegate {

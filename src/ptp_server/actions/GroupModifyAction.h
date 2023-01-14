@@ -12,11 +12,11 @@
 #ifndef __GROUPMODIFYACTION_H__
 #define __GROUPMODIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_GROUP {
-    void GroupModifyReqAction(CReuest *request, CResponse *response);
+    void GroupModifyReqAction(CRequest *request, CResponse *response);
     void GroupModifyResAction(CRequest* request, CResponse *response);
 };
 

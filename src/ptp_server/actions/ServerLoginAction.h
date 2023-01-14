@@ -12,11 +12,11 @@
 #ifndef __SERVERLOGINACTION_H__
 #define __SERVERLOGINACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_SERVER {
-    void ServerLoginReqAction(CReuest *request, CResponse *response);
+    void ServerLoginReqAction(CRequest *request, CResponse *response);
     void ServerLoginResAction(CRequest* request, CResponse *response);
 };
 

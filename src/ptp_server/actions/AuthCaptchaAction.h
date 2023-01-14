@@ -12,11 +12,11 @@
 #ifndef __AUTHCAPTCHAACTION_H__
 #define __AUTHCAPTCHAACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_AUTH {
-    void AuthCaptchaReqAction(CReuest *request, CResponse *response);
+    void AuthCaptchaReqAction(CRequest *request, CResponse *response);
 };
 
 #endif /*defined(__AUTHCAPTCHAACTION_H__) */

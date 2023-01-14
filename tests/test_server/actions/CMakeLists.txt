@@ -1,0 +1,62 @@
+add_executable(test_Buddy_BuddyGetALL.run test_Buddy_BuddyGetALL.cpp)
+target_link_libraries(test_Buddy_BuddyGetALL.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Buddy_BuddyGetList.run test_Buddy_BuddyGetList.cpp)
+target_link_libraries(test_Buddy_BuddyGetList.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Buddy_BuddyGetStat.run test_Buddy_BuddyGetStat.cpp)
+target_link_libraries(test_Buddy_BuddyGetStat.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Buddy_BuddyImportContacts.run test_Buddy_BuddyImportContacts.cpp)
+target_link_libraries(test_Buddy_BuddyImportContacts.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Buddy_BuddyModify.run test_Buddy_BuddyModify.cpp)
+target_link_libraries(test_Buddy_BuddyModify.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Buddy_BuddyQueryList.run test_Buddy_BuddyQueryList.cpp)
+target_link_libraries(test_Buddy_BuddyQueryList.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_File_FileImgDownload.run test_File_FileImgDownload.cpp)
+target_link_libraries(test_File_FileImgDownload.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_File_FileImgUpload.run test_File_FileImgUpload.cpp)
+target_link_libraries(test_File_FileImgUpload.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Group_GroupChangeMember.run test_Group_GroupChangeMember.cpp)
+target_link_libraries(test_Group_GroupChangeMember.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Group_GroupCreate.run test_Group_GroupCreate.cpp)
+target_link_libraries(test_Group_GroupCreate.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Group_GroupGetList.run test_Group_GroupGetList.cpp)
+target_link_libraries(test_Group_GroupGetList.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Group_GroupGetMembersList.run test_Group_GroupGetMembersList.cpp)
+target_link_libraries(test_Group_GroupGetMembersList.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Group_GroupModify.run test_Group_GroupModify.cpp)
+target_link_libraries(test_Group_GroupModify.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Group_GroupPreCreate.run test_Group_GroupPreCreate.cpp)
+target_link_libraries(test_Group_GroupPreCreate.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Group_GroupRemoveSession.run test_Group_GroupRemoveSession.cpp)
+target_link_libraries(test_Group_GroupRemoveSession.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Group_GroupUnreadMsg.run test_Group_GroupUnreadMsg.cpp)
+target_link_libraries(test_Group_GroupUnreadMsg.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Msg_MsgGetByIds.run test_Msg_MsgGetByIds.cpp)
+target_link_libraries(test_Msg_MsgGetByIds.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Msg_MsgGetMaxId.run test_Msg_MsgGetMaxId.cpp)
+target_link_libraries(test_Msg_MsgGetMaxId.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Msg_MsgReadAck.run test_Msg_MsgReadAck.cpp)
+target_link_libraries(test_Msg_MsgReadAck.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Msg_Msg.run test_Msg_Msg.cpp)
+target_link_libraries(test_Msg_Msg.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)
+
+add_executable(test_Server_ServerLogin.run test_Server_ServerLogin.cpp)
+target_link_libraries(test_Server_ServerLogin.run PRIVATE gtest_main ptp_global ptp_protobuf ptp_server)

@@ -12,8 +12,8 @@
 #ifndef __MSGUNNOTIFYACTION_H__
 #define __MSGUNNOTIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_MSG {
     void MsgUnNotifyAction(CRequest* request, CResponse *response);

@@ -12,8 +12,8 @@
 #ifndef __HEARTBEATNOTIFYACTION_H__
 #define __HEARTBEATNOTIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_OTHER {
     void HeartBeatNotifyAction(CRequest* request, CResponse *response);

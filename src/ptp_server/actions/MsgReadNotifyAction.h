@@ -12,8 +12,8 @@
 #ifndef __MSGREADNOTIFYACTION_H__
 #define __MSGREADNOTIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_MSG {
     void MsgReadNotifyAction(CRequest* request, CResponse *response);

@@ -12,11 +12,11 @@
 #ifndef __BUDDYIMPORTCONTACTSACTION_H__
 #define __BUDDYIMPORTCONTACTSACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_BUDDY {
-    void BuddyImportContactsReqAction(CReuest *request, CResponse *response);
+    void BuddyImportContactsReqAction(CRequest *request, CResponse *response);
     void BuddyImportContactsResAction(CRequest* request, CResponse *response);
 };
 

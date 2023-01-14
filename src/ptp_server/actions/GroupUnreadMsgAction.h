@@ -12,11 +12,11 @@
 #ifndef __GROUPUNREADMSGACTION_H__
 #define __GROUPUNREADMSGACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_GROUP {
-    void GroupUnreadMsgReqAction(CReuest *request, CResponse *response);
+    void GroupUnreadMsgReqAction(CRequest *request, CResponse *response);
     void GroupUnreadMsgResAction(CRequest* request, CResponse *response);
 };
 

@@ -12,11 +12,11 @@
 #ifndef __AUTHLOGOUTACTION_H__
 #define __AUTHLOGOUTACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_AUTH {
-    void AuthLogoutReqAction(CReuest *request, CResponse *response);
+    void AuthLogoutReqAction(CRequest *request, CResponse *response);
 };
 
 #endif /*defined(__AUTHLOGOUTACTION_H__) */

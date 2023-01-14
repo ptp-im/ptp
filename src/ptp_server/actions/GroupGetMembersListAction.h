@@ -12,11 +12,11 @@
 #ifndef __GROUPGETMEMBERSLISTACTION_H__
 #define __GROUPGETMEMBERSLISTACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_GROUP {
-    void GroupGetMembersListReqAction(CReuest *request, CResponse *response);
+    void GroupGetMembersListReqAction(CRequest *request, CResponse *response);
     void GroupGetMembersListResAction(CRequest* request, CResponse *response);
 };
 

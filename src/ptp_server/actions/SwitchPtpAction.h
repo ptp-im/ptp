@@ -12,11 +12,11 @@
 #ifndef __SWITCHPTPACTION_H__
 #define __SWITCHPTPACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_SWITCH {
-    void SwitchPtpReqAction(CReuest *request, CResponse *response);
+    void SwitchPtpReqAction(CRequest *request, CResponse *response);
 };
 
 #endif /*defined(__SWITCHPTPACTION_H__) */

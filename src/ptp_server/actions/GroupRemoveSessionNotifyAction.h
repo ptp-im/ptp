@@ -12,8 +12,8 @@
 #ifndef __GROUPREMOVESESSIONNOTIFYACTION_H__
 #define __GROUPREMOVESESSIONNOTIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_GROUP {
     void GroupRemoveSessionNotifyAction(CRequest* request, CResponse *response);

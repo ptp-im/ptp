@@ -12,11 +12,11 @@
 #ifndef __MSGREADACKACTION_H__
 #define __MSGREADACKACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_MSG {
-    void MsgReadAckReqAction(CReuest *request, CResponse *response);
+    void MsgReadAckReqAction(CRequest *request, CResponse *response);
 };
 
 #endif /*defined(__MSGREADACKACTION_H__) */

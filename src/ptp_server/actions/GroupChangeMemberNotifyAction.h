@@ -12,8 +12,8 @@
 #ifndef __GROUPCHANGEMEMBERNOTIFYACTION_H__
 #define __GROUPCHANGEMEMBERNOTIFYACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_GROUP {
     void GroupChangeMemberNotifyAction(CRequest* request, CResponse *response);

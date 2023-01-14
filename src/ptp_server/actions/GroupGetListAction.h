@@ -12,11 +12,11 @@
 #ifndef __GROUPGETLISTACTION_H__
 #define __GROUPGETLISTACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_GROUP {
-    void GroupGetListReqAction(CReuest *request, CResponse *response);
+    void GroupGetListReqAction(CRequest *request, CResponse *response);
     void GroupGetListResAction(CRequest* request, CResponse *response);
 };
 

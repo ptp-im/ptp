@@ -12,11 +12,11 @@
 #ifndef __FILEIMGUPLOADACTION_H__
 #define __FILEIMGUPLOADACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_FILE {
-    void FileImgUploadReqAction(CReuest *request, CResponse *response);
+    void FileImgUploadReqAction(CRequest *request, CResponse *response);
     void FileImgUploadResAction(CRequest* request, CResponse *response);
 };
 

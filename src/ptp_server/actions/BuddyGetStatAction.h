@@ -12,11 +12,11 @@
 #ifndef __BUDDYGETSTATACTION_H__
 #define __BUDDYGETSTATACTION_H__
 
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 namespace ACTION_BUDDY {
-    void BuddyGetStatReqAction(CReuest *request, CResponse *response);
+    void BuddyGetStatReqAction(CRequest *request, CResponse *response);
     void BuddyGetStatResAction(CRequest* request, CResponse *response);
 };
 
