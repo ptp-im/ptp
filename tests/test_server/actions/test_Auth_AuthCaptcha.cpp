@@ -1,9 +1,13 @@
 #include <gtest/gtest.h>
 
 #include "test_init.h"
+#include "ptp_server/actions/AuthCaptchaAction.h"
+#include "PTP.Auth.pb.h"
+#include "ptp_global/Helpers.h"
+
 using namespace PTP::Common;
 
-TEST(test_Server, ServerLoginAction) {
+TEST(test_Auth, AuthCaptchaAction) {
     test_int();
     ASSERT_TRUE(true);
 }

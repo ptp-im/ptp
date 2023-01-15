@@ -25,14 +25,7 @@ namespace ACTION_AUTH {
               DEBUG_E("not found pMsgConn");
               return;
           }
-        }
-        while (true){
-            if(!msg.ParseFromArray(request->GetPdu()->GetBodyData(), (int)request->GetPdu()->GetBodyLength()))
-            {
-                error = E_PB_PARSE_ERROR;
-                break;
-            }
-            break;
+            pMsgConn->Close();
         }
         
     }

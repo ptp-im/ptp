@@ -1,44 +1,42 @@
 #include <gtest/gtest.h>
 
-#include "ptp_global/Logger.h"
-#include "ptp_protobuf/ImPdu.h"
-#include "ptp_server/MsgSrvConn.h"
-#include "ptp_server/CachePool.h"
+#include "test_init.h"
 #include "ptp_server/actions/BuddyGetStatAction.h"
 #include "PTP.Buddy.pb.h"
-#include "PTP.Common.pb.h"
-
-uint32_t accountId              = 1001;
-#define CONFIG_PATH             "conf/bd_server.conf"
 
 using namespace PTP::Common;
 
 TEST(test_Buddy, BuddyGetStatAction) {
-    PTP::Buddy::BuddyGetStatReq msg;
-    //msg.set_user_ids();
-    //msg.set_auth_uid();
-    CacheManager::setConfigPath(CONFIG_PATH);
-    auto *pMsgSrvConn = new CMsgSrvConn();
-    pMsgSrvConn->SetTest(true);
-    pMsgSrvConn->SetHandle(100112);
-    addMsgSrvConnByHandle(100112,pMsgSrvConn);
+    test_int();
+    PTP::Buddy::BuddyGetStatReq msg_BuddyGetStatReq;
+    //msg_BuddyGetStatReq.set_user_ids();
+    //msg_BuddyGetStatReq.set_attach_data();
+    //msg_BuddyGetStatReq.set_auth_uid();
+    uint16_t sep_no = 101;
     ImPdu pdu;
-    pdu.SetPBMsg(&msg,CID_BuddyGetStatReq,0);
-    pMsgSrvConn->HandlePdu(&pdu);
-    auto pPdu = pMsgSrvConn->ReadTestPdu();
-    ASSERT_EQ(pPdu->GetCommandId(),CID_BuddyGetStatRes);
-    PTP::Buddy::BuddyGetStatRes msg_rsp;
-    auto res = msg_rsp.ParseFromArray(pPdu->GetBodyData(), (int)pPdu->GetBodyLength());
+    pdu.SetPBMsg(&msg_BuddyGetStatReq,CID_BuddyGetStatReq,sep_no);
+    CRequest request_BuddyGetStatReq;
+    CResponse response_BuddyGetStatReq;
+    request_BuddyGetStatReq.SetHandle(time(nullptr));
+    addMsgSrvConnByHandle(request_BuddyGetStatReq.GetHandle(),new CMsgSrvConn());
+    request_BuddyGetStatReq.SetPdu(&pdu);
+    ACTION_BUDDY::BuddyGetStatReqAction(&request_BuddyGetStatReq,&response_BuddyGetStatReq);
+    if(response_BuddyGetStatReq.GetPdu()){
+        ASSERT_EQ(response_BuddyGetStatReq.GetPdu()->GetSeqNum(),sep_no);
+    }
+    
+    ASSERT_EQ(response_BuddyGetStatReq.GetPdu()->GetCommandId(),CID_BuddyGetStatRes);
+    PTP::Buddy::BuddyGetStatRes msg_BuddyGetStatRes;
+    auto res = msg_BuddyGetStatRes.ParseFromArray(response_BuddyGetStatReq.GetPdu()->GetBodyData(), (int)response_BuddyGetStatReq.GetPdu()->GetBodyLength());
     ASSERT_EQ(res,true);
-    //auto error = msg_rsp.error();
-    //DEBUG_I("error: %s",error);
-            
-    //auto user_stat_list = msg_rsp.user_stat_list();
-    //DEBUG_I("user_stat_list: %s",user_stat_list);
-            
-    //auto auth_uid = msg_rsp.auth_uid();
-    //DEBUG_I("auth_uid: %s",auth_uid);
-            
+    auto error = msg_BuddyGetStatRes.error();
+    ASSERT_EQ(error,NO_ERROR);
+    //auto user_stat_list = msg_BuddyGetStatReq.user_stat_list();
+    //DEBUG_I("user_stat_list: %p",user_stat_list);
+    //auto attach_data = msg_BuddyGetStatReq.attach_data();
+    //DEBUG_I("attach_data: %s",attach_data.c_str());
+    //auto auth_uid = msg_BuddyGetStatReq.auth_uid();
+    //DEBUG_I("auth_uid: %d",auth_uid);
 }
 
 int main(int argc, char **argv) {

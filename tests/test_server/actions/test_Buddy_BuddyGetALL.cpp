@@ -1,47 +1,44 @@
 #include <gtest/gtest.h>
 
-#include "ptp_global/Logger.h"
-#include "ptp_protobuf/ImPdu.h"
-#include "ptp_server/MsgSrvConn.h"
-#include "ptp_server/CachePool.h"
+#include "test_init.h"
 #include "ptp_server/actions/BuddyGetALLAction.h"
 #include "PTP.Buddy.pb.h"
-#include "PTP.Common.pb.h"
-
-uint32_t accountId              = 1001;
-#define CONFIG_PATH             "conf/bd_server.conf"
 
 using namespace PTP::Common;
 
 TEST(test_Buddy, BuddyGetALLAction) {
-    PTP::Buddy::BuddyGetALLReq msg;
-    //msg.set_buddy_updated_time();
-    //msg.set_auth_uid();
-    CacheManager::setConfigPath(CONFIG_PATH);
-    auto *pMsgSrvConn = new CMsgSrvConn();
-    pMsgSrvConn->SetTest(true);
-    pMsgSrvConn->SetHandle(100112);
-    addMsgSrvConnByHandle(100112,pMsgSrvConn);
+    test_int();
+    PTP::Buddy::BuddyGetALLReq msg_BuddyGetALLReq;
+    //msg_BuddyGetALLReq.set_buddy_updated_time();
+    //msg_BuddyGetALLReq.set_attach_data();
+    //msg_BuddyGetALLReq.set_auth_uid();
+    uint16_t sep_no = 101;
     ImPdu pdu;
-    pdu.SetPBMsg(&msg,CID_BuddyGetALLReq,0);
-    pMsgSrvConn->HandlePdu(&pdu);
-    auto pPdu = pMsgSrvConn->ReadTestPdu();
-    ASSERT_EQ(pPdu->GetCommandId(),CID_BuddyGetALLRes);
-    PTP::Buddy::BuddyGetALLRes msg_rsp;
-    auto res = msg_rsp.ParseFromArray(pPdu->GetBodyData(), (int)pPdu->GetBodyLength());
+    pdu.SetPBMsg(&msg_BuddyGetALLReq,CID_BuddyGetALLReq,sep_no);
+    CRequest request_BuddyGetALLReq;
+    CResponse response_BuddyGetALLReq;
+    request_BuddyGetALLReq.SetHandle(time(nullptr));
+    addMsgSrvConnByHandle(request_BuddyGetALLReq.GetHandle(),new CMsgSrvConn());
+    request_BuddyGetALLReq.SetPdu(&pdu);
+    ACTION_BUDDY::BuddyGetALLReqAction(&request_BuddyGetALLReq,&response_BuddyGetALLReq);
+    if(response_BuddyGetALLReq.GetPdu()){
+        ASSERT_EQ(response_BuddyGetALLReq.GetPdu()->GetSeqNum(),sep_no);
+    }
+    
+    ASSERT_EQ(response_BuddyGetALLReq.GetPdu()->GetCommandId(),CID_BuddyGetALLRes);
+    PTP::Buddy::BuddyGetALLRes msg_BuddyGetALLRes;
+    auto res = msg_BuddyGetALLRes.ParseFromArray(response_BuddyGetALLReq.GetPdu()->GetBodyData(), (int)response_BuddyGetALLReq.GetPdu()->GetBodyLength());
     ASSERT_EQ(res,true);
-    //auto buddy_updated_time = msg_rsp.buddy_updated_time();
-    //DEBUG_I("buddy_updated_time: %s",buddy_updated_time);
-            
-    //auto error = msg_rsp.error();
-    //DEBUG_I("error: %s",error);
-            
-    //auto buddy_list = msg_rsp.buddy_list();
-    //DEBUG_I("buddy_list: %s",buddy_list);
-            
-    //auto auth_uid = msg_rsp.auth_uid();
-    //DEBUG_I("auth_uid: %s",auth_uid);
-            
+    auto error = msg_BuddyGetALLRes.error();
+    ASSERT_EQ(error,NO_ERROR);
+    //auto buddy_updated_time = msg_BuddyGetALLReq.buddy_updated_time();
+    //DEBUG_I("buddy_updated_time: %d",buddy_updated_time);
+    //auto buddy_list = msg_BuddyGetALLReq.buddy_list();
+    //DEBUG_I("buddy_list: %p",buddy_list);
+    //auto attach_data = msg_BuddyGetALLReq.attach_data();
+    //DEBUG_I("attach_data: %s",attach_data.c_str());
+    //auto auth_uid = msg_BuddyGetALLReq.auth_uid();
+    //DEBUG_I("auth_uid: %d",auth_uid);
 }
 
 int main(int argc, char **argv) {

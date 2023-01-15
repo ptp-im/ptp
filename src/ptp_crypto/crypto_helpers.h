@@ -3,7 +3,7 @@
 
 using namespace std;
 
-string bytes_to_hex_string(const uint8_t *str, uint64_t s);
+string bytes_to_hex_string(const unsigned char *str, uint64_t s);
 
 string hex_to_string(const string &input);
 

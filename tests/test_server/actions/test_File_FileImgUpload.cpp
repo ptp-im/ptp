@@ -1,47 +1,45 @@
 #include <gtest/gtest.h>
 
-#include "ptp_global/Logger.h"
-#include "ptp_protobuf/ImPdu.h"
-#include "ptp_server/MsgSrvConn.h"
-#include "ptp_server/CachePool.h"
+#include "test_init.h"
 #include "ptp_server/actions/FileImgUploadAction.h"
 #include "PTP.File.pb.h"
-#include "PTP.Common.pb.h"
-
-uint32_t accountId              = 1001;
-#define CONFIG_PATH             "conf/bd_server.conf"
 
 using namespace PTP::Common;
 
 TEST(test_File, FileImgUploadAction) {
-    PTP::File::FileImgUploadReq msg;
-    //msg.set_file_id();
-    //msg.set_file_part();
-    //msg.set_file_total_parts();
-    //msg.set_file_data();
-    //msg.set_auth_uid();
-    CacheManager::setConfigPath(CONFIG_PATH);
-    auto *pMsgSrvConn = new CMsgSrvConn();
-    pMsgSrvConn->SetTest(true);
-    pMsgSrvConn->SetHandle(100112);
-    addMsgSrvConnByHandle(100112,pMsgSrvConn);
+    test_int();
+    PTP::File::FileImgUploadReq msg_FileImgUploadReq;
+    //msg_FileImgUploadReq.set_file_id();
+    //msg_FileImgUploadReq.set_file_part();
+    //msg_FileImgUploadReq.set_file_total_parts();
+    //msg_FileImgUploadReq.set_file_data();
+    //msg_FileImgUploadReq.set_attach_data();
+    //msg_FileImgUploadReq.set_auth_uid();
+    uint16_t sep_no = 101;
     ImPdu pdu;
-    pdu.SetPBMsg(&msg,CID_FileImgUploadReq,0);
-    pMsgSrvConn->HandlePdu(&pdu);
-    auto pPdu = pMsgSrvConn->ReadTestPdu();
-    ASSERT_EQ(pPdu->GetCommandId(),CID_FileImgUploadRes);
-    PTP::File::FileImgUploadRes msg_rsp;
-    auto res = msg_rsp.ParseFromArray(pPdu->GetBodyData(), (int)pPdu->GetBodyLength());
+    pdu.SetPBMsg(&msg_FileImgUploadReq,CID_FileImgUploadReq,sep_no);
+    CRequest request_FileImgUploadReq;
+    CResponse response_FileImgUploadReq;
+    request_FileImgUploadReq.SetHandle(time(nullptr));
+    addMsgSrvConnByHandle(request_FileImgUploadReq.GetHandle(),new CMsgSrvConn());
+    request_FileImgUploadReq.SetPdu(&pdu);
+    ACTION_FILE::FileImgUploadReqAction(&request_FileImgUploadReq,&response_FileImgUploadReq);
+    if(response_FileImgUploadReq.GetPdu()){
+        ASSERT_EQ(response_FileImgUploadReq.GetPdu()->GetSeqNum(),sep_no);
+    }
+    
+    ASSERT_EQ(response_FileImgUploadReq.GetPdu()->GetCommandId(),CID_FileImgUploadRes);
+    PTP::File::FileImgUploadRes msg_FileImgUploadRes;
+    auto res = msg_FileImgUploadRes.ParseFromArray(response_FileImgUploadReq.GetPdu()->GetBodyData(), (int)response_FileImgUploadReq.GetPdu()->GetBodyLength());
     ASSERT_EQ(res,true);
-    //auto error = msg_rsp.error();
-    //DEBUG_I("error: %s",error);
-            
-    //auto file_path = msg_rsp.file_path();
-    //DEBUG_I("file_path: %s",file_path);
-            
-    //auto auth_uid = msg_rsp.auth_uid();
-    //DEBUG_I("auth_uid: %s",auth_uid);
-            
+    auto error = msg_FileImgUploadRes.error();
+    ASSERT_EQ(error,NO_ERROR);
+    //auto file_path = msg_FileImgUploadReq.file_path();
+    //DEBUG_I("file_path: %s",file_path.c_str());
+    //auto attach_data = msg_FileImgUploadReq.attach_data();
+    //DEBUG_I("attach_data: %s",attach_data.c_str());
+    //auto auth_uid = msg_FileImgUploadReq.auth_uid();
+    //DEBUG_I("auth_uid: %d",auth_uid);
 }
 
 int main(int argc, char **argv) {

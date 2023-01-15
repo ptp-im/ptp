@@ -672,7 +672,7 @@ int CachePool::Init()
 		m_free_list.push_back(pConn);
 	}
 
-	DEBUG_I("cache pool: %s, list size: %lu", m_pool_name.c_str(), m_free_list.size());
+	//DEBUG_I("cache pool: %s, list size: %lu", m_pool_name.c_str(), m_free_list.size());
 	return 0;
 }
 

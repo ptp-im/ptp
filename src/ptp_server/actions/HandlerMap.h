@@ -3,8 +3,8 @@
 
 #include "ptp_global/Utils.h"
 #include "ptp_protobuf/ImPdu.h"
-#include "Request.h"
-#include "Response.h"
+#include "../Request.h"
+#include "../Response.h"
 
 typedef void (*pdu_handler_t)(CRequest*, CResponse*);
 typedef map<uint32_t, pdu_handler_t> HandlerMap_t;

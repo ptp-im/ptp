@@ -23,17 +23,11 @@
 #include <sys/time.h>
 #endif
 
-
 using namespace std;
-
-string bytes_to_hex_string(const uint8_t *str, uint64_t s);
-
+string bytes_to_hex_string(const unsigned char *str, uint64_t s);
 string hex_to_string(const string &input);
-
 uint32_t unix_timestamp();
-
 uint64_t unix_timestamp_m();
-
 uint64_t get_tick_count();
 void util_sleep(uint32_t millisecond);
 char* replaceStr(char* pSrc, char oldChar, char newChar);

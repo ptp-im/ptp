@@ -3,7 +3,7 @@
 
 using namespace std;
 
-string bytes_to_hex_string(const uint8_t *str, uint64_t s) {
+string bytes_to_hex_string(const unsigned char *str, uint64_t s) {
     ostringstream ret;
     for (size_t i = 0; i < s; ++i)
         ret << hex << setfill('0') << setw(2) << nouppercase << (int) str[i];
@@ -294,8 +294,10 @@ void put_file_content(const char *path,char * fileBuf,uint64_t fileSize){
 }
 
 void replace_string(string &str,const string &org_str,const string &replace_str){
-    int index = (int)str.find_first_of(org_str);
-    str.replace(index,org_str.size(),replace_str);
+    auto index = str.find(org_str,0);
+    if(index != string::npos){
+        str.replace(index,org_str.size(),replace_str);
+    }
 }
 //
 //const char* memfind(const char *src_str,size_t src_len, const char *sub_str, size_t sub_len, bool flag)

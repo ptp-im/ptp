@@ -304,13 +304,13 @@ int run_ptp_server_msg(int argc, char* argv[])
         DEBUG_E("init_server_config failed");
         return -1;
     }
-    CacheManager::setConfigPath(CONFIG_PATH);
+    CacheManager::setConfigPath(get_config_path());
     CacheManager* pCacheManager = CacheManager::getInstance();
     if (!pCacheManager) {
         DEBUG_E("CacheManager init failed");
         return -1;
     }
-    CConfigFileReader config_file(CONFIG_PATH);
+    CConfigFileReader config_file(get_config_path().c_str());
     char* msg_listen_ip = config_file.GetConfigName("MSG_ListenIP");
     char* msg_listen_port_str = config_file.GetConfigName("MSG_ListenPort");
     if (!msg_listen_ip || !msg_listen_port_str) {

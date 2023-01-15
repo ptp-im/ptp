@@ -296,13 +296,13 @@ int run_ptp_server_business(int argc, char* argv[])
 
     signal(SIGPIPE, SIG_IGN);
     srand(time(nullptr));
-    CacheManager::setConfigPath(CONFIG_PATH);
+    CacheManager::setConfigPath(get_config_path());
     CacheManager* pCacheManager = CacheManager::getInstance();
     if (!pCacheManager) {
         DEBUG_I("CacheManager init failed");
         return -1;
     }
-//    CDBManager::setConfigPath(CONFIG_PATH);
+//    CDBManager::setConfigPath(get_config_path());
 //    CDBManager* pDBManager = CDBManager::getInstance();
 //    if (!pDBManager) {
 //        DEBUG_I("DBManager init failed");
@@ -343,7 +343,7 @@ int run_ptp_server_business(int argc, char* argv[])
 //    }
 //
 
-    CConfigFileReader config_file(CONFIG_PATH);
+    CConfigFileReader config_file(get_config_path().c_str());
 
     char* listen_ip = config_file.GetConfigName("Business_ListenIP");
     char* str_listen_port = config_file.GetConfigName("Business_ListenPort");

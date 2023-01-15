@@ -42,6 +42,10 @@ include_directories (../third_party/gtest/googletest/include)
 
 include_directories (../src/ptp_protobuf)
 include_directories (../src/ptp_protobuf/v2)
+include_directories (./)
+
+add_library(test_init STATIC test_init.cpp)
+TARGET_LINK_LIBRARIES(test_init ptp_server ptp_global)
 
 add_subdirectory(test_blank)
 add_subdirectory(test_crypto)

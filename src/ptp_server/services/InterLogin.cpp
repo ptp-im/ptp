@@ -10,7 +10,7 @@ bool CInterLoginStrategy::ServerLogin(PTP::Server::ServerLoginReq *msg, PTP::Com
     while (true) {
         DEBUG_D("captcha:%s",msg->captcha().c_str());
         DEBUG_D("address:%s",msg->address().c_str());
-        DEBUG_D("sign:%s", bytes_to_hex_string(reinterpret_cast<const uint8_t *>(msg->sign().c_str()), 65).c_str());
+        DEBUG_D("sign:%s", bytes_to_hex_string((unsigned char *)msg->sign().data(), 65).c_str());
         CacheManager *pCacheManager = CacheManager::getInstance();
         CacheConn *pCacheConn = pCacheManager->GetCacheConn("auth");
         if (!pCacheConn) {
@@ -33,7 +33,7 @@ bool CInterLoginStrategy::ServerLogin(PTP::Server::ServerLoginReq *msg, PTP::Com
             DEBUG_E("sign rec error");
             break;
         }
-        if(address_hex!=msg->address()){
+        if(address_hex!= msg->address()){
             error = E_LOGIN_ERROR;
             DEBUG_E("client address:%s != %s",address_hex.c_str(), msg->address().c_str());
             break;

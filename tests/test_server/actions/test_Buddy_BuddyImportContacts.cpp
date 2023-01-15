@@ -1,41 +1,40 @@
 #include <gtest/gtest.h>
 
-#include "ptp_global/Logger.h"
-#include "ptp_protobuf/ImPdu.h"
-#include "ptp_server/MsgSrvConn.h"
-#include "ptp_server/CachePool.h"
+#include "test_init.h"
 #include "ptp_server/actions/BuddyImportContactsAction.h"
 #include "PTP.Buddy.pb.h"
-#include "PTP.Common.pb.h"
-
-uint32_t accountId              = 1001;
-#define CONFIG_PATH             "conf/bd_server.conf"
 
 using namespace PTP::Common;
 
 TEST(test_Buddy, BuddyImportContactsAction) {
-    PTP::Buddy::BuddyImportContactsReq msg;
-    //msg.set_phone_contacts();
-    //msg.set_auth_uid();
-    CacheManager::setConfigPath(CONFIG_PATH);
-    auto *pMsgSrvConn = new CMsgSrvConn();
-    pMsgSrvConn->SetTest(true);
-    pMsgSrvConn->SetHandle(100112);
-    addMsgSrvConnByHandle(100112,pMsgSrvConn);
+    test_int();
+    PTP::Buddy::BuddyImportContactsReq msg_BuddyImportContactsReq;
+    //msg_BuddyImportContactsReq.set_phone_contacts();
+    //msg_BuddyImportContactsReq.set_attach_data();
+    //msg_BuddyImportContactsReq.set_auth_uid();
+    uint16_t sep_no = 101;
     ImPdu pdu;
-    pdu.SetPBMsg(&msg,CID_BuddyImportContactsReq,0);
-    pMsgSrvConn->HandlePdu(&pdu);
-    auto pPdu = pMsgSrvConn->ReadTestPdu();
-    ASSERT_EQ(pPdu->GetCommandId(),CID_BuddyImportContactsRes);
-    PTP::Buddy::BuddyImportContactsRes msg_rsp;
-    auto res = msg_rsp.ParseFromArray(pPdu->GetBodyData(), (int)pPdu->GetBodyLength());
+    pdu.SetPBMsg(&msg_BuddyImportContactsReq,CID_BuddyImportContactsReq,sep_no);
+    CRequest request_BuddyImportContactsReq;
+    CResponse response_BuddyImportContactsReq;
+    request_BuddyImportContactsReq.SetHandle(time(nullptr));
+    addMsgSrvConnByHandle(request_BuddyImportContactsReq.GetHandle(),new CMsgSrvConn());
+    request_BuddyImportContactsReq.SetPdu(&pdu);
+    ACTION_BUDDY::BuddyImportContactsReqAction(&request_BuddyImportContactsReq,&response_BuddyImportContactsReq);
+    if(response_BuddyImportContactsReq.GetPdu()){
+        ASSERT_EQ(response_BuddyImportContactsReq.GetPdu()->GetSeqNum(),sep_no);
+    }
+    
+    ASSERT_EQ(response_BuddyImportContactsReq.GetPdu()->GetCommandId(),CID_BuddyImportContactsRes);
+    PTP::Buddy::BuddyImportContactsRes msg_BuddyImportContactsRes;
+    auto res = msg_BuddyImportContactsRes.ParseFromArray(response_BuddyImportContactsReq.GetPdu()->GetBodyData(), (int)response_BuddyImportContactsReq.GetPdu()->GetBodyLength());
     ASSERT_EQ(res,true);
-    //auto error = msg_rsp.error();
-    //DEBUG_I("error: %s",error);
-            
-    //auto auth_uid = msg_rsp.auth_uid();
-    //DEBUG_I("auth_uid: %s",auth_uid);
-            
+    auto error = msg_BuddyImportContactsRes.error();
+    ASSERT_EQ(error,NO_ERROR);
+    //auto attach_data = msg_BuddyImportContactsReq.attach_data();
+    //DEBUG_I("attach_data: %s",attach_data.c_str());
+    //auto auth_uid = msg_BuddyImportContactsReq.auth_uid();
+    //DEBUG_I("auth_uid: %d",auth_uid);
 }
 
 int main(int argc, char **argv) {

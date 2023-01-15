@@ -48,37 +48,32 @@ get_cur_dir() {
     done
     # Change the current directory to the location of the script
     CUR_DIR=$(dirname "${REALPATH}")
-    CUR_DIR=$(dirname "${CUR_DIR}")
+    SRC_DIR=$(dirname "${CUR_DIR}")
 }
 
 get_cur_dir
-
-SRC_DIR=$CUR_DIR
-DST_DIR=$CUR_DIR/gen
+PTP_DIR=$SRC_DIR/../../../
+DST_DIR=$SRC_DIR/gen
+DST_CPP_ACTIONS_DIR=$PTP_DIR/src/ptp_server/actions
+DST_CPP_TEST_DIR=$PTP_DIR/tests/test_server/actions
 DST_DIR_CPP=$(dirname "${SRC_DIR}")
+PBJS_PATH=minipbjs
 
-echo SRC_DIR: $CUR_DIR
-echo DST_DIR: $CUR_DIR/gen
+echo PTP_DIR: $PTP_DIR
+echo SRC_DIR: $SRC_DIR
+echo DST_DIR: $DST_DIR
 echo DST_DIR_CPP: $DST_DIR_CPP
-
+echo DST_CPP_TEST_DIR: $DST_CPP_TEST_DIR
+echo DST_CPP_ACTIONS_DIR: $DST_CPP_ACTIONS_DIR
 
 #C++
-mkdir -p $DST_DIR/cpp
 protoc -I=$SRC_DIR --cpp_out=$DST_DIR_CPP $SRC_DIR/*.proto
 
 ##JAVA
 mkdir -p $DST_DIR/java
 protoc -I=$SRC_DIR --java_out=$DST_DIR/java/ $SRC_DIR/*.proto
 
-#
-##PYTHON
-#mkdir -p $DST_DIR/python
-#protoc -I=$SRC_DIR --python_out=$DST_DIR/python/ $SRC_DIR/*.proto
-#
-##oc
-#mkdir -p $DST_DIR/objc
-#protoc -I=$SRC_DIR --objc_out=$DST_DIR/objc/ $SRC_DIR/*.proto
-
 #js
-#mkdir -p $DST_DIR/js
-#$SRC_DIR/../bin/minipbjs  --keep-case --path $SRC_DIR/ PTP.Common.proto PTP.Buddy.proto PTP.Switch.proto PTP.Group.proto PTP.Auth.proto PTP.Msg.proto PTP.File.proto PTP.Other.proto PTP.Server.proto  --out $SRC_DIR/../../client/bd-apps/src/app/protobuf --name protobuf
+mkdir -p $DST_DIR/js
+$PBJS_PATH  --keep-case --path $SRC_DIR/  --out $DST_DIR/js \
+  --write-action-if-exists off --name protobuf --out-cpp $DST_CPP_ACTIONS_DIR --out-cpp-test $DST_CPP_TEST_DIR --gen-ts on --pb-dir $SRC_DIR

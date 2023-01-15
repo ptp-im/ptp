@@ -7,6 +7,7 @@
 #include "ptp_global/Utils.h"
 #include "ptp_global/Logger.h"
 #include "PTP.Common.pb.h"
+#include "ActionCommands.h"
 
 using namespace PTP::Common;
 

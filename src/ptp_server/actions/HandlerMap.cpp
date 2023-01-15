@@ -1,4 +1,5 @@
 #include "HandlerMap.h"
+#include "ActionCommands.h"
 #include "actions/AuthCaptchaAction.h"
 #include "actions/AuthLoginAction.h"
 #include "actions/AuthLogoutAction.h"

@@ -1,47 +1,44 @@
 #include <gtest/gtest.h>
 
-#include "ptp_global/Logger.h"
-#include "ptp_protobuf/ImPdu.h"
-#include "ptp_server/MsgSrvConn.h"
-#include "ptp_server/CachePool.h"
+#include "test_init.h"
 #include "ptp_server/actions/MsgGetMaxIdAction.h"
 #include "PTP.Msg.pb.h"
-#include "PTP.Common.pb.h"
-
-uint32_t accountId              = 1001;
-#define CONFIG_PATH             "conf/bd_server.conf"
 
 using namespace PTP::Common;
 
 TEST(test_Msg, MsgGetMaxIdAction) {
-    PTP::Msg::MsgGetMaxIdReq msg;
-    //msg.set_group_id();
-    //msg.set_auth_uid();
-    CacheManager::setConfigPath(CONFIG_PATH);
-    auto *pMsgSrvConn = new CMsgSrvConn();
-    pMsgSrvConn->SetTest(true);
-    pMsgSrvConn->SetHandle(100112);
-    addMsgSrvConnByHandle(100112,pMsgSrvConn);
+    test_int();
+    PTP::Msg::MsgGetMaxIdReq msg_MsgGetMaxIdReq;
+    //msg_MsgGetMaxIdReq.set_group_id();
+    //msg_MsgGetMaxIdReq.set_attach_data();
+    //msg_MsgGetMaxIdReq.set_auth_uid();
+    uint16_t sep_no = 101;
     ImPdu pdu;
-    pdu.SetPBMsg(&msg,CID_MsgGetMaxIdReq,0);
-    pMsgSrvConn->HandlePdu(&pdu);
-    auto pPdu = pMsgSrvConn->ReadTestPdu();
-    ASSERT_EQ(pPdu->GetCommandId(),CID_MsgGetMaxIdRes);
-    PTP::Msg::MsgGetMaxIdRes msg_rsp;
-    auto res = msg_rsp.ParseFromArray(pPdu->GetBodyData(), (int)pPdu->GetBodyLength());
+    pdu.SetPBMsg(&msg_MsgGetMaxIdReq,CID_MsgGetMaxIdReq,sep_no);
+    CRequest request_MsgGetMaxIdReq;
+    CResponse response_MsgGetMaxIdReq;
+    request_MsgGetMaxIdReq.SetHandle(time(nullptr));
+    addMsgSrvConnByHandle(request_MsgGetMaxIdReq.GetHandle(),new CMsgSrvConn());
+    request_MsgGetMaxIdReq.SetPdu(&pdu);
+    ACTION_MSG::MsgGetMaxIdReqAction(&request_MsgGetMaxIdReq,&response_MsgGetMaxIdReq);
+    if(response_MsgGetMaxIdReq.GetPdu()){
+        ASSERT_EQ(response_MsgGetMaxIdReq.GetPdu()->GetSeqNum(),sep_no);
+    }
+    
+    ASSERT_EQ(response_MsgGetMaxIdReq.GetPdu()->GetCommandId(),CID_MsgGetMaxIdRes);
+    PTP::Msg::MsgGetMaxIdRes msg_MsgGetMaxIdRes;
+    auto res = msg_MsgGetMaxIdRes.ParseFromArray(response_MsgGetMaxIdReq.GetPdu()->GetBodyData(), (int)response_MsgGetMaxIdReq.GetPdu()->GetBodyLength());
     ASSERT_EQ(res,true);
-    //auto group_id = msg_rsp.group_id();
-    //DEBUG_I("group_id: %s",group_id);
-            
-    //auto msg_id = msg_rsp.msg_id();
-    //DEBUG_I("msg_id: %s",msg_id);
-            
-    //auto error = msg_rsp.error();
-    //DEBUG_I("error: %s",error);
-            
-    //auto auth_uid = msg_rsp.auth_uid();
-    //DEBUG_I("auth_uid: %s",auth_uid);
-            
+    auto error = msg_MsgGetMaxIdRes.error();
+    ASSERT_EQ(error,NO_ERROR);
+    //auto group_id = msg_MsgGetMaxIdReq.group_id();
+    //DEBUG_I("group_id: %d",group_id);
+    //auto msg_id = msg_MsgGetMaxIdReq.msg_id();
+    //DEBUG_I("msg_id: %d",msg_id);
+    //auto attach_data = msg_MsgGetMaxIdReq.attach_data();
+    //DEBUG_I("attach_data: %s",attach_data.c_str());
+    //auto auth_uid = msg_MsgGetMaxIdReq.auth_uid();
+    //DEBUG_I("auth_uid: %d",auth_uid);
 }
 
 int main(int argc, char **argv) {

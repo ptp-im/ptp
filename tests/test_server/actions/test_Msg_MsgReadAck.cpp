@@ -1,32 +1,30 @@
 #include <gtest/gtest.h>
 
-#include "ptp_global/Logger.h"
-#include "ptp_protobuf/ImPdu.h"
-#include "ptp_server/MsgSrvConn.h"
-#include "ptp_server/CachePool.h"
+#include "test_init.h"
 #include "ptp_server/actions/MsgReadAckAction.h"
 #include "PTP.Msg.pb.h"
-#include "PTP.Common.pb.h"
-
-uint32_t accountId              = 1001;
-#define CONFIG_PATH             "conf/bd_server.conf"
 
 using namespace PTP::Common;
 
 TEST(test_Msg, MsgReadAckAction) {
-    PTP::Msg::MsgReadAckReq msg;
-    //msg.set_group_id();
-    //msg.set_msg_id();
-    //msg.set_auth_uid();
-    CacheManager::setConfigPath(CONFIG_PATH);
-    auto *pMsgSrvConn = new CMsgSrvConn();
-    pMsgSrvConn->SetTest(true);
-    pMsgSrvConn->SetHandle(100112);
-    addMsgSrvConnByHandle(100112,pMsgSrvConn);
+    test_int();
+    PTP::Msg::MsgReadAckReq msg_MsgReadAckReq;
+    //msg_MsgReadAckReq.set_group_id();
+    //msg_MsgReadAckReq.set_msg_id();
+    //msg_MsgReadAckReq.set_attach_data();
+    //msg_MsgReadAckReq.set_auth_uid();
+    uint16_t sep_no = 101;
     ImPdu pdu;
-    pdu.SetPBMsg(&msg,CID_MsgReadAckReq,0);
-    pMsgSrvConn->HandlePdu(&pdu);
-    auto pPdu = pMsgSrvConn->ReadTestPdu();
+    pdu.SetPBMsg(&msg_MsgReadAckReq,CID_MsgReadAckReq,sep_no);
+    CRequest request_MsgReadAckReq;
+    CResponse response_MsgReadAckReq;
+    request_MsgReadAckReq.SetHandle(time(nullptr));
+    addMsgSrvConnByHandle(request_MsgReadAckReq.GetHandle(),new CMsgSrvConn());
+    request_MsgReadAckReq.SetPdu(&pdu);
+    ACTION_MSG::MsgReadAckReqAction(&request_MsgReadAckReq,&response_MsgReadAckReq);
+    if(response_MsgReadAckReq.GetPdu()){
+        ASSERT_EQ(response_MsgReadAckReq.GetPdu()->GetSeqNum(),sep_no);
+    }
     
 }
 

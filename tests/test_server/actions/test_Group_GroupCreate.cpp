@@ -1,54 +1,51 @@
 #include <gtest/gtest.h>
 
-#include "ptp_global/Logger.h"
-#include "ptp_protobuf/ImPdu.h"
-#include "ptp_server/MsgSrvConn.h"
-#include "ptp_server/CachePool.h"
+#include "test_init.h"
 #include "ptp_server/actions/GroupCreateAction.h"
 #include "PTP.Group.pb.h"
-#include "PTP.Common.pb.h"
-
-uint32_t accountId              = 1001;
-#define CONFIG_PATH             "conf/bd_server.conf"
 
 using namespace PTP::Common;
 
 TEST(test_Group, GroupCreateAction) {
-    PTP::Group::GroupCreateReq msg;
-    //msg.set_group_idx();
-    //msg.set_sign();
-    //msg.set_captcha();
-    //msg.set_group_type();
-    //msg.set_name();
-    //msg.set_avatar();
-    //msg.set_members();
-    //msg.set_about();
-    //msg.set_auth_uid();
-    CacheManager::setConfigPath(CONFIG_PATH);
-    auto *pMsgSrvConn = new CMsgSrvConn();
-    pMsgSrvConn->SetTest(true);
-    pMsgSrvConn->SetHandle(100112);
-    addMsgSrvConnByHandle(100112,pMsgSrvConn);
+    test_int();
+    PTP::Group::GroupCreateReq msg_GroupCreateReq;
+    //msg_GroupCreateReq.set_group_idx();
+    //msg_GroupCreateReq.set_sign();
+    //msg_GroupCreateReq.set_captcha();
+    //msg_GroupCreateReq.set_group_type();
+    //msg_GroupCreateReq.set_name();
+    //msg_GroupCreateReq.set_avatar();
+    //msg_GroupCreateReq.set_members();
+    //msg_GroupCreateReq.set_about();
+    //msg_GroupCreateReq.set_attach_data();
+    //msg_GroupCreateReq.set_auth_uid();
+    uint16_t sep_no = 101;
     ImPdu pdu;
-    pdu.SetPBMsg(&msg,CID_GroupCreateReq,0);
-    pMsgSrvConn->HandlePdu(&pdu);
-    auto pPdu = pMsgSrvConn->ReadTestPdu();
-    ASSERT_EQ(pPdu->GetCommandId(),CID_GroupCreateRes);
-    PTP::Group::GroupCreateRes msg_rsp;
-    auto res = msg_rsp.ParseFromArray(pPdu->GetBodyData(), (int)pPdu->GetBodyLength());
+    pdu.SetPBMsg(&msg_GroupCreateReq,CID_GroupCreateReq,sep_no);
+    CRequest request_GroupCreateReq;
+    CResponse response_GroupCreateReq;
+    request_GroupCreateReq.SetHandle(time(nullptr));
+    addMsgSrvConnByHandle(request_GroupCreateReq.GetHandle(),new CMsgSrvConn());
+    request_GroupCreateReq.SetPdu(&pdu);
+    ACTION_GROUP::GroupCreateReqAction(&request_GroupCreateReq,&response_GroupCreateReq);
+    if(response_GroupCreateReq.GetPdu()){
+        ASSERT_EQ(response_GroupCreateReq.GetPdu()->GetSeqNum(),sep_no);
+    }
+    
+    ASSERT_EQ(response_GroupCreateReq.GetPdu()->GetCommandId(),CID_GroupCreateRes);
+    PTP::Group::GroupCreateRes msg_GroupCreateRes;
+    auto res = msg_GroupCreateRes.ParseFromArray(response_GroupCreateReq.GetPdu()->GetBodyData(), (int)response_GroupCreateReq.GetPdu()->GetBodyLength());
     ASSERT_EQ(res,true);
-    //auto group = msg_rsp.group();
-    //DEBUG_I("group: %s",group);
-            
-    //auto group_members = msg_rsp.group_members();
-    //DEBUG_I("group_members: %s",group_members);
-            
-    //auto error = msg_rsp.error();
-    //DEBUG_I("error: %s",error);
-            
-    //auto auth_uid = msg_rsp.auth_uid();
-    //DEBUG_I("auth_uid: %s",auth_uid);
-            
+    auto error = msg_GroupCreateRes.error();
+    ASSERT_EQ(error,NO_ERROR);
+    //auto group = msg_GroupCreateReq.group();
+    //DEBUG_I("group: %p",group);
+    //auto group_members = msg_GroupCreateReq.group_members();
+    //DEBUG_I("group_members: %p",group_members);
+    //auto attach_data = msg_GroupCreateReq.attach_data();
+    //DEBUG_I("attach_data: %s",attach_data.c_str());
+    //auto auth_uid = msg_GroupCreateReq.auth_uid();
+    //DEBUG_I("auth_uid: %d",auth_uid);
 }
 
 int main(int argc, char **argv) {

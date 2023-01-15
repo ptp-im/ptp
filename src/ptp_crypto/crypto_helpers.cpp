@@ -7,6 +7,13 @@
 #include <openssl/rand.h>
 
 using namespace std;
+//
+//string bytes_to_hex_string(const unsigned char *str, uint64_t s) {
+//    ostringstream ret;
+//    for (size_t i = 0; i < s; ++i)
+//        ret << hex << setfill('0') << setw(2) << nouppercase << (int) str[i];
+//    return "0x" + ret.str();
+//}
 
 string gen_random(int len) {
     static const char alphanum[] =
@@ -51,7 +58,7 @@ string pub_key_to_hex(unsigned char * pubkey_serialize){
 }
 
 string address_to_hex(string address){
-    return  bytes_to_hex_string(reinterpret_cast<const uint8_t *>(address.data()), address.length());
+    return bytes_to_hex_string((unsigned char *)address.data(), address.length());
 }
 
 string format_eth_msg_data(const string& message){

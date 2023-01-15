@@ -192,6 +192,7 @@ function print_usage() {
   echo "Usage: "
   		echo "  $0 build_docker"
   		echo "  $0 run_docker"
+  		echo "  $0 gen_pb"
   		echo "  $0 clean_tests"
   		echo "  $0 copy_to_build"
   		echo "  $0 clean_ptp"
@@ -313,6 +314,9 @@ case $1 in
   ;;
 	copy_to_build)
 	  copy_to_build
+  ;;
+	gen_pb)
+	  $PTP_DIR/src/ptp_protobuf/proto-v1/tools/create.sh
   ;;
 	*)
 		print_usage
