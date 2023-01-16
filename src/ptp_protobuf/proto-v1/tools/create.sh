@@ -55,6 +55,7 @@ get_cur_dir
 PTP_DIR=$SRC_DIR/../../../
 DST_DIR=$SRC_DIR/gen
 DST_CPP_ACTIONS_DIR=$PTP_DIR/src/ptp_server/actions
+DST_CPP_ACTIONS_CMD_DIR=$PTP_DIR/src/ptp_protobuf
 DST_CPP_TEST_DIR=$PTP_DIR/tests/test_server/actions
 DST_DIR_CPP=$(dirname "${SRC_DIR}")
 PBJS_PATH=minipbjs
@@ -65,6 +66,8 @@ echo DST_DIR: $DST_DIR
 echo DST_DIR_CPP: $DST_DIR_CPP
 echo DST_CPP_TEST_DIR: $DST_CPP_TEST_DIR
 echo DST_CPP_ACTIONS_DIR: $DST_CPP_ACTIONS_DIR
+echo DST_CPP_ACTIONS_CMD_DIR: $DST_CPP_ACTIONS_CMD_DIR
+
 
 #C++
 protoc -I=$SRC_DIR --cpp_out=$DST_DIR_CPP $SRC_DIR/*.proto
@@ -76,4 +79,5 @@ protoc -I=$SRC_DIR --java_out=$DST_DIR/java/ $SRC_DIR/*.proto
 #js
 mkdir -p $DST_DIR/js
 $PBJS_PATH  --keep-case --path $SRC_DIR/  --out $DST_DIR/js \
+  --out-cpp-command-dir $DST_CPP_ACTIONS_CMD_DIR \
   --write-action-if-exists off --name protobuf --out-cpp $DST_CPP_ACTIONS_DIR --out-cpp-test $DST_CPP_TEST_DIR --gen-ts on --pb-dir $SRC_DIR
