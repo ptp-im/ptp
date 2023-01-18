@@ -10,15 +10,6 @@
 #include "HttpClient.h"
 #include "SyncCenter.h"
 #include "FileConfig.h"
-//
-//#include "models/AudioModel.h"
-//#include "models/MessageModel.h"
-//#include "models/SessionModel.h"
-//#include "models/RelationModel.h"
-//#include "models/UserModel.h"
-//#include "models/GroupModel.h"
-//#include "models/GroupMessageModel.h"
-//#include "models/FileModel.h"
 
 static ConnMap_t g_proxy_conn_map;
 static ConnMap_t g_uuid_conn_map;
@@ -334,9 +325,7 @@ int run_ptp_server_business(int argc, char* argv[])
 //        return -1;
 //    }
 //
-//    if (!CUserModel::getInstance()) {
-//        return -1;
-//    }
+
 //
 //    if (!CFileModel::getInstance()) {
 //        return -1;

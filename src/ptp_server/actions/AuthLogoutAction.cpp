@@ -15,9 +15,8 @@
 using namespace PTP::Common;
 
 namespace ACTION_AUTH {
-    void AuthLogoutReqAction(CRequest* request, CResponse *response){
-        PTP::Auth::AuthLogoutReq msg; 
-        
+    void AuthLogoutReqAction(CRequest* request){
+        PTP::Auth::AuthLogoutReq msg;
         ERR error = NO_ERROR;
         if(!request->IsBusinessConn()){
           auto pMsgConn = FindMsgSrvConnByHandle(request->GetHandle());
@@ -25,10 +24,8 @@ namespace ACTION_AUTH {
               DEBUG_E("not found pMsgConn");
               return;
           }
-            pMsgConn->Close();
+          pMsgConn->Close();
         }
-        
     }
-    
 };
 

@@ -1,4 +1,5 @@
 #include "ImPduBase.h"
+#include "Helpers.h"
 
 #ifdef ANDROID
 #else
@@ -163,4 +164,12 @@ void CImPdu::SetPBMsg(unsigned char *buf, int len)
     m_buf.Write(szData, len);
     delete []szData;
     WriteHeader();
+}
+
+void CImPdu::Dump(){
+    DEBUG_D("size=%d",GetLength());
+    DEBUG_D("body size=%d",GetBodyLength());
+    DEBUG_D("body  : %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer()+16,GetLength() - 16).c_str());
+    DEBUG_D("header: %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer(),16).c_str());
+    DEBUG_D("pdu   : %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer(),GetLength()).c_str());
 }

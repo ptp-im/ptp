@@ -1,7 +1,8 @@
 #include "InterLogin.h"
 #include "CachePool.h"
-#include "ptp_crypto//secp256k1_helpers.h"
+#include "ptp_crypto/secp256k1_helpers.h"
 #include "PTP.Auth.pb.h"
+#include "actions/models/ModelBuddy.h"
 
 using namespace PTP::Common;
 
@@ -64,40 +65,15 @@ bool CInterLoginStrategy::ServerLogin(PTP::Server::ServerLoginReq *msg, PTP::Com
             user_id = (uint32_t)(atoi(user_id_str.c_str()));
         }
         DEBUG_D("client address:%s, user_id:%d",address_hex.c_str(), user_id);
-        user->set_uid(user_id);
-        user->set_address(address_hex);
-        user->set_pub_key(pub_key_33,33);
 
         list<string> argv;
         list<string> list_ret;
         string user_id_str1 = int2string(user_id);
         argv.emplace_back("MGET");
-        argv.push_back(CACHE_USER_ID_AVATAR_PREFIX      + user_id_str1);
-        argv.push_back(CACHE_USER_ID_NICKNAME_PREFIX    + user_id_str1);
-        argv.push_back(CACHE_USER_ID_USERNAME_PREFIX    + user_id_str1);
-        argv.push_back(CACHE_USER_ID_SIGN_INFO_PREFIX   + user_id_str1);
-        argv.push_back(CACHE_USER_ID_FIRST_NAME_PREFIX   + user_id_str1);
-        argv.push_back(CACHE_USER_ID_LAST_NAME_PREFIX   + user_id_str1);
-        argv.push_back(CACHE_USER_ID_LOGIN_TIME_PREFIX   + user_id_str1);
-        argv.push_back(CACHE_USER_ID_STATUS_PREFIX      + user_id_str1);
-
+        CModelBuddy::handleUserInfoCacheArgv(argv,user_id_str1);
         pCacheConn->exec(&argv, &list_ret);
-
         auto it = list_ret.begin();
-        user->set_avatar(it->c_str());
-        advance(it,1);
-        user->set_nick_name(it->c_str());
-        advance(it,1);
-        user->set_user_name(it->c_str());
-        advance(it,1);
-        user->set_sign_info(it->c_str());
-        advance(it,1);
-        user->set_first_name(it->c_str());
-        advance(it,1);
-        user->set_last_name(it->c_str());
-        advance(it,1);
-        user->set_login_time(string2int(it->c_str()));
-        advance(it,1);
+        CModelBuddy::handleUserInfoCache(user,it);
         user->set_status(it->empty() ? 0 : string2int(it->c_str()));
         pCacheManager->RelCacheConn(pCacheConn);
         break;

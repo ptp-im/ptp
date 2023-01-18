@@ -21,12 +21,12 @@ using namespace PTP::Common;
 CInterLoginStrategy g_loginStrategy;
 
 namespace ACTION_SERVER {
-    void ServerLoginReqAction(CRequest* request, CResponse *response){
+    void ServerLoginReqAction(CRequest* request){
         PTP::Server::ServerLoginReq msg;
         PTP::Server::ServerLoginRes msg_rsp;
         PTP::Common::ERR error = PTP::Common::NO_ERROR;
         do{
-            if(!msg.ParseFromArray(request->GetPdu()->GetBodyData(), (int)request->GetPdu()->GetBodyLength()))
+            if(!msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), (int)request->GetRequestPdu()->GetBodyLength()))
             {
                 error = E_PB_PARSE_ERROR;
                 break;
@@ -41,9 +41,9 @@ namespace ACTION_SERVER {
 
         msg_rsp.set_attach_data(msg.attach_data());
         msg_rsp.set_error(error);
-        response->Next(&msg_rsp,CID_ServerLoginRes,request->GetPdu()->GetSeqNum());
+        request->Next(&msg_rsp,CID_ServerLoginRes,request->GetSeqNum());
     }
-    void ServerLoginResAction(CRequest* request, CResponse *response){
+    void ServerLoginResAction(CRequest* request){
         PTP::Server::ServerLoginRes msg;
         PTP::Auth::AuthLoginRes msg_rsp;
         auto error = msg.error();
@@ -53,7 +53,7 @@ namespace ACTION_SERVER {
                 break;
             }
 
-            auto ret1 = msg.ParseFromArray(request->GetPdu()->GetBodyData(), request->GetPdu()->GetBodyLength());
+            auto ret1 = msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), request->GetRequestPdu()->GetBodyLength());
             if(!ret1){
                 error = PTP::Common::E_PB_PARSE_ERROR;
                 DEBUG_E("ParseFromArray error");
@@ -124,7 +124,7 @@ namespace ACTION_SERVER {
             break;
         }
         msg_rsp.set_error(error);
-        response->SendMsg(&msg_rsp,CID_AuthLoginRes,request->GetPdu()->GetSeqNum());
+        request->SendResponseMsg(&msg_rsp,CID_AuthLoginRes,request->GetSeqNum());
     }
 };
 

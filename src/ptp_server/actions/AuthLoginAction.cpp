@@ -18,7 +18,7 @@
 using namespace PTP::Common;
 
 namespace ACTION_AUTH {
-    void AuthLoginReqAction(CRequest* request, CResponse *response){
+    void AuthLoginReqAction(CRequest* request){
         PTP::Auth::AuthLoginReq msg;
         PTP::Auth::AuthLoginRes msg_rsp;
         ERR error = NO_ERROR;
@@ -41,7 +41,7 @@ namespace ACTION_AUTH {
                 break;
             }
 
-            if(!msg.ParseFromArray(request->GetPdu()->GetBodyData(), (int)request->GetPdu()->GetBodyLength()))
+            if(!msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), (int)request->GetRequestPdu()->GetBodyLength()))
             {
                 error = E_PB_PARSE_ERROR;
                 break;
@@ -78,13 +78,13 @@ namespace ACTION_AUTH {
             msg_next.set_address(address);
             msg_next.set_captcha(msg.captcha());
             msg_next.set_sign(msg.sign());
-            response->Next(&msg_next,CID_ServerLoginReq,request->GetPdu()->GetSeqNum());
+            request->Next(&msg_next,CID_ServerLoginReq,request->GetSeqNum());
             break;
         }
 
         if(error!= NO_ERROR){
             msg_rsp.set_error(error);
-            response->SendMsg(&msg_rsp,CID_AuthLoginRes,request->GetPdu()->GetSeqNum());
+            request->SendResponseMsg(&msg_rsp,CID_AuthLoginRes,request->GetSeqNum());
         }
     }
     

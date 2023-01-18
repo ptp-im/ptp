@@ -34,6 +34,12 @@ void CResponse::Next(const google::protobuf::MessageLite* msg,uint16_t command_i
             seq_num);
 }
 
+void CResponse::SendPdu(ImPdu *pPdu,bool encrypt){
+    m_pPdu = new ImPdu();
+    SetPdu(pPdu);
+    m_pPdu->SetReversed(encrypt ? 1 : 0);
+}
+
 void CResponse::SendMsg(const google::protobuf::MessageLite* msg,uint16_t command_id,uint16_t seq_num,bool encrypt) {
     m_pPdu = new ImPdu();
     m_pPdu->SetPBMsg(

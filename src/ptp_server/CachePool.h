@@ -22,6 +22,12 @@
 #define     GROUP_ADDRESS_ID_PREFIX                     "group_adr_id:"
 #define     GROUP_ADDRESS_PREFIX                        "group_adr:"
 #define     GROUP_UPDATE_PREFIX                         "group_update:"
+#define     GROUP_CREATE_PREFIX                         "group_create:"
+#define     GROUP_ABOUT_PREFIX                          "group_about:"
+#define     GROUP_NAME_PREFIX                           "group_name:"
+#define     GROUP_AVATAR_PREFIX                         "group_avatar:"
+#define     GROUP_OWNER_PREFIX                          "group_owner:"
+#define     GROUP_PAIR_PREFIX                           "group_pair:"
 #define     GROUP_MSG_UPDATE_PREFIX                     "group_msg_update:"
 #define     GROUP_TYPE_PREFIX                           "group_type:"
 #define     GROUP_IDX_PREFIX                            "group_idx:"
@@ -42,6 +48,9 @@
 #define     CACHE_USER_ID_LAST_NAME_PREFIX              "user_id_last_name_prefix:"
 #define     CACHE_USER_ID_STATUS_PREFIX                 "user_id_status_prefix:"
 #define     CACHE_USER_ID_LOGIN_TIME_PREFIX             "user_id_login_time_prefix:"
+
+#define     CACHE_GROUP_INSTANCE                        "group"
+#define     CACHE_AUTH_INSTANCE                         "auth"
 
 class CachePool;
 

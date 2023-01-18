@@ -13,10 +13,9 @@
 #define __AUTHLOGINACTION_H__
 
 #include "../Request.h"
-#include "../Response.h"
 
 namespace ACTION_AUTH {
-    void AuthLoginReqAction(CRequest *request, CResponse *response);
+    void AuthLoginReqAction(CRequest *request);
 };
 
 #endif /*defined(__AUTHLOGINACTION_H__) */

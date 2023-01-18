@@ -13,10 +13,9 @@
 #define __AUTHCAPTCHAACTION_H__
 
 #include "../Request.h"
-#include "../Response.h"
 
 namespace ACTION_AUTH {
-    void AuthCaptchaReqAction(CRequest *request, CResponse *response);
+    void AuthCaptchaReqAction(CRequest *request);
 };
 
 #endif /*defined(__AUTHCAPTCHAACTION_H__) */

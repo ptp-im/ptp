@@ -3,9 +3,9 @@
 
 #include "ptp_global/ImConn.h"
 #include "ptp_protobuf/ImPdu.h"
-#include "Response.h"
-#include "Request.h"
 #include "FileConfig.h"
+#include "CachePool.h"
+#include "Request.h"
 
 typedef struct {
 	uint32_t msg_id;
@@ -63,7 +63,7 @@ public:
     string 			m_client_version;	// e.g MAC/2.2, or WIN/2.2
     uint32_t        m_login_time;
 private:
-    void _HandleHeartBeatNotify(CRequest *requestPdu,CResponse *responsePdu);
+    void _HandleHeartBeatNotify(CRequest *requestPdu);
 
 private:
     uint32_t        m_user_id;

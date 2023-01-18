@@ -13,11 +13,10 @@
 #define __SERVERLOGINACTION_H__
 
 #include "../Request.h"
-#include "../Response.h"
 
 namespace ACTION_SERVER {
-    void ServerLoginReqAction(CRequest *request, CResponse *response);
-    void ServerLoginResAction(CRequest* request, CResponse *response);
+    void ServerLoginReqAction(CRequest *request);
+    void ServerLoginResAction(CRequest* request);
 };
 
 #endif /*defined(__SERVERLOGINACTION_H__) */

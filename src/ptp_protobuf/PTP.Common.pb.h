@@ -1833,11 +1833,13 @@ class GroupInfo final :
     kGroupAdrFieldNumber = 1,
     kNameFieldNumber = 2,
     kAvatarFieldNumber = 3,
+    kAboutFieldNumber = 11,
     kOwnerUidFieldNumber = 4,
     kPairUidFieldNumber = 5,
     kGroupIdxFieldNumber = 7,
     kCreatedTimeFieldNumber = 8,
     kGroupIdFieldNumber = 9,
+    kUpdatedTimeFieldNumber = 10,
     kGroupTypeFieldNumber = 6,
   };
   // required string group_adr = 1;
@@ -1892,6 +1894,24 @@ class GroupInfo final :
   const std::string& _internal_avatar() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_avatar(const std::string& value);
   std::string* _internal_mutable_avatar();
+  public:
+
+  // required string about = 11;
+  bool has_about() const;
+  private:
+  bool _internal_has_about() const;
+  public:
+  void clear_about();
+  const std::string& about() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_about(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_about();
+  PROTOBUF_NODISCARD std::string* release_about();
+  void set_allocated_about(std::string* about);
+  private:
+  const std::string& _internal_about() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_about(const std::string& value);
+  std::string* _internal_mutable_about();
   public:
 
   // required uint32 owner_uid = 4;
@@ -1959,6 +1979,19 @@ class GroupInfo final :
   void _internal_set_group_id(uint32_t value);
   public:
 
+  // required uint32 updated_time = 10;
+  bool has_updated_time() const;
+  private:
+  bool _internal_has_updated_time() const;
+  public:
+  void clear_updated_time();
+  uint32_t updated_time() const;
+  void set_updated_time(uint32_t value);
+  private:
+  uint32_t _internal_updated_time() const;
+  void _internal_set_updated_time(uint32_t value);
+  public:
+
   // required .PTP.Common.GroupType group_type = 6;
   bool has_group_type() const;
   private:
@@ -1988,11 +2021,13 @@ class GroupInfo final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr group_adr_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr avatar_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr about_;
     uint32_t owner_uid_;
     uint32_t pair_uid_;
     uint32_t group_idx_;
     uint32_t created_time_;
     uint32_t group_id_;
+    uint32_t updated_time_;
     int group_type_;
   };
   union { Impl_ _impl_; };
@@ -4522,7 +4557,7 @@ inline void GroupInfo::set_allocated_group_adr(std::string* group_adr) {
 
 // required uint32 group_id = 9;
 inline bool GroupInfo::_internal_has_group_id() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000080u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool GroupInfo::has_group_id() const {
@@ -4530,7 +4565,7 @@ inline bool GroupInfo::has_group_id() const {
 }
 inline void GroupInfo::clear_group_id() {
   _impl_.group_id_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000080u;
+  _impl_._has_bits_[0] &= ~0x00000100u;
 }
 inline uint32_t GroupInfo::_internal_group_id() const {
   return _impl_.group_id_;
@@ -4540,7 +4575,7 @@ inline uint32_t GroupInfo::group_id() const {
   return _internal_group_id();
 }
 inline void GroupInfo::_internal_set_group_id(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000080u;
+  _impl_._has_bits_[0] |= 0x00000100u;
   _impl_.group_id_ = value;
 }
 inline void GroupInfo::set_group_id(uint32_t value) {
@@ -4686,7 +4721,7 @@ inline void GroupInfo::set_allocated_avatar(std::string* avatar) {
 
 // required uint32 owner_uid = 4;
 inline bool GroupInfo::_internal_has_owner_uid() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool GroupInfo::has_owner_uid() const {
@@ -4694,7 +4729,7 @@ inline bool GroupInfo::has_owner_uid() const {
 }
 inline void GroupInfo::clear_owner_uid() {
   _impl_.owner_uid_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000008u;
+  _impl_._has_bits_[0] &= ~0x00000010u;
 }
 inline uint32_t GroupInfo::_internal_owner_uid() const {
   return _impl_.owner_uid_;
@@ -4704,7 +4739,7 @@ inline uint32_t GroupInfo::owner_uid() const {
   return _internal_owner_uid();
 }
 inline void GroupInfo::_internal_set_owner_uid(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_._has_bits_[0] |= 0x00000010u;
   _impl_.owner_uid_ = value;
 }
 inline void GroupInfo::set_owner_uid(uint32_t value) {
@@ -4714,7 +4749,7 @@ inline void GroupInfo::set_owner_uid(uint32_t value) {
 
 // optional uint32 pair_uid = 5;
 inline bool GroupInfo::_internal_has_pair_uid() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool GroupInfo::has_pair_uid() const {
@@ -4722,7 +4757,7 @@ inline bool GroupInfo::has_pair_uid() const {
 }
 inline void GroupInfo::clear_pair_uid() {
   _impl_.pair_uid_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000010u;
+  _impl_._has_bits_[0] &= ~0x00000020u;
 }
 inline uint32_t GroupInfo::_internal_pair_uid() const {
   return _impl_.pair_uid_;
@@ -4732,7 +4767,7 @@ inline uint32_t GroupInfo::pair_uid() const {
   return _internal_pair_uid();
 }
 inline void GroupInfo::_internal_set_pair_uid(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_._has_bits_[0] |= 0x00000020u;
   _impl_.pair_uid_ = value;
 }
 inline void GroupInfo::set_pair_uid(uint32_t value) {
@@ -4742,7 +4777,7 @@ inline void GroupInfo::set_pair_uid(uint32_t value) {
 
 // required .PTP.Common.GroupType group_type = 6;
 inline bool GroupInfo::_internal_has_group_type() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000100u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000400u) != 0;
   return value;
 }
 inline bool GroupInfo::has_group_type() const {
@@ -4750,7 +4785,7 @@ inline bool GroupInfo::has_group_type() const {
 }
 inline void GroupInfo::clear_group_type() {
   _impl_.group_type_ = 1;
-  _impl_._has_bits_[0] &= ~0x00000100u;
+  _impl_._has_bits_[0] &= ~0x00000400u;
 }
 inline ::PTP::Common::GroupType GroupInfo::_internal_group_type() const {
   return static_cast< ::PTP::Common::GroupType >(_impl_.group_type_);
@@ -4761,7 +4796,7 @@ inline ::PTP::Common::GroupType GroupInfo::group_type() const {
 }
 inline void GroupInfo::_internal_set_group_type(::PTP::Common::GroupType value) {
   assert(::PTP::Common::GroupType_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000100u;
+  _impl_._has_bits_[0] |= 0x00000400u;
   _impl_.group_type_ = value;
 }
 inline void GroupInfo::set_group_type(::PTP::Common::GroupType value) {
@@ -4771,7 +4806,7 @@ inline void GroupInfo::set_group_type(::PTP::Common::GroupType value) {
 
 // required uint32 group_idx = 7;
 inline bool GroupInfo::_internal_has_group_idx() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
 inline bool GroupInfo::has_group_idx() const {
@@ -4779,7 +4814,7 @@ inline bool GroupInfo::has_group_idx() const {
 }
 inline void GroupInfo::clear_group_idx() {
   _impl_.group_idx_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000020u;
+  _impl_._has_bits_[0] &= ~0x00000040u;
 }
 inline uint32_t GroupInfo::_internal_group_idx() const {
   return _impl_.group_idx_;
@@ -4789,7 +4824,7 @@ inline uint32_t GroupInfo::group_idx() const {
   return _internal_group_idx();
 }
 inline void GroupInfo::_internal_set_group_idx(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000020u;
+  _impl_._has_bits_[0] |= 0x00000040u;
   _impl_.group_idx_ = value;
 }
 inline void GroupInfo::set_group_idx(uint32_t value) {
@@ -4799,7 +4834,7 @@ inline void GroupInfo::set_group_idx(uint32_t value) {
 
 // required uint32 created_time = 8;
 inline bool GroupInfo::_internal_has_created_time() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool GroupInfo::has_created_time() const {
@@ -4807,7 +4842,7 @@ inline bool GroupInfo::has_created_time() const {
 }
 inline void GroupInfo::clear_created_time() {
   _impl_.created_time_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000040u;
+  _impl_._has_bits_[0] &= ~0x00000080u;
 }
 inline uint32_t GroupInfo::_internal_created_time() const {
   return _impl_.created_time_;
@@ -4817,12 +4852,108 @@ inline uint32_t GroupInfo::created_time() const {
   return _internal_created_time();
 }
 inline void GroupInfo::_internal_set_created_time(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000040u;
+  _impl_._has_bits_[0] |= 0x00000080u;
   _impl_.created_time_ = value;
 }
 inline void GroupInfo::set_created_time(uint32_t value) {
   _internal_set_created_time(value);
   // @@protoc_insertion_point(field_set:PTP.Common.GroupInfo.created_time)
+}
+
+// required uint32 updated_time = 10;
+inline bool GroupInfo::_internal_has_updated_time() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000200u) != 0;
+  return value;
+}
+inline bool GroupInfo::has_updated_time() const {
+  return _internal_has_updated_time();
+}
+inline void GroupInfo::clear_updated_time() {
+  _impl_.updated_time_ = 0u;
+  _impl_._has_bits_[0] &= ~0x00000200u;
+}
+inline uint32_t GroupInfo::_internal_updated_time() const {
+  return _impl_.updated_time_;
+}
+inline uint32_t GroupInfo::updated_time() const {
+  // @@protoc_insertion_point(field_get:PTP.Common.GroupInfo.updated_time)
+  return _internal_updated_time();
+}
+inline void GroupInfo::_internal_set_updated_time(uint32_t value) {
+  _impl_._has_bits_[0] |= 0x00000200u;
+  _impl_.updated_time_ = value;
+}
+inline void GroupInfo::set_updated_time(uint32_t value) {
+  _internal_set_updated_time(value);
+  // @@protoc_insertion_point(field_set:PTP.Common.GroupInfo.updated_time)
+}
+
+// required string about = 11;
+inline bool GroupInfo::_internal_has_about() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool GroupInfo::has_about() const {
+  return _internal_has_about();
+}
+inline void GroupInfo::clear_about() {
+  _impl_.about_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000008u;
+}
+inline const std::string& GroupInfo::about() const {
+  // @@protoc_insertion_point(field_get:PTP.Common.GroupInfo.about)
+  return _internal_about();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GroupInfo::set_about(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000008u;
+ _impl_.about_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:PTP.Common.GroupInfo.about)
+}
+inline std::string* GroupInfo::mutable_about() {
+  std::string* _s = _internal_mutable_about();
+  // @@protoc_insertion_point(field_mutable:PTP.Common.GroupInfo.about)
+  return _s;
+}
+inline const std::string& GroupInfo::_internal_about() const {
+  return _impl_.about_.Get();
+}
+inline void GroupInfo::_internal_set_about(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_.about_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GroupInfo::_internal_mutable_about() {
+  _impl_._has_bits_[0] |= 0x00000008u;
+  return _impl_.about_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GroupInfo::release_about() {
+  // @@protoc_insertion_point(field_release:PTP.Common.GroupInfo.about)
+  if (!_internal_has_about()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000008u;
+  auto* p = _impl_.about_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.about_.IsDefault()) {
+    _impl_.about_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void GroupInfo::set_allocated_about(std::string* about) {
+  if (about != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000008u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000008u;
+  }
+  _impl_.about_.SetAllocated(about, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.about_.IsDefault()) {
+    _impl_.about_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:PTP.Common.GroupInfo.about)
 }
 
 // -------------------------------------------------------------------

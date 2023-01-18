@@ -224,8 +224,7 @@ void CMsgSrvConn::HandleNextResponse(ImPdu* pPdu){
     if(m_pdu_handler != nullptr){
         CRequest request;
         request.SetHandle(GetHandle());
-        CResponse response;
-        request.SetPdu(pPdu);
+        request.SetRequestPdu(pPdu);
         auto pDbMsgConn = get_business_serv_conn_for_login();
         if(pDbMsgConn->isEnable() && cid == CID_AuthLoginReq){
             if(!pDbMsgConn->IsOpen()){
@@ -237,27 +236,27 @@ void CMsgSrvConn::HandleNextResponse(ImPdu* pPdu){
                 return;
             }
         }
-        m_pdu_handler(&request, &response);
-        if(response.isPduValid()){
-            if(response.isNext()){
+        m_pdu_handler(&request);
+        if(request.IsResponsePduValid()){
+            if(request.IsNext()){
                 pDbMsgConn = get_business_serv_conn();
                 if(!pDbMsgConn->isEnable()){
-                    HandleNextResponse(response.GetPdu());
+                    HandleNextResponse(request.GetResponsePdu());
                 }else{
                     if(pDbMsgConn->IsOpen()){
-                        response.GetPdu()->SetReversed(GetHandle());
-                        pDbMsgConn->SendPdu(response.GetPdu());
+                        request.GetResponsePdu()->SetReversed(GetHandle());
+                        pDbMsgConn->SendPdu(request.GetResponsePdu());
                     }else{
                         DEBUG_E("pDbMsgConn business is not open");
                         ImPdu pduLoginErr;
                         PTP::Other::HeartBeatNotify msg_res;
-                        pduLoginErr.SetPBMsg(&msg_res,response.GetPdu()->GetCommandId(),response.GetPdu()->GetSeqNum());
+                        pduLoginErr.SetPBMsg(&msg_res,request.GetResponsePdu()->GetCommandId(),request.GetResponsePdu()->GetSeqNum());
                         pduLoginErr.SetFlag(PTP::Common::E_REASON_NO_DB_SERVER);
                         SendPdu(&pduLoginErr);
                     }
                 }
             }else{
-                SendPdu(response.GetPdu());
+                SendPdu(request.GetResponsePdu());
             }
         }
     }else{

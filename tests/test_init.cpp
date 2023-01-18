@@ -23,4 +23,5 @@ void test_int(){
     remove_config_path();
     init_server_config();
     CacheManager::setConfigPath(get_config_path());
+    CacheManager::getInstance();
 }

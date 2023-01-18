@@ -23,5 +23,7 @@
 #define TEST_CONFIG_group_auth       "group_auth=s9mE_s3cUrE_prsS"
 #define TEST_CONFIG_group_db         "group_db=12"
 #define TEST_CONFIG_group_maxconncnt "group_maxconncnt=16"
+
 void test_int();
+
 #endif //PTP_CTL_TEST_DEFINE_H

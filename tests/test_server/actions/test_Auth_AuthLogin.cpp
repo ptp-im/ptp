@@ -16,18 +16,17 @@ TEST(test_Auth, AuthLoginAction) {
     ImPdu pdu;
     pdu.SetPBMsg(&msg,CID_AuthCaptchaReq,sep_no);
     CRequest request;
-    CResponse response;
     request.SetHandle(time(nullptr));
     auto pMsgConn = new CMsgSrvConn();
     addMsgSrvConnByHandle(request.GetHandle(),pMsgConn);
-    request.SetPdu(&pdu);
-    ACTION_AUTH::AuthCaptchaReqAction(&request,&response);
-    if(response.GetPdu()){
-        ASSERT_EQ(response.GetPdu()->GetSeqNum(),sep_no);
+    request.SetRequestPdu(&pdu);
+    ACTION_AUTH::AuthCaptchaReqAction(&request);
+    if(request.GetResponsePdu()){
+        ASSERT_EQ(request.GetResponsePdu()->GetSeqNum(),sep_no);
     }
-    ASSERT_EQ(response.GetPdu()->GetCommandId(),CID_AuthCaptchaRes);
+    ASSERT_EQ(request.GetResponsePdu()->GetCommandId(),CID_AuthCaptchaRes);
     PTP::Auth::AuthCaptchaRes msg_rsp;
-    auto res = msg_rsp.ParseFromArray(response.GetPdu()->GetBodyData(), (int)response.GetPdu()->GetBodyLength());
+    auto res = msg_rsp.ParseFromArray(request.GetResponsePdu()->GetBodyData(), (int)request.GetResponsePdu()->GetBodyLength());
     ASSERT_EQ(res,true);
     auto error = msg_rsp.error();
     ASSERT_EQ(error,NO_ERROR);
@@ -57,16 +56,15 @@ TEST(test_Auth, AuthLoginAction) {
     sep_no+=1;
     pdu_login.SetPBMsg(&msg_login,CID_AuthLoginReq,sep_no);
     CRequest request_login;
-    CResponse response_login;
     request_login.SetHandle(request.GetHandle());
-    request_login.SetPdu(&pdu_login);
-    ACTION_AUTH::AuthLoginReqAction(&request_login,&response_login);
-    if(response_login.GetPdu()){
-        ASSERT_EQ(response_login.GetPdu()->GetSeqNum(),sep_no);
+    request_login.SetRequestPdu(&pdu_login);
+    ACTION_AUTH::AuthLoginReqAction(&request_login);
+    if(request_login.GetResponsePdu()){
+        ASSERT_EQ(request_login.GetResponsePdu()->GetSeqNum(),sep_no);
     }
-    ASSERT_EQ(response_login.GetPdu()->GetCommandId(),CID_ServerLoginReq);
+    ASSERT_EQ(request_login.GetResponsePdu()->GetCommandId(),CID_ServerLoginReq);
     PTP::Server::ServerLoginReq msg_login_rsp;
-    res = msg_login_rsp.ParseFromArray(response_login.GetPdu()->GetBodyData(), (int)response_login.GetPdu()->GetBodyLength());
+    res = msg_login_rsp.ParseFromArray(request_login.GetResponsePdu()->GetBodyData(), (int)request_login.GetResponsePdu()->GetBodyLength());
 
 
     ASSERT_EQ(pMsgConn->IsOpen(),false);
@@ -86,16 +84,15 @@ TEST(test_Auth, AuthLoginAction) {
     ImPdu pdu_1;
     pdu_1.SetPBMsg(&msg_login_rsp,CID_ServerLoginReq,sep_no);
     CRequest request_1;
-    CResponse response_1;
     request_1.SetIsBusinessConn(true);
-    request_1.SetPdu(&pdu_1);
-    ACTION_SERVER::ServerLoginReqAction(&request_1,&response_1);
-    if(response_1.GetPdu()){
-        ASSERT_EQ(response_1.GetPdu()->GetSeqNum(),sep_no);
+    request_1.SetRequestPdu(&pdu_1);
+    ACTION_SERVER::ServerLoginReqAction(&request_1);
+    if(request_1.GetResponsePdu()){
+        ASSERT_EQ(request_1.GetResponsePdu()->GetSeqNum(),sep_no);
     }
-    ASSERT_EQ(response_1.GetPdu()->GetCommandId(),CID_ServerLoginRes);
+    ASSERT_EQ(request_1.GetResponsePdu()->GetCommandId(),CID_ServerLoginRes);
     PTP::Server::ServerLoginRes msg_login_res_rsp;
-    res = msg_login_res_rsp.ParseFromArray(response_1.GetPdu()->GetBodyData(), (int)response_1.GetPdu()->GetBodyLength());
+    res = msg_login_res_rsp.ParseFromArray(request_1.GetResponsePdu()->GetBodyData(), (int)request_1.GetResponsePdu()->GetBodyLength());
     ASSERT_EQ(res,true);
     error = msg_login_res_rsp.error();
     ASSERT_EQ(error,NO_ERROR);
@@ -108,21 +105,20 @@ TEST(test_Auth, AuthLoginAction) {
     ImPdu pdu_2;
     pdu_2.SetPBMsg(&msg_login_res_rsp,CID_ServerLoginRes,sep_no);
     CRequest request_2;
-    CResponse response_2;
     request_2.SetHandle(request.GetHandle());
     request_2.SetIsBusinessConn(false);
-    request_2.SetPdu(&pdu_2);
-    ACTION_SERVER::ServerLoginResAction(&request_2,&response_2);
-    if(response_2.GetPdu()){
-        ASSERT_EQ(response_2.GetPdu()->GetSeqNum(),sep_no);
+    request_2.SetRequestPdu(&pdu_2);
+    ACTION_SERVER::ServerLoginResAction(&request_2);
+    if(request_2.GetResponsePdu()){
+        ASSERT_EQ(request_2.GetResponsePdu()->GetSeqNum(),sep_no);
     }
     PTP::Auth::AuthLoginRes msg_login_res_rsp2;
-    res = msg_login_res_rsp2.ParseFromArray(response_2.GetPdu()->GetBodyData(), (int)response_2.GetPdu()->GetBodyLength());
+    res = msg_login_res_rsp2.ParseFromArray(request_2.GetResponsePdu()->GetBodyData(), (int)request_2.GetResponsePdu()->GetBodyLength());
     ASSERT_EQ(res,true);
     error = msg_login_res_rsp2.error();
     ASSERT_EQ(error,NO_ERROR);
     ASSERT_EQ(true,msg_login_res_rsp2.user_info().uid() > 0);
-    ASSERT_EQ(response_2.GetPdu()->GetCommandId(),CID_AuthLoginRes);
+    ASSERT_EQ(request_2.GetResponsePdu()->GetCommandId(),CID_AuthLoginRes);
     ASSERT_EQ(pMsgConn->IsOpen(),true);
     ASSERT_EQ(pMsgConn->GetAddress(),address);
     ASSERT_EQ(pMsgConn->GetUserId(),msg_login_res_rsp2.user_info().uid());

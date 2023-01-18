@@ -13,10 +13,9 @@
 #define __AUTHLOGOUTACTION_H__
 
 #include "../Request.h"
-#include "../Response.h"
 
 namespace ACTION_AUTH {
-    void AuthLogoutReqAction(CRequest *request, CResponse *response);
+    void AuthLogoutReqAction(CRequest *request);
 };
 
 #endif /*defined(__AUTHLOGOUTACTION_H__) */

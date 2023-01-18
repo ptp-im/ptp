@@ -155,6 +155,8 @@ message GroupInfo{
   required GroupType group_type = 6;
   required uint32 group_idx = 7;
   required uint32 created_time = 8;
+  required uint32 updated_time = 10;
+  required string about = 11;
 }
 
 message MsgInfo{

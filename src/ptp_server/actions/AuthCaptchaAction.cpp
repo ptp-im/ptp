@@ -18,7 +18,7 @@
 using namespace PTP::Common;
 
 namespace ACTION_AUTH {
-    void AuthCaptchaReqAction(CRequest* request, CResponse *response){
+    void AuthCaptchaReqAction(CRequest* request){
         PTP::Auth::AuthCaptchaReq msg;
         PTP::Auth::AuthCaptchaRes msg_rsp;
         ERR error = NO_ERROR;
@@ -29,7 +29,7 @@ namespace ACTION_AUTH {
                 DEBUG_E("not found pMsgConn");
                 return;
             }
-            if(!msg.ParseFromArray(request->GetPdu()->GetBodyData(), (int)request->GetPdu()->GetBodyLength()))
+            if(!msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), (int)request->GetRequestPdu()->GetBodyLength()))
             {
                 error = E_PB_PARSE_ERROR;
                 break;
@@ -69,9 +69,9 @@ namespace ACTION_AUTH {
             break;
         }
         msg_rsp.set_error(error);
-        response->SendMsg(&msg_rsp,
+        request->SendResponseMsg(&msg_rsp,
                           CID_AuthCaptchaRes,
-                          request->GetPdu()->GetSeqNum());
+                          request->GetSeqNum());
         
     }
     

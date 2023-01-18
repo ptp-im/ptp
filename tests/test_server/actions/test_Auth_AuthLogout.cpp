@@ -13,11 +13,10 @@ TEST(test_Auth, AuthLogoutAction) {
     ImPdu pdu;
     pdu.SetPBMsg(&msg,CID_AuthLogoutReq,sep_no);
     CRequest request;
-    CResponse response;
     request.SetHandle(time(nullptr));
     addMsgSrvConnByHandle(request.GetHandle(),new CMsgSrvConn());
-    request.SetPdu(&pdu);
-    ACTION_AUTH::AuthLogoutReqAction(&request,&response);
+    request.SetRequestPdu(&pdu);
+    ACTION_AUTH::AuthLogoutReqAction(&request);
 
 }
 

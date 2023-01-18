@@ -17,6 +17,7 @@ public:
     ImPdu *GetPdu(){return m_pPdu;}
     bool isPduValid();
     bool isNext(){return m_next;};
+    void SendPdu(ImPdu *pPdu,bool encrypt = false);
     void SendMsg(const google::protobuf::MessageLite* msg,uint16_t command_id,uint16_t seq_num = 0,bool encrypt = false);
     void Next(const google::protobuf::MessageLite* msg,uint16_t command_id,uint16_t seq_num = 0);
 private:

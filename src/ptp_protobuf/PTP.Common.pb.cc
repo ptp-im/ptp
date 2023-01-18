@@ -139,11 +139,13 @@ PROTOBUF_CONSTEXPR GroupInfo::GroupInfo(
   , /*decltype(_impl_.group_adr_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.avatar_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.about_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.owner_uid_)*/0u
   , /*decltype(_impl_.pair_uid_)*/0u
   , /*decltype(_impl_.group_idx_)*/0u
   , /*decltype(_impl_.created_time_)*/0u
   , /*decltype(_impl_.group_id_)*/0u
+  , /*decltype(_impl_.updated_time_)*/0u
   , /*decltype(_impl_.group_type_)*/1} {}
 struct GroupInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GroupInfoDefaultTypeInternal()
@@ -3513,7 +3515,7 @@ class GroupInfo::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_group_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 128u;
+    (*has_bits)[0] |= 256u;
   }
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
@@ -3522,22 +3524,28 @@ class GroupInfo::_Internal {
     (*has_bits)[0] |= 4u;
   }
   static void set_has_owner_uid(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
-  static void set_has_pair_uid(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
-  static void set_has_group_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 256u;
-  }
-  static void set_has_group_idx(HasBits* has_bits) {
+  static void set_has_pair_uid(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
-  static void set_has_created_time(HasBits* has_bits) {
+  static void set_has_group_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 1024u;
+  }
+  static void set_has_group_idx(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
+  static void set_has_created_time(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
+  static void set_has_updated_time(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
+  }
+  static void set_has_about(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
   static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x000001ef) ^ 0x000001ef) != 0;
+    return ((has_bits[0] & 0x000007df) ^ 0x000007df) != 0;
   }
 };
 
@@ -3556,11 +3564,13 @@ GroupInfo::GroupInfo(const GroupInfo& from)
     , decltype(_impl_.group_adr_){}
     , decltype(_impl_.name_){}
     , decltype(_impl_.avatar_){}
+    , decltype(_impl_.about_){}
     , decltype(_impl_.owner_uid_){}
     , decltype(_impl_.pair_uid_){}
     , decltype(_impl_.group_idx_){}
     , decltype(_impl_.created_time_){}
     , decltype(_impl_.group_id_){}
+    , decltype(_impl_.updated_time_){}
     , decltype(_impl_.group_type_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -3588,6 +3598,14 @@ GroupInfo::GroupInfo(const GroupInfo& from)
     _this->_impl_.avatar_.Set(from._internal_avatar(), 
       _this->GetArenaForAllocation());
   }
+  _impl_.about_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.about_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_about()) {
+    _this->_impl_.about_.Set(from._internal_about(), 
+      _this->GetArenaForAllocation());
+  }
   ::memcpy(&_impl_.owner_uid_, &from._impl_.owner_uid_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.group_type_) -
     reinterpret_cast<char*>(&_impl_.owner_uid_)) + sizeof(_impl_.group_type_));
@@ -3604,11 +3622,13 @@ inline void GroupInfo::SharedCtor(
     , decltype(_impl_.group_adr_){}
     , decltype(_impl_.name_){}
     , decltype(_impl_.avatar_){}
+    , decltype(_impl_.about_){}
     , decltype(_impl_.owner_uid_){0u}
     , decltype(_impl_.pair_uid_){0u}
     , decltype(_impl_.group_idx_){0u}
     , decltype(_impl_.created_time_){0u}
     , decltype(_impl_.group_id_){0u}
+    , decltype(_impl_.updated_time_){0u}
     , decltype(_impl_.group_type_){1}
   };
   _impl_.group_adr_.InitDefault();
@@ -3622,6 +3642,10 @@ inline void GroupInfo::SharedCtor(
   _impl_.avatar_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.avatar_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.about_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.about_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -3639,6 +3663,7 @@ inline void GroupInfo::SharedDtor() {
   _impl_.group_adr_.Destroy();
   _impl_.name_.Destroy();
   _impl_.avatar_.Destroy();
+  _impl_.about_.Destroy();
 }
 
 void GroupInfo::SetCachedSize(int size) const {
@@ -3652,7 +3677,7 @@ void GroupInfo::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _impl_.group_adr_.ClearNonDefaultToEmpty();
     }
@@ -3662,13 +3687,21 @@ void GroupInfo::Clear() {
     if (cached_has_bits & 0x00000004u) {
       _impl_.avatar_.ClearNonDefaultToEmpty();
     }
+    if (cached_has_bits & 0x00000008u) {
+      _impl_.about_.ClearNonDefaultToEmpty();
+    }
   }
-  if (cached_has_bits & 0x000000f8u) {
+  if (cached_has_bits & 0x000000f0u) {
     ::memset(&_impl_.owner_uid_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&_impl_.group_id_) -
-        reinterpret_cast<char*>(&_impl_.owner_uid_)) + sizeof(_impl_.group_id_));
+        reinterpret_cast<char*>(&_impl_.created_time_) -
+        reinterpret_cast<char*>(&_impl_.owner_uid_)) + sizeof(_impl_.created_time_));
   }
-  _impl_.group_type_ = 1;
+  if (cached_has_bits & 0x00000700u) {
+    ::memset(&_impl_.group_id_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.updated_time_) -
+        reinterpret_cast<char*>(&_impl_.group_id_)) + sizeof(_impl_.updated_time_));
+    _impl_.group_type_ = 1;
+  }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -3765,6 +3798,24 @@ const char* GroupInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
         } else
           goto handle_unusual;
         continue;
+      // required uint32 updated_time = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          _Internal::set_has_updated_time(&has_bits);
+          _impl_.updated_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // required string about = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+          auto str = _internal_mutable_about();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3815,40 +3866,52 @@ uint8_t* GroupInfo::_InternalSerialize(
   }
 
   // required uint32 owner_uid = 4;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_owner_uid(), target);
   }
 
   // optional uint32 pair_uid = 5;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_pair_uid(), target);
   }
 
   // required .PTP.Common.GroupType group_type = 6;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       6, this->_internal_group_type(), target);
   }
 
   // required uint32 group_idx = 7;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(7, this->_internal_group_idx(), target);
   }
 
   // required uint32 created_time = 8;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(8, this->_internal_created_time(), target);
   }
 
   // required uint32 group_id = 9;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(9, this->_internal_group_id(), target);
+  }
+
+  // required uint32 updated_time = 10;
+  if (cached_has_bits & 0x00000200u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(10, this->_internal_updated_time(), target);
+  }
+
+  // required string about = 11;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->WriteStringMaybeAliased(
+        11, this->_internal_about(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3884,6 +3947,13 @@ size_t GroupInfo::RequiredFieldsByteSizeFallback() const {
         this->_internal_avatar());
   }
 
+  if (_internal_has_about()) {
+    // required string about = 11;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_about());
+  }
+
   if (_internal_has_owner_uid()) {
     // required uint32 owner_uid = 4;
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_owner_uid());
@@ -3904,6 +3974,11 @@ size_t GroupInfo::RequiredFieldsByteSizeFallback() const {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_group_id());
   }
 
+  if (_internal_has_updated_time()) {
+    // required uint32 updated_time = 10;
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_updated_time());
+  }
+
   if (_internal_has_group_type()) {
     // required .PTP.Common.GroupType group_type = 6;
     total_size += 1 +
@@ -3916,7 +3991,7 @@ size_t GroupInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PTP.Common.GroupInfo)
   size_t total_size = 0;
 
-  if (((_impl_._has_bits_[0] & 0x000001ef) ^ 0x000001ef) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x000007df) ^ 0x000007df) == 0) {  // All required fields are present.
     // required string group_adr = 1;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -3932,6 +4007,11 @@ size_t GroupInfo::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_avatar());
 
+    // required string about = 11;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_about());
+
     // required uint32 owner_uid = 4;
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_owner_uid());
 
@@ -3943,6 +4023,9 @@ size_t GroupInfo::ByteSizeLong() const {
 
     // required uint32 group_id = 9;
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_group_id());
+
+    // required uint32 updated_time = 10;
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_updated_time());
 
     // required .PTP.Common.GroupType group_type = 6;
     total_size += 1 +
@@ -3957,7 +4040,7 @@ size_t GroupInfo::ByteSizeLong() const {
 
   // optional uint32 pair_uid = 5;
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_pair_uid());
   }
 
@@ -3994,24 +4077,33 @@ void GroupInfo::MergeFrom(const GroupInfo& from) {
       _this->_internal_set_avatar(from._internal_avatar());
     }
     if (cached_has_bits & 0x00000008u) {
-      _this->_impl_.owner_uid_ = from._impl_.owner_uid_;
+      _this->_internal_set_about(from._internal_about());
     }
     if (cached_has_bits & 0x00000010u) {
-      _this->_impl_.pair_uid_ = from._impl_.pair_uid_;
+      _this->_impl_.owner_uid_ = from._impl_.owner_uid_;
     }
     if (cached_has_bits & 0x00000020u) {
-      _this->_impl_.group_idx_ = from._impl_.group_idx_;
+      _this->_impl_.pair_uid_ = from._impl_.pair_uid_;
     }
     if (cached_has_bits & 0x00000040u) {
-      _this->_impl_.created_time_ = from._impl_.created_time_;
+      _this->_impl_.group_idx_ = from._impl_.group_idx_;
     }
     if (cached_has_bits & 0x00000080u) {
-      _this->_impl_.group_id_ = from._impl_.group_id_;
+      _this->_impl_.created_time_ = from._impl_.created_time_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00000100u) {
-    _this->_internal_set_group_type(from._internal_group_type());
+  if (cached_has_bits & 0x00000700u) {
+    if (cached_has_bits & 0x00000100u) {
+      _this->_impl_.group_id_ = from._impl_.group_id_;
+    }
+    if (cached_has_bits & 0x00000200u) {
+      _this->_impl_.updated_time_ = from._impl_.updated_time_;
+    }
+    if (cached_has_bits & 0x00000400u) {
+      _this->_impl_.group_type_ = from._impl_.group_type_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -4046,9 +4138,13 @@ void GroupInfo::InternalSwap(GroupInfo* other) {
       &_impl_.avatar_, lhs_arena,
       &other->_impl_.avatar_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.about_, lhs_arena,
+      &other->_impl_.about_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GroupInfo, _impl_.group_id_)
-      + sizeof(GroupInfo::_impl_.group_id_)
+      PROTOBUF_FIELD_OFFSET(GroupInfo, _impl_.updated_time_)
+      + sizeof(GroupInfo::_impl_.updated_time_)
       - PROTOBUF_FIELD_OFFSET(GroupInfo, _impl_.owner_uid_)>(
           reinterpret_cast<char*>(&_impl_.owner_uid_),
           reinterpret_cast<char*>(&other->_impl_.owner_uid_));
