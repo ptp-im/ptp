@@ -1,8 +1,7 @@
 #include "ImPdu.h"
 
-//#include "IM.BaseDefine.pb.h"
+#include "ptp_global/Helpers.h"
 
-//using namespace IM::BaseDefine;
 
 ImPdu::ImPdu(){};
 
@@ -54,4 +53,15 @@ void ImPdu::SetPBMsg(unsigned char *buf, int len)
     m_buf.Write(szData, len);
     delete []szData;
     WriteHeader();
+}
+
+void ImPdu::Dump(){
+    DEBUG_D("Dump  =====>>>>cid=%s",getActionCommandsName((ActionCommands)GetCommandId()).c_str());
+    DEBUG_D("sno=%d",GetSeqNum());
+    DEBUG_D("revs=%d",GetReversed());
+    DEBUG_D("size=%d",GetLength());
+    DEBUG_D("body size=%d",GetBodyLength());
+    DEBUG_D("body  : %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer()+16,GetLength() - 16).c_str());
+    DEBUG_D("header: %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer(),16).c_str());
+    DEBUG_D("pdu   : %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer(),GetLength()).c_str());
 }

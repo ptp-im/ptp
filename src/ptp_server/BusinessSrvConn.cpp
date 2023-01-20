@@ -200,12 +200,12 @@ void CBusinessSrvConn::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len)
     }
     
     pdu_handler_t handler = s_handler_map->GetHandler(pPdu->GetCommandId());
-    DEBUG_I("CBusinessSrvConn::HandlePduBuf cid=%d,pid:%d", pPdu->GetCommandId(),getpid());
+    DEBUG_I("CBusinessSrvConn::HandlePduBuf cid=%s,pid:%d", getActionCommandsName((ActionCommands)pPdu->GetCommandId()).c_str(),getpid());
     if (handler) {
         CTask* pTask = new CProxyTask(m_uuid, handler, pPdu);
         g_thread_pool.AddTask(pTask);
     } else {
-        DEBUG_I("no handler for cid=%d", pPdu->GetCommandId());
+        DEBUG_I("no handler for cid=%s", getActionCommandsName((ActionCommands)pPdu->GetCommandId()).c_str());
     }
 }
 

@@ -345,3 +345,13 @@ void replace_string(string &str,const string &org_str,const string &replace_str)
 //    }
 //    return NULL;
 //}
+
+bool list_int_contains(list<int> &l,int i){
+    auto it = std::find(l.begin(), l.end(), i);
+    return it != l.end();
+}
+
+bool list_string_contains(list<string> &l,string s){
+    auto it = std::find(l.begin(), l.end(), s);
+    return it != l.end();
+}

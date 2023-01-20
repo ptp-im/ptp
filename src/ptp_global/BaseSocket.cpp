@@ -80,7 +80,7 @@ int CBaseSocket::Listen(const char* server_ip, uint16_t port, callback_t callbac
 
 	m_state = SOCKET_STATE_LISTENING;
 
-	DEBUG_D("CBaseSocket::Listen on %s:%d", server_ip, port);
+	DEBUG_I("CBaseSocket::Listen on %s:%d", server_ip, port);
 
 	AddBaseSocket(this);
 	CEventDispatch::Instance()->AddEvent(m_socket, SOCKET_READ | SOCKET_EXCEP);

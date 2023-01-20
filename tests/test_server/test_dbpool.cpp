@@ -1,14 +1,12 @@
 #include <gtest/gtest.h>
 
 #include "ptp_global/Logger.h"
-#include "ptp_net/AccountManager.h"
-#include "ptp_net/ClientConn.h"
-//#include "ptp_business/CachePool.h"
+#include "test_init.h"
 
+TEST(cachepool, cachepool) {
+    test_init();
 
-TEST(dbpool, dbpool) {
 }
-
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

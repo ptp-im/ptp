@@ -223,12 +223,12 @@ TEST(Util, writePid) {
     auto curPid = (uint32_t) getpid();
     DEBUG_D("curPid:%d",curPid);
     writePid();
-    int64_t size = get_file_size("server.pid");
-    char *buf = new char [size]();
-    get_file_content("server.pid",buf,size);
+    int64_t size = get_file_size("/tmp/server.pid");
+    char buf[size];
+    get_file_content("/tmp/server.pid",buf,size);
     DEBUG_D("size:%d",size);
-    DEBUG_D("buf ====>>>\n%s",buf);
-    ASSERT_TRUE(string(buf, size) == to_string(curPid));
+    DEBUG_D("buf ====>>>\n%s",string(buf, size).c_str());
+    ASSERT_TRUE(string2int(string(buf, size) )== curPid);
 }
 
 TEST(pt_net, CSimpleBuffer) {
@@ -250,8 +250,6 @@ TEST(pt_net, CSimpleBuffer) {
     std::string myString3(reinterpret_cast<const char *>(m_buf.GetBuffer()+2), 2);
     ASSERT_EQ(myString3,"34");
 }
-
-
 
 TEST(SocketClient, socketSend) {
     auto *request = new CSimpleBuffer();

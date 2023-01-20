@@ -9,6 +9,7 @@
 #include <chrono>
 #include <cstdio>
 #include <cstdlib>
+#include <list>
 #ifndef _WIN32
 #include <strings.h>
 #endif
@@ -71,3 +72,6 @@ void replace_string(string &config,const string &str,const string &replace_str);
  * @param begin_pos
  */
 void put_file_content(const char *path,char * fileBuf,uint64_t fileSize);
+
+bool list_int_contains(list<int> &l,int i);
+bool list_string_contains(list<string> &l,string s);

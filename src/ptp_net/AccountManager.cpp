@@ -4,6 +4,7 @@
 #include "ptp_global/Helpers.h"
 #include "ptp_crypto/md5.h"
 #include "ptp_protobuf/PTP.Auth.pb.h"
+#include "ptp_protobuf/ImPdu.h"
 
 using namespace PTP::Common;
 
@@ -172,7 +173,9 @@ void AccountManager::onRead(int32_t instanceNum,int socketFd,NativeByteBuffer * 
 
 
 void AccountManager::handlePdu(CImPdu *pPdu){
-    DEBUG_E("handlePdu,cid:%d,encrypt:%d",pPdu->GetCommandId(),pPdu->GetReversed());
+    ImPdu *pPdu1 = (ImPdu *)pPdu;
+    pPdu1->Dump();
+    DEBUG_E("handlePdu,cid:%s,encrypt:%d",getActionCommandsName((ActionCommands)pPdu->GetCommandId()).c_str(),pPdu->GetReversed());
     if(pPdu->GetReversed() == 1 ){
         if(m_connectionState != ConnectionLogged){
             m_connectionState = ConnectionLogged;
@@ -182,9 +185,9 @@ void AccountManager::handlePdu(CImPdu *pPdu){
         unsigned char shared_secret[32];
         unsigned char iv[16];
         unsigned char aad[16];
-        memcpy(shared_secret,hex_to_string(m_sharedKeyHex).data(),32);
-        memcpy(iv,hex_to_string(m_ivHex).data(),16);
-        memcpy(aad,hex_to_string(m_aadHex).data(),16);
+        memcpy(shared_secret,hex_to_string(m_sharedKeyHex.substr(2)).data(),32);
+        memcpy(iv,hex_to_string(m_ivHex.substr(2)).data(),16);
+        memcpy(aad,hex_to_string(m_aadHex.substr(2)).data(),16);
 
         DEBUG_D("shared_secret: %s",m_sharedKeyHex.c_str());
         DEBUG_D("iv: %s",m_ivHex.c_str());
@@ -203,20 +206,17 @@ void AccountManager::handlePdu(CImPdu *pPdu){
 
         if (decLen > 0) {
             ImPdu pdu;
-            pdu.SetPBMsg(decData,decLen);
-            pdu.SetServiceId(pPdu->GetServiceId());
-            pdu.SetCommandId(pPdu->GetCommandId());
-            pdu.SetSeqNum(pPdu->GetSeqNum());
-            pdu.SetReversed(0);
-            pPdu = CImPdu::ReadPdu(pdu.GetBuffer(), pdu.GetLength());
+            pPdu->SetPBMsg(decData,decLen);
+            pPdu1 = (ImPdu *)pPdu;
+            pPdu1->Dump();
             memset(decData, 0, sizeof(decData));
         }else{
-            DEBUG_E("error decrypt body,cid:%d",pPdu->GetCommandId() );
+            DEBUG_E("error decrypt body,cid:%s", getActionCommandsName((ActionCommands)pPdu->GetCommandId()).c_str());
             return;
         }
     }
 
-    if(pPdu->GetCommandId() == 262){//auth captcha
+    if(pPdu->GetCommandId() == CID_AuthCaptchaRes){//auth captcha
         string address = getAccountAddress();
         auto buf = pPdu->GetBodyData();
         unsigned char captchaBuff[7] = { 0 };
@@ -287,7 +287,7 @@ void AccountManager::handlePdu(CImPdu *pPdu){
         SendPdu(&pdu);
     }
     else{
-        if(pPdu->GetCommandId() == 1793){//heart beat
+        if(pPdu->GetCommandId() == CID_HeartBeatNotify){//heart beat
             return;
         }
         else{
@@ -331,10 +331,8 @@ int AccountManager::_SendPdu(CImPdu* pPdu){
 }
 
 int AccountManager::SendPdu(CImPdu* pPdu){
-    DEBUG_D("pdu send n cid=%d len=%d",pPdu->GetCommandId(),pPdu->GetLength());
-    if(pPdu->GetCommandId() == 1281){
-        DEBUG_D("CID_FileImgUploadReq_VALUE");
-    }
+    DEBUG_D("pdu send n cid=%s len=%d", getActionCommandsName((ActionCommands)pPdu->GetCommandId()).c_str(),pPdu->GetLength());
+
     if(pPdu->GetReversed() == 1 && pPdu->GetBodyLength() > 0){
         unsigned char shared_secret[32];
         unsigned char iv[16];
@@ -389,6 +387,7 @@ string AccountManager::getAccountAddress(){
         PTPWallet::MnemonicHelper::MnemonicResult mnemonicResult = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy, "en");
         PTPWallet::HDKey hdKey = PTPWallet::HDKeyEncoder::makeEthRootKey(mnemonicResult.raw.data());
         PTPWallet::HDKeyEncoder::makeEthExtendedKey(hdKey, PTP_HD_PATH);
+        DEBUG_D("client pubkey:%s",hdKey.publicKey.to_hex().c_str());
         string address = PTPWallet::HDKeyEncoder::getEthAddress(hdKey);
         hdKey.clear();
         m_address = address;
@@ -557,13 +556,18 @@ string AccountManager::signMessage(const string &message) {
 
 void AccountManager::signMessage(const string &message,unsigned char *signOut65) {
     string entropy = GetEntropy();
+    if(entropy.empty()){
+        upsertEntropy();
+        entropy = GetEntropy();
+    }
     auto mnemonicRes = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy,"en");
     PTPWallet::HDKey hdKey = PTPWallet::HDKeyEncoder::makeBip32RootKey(mnemonicRes.raw.data());
     PTPWallet::HDKeyEncoder::makeExtendedKey(hdKey, PTP_HD_PATH);
     string msg_data = AccountManager::format_sign_msg_data(message);
+    DEBUG_D("sign msg_data:%s", msg_data.c_str());
     secp256k1_context *ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
     string address = PTPWallet::HDKeyEncoder::getEthAddress(hdKey);
-    //DEBUG_D("org address:%s", address.c_str());
+    DEBUG_D("sign pub key:%s", hdKey.publicKey.to_hex().c_str());
     ecdsa_sign_recoverable(ctx,msg_data,hdKey.privateKey.data(),signOut65);
     hdKey.clear();
 }

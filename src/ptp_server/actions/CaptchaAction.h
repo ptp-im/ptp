@@ -16,6 +16,7 @@
 
 namespace ACTION_OTHER {
     void CaptchaReqAction(CRequest *request);
+    void CaptchaResAction(CRequest *request);
 };
 
 #endif /*defined(__CAPTCHAACTION_H__) */

@@ -185,7 +185,7 @@ void CBusinessClientConn::HandlePdu(CImPdu* pPdu)
         uint32_t handle  = pPdu->GetReversed();
         auto *pMsgSrvConn = (CMsgSrvConn*)FindMsgSrvConnByHandle(handle);
         if(pMsgSrvConn != nullptr){
-            DEBUG_I("CBusinessClientConn::HandlePdu cid=%d,pid:%d", pPdu->GetCommandId(),getpid());
+            DEBUG_I("CBusinessClientConn::HandlePdu cid=%s,pid:%d", getActionCommandsName((ActionCommands)pPdu->GetCommandId()).c_str(),getpid());
             pMsgSrvConn->HandleNextResponse((ImPdu *)pPdu);
         }else{
             if(pPdu->GetCommandId() != CID_HeartBeatNotify){

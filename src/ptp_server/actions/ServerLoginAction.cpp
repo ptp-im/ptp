@@ -81,8 +81,12 @@ namespace ACTION_SERVER {
             user_info->set_nick_name(msg.user_info().nick_name());
             user_info->set_sign_info(msg.user_info().sign_info());
             user_info->set_avatar(msg.user_info().avatar());
+            user_info->set_first_name(msg.user_info().first_name());
+            user_info->set_last_name(msg.user_info().last_name());
+            user_info->set_login_time(msg.user_info().login_time());
             user_info->set_status(msg.user_info().status());
             user_info->set_pub_key(pub_key);
+            user_info->set_is_online(true);
 
             secp256k1_pubkey pub_key_raw;
 
@@ -95,7 +99,6 @@ namespace ACTION_SERVER {
             unsigned char shared_secret[32];
             unsigned char pub_key_33[33];
             memcpy(pub_key_33,pub_key.data(),33);
-
             secp256k1_context* ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
             auto ret = secp256k1_ec_pubkey_parse(ctx,&pub_key_raw,pub_key_33,33);
             secp256k1_context_destroy(ctx);
@@ -124,7 +127,7 @@ namespace ACTION_SERVER {
             break;
         }
         msg_rsp.set_error(error);
-        request->SendResponseMsg(&msg_rsp,CID_AuthLoginRes,request->GetSeqNum());
+        request->SendResponseMsg(&msg_rsp,CID_AuthLoginRes,request->GetSeqNum(),true);
     }
 };
 

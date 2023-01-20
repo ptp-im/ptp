@@ -12,6 +12,7 @@
 #include "PTP.Buddy.pb.h"
 #include "MsgSrvConn.h"
 #include "models/ModelBuddy.h"
+#include "ImUser.h"
 
 using namespace PTP::Common;
 
@@ -36,13 +37,41 @@ namespace ACTION_BUDDY {
              request->Next(&msg,CID_BuddyQueryListReq,request->GetSeqNum());
             }else{
                 CacheManager *pCacheManager = CacheManager::getInstance();
-                CacheConn *pCacheConn = pCacheManager->GetCacheConn(CACHE_GROUP_INSTANCE);
+                CacheConn *pCacheConn = pCacheManager->GetCacheConn(CACHE_AUTH_INSTANCE);
                 while (true) {
                     if (!pCacheConn) {
                         error = PTP::Common:: E_SYSTEM;
                         DEBUG_E("error pCacheConn");
                         break;
                     }
+
+                    list<string> user_ids;
+                    if(!msg.params().addresslist().empty()){
+                        list<string> addressList;
+                        for(const string&address:msg.params().addresslist()){
+                            addressList.push_back(address);
+                        }
+                        CModelBuddy::getUserIdListByAddress(pCacheConn,addressList,user_ids);
+                    }
+
+                    if(!msg.params().usernamelist().empty()){
+                        auto *buddy = msg_rsp.add_buddy_list();
+                        list<string> usernameList;
+                        for(const string&username:msg.params().usernamelist()){
+                            usernameList.push_back(username);
+                        }
+                        CModelBuddy::getUserIdListByUserName(pCacheConn,usernameList,user_ids);
+                    }
+
+                    if(!user_ids.empty()){
+                        for(const string&user_id:user_ids){
+                            auto *buddy = msg_rsp.add_buddy_list();
+                            CModelBuddy::getUserInfo(pCacheConn,buddy, string2int(user_id));
+                            CImUser *pImUser = CImUserManager::GetInstance()->GetImUserByAddress(buddy->address());
+                            buddy->set_is_online(pImUser != nullptr);
+                        }
+                    }
+
                     auto auth_uid = msg.auth_uid();
                     msg_rsp.set_error(error);
                     msg_rsp.set_auth_uid(auth_uid);
@@ -62,33 +91,6 @@ namespace ACTION_BUDDY {
         }
     }
     void BuddyQueryListResAction(CRequest* request){
-        // PTP::Buddy::BuddyQueryListRes msg;
-        // auto error = msg.error();
-        // while (true){
-        //     if(!msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), (int)request->GetRequestPdu()->GetBodyLength()))
-        //     {
-        //         error = E_PB_PARSE_ERROR;
-        //         break;
-        //     }
-        //     if(!request->IsBusinessConn()){
-        //       uint32_t handle = request->GetHandle();
-        //       auto pMsgConn = FindMsgSrvConnByHandle(handle);
-        //       if(!pMsgConn){
-        //           DEBUG_E("not found pMsgConn");
-        //           return;
-        //       }
-        //       if(error != PTP::Common::NO_ERROR){
-        //           break;
-        //       }
-        //     }else{
-        //       if(error != PTP::Common::NO_ERROR){
-        //           break;
-        //       }
-        //     }
-        //     break;
-        // }
-        // msg.set_error(error);
-        // request->SendResponseMsg(&msg,CID_BuddyQueryListRes,request->GetSeqNum());
         request->SendResponsePdu(request->GetRequestPdu());
     }
 };

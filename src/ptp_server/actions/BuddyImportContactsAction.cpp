@@ -43,6 +43,12 @@ namespace ACTION_BUDDY {
                         DEBUG_E("error pCacheConn");
                         break;
                     }
+                    for(const auto &phone_contact : msg.phone_contacts()){
+                        DEBUG_D("client_id:%ld",phone_contact.client_id());
+                        DEBUG_D("phone:%s",phone_contact.phone().c_str());
+                        DEBUG_D("first_name:%s",phone_contact.first_name().c_str());
+                        DEBUG_D("last_name:%s",phone_contact.last_name().c_str());
+                    }
                     auto auth_uid = msg.auth_uid();
                     msg_rsp.set_error(error);
                     msg_rsp.set_auth_uid(auth_uid);

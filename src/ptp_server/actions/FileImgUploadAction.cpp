@@ -44,6 +44,7 @@ namespace ACTION_FILE {
                         break;
                     }
                     auto auth_uid = msg.auth_uid();
+                    msg_rsp.set_file_path("path");
                     msg_rsp.set_error(error);
                     msg_rsp.set_auth_uid(auth_uid);
                     break;

@@ -185,21 +185,21 @@ struct BuddyModifyNotifyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BuddyModifyNotifyDefaultTypeInternal _BuddyModifyNotify_default_instance_;
-PROTOBUF_CONSTEXPR BuddyModifyUpdatePair::BuddyModifyUpdatePair(
+PROTOBUF_CONSTEXPR BuddyModifyUpdatePairNotify::BuddyModifyUpdatePairNotify(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.pair_uid_list_)*/{}
   , /*decltype(_impl_.auth_uid_)*/0u} {}
-struct BuddyModifyUpdatePairDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR BuddyModifyUpdatePairDefaultTypeInternal()
+struct BuddyModifyUpdatePairNotifyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR BuddyModifyUpdatePairNotifyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~BuddyModifyUpdatePairDefaultTypeInternal() {}
+  ~BuddyModifyUpdatePairNotifyDefaultTypeInternal() {}
   union {
-    BuddyModifyUpdatePair _instance;
+    BuddyModifyUpdatePairNotify _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BuddyModifyUpdatePairDefaultTypeInternal _BuddyModifyUpdatePair_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BuddyModifyUpdatePairNotifyDefaultTypeInternal _BuddyModifyUpdatePairNotify_default_instance_;
 PROTOBUF_CONSTEXPR BuddyImportContactsReq::BuddyImportContactsReq(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -3238,11 +3238,11 @@ std::string BuddyModifyRes::GetTypeName() const {
 class BuddyModifyNotify::_Internal {
  public:
   using HasBits = decltype(std::declval<BuddyModifyNotify>()._impl_._has_bits_);
-  static void set_has_buddy_modify_action(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
   static void set_has_uid(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
+  }
+  static void set_has_buddy_modify_action(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
   }
   static void set_has_value(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -3550,9 +3550,9 @@ std::string BuddyModifyNotify::GetTypeName() const {
 
 // ===================================================================
 
-class BuddyModifyUpdatePair::_Internal {
+class BuddyModifyUpdatePairNotify::_Internal {
  public:
-  using HasBits = decltype(std::declval<BuddyModifyUpdatePair>()._impl_._has_bits_);
+  using HasBits = decltype(std::declval<BuddyModifyUpdatePairNotify>()._impl_._has_bits_);
   static void set_has_auth_uid(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3561,15 +3561,15 @@ class BuddyModifyUpdatePair::_Internal {
   }
 };
 
-BuddyModifyUpdatePair::BuddyModifyUpdatePair(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+BuddyModifyUpdatePairNotify::BuddyModifyUpdatePairNotify(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:PTP.Buddy.BuddyModifyUpdatePair)
+  // @@protoc_insertion_point(arena_constructor:PTP.Buddy.BuddyModifyUpdatePairNotify)
 }
-BuddyModifyUpdatePair::BuddyModifyUpdatePair(const BuddyModifyUpdatePair& from)
+BuddyModifyUpdatePairNotify::BuddyModifyUpdatePairNotify(const BuddyModifyUpdatePairNotify& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  BuddyModifyUpdatePair* const _this = this; (void)_this;
+  BuddyModifyUpdatePairNotify* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -3578,10 +3578,10 @@ BuddyModifyUpdatePair::BuddyModifyUpdatePair(const BuddyModifyUpdatePair& from)
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _this->_impl_.auth_uid_ = from._impl_.auth_uid_;
-  // @@protoc_insertion_point(copy_constructor:PTP.Buddy.BuddyModifyUpdatePair)
+  // @@protoc_insertion_point(copy_constructor:PTP.Buddy.BuddyModifyUpdatePairNotify)
 }
 
-inline void BuddyModifyUpdatePair::SharedCtor(
+inline void BuddyModifyUpdatePairNotify::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -3593,8 +3593,8 @@ inline void BuddyModifyUpdatePair::SharedCtor(
   };
 }
 
-BuddyModifyUpdatePair::~BuddyModifyUpdatePair() {
-  // @@protoc_insertion_point(destructor:PTP.Buddy.BuddyModifyUpdatePair)
+BuddyModifyUpdatePairNotify::~BuddyModifyUpdatePairNotify() {
+  // @@protoc_insertion_point(destructor:PTP.Buddy.BuddyModifyUpdatePairNotify)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -3602,17 +3602,17 @@ BuddyModifyUpdatePair::~BuddyModifyUpdatePair() {
   SharedDtor();
 }
 
-inline void BuddyModifyUpdatePair::SharedDtor() {
+inline void BuddyModifyUpdatePairNotify::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.pair_uid_list_.~RepeatedField();
 }
 
-void BuddyModifyUpdatePair::SetCachedSize(int size) const {
+void BuddyModifyUpdatePairNotify::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void BuddyModifyUpdatePair::Clear() {
-// @@protoc_insertion_point(message_clear_start:PTP.Buddy.BuddyModifyUpdatePair)
+void BuddyModifyUpdatePairNotify::Clear() {
+// @@protoc_insertion_point(message_clear_start:PTP.Buddy.BuddyModifyUpdatePairNotify)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -3623,7 +3623,7 @@ void BuddyModifyUpdatePair::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* BuddyModifyUpdatePair::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* BuddyModifyUpdatePairNotify::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -3679,9 +3679,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* BuddyModifyUpdatePair::_InternalSerialize(
+uint8_t* BuddyModifyUpdatePairNotify::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:PTP.Buddy.BuddyModifyUpdatePair)
+  // @@protoc_insertion_point(serialize_to_array_start:PTP.Buddy.BuddyModifyUpdatePairNotify)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3702,12 +3702,12 @@ uint8_t* BuddyModifyUpdatePair::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:PTP.Buddy.BuddyModifyUpdatePair)
+  // @@protoc_insertion_point(serialize_to_array_end:PTP.Buddy.BuddyModifyUpdatePairNotify)
   return target;
 }
 
-size_t BuddyModifyUpdatePair::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:PTP.Buddy.BuddyModifyUpdatePair)
+size_t BuddyModifyUpdatePairNotify::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:PTP.Buddy.BuddyModifyUpdatePairNotify)
   size_t total_size = 0;
 
   // required uint32 auth_uid = 2;
@@ -3735,15 +3735,15 @@ size_t BuddyModifyUpdatePair::ByteSizeLong() const {
   return total_size;
 }
 
-void BuddyModifyUpdatePair::CheckTypeAndMergeFrom(
+void BuddyModifyUpdatePairNotify::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const BuddyModifyUpdatePair*>(
+  MergeFrom(*::_pbi::DownCast<const BuddyModifyUpdatePairNotify*>(
       &from));
 }
 
-void BuddyModifyUpdatePair::MergeFrom(const BuddyModifyUpdatePair& from) {
-  BuddyModifyUpdatePair* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Buddy.BuddyModifyUpdatePair)
+void BuddyModifyUpdatePairNotify::MergeFrom(const BuddyModifyUpdatePairNotify& from) {
+  BuddyModifyUpdatePairNotify* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:PTP.Buddy.BuddyModifyUpdatePairNotify)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -3755,19 +3755,19 @@ void BuddyModifyUpdatePair::MergeFrom(const BuddyModifyUpdatePair& from) {
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void BuddyModifyUpdatePair::CopyFrom(const BuddyModifyUpdatePair& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:PTP.Buddy.BuddyModifyUpdatePair)
+void BuddyModifyUpdatePairNotify::CopyFrom(const BuddyModifyUpdatePairNotify& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PTP.Buddy.BuddyModifyUpdatePairNotify)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool BuddyModifyUpdatePair::IsInitialized() const {
+bool BuddyModifyUpdatePairNotify::IsInitialized() const {
   if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
-void BuddyModifyUpdatePair::InternalSwap(BuddyModifyUpdatePair* other) {
+void BuddyModifyUpdatePairNotify::InternalSwap(BuddyModifyUpdatePairNotify* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
@@ -3775,8 +3775,8 @@ void BuddyModifyUpdatePair::InternalSwap(BuddyModifyUpdatePair* other) {
   swap(_impl_.auth_uid_, other->_impl_.auth_uid_);
 }
 
-std::string BuddyModifyUpdatePair::GetTypeName() const {
-  return "PTP.Buddy.BuddyModifyUpdatePair";
+std::string BuddyModifyUpdatePairNotify::GetTypeName() const {
+  return "PTP.Buddy.BuddyModifyUpdatePairNotify";
 }
 
 
@@ -5066,9 +5066,9 @@ template<> PROTOBUF_NOINLINE ::PTP::Buddy::BuddyModifyNotify*
 Arena::CreateMaybeMessage< ::PTP::Buddy::BuddyModifyNotify >(Arena* arena) {
   return Arena::CreateMessageInternal< ::PTP::Buddy::BuddyModifyNotify >(arena);
 }
-template<> PROTOBUF_NOINLINE ::PTP::Buddy::BuddyModifyUpdatePair*
-Arena::CreateMaybeMessage< ::PTP::Buddy::BuddyModifyUpdatePair >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::PTP::Buddy::BuddyModifyUpdatePair >(arena);
+template<> PROTOBUF_NOINLINE ::PTP::Buddy::BuddyModifyUpdatePairNotify*
+Arena::CreateMaybeMessage< ::PTP::Buddy::BuddyModifyUpdatePairNotify >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::PTP::Buddy::BuddyModifyUpdatePairNotify >(arena);
 }
 template<> PROTOBUF_NOINLINE ::PTP::Buddy::BuddyImportContactsReq*
 Arena::CreateMaybeMessage< ::PTP::Buddy::BuddyImportContactsReq >(Arena* arena) {

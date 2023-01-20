@@ -2,64 +2,91 @@
 
 #include "ptp_global/Logger.h"
 #include "ptp_global/Helpers.h"
-#include "ptp_server/FileConfig.h"
-#include "ptp_global/ConfigFileReader.h"
 
-TEST(test_server, replace_str) {
-    std::string base="this is a test2 test1 string.";
-    replace_string(base,"test1","test");
-    ASSERT_EQ(base,"that is a test1 string.");
-}
+#include "ptp_protobuf/ImPdu.h"
+#include "ptp_protobuf/PTP.Auth.pb.h"
+#include "ptp_server/MsgSrvConn.h"
+#include "ptp_crypto/secp256k1_helpers.h"
+#include "ptp_net/AccountManager.h"
+#include "ptp_net/ClientConn.h"
+#include "test_init.h"
 
-TEST(test_server, set_config) {
-    set_config_path("conf/test.conf");
-    remove_config_path();
-    string config = get_config_str();
-    replace_config("MSG_ListenIP=0.0.0.0","MSG_ListenIP=127.0.0.1");
-    replace_config("MSG_ConcurrentDBConnCnt=2","MSG_ConcurrentDBConnCnt=20");
-    string config1 = get_config_str();
-    remove_config_path();
-    init_server_config();
-    CConfigFileReader config_file(get_config_path().c_str());
-    char* msg_listen_ip = config_file.GetConfigName("MSG_ListenIP");
-    string t(msg_listen_ip, strlen(msg_listen_ip));
-    ASSERT_TRUE(t=="127.0.0.1");
-    char* MSG_ConcurrentDBConnCnt = config_file.GetConfigName("MSG_ConcurrentDBConnCnt");
-    string t1(MSG_ConcurrentDBConnCnt, strlen(MSG_ConcurrentDBConnCnt));
-    ASSERT_TRUE(t1=="20");
-}
+uint32_t accountId              = 1001;
 
+TEST(ptp_server_msg, Auth) {
+    test_init();
+    auto *pMsgSrvConn = new CMsgSrvConn();
+    pMsgSrvConn->SetTest(true);
+    pMsgSrvConn->SetHandle(100112);
+    addMsgSrvConnByHandle(100112,pMsgSrvConn);
+    PTP::Auth::AuthCaptchaReq msg;
+    ImPdu pdu;
+    pdu.SetPBMsg(&msg,CID_AuthCaptchaReq,0);
+    pMsgSrvConn->HandlePdu(&pdu);
+    auto pPdu = pMsgSrvConn->ReadTestPdu();
+    ASSERT_EQ(pPdu->GetCommandId(),CID_AuthCaptchaRes);
+    PTP::Auth::AuthCaptchaRes msg_rsp;
+    auto res = msg_rsp.ParseFromArray(pPdu->GetBodyData(), (int)pPdu->GetBodyLength());
+    ASSERT_EQ(res,true);
+    DEBUG_D("captcha:%s",msg_rsp.captcha().c_str());
+    DEBUG_D("server address:%s", bytes_to_hex_string(reinterpret_cast<const uint8_t *>(msg_rsp.address().c_str()), msg_rsp.address().size()).c_str());
+    DEBUG_D("iv:%s", bytes_to_hex_string(reinterpret_cast<const uint8_t *>(msg_rsp.iv().c_str()), 16).c_str());
+    DEBUG_D("aad:%s", bytes_to_hex_string(reinterpret_cast<const uint8_t *>(msg_rsp.aad().c_str()), 16).c_str());
+    DEBUG_D("sign:%s", bytes_to_hex_string(reinterpret_cast<const uint8_t *>(msg_rsp.sign().c_str()), 65).c_str());
+    ASSERT_EQ(msg_rsp.captcha().empty(), false);
+    ASSERT_EQ(msg_rsp.address().empty(), false);
+    ASSERT_EQ(msg_rsp.iv().empty(), false);
+    ASSERT_EQ(msg_rsp.aad().empty(), false);
+    ASSERT_EQ(msg_rsp.sign().empty(), false);
 
-TEST(test_server, init_server_config) {
-    string config_path = "conf/test_config.conf";
-    set_config_path(config_path);
-    init_server_config();
-    ASSERT_EQ(get_config_path(),config_path);
-    ASSERT_EQ(file_exists(get_config_path().c_str()),true);
-    remove_config_path();
-    ASSERT_EQ(file_exists(get_config_path().c_str()),false);
-}
-
-TEST(test_server, config) {
-    string CONFIG_CONF = get_config_str();
-    DEBUG_I("CONFIG_PATH:%s",CONFIG_PATH);
-    DEBUG_I("\n\n%s",CONFIG_CONF.c_str());
-    string file_path = "/tmp/test.conf";
-    if(file_exists(file_path.c_str())){
-        DEBUG_I("file_path:%s exits",file_path.c_str());
-        remove_file(file_path.c_str());
-        ASSERT_EQ(file_exists(file_path.c_str()),false);
-    }else{
-        DEBUG_I("file_path:%s not exits",file_path.c_str());
-        put_file_content(file_path.c_str(),(char *)CONFIG_CONF.c_str(),CONFIG_CONF.size());
-        ASSERT_EQ(file_exists(file_path.c_str()),true);
-        char content[CONFIG_CONF.size()];
-        get_file_content(file_path.c_str(),content,CONFIG_CONF.size());
-        DEBUG_I("%s",content);
-        remove_file(file_path.c_str());
-        ASSERT_EQ(file_exists(file_path.c_str()),false);
+    string msg_data = AccountManager::format_sign_msg_data(msg_rsp.captcha());
+    DEBUG_D("msg_data: %s", msg_data.c_str());
+    unsigned char pub_key_33[33] = {0};
+    string srv_address_hex;
+    bool ret = recover_pub_key_and_address_from_sig((unsigned char *) msg_rsp.sign().c_str(), msg_data, pub_key_33, srv_address_hex);
+    if(!ret){
+        DEBUG_E("recover_pub_key_from_sig_65 error!");
+        return;
     }
+
+    DEBUG_D("server address rec: %s", srv_address_hex.c_str());
+
+    unsigned char shared_secret[32];
+    secp256k1_pubkey pub_key_raw;
+
+    secp256k1_context* ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
+    ret = secp256k1_ec_pubkey_parse(ctx,&pub_key_raw,pub_key_33,33);
+    secp256k1_context_destroy(ctx);
+    if(!ret){
+        DEBUG_E("parse pub_key_raw error");
+        return;
+    }
+    DEBUG_D("server pubKey: %s", bytes_to_hex_string(pub_key_33,33).c_str());
+    string captcha = msg_rsp.captcha();
+    string accountAddress = AccountManager::getInstance(accountId).getAccountAddress();
+    AccountManager::getInstance(accountId).createShareKey(&pub_key_raw,shared_secret);
+    DEBUG_D("shared_secret: %s", ptp_toolbox::data::bytes_to_hex(shared_secret,32).c_str());
+    DEBUG_D("client address: %s", accountAddress.c_str());
+    PTP::Auth::AuthLoginReq msg_login;
+    msg_login.set_client_type(PTP::Common::CLIENT_TYPE_ANDROID);
+    msg_login.set_client_version("macos/10.1");
+    msg_login.set_captcha(msg_rsp.captcha());
+    msg_login.set_address(accountAddress);
+    unsigned char sign65Buf[65] = { 0 };
+    AccountManager::getInstance(accountId).signMessage(captcha,sign65Buf);
+    msg_login.set_sign(sign65Buf,65);
+    ImPdu pdu_login;
+    pdu_login.SetPBMsg(&msg_login,CID_AuthLoginReq,0);
+    pMsgSrvConn->HandlePdu(&pdu_login);
+    auto pPdu1 = pMsgSrvConn->ReadTestPdu();
+    ASSERT_EQ(pPdu1->GetCommandId(),CID_AuthLoginRes);
+    PTP::Auth::AuthLoginRes msg_login_rsp;
+    res = msg_login_rsp.ParseFromArray(pPdu1->GetBodyData(), (int)pPdu1->GetBodyLength());
+    ASSERT_EQ(res,true);
+    DEBUG_D("uid: %d", msg_login_rsp.user_info().uid());
+    DEBUG_D("address: %s", msg_login_rsp.user_info().address().c_str());
 }
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

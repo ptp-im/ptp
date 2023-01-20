@@ -9,6 +9,7 @@
 #include "actions/BuddyImportContactsAction.h"
 #include "actions/BuddyModifyNotifyAction.h"
 #include "actions/BuddyModifyAction.h"
+#include "actions/BuddyModifyUpdatePairNotifyAction.h"
 #include "actions/BuddyQueryListAction.h"
 #include "actions/BuddyStatNotifyAction.h"
 #include "actions/FileImgDownloadAction.h"
@@ -56,6 +57,7 @@ void CHandlerMap::Init()
     m_handler_map.insert(make_pair(uint32_t(CID_BuddyModifyNotify), ACTION_BUDDY::BuddyModifyNotifyAction));
     m_handler_map.insert(make_pair(uint32_t(CID_BuddyModifyReq), ACTION_BUDDY::BuddyModifyReqAction));
     m_handler_map.insert(make_pair(uint32_t(CID_BuddyModifyRes), ACTION_BUDDY::BuddyModifyResAction));
+    m_handler_map.insert(make_pair(uint32_t(CID_BuddyModifyUpdatePairNotify), ACTION_BUDDY::BuddyModifyUpdatePairNotifyAction));
     m_handler_map.insert(make_pair(uint32_t(CID_BuddyQueryListReq), ACTION_BUDDY::BuddyQueryListReqAction));
     m_handler_map.insert(make_pair(uint32_t(CID_BuddyQueryListRes), ACTION_BUDDY::BuddyQueryListResAction));
     m_handler_map.insert(make_pair(uint32_t(CID_BuddyStatNotify), ACTION_BUDDY::BuddyStatNotifyAction));

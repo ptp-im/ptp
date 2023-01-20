@@ -7,7 +7,6 @@ if(NOT ANDROID)
     TARGET_LINK_LIBRARIES(${LIB_PTP_MAIN} ptp_global ptp_wallet ptp_crypto ptp_protobuf ptp_toolbox)
 endif()
 
-
 if(ANDROID)
     SET(LIBRARY_OUTPUT_PATH  ../../lib)
 endif()

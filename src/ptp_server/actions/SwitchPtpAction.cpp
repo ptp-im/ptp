@@ -38,6 +38,8 @@ namespace ACTION_SWITCH {
         }
         
     }
-    
+    void SwitchPtpResAction(CRequest* request){
+
+    }
 };
 

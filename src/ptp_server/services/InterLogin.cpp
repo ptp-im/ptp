@@ -10,8 +10,8 @@ bool CInterLoginStrategy::ServerLogin(PTP::Server::ServerLoginReq *msg, PTP::Com
     bool bRet = false;
     while (true) {
         DEBUG_D("captcha:%s",msg->captcha().c_str());
-        DEBUG_D("address:%s",msg->address().c_str());
-        DEBUG_D("sign:%s", bytes_to_hex_string((unsigned char *)msg->sign().data(), 65).c_str());
+        DEBUG_D("client address:%s",msg->address().c_str());
+        DEBUG_D("client sign:%s", bytes_to_hex_string((unsigned char *)msg->sign().data(), 65).c_str());
         CacheManager *pCacheManager = CacheManager::getInstance();
         CacheConn *pCacheConn = pCacheManager->GetCacheConn("auth");
         if (!pCacheConn) {
@@ -21,13 +21,14 @@ bool CInterLoginStrategy::ServerLogin(PTP::Server::ServerLoginReq *msg, PTP::Com
         }
 
         string msg_data = format_sign_msg_data(msg->captcha(),SignMsgType_ptp);
+        DEBUG_D("sign msg_data:%s", msg_data.c_str());
 
         unsigned char pub_key_33[33];
         string address_hex;
 
         bool ret = recover_pub_key_and_address_from_sig((unsigned char *)msg->sign().c_str(), msg_data, pub_key_33, address_hex);
-        DEBUG_D("pub_key_33:%s", bytes_to_hex_string(pub_key_33, 33).c_str());
-        DEBUG_D("address_hex rec:%s", address_hex.c_str());
+        DEBUG_D("client pub_key_33 rec:%s", bytes_to_hex_string(pub_key_33, 33).c_str());
+        DEBUG_D("client address rec:%s", address_hex.c_str());
 
         if(!ret){
             error = E_LOGIN_ERROR;
@@ -65,16 +66,7 @@ bool CInterLoginStrategy::ServerLogin(PTP::Server::ServerLoginReq *msg, PTP::Com
             user_id = (uint32_t)(atoi(user_id_str.c_str()));
         }
         DEBUG_D("client address:%s, user_id:%d",address_hex.c_str(), user_id);
-
-        list<string> argv;
-        list<string> list_ret;
-        string user_id_str1 = int2string(user_id);
-        argv.emplace_back("MGET");
-        CModelBuddy::handleUserInfoCacheArgv(argv,user_id_str1);
-        pCacheConn->exec(&argv, &list_ret);
-        auto it = list_ret.begin();
-        CModelBuddy::handleUserInfoCache(user,it);
-        user->set_status(it->empty() ? 0 : string2int(it->c_str()));
+        CModelBuddy::getUserInfo(pCacheConn,user,user_id);
         pCacheManager->RelCacheConn(pCacheConn);
         break;
     }

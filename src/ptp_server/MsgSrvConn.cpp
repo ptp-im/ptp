@@ -4,6 +4,7 @@
 #include "ptp_crypto/crypto_helpers.h"
 #include "ptp_global/ConfigFileReader.h"
 #include "ptp_global/version.h"
+#include "ptp_crypto/aes_encryption.h"
 #include "CachePool.h"
 #include "ImUser.h"
 #include "actions/HandlerMap.h"
@@ -94,6 +95,7 @@ static void signal_handler_hup(int sig_no)
 }
 
 void addMsgSrvConnByHandle(uint32_t conn_handle,CMsgSrvConn *pConn){
+    DEBUG_D("addMsgSrvConnByHandle g_msg_conn_map size=%d",g_msg_conn_map.size());
     g_msg_conn_map.insert(make_pair(conn_handle, pConn));
 }
 
@@ -214,8 +216,45 @@ void CMsgSrvConn::HandlePdu(CImPdu* pPdu)
 }
 
 void CMsgSrvConn::HandleNextResponse(ImPdu* pPdu){
-    auto cid = pPdu->GetCommandId();
-    DEBUG_D("HandleNextResponse cid=%d",cid);
+    auto cid = (ActionCommands)pPdu->GetCommandId();
+
+    if(pPdu->GetCommandId() != CID_AuthCaptchaReq
+       && pPdu->GetCommandId() != CID_AuthLoginReq
+       && pPdu->GetBodyLength() > 0
+       && pPdu->GetReversed() == 1){
+
+        auto cipherData = pPdu->GetBodyData();
+        auto cipherDataLen = pPdu->GetBodyLength();
+
+        unsigned char shared_secret[32];
+        unsigned char iv[16];
+        unsigned char aad[16];
+        string shareKey = this->m_share_key;
+        string ivHex = this->m_iv;
+        string aadHex = this->m_aad;
+
+        memcpy(shared_secret,hex_to_string(shareKey.substr(2)).data(),32);
+        memcpy(iv,hex_to_string(ivHex.substr(2)).data(),16);
+        memcpy(aad,hex_to_string(aadHex.substr(2)).data(),16);
+
+        unsigned char decData[1024*1024];
+        int decLen = aes_gcm_decrypt(
+                cipherData, cipherDataLen,
+                shared_secret, iv,
+                aad,
+                decData);
+
+        if (decLen > 0) {
+            pPdu->SetPBMsg(decData,decLen);
+            pPdu->SetReversed(0);
+            memset(decData, 0, sizeof(decData));
+        }else{
+            DEBUG_E("error decrypt body,cid:%d",pPdu->GetCommandId() );
+            return;
+        }
+    }
+
+    DEBUG_D("HandleNextResponse cid=%s", getActionCommandsName(cid).c_str());
     if(s_handler_map == nullptr){
         s_handler_map = CHandlerMap::getInstance();
         s_handler_map->Init();
@@ -237,35 +276,61 @@ void CMsgSrvConn::HandleNextResponse(ImPdu* pPdu){
             }
         }
         m_pdu_handler(&request);
-        if(request.IsResponsePduValid()){
-            if(request.IsNext()){
+        if(request.HasNext()){
+            if(request.GetNextResponsePdu() && request.IsNextResponsePduValid()){
                 pDbMsgConn = get_business_serv_conn();
                 if(!pDbMsgConn->isEnable()){
-                    HandleNextResponse(request.GetResponsePdu());
+                    HandleNextResponse(request.GetNextResponsePdu());
                 }else{
                     if(pDbMsgConn->IsOpen()){
                         request.GetResponsePdu()->SetReversed(GetHandle());
-                        pDbMsgConn->SendPdu(request.GetResponsePdu());
+                        pDbMsgConn->SendPdu(request.GetNextResponsePdu());
                     }else{
                         DEBUG_E("pDbMsgConn business is not open");
                         ImPdu pduLoginErr;
                         PTP::Other::HeartBeatNotify msg_res;
-                        pduLoginErr.SetPBMsg(&msg_res,request.GetResponsePdu()->GetCommandId(),request.GetResponsePdu()->GetSeqNum());
+                        pduLoginErr.SetPBMsg(&msg_res,request.GetNextResponsePdu()->GetCommandId(),request.GetNextResponsePdu()->GetSeqNum());
                         pduLoginErr.SetFlag(PTP::Common::E_REASON_NO_DB_SERVER);
                         SendPdu(&pduLoginErr);
                     }
                 }
-            }else{
+            }
+        }else{
+            if(request.GetResponsePdu() && request.IsResponsePduValid()){
                 SendPdu(request.GetResponsePdu());
             }
         }
     }else{
-        SendPdu(pPdu);
+        if(pPdu){
+            SendPdu(pPdu);
+        }
     }
 }
 
 int CMsgSrvConn::SendPdu(ImPdu *pPdu) {
     if(!m_test){
+        pPdu->Dump();
+        if(pPdu->GetReversed()){
+            unsigned char shared_secret[32];
+            unsigned char iv[16];
+            unsigned char aad[16];
+            string shareKey = this->m_share_key;
+            string ivHex = this->m_iv;
+            string aadHex =  this->m_aad;
+            memcpy(shared_secret,hex_to_string(shareKey.substr(2)).data(),32);
+            memcpy(iv,hex_to_string(ivHex.substr(2)).data(),16);
+            memcpy(aad,hex_to_string(aadHex.substr(2)).data(),16);
+
+            unsigned char cipherData[1024*1024];
+            int cipherDataLen = aes_gcm_encrypt(
+                    pPdu->GetBodyData(),
+                    (int)pPdu->GetBodyLength(),
+                    shared_secret,
+                    iv,aad,
+                    cipherData);
+            pPdu->SetPBMsg(cipherData,cipherDataLen);
+            pPdu->Dump();
+        }
         return CImConn::SendPdu(pPdu);
     }else{
         m_test_buf.Position(0);
@@ -285,12 +350,16 @@ ImPdu * CMsgSrvConn::ReadTestPdu() {
 int run_ptp_server_msg(int argc, char* argv[])
 {
     bool isDebug = false;
+
     for (int i = 0; i < argc; ++i) {
         if(strcmp(argv[i], "--debug") == 0){
             isDebug = true;
         }else if(strcmp(argv[i], "--debug") == 0){
 
         }
+    }
+    if(argc == 0 && argv == nullptr){
+        isDebug = true;
     }
     string server_name = "ptp_server_msg";
     slog_set_append(true,isDebug, true,LOG_PATH);

@@ -7,7 +7,7 @@
 using namespace PTP::Common;
 
 TEST(test_Auth, AuthLogoutAction) {
-    test_int();
+    test_init();
     PTP::Auth::AuthLogoutReq msg;
     uint16_t sep_no = 101;
     ImPdu pdu;

@@ -11,6 +11,7 @@
 #include "BuddyGetListAction.h"
 #include "PTP.Buddy.pb.h"
 #include "MsgSrvConn.h"
+#include "ImUser.h"
 #include "models/ModelBuddy.h"
 
 using namespace PTP::Common;
@@ -46,24 +47,12 @@ namespace ACTION_BUDDY {
                     auto auth_uid = msg.auth_uid();
                     auto user_ids = msg.user_ids();
 
-                    list<string> argv_users;
-                    list<string> list_users;
-                    argv_users.emplace_back("MGET");
                     for(unsigned int & user_id : user_ids){
-                        string pair_uid = int2string(user_id);
-                        CModelBuddy::handleUserInfoCacheArgv(argv_users,pair_uid);
-                    }
-                    pCacheConn->exec(&argv_users,&list_users);
-
-                    auto it_user = user_ids.begin();
-
-                    for (auto it = list_users.begin(); it != list_users.end() ; it++) {
                         PTP::Common::UserInfo * buddy = msg_rsp.add_buddy_list();
-                        buddy->set_uid(*it_user);
-                        CModelBuddy::handleUserInfoCache(buddy,it);
-                        it_user++;
+                        CModelBuddy::getUserInfo(pCacheConn,buddy,user_id);
+                        CImUser *pImUser = CImUserManager::GetInstance()->GetImUserByAddress(buddy->address());
+                        buddy->set_is_online(pImUser != nullptr);
                     }
-
                     msg_rsp.set_error(error);
                     msg_rsp.set_auth_uid(auth_uid);
                     break;

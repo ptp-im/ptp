@@ -8,7 +8,7 @@
 TEST(test_server, replace_str) {
     std::string base="this is a test2 test1 string.";
     replace_string(base,"test1","test");
-    ASSERT_EQ(base,"that is a test1 string.");
+    ASSERT_EQ(base,"this is a test2 test string.");
 }
 
 TEST(test_server, set_config) {

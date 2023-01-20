@@ -1,11 +1,12 @@
 #include <gtest/gtest.h>
 
 #include "ptp_global/Logger.h"
+#include "test_init.h"
 
 TEST(cachepool, cachepool) {
-//    CacheManager::setConfigPath(CONFIG_PATH);
-//    CacheManager* pCacheManager = CacheManager::getInstance();
-//    ASSERT_TRUE(pCacheManager != NULL);
+    test_init();
+    CacheManager* pCacheManager = CacheManager::getInstance();
+    ASSERT_TRUE(pCacheManager != NULL);
 }
 
 int main(int argc, char **argv) {

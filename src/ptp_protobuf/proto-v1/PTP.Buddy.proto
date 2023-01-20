@@ -67,12 +67,12 @@ message BuddyModifyRes{
 }
 
 message BuddyModifyNotify {
-  required Common.BuddyModifyAction buddy_modify_action = 1;
   required uint32 uid = 2;
+  required Common.BuddyModifyAction buddy_modify_action = 1;
   required string value = 4;
 }
 
-message BuddyModifyUpdatePair {
+message BuddyModifyUpdatePairNotify {
   repeated uint32 pair_uid_list = 1;
   required uint32 auth_uid = 2;
 }

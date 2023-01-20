@@ -19,6 +19,7 @@ public:
     void SetPBMsg(unsigned char *buf, int len);
     void SetPBMsg(const google::protobuf::MessageLite* msg);
     void SetPBMsg(const google::protobuf::MessageLite* msg,uint16_t command_id,uint16_t seq_num = 0);
+    void Dump();
 };
 
 

@@ -62,35 +62,32 @@ namespace ACTION_GROUP {
                 auto from_uid = msg.auth_uid();
                 string from_uid_str = to_string(from_uid);
 
-                uint32_t group_id = CModelGroup::getGroupIdByAddress(pCacheConn,group_address_str);
+                uint32_t group_id = CModelGroup::getGroupIdByAddress(pCacheConn,group_address);
                 if (group_id > 0) {
                     error = PTP::Common::E_GROUP_HAS_CREATED;
                     break;
                 }
                 group_id = CModelGroup::genGroupId(pCacheConn);
+
+                if (group_type == PTP::Common::GROUP_TYPE_PAIR) {
+                    auto to_uid = members.Get(0);
+                    if(CModelGroup::getGroupPairRelation(pCacheConn,from_uid,to_uid) > 0){
+                        error = PTP::Common::E_GROUP_CREATE_PAIR_EXISTS;
+                        DEBUG_E("GROUP_TYPE_PAIR exists");
+                        break;
+                    }
+                    CModelGroup::updateGroupPairRelation(pCacheConn,group_id,from_uid,to_uid);
+
+                }
                 uint32_t created_time = time(nullptr);
                 PTP::Common::GroupInfo *group = msg_rsp.mutable_group();
                 group->set_group_id(group_id);
 
                 if (group_type == PTP::Common::GROUP_TYPE_PAIR) {
                     auto to_uid = members.Get(0);
-                    if (to_uid >= from_uid) {
-                        if(CModelGroup::getGroupPairRelation(pCacheConn,from_uid,to_uid) > 0){
-                            error = PTP::Common::E_SYSTEM;
-                            DEBUG_E("GROUP_TYPE_PAIR exists");
-                            break;
-                        }
-                    } else {
-                        if(CModelGroup::getGroupPairRelation(pCacheConn,to_uid,from_uid) > 0){
-                            error = PTP::Common::E_SYSTEM;
-                            DEBUG_E("GROUP_TYPE_PAIR exists");
-                            break;
-                        }
-                    }
-                    CModelGroup::updateGroupPairRelation(pCacheConn,group_id,from_uid,to_uid);
-                    CModelGroup::updateGroupMemberPairUpdate(pCacheConn,group_id,from_uid,to_uid,created_time);
+                    CModelGroup::updateGroupMemberPairUpdate(pCacheConn,from_uid,to_uid,created_time);
+                    CModelGroup::updateGroupMemberPairUpdate(pCacheConn,to_uid,from_uid,created_time);
                     group->set_pair_uid(to_uid);
-
                 }
 
                 string group_id_str     = to_string(group_id);
@@ -104,10 +101,12 @@ namespace ACTION_GROUP {
                 groupMember->set_member_status(PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
 
                 for (unsigned int member_uid : members) {
-                    PTP::Common::GroupMember* groupMember1 = msg_rsp.add_group_members();
-                    group_member_ids.push_back(to_string(member_uid));
-                    groupMember1->set_uid((uint32_t)member_uid);
-                    groupMember1->set_member_status(PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
+                    if(member_uid != from_uid){
+                        PTP::Common::GroupMember* groupMember1 = msg_rsp.add_group_members();
+                        group_member_ids.push_back(to_string(member_uid));
+                        groupMember1->set_uid((uint32_t)member_uid);
+                        groupMember1->set_member_status(PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
+                    }
                 }
 
                 CModelGroup::updateGroupMembers(pCacheConn,group_member_ids,group_id,created_time);

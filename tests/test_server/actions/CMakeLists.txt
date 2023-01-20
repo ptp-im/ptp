@@ -25,6 +25,9 @@ target_link_libraries(test_Buddy_BuddyModifyNotify.run PRIVATE gtest_main test_i
 add_executable(test_Buddy_BuddyModify.run test_Buddy_BuddyModify.cpp)
 target_link_libraries(test_Buddy_BuddyModify.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
 
+add_executable(test_Buddy_BuddyModifyUpdatePairNotify.run test_Buddy_BuddyModifyUpdatePairNotify.cpp)
+target_link_libraries(test_Buddy_BuddyModifyUpdatePairNotify.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
+
 add_executable(test_Buddy_BuddyQueryList.run test_Buddy_BuddyQueryList.cpp)
 target_link_libraries(test_Buddy_BuddyQueryList.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
 

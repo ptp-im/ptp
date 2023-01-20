@@ -63,10 +63,6 @@ echo SYSTEM: $SYSTEM
 echo "========================================"
 
 function run_tests() {
-  cd $PTP_DIR
-  run_cmake
-  cd $PTP_DIR/src/tests
-  make
   cd  $PTP_DIR/build/bin
   tests=$(ls *.run | tr " " "\n")
   for test in $tests
@@ -75,7 +71,6 @@ function run_tests() {
     ./$test
   done
 }
-
 
 function run_test() {
   testName=$2
@@ -127,7 +122,9 @@ function build_test() {
       tests=$(ls ./ | grep test_ | tr " " "\n")
       for test in $tests
       do
-        echo $0 "build_test $test"
+        if [ -d $CUR_DIR/tests/$test ]; then
+          echo $0 "build_test $test"
+        fi
       done
       cd $PTP_DIR
   else

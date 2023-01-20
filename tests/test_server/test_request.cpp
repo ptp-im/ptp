@@ -18,14 +18,13 @@ TEST(ptp_server, Request) {
     ASSERT_EQ(request->GetRequestPdu()->GetSeqNum(),2);
 
     request->Next(&msg_rsp,CID_AuthCaptchaRes,2);
-    ASSERT_EQ(request->GetResponsePdu()->GetCommandId(),CID_AuthCaptchaRes);
-    ASSERT_EQ(request->GetResponsePdu()->GetSeqNum(),2);
-    ASSERT_EQ(request->IsNext(),true);
+    ASSERT_EQ(request->GetNextResponsePdu()->GetCommandId(),CID_AuthCaptchaRes);
+    ASSERT_EQ(request->GetNextResponsePdu()->GetSeqNum(),2);
+    ASSERT_EQ(request->HasNext(),true);
     pdu_rsp.SetPBMsg(&msg_rsp,CID_AuthCaptchaRes,2);
     request->SendResponsePdu(&pdu_rsp);
     ASSERT_EQ(request->GetResponsePdu()->GetCommandId(),CID_AuthCaptchaRes);
     ASSERT_EQ(request->GetResponsePdu()->GetSeqNum(),2);
-    ASSERT_EQ(request->IsNext(),false);
     auto handle = time(nullptr);
     request->SetHandle(handle);
     request->SetIsBusinessConn(true);

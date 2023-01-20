@@ -5,7 +5,6 @@
 using namespace PTP::Common;
 
 TEST(test_Group, GroupPreCreateAction) {
-
     ASSERT_TRUE(true);
 }
 

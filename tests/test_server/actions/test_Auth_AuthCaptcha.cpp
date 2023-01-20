@@ -8,7 +8,7 @@
 using namespace PTP::Common;
 
 TEST(test_Auth, AuthCaptchaAction) {
-    test_int();
+    test_init();
     ASSERT_TRUE(true);
 }
 

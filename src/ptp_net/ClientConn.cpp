@@ -198,13 +198,12 @@ void CClientConn::OnTimer(uint64_t curr_tick)
     if(get_current_account_id() != GetAccountId()){
         Close();
     }else{
-        if (curr_tick > m_last_send_tick + CLIENT_HEARTBEAT_INTERVAL && connectionState == ConnectionLogged) {
+        if (curr_tick > m_last_send_tick + CLIENT_HEARTBEAT_INTERVAL && connectionState == ConnectionStateConnected) {
             ImPdu pdu;
-            pdu.SetPBMsg(nullptr);
-            pdu.SetServiceId(7);
-            pdu.SetCommandId(1793);
+            unsigned char t[1];
+            pdu.SetPBMsg(t,0);
+            pdu.SetCommandId(CID_HeartBeatNotify);
             SendPdu(&pdu);
-            SendPduBuf(pdu.GetBuffer(),pdu.GetLength());
             DEBUG_D("heart beat... %d",CLIENT_HEARTBEAT_INTERVAL);
         }
 
@@ -218,7 +217,7 @@ void CClientConn::OnTimer(uint64_t curr_tick)
 int CClientConn::SendPduBuf(uint8_t* pduBytes,uint32_t size){
     auto pPdu = CImPdu::ReadPdu(pduBytes, size);
     delete pduBytes;
-    DEBUG_D("pdu send n cid=%d len=%d ",pPdu->GetCommandId(),pPdu->GetLength());
+    DEBUG_D("pdu send n cid=%s len=%d ",getActionCommandsName((ActionCommands)pPdu->GetCommandId()).c_str(),pPdu->GetLength());
     if(pPdu->GetCommandId() == 1281){
         DEBUG_D("CID_FileImgUploadReq_VALUE");
     }

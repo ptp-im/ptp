@@ -10,8 +10,9 @@
 ================================================================*/
 #include "BuddyGetALLAction.h"
 #include "PTP.Buddy.pb.h"
-#include "MsgSrvConn.h"
+#include "ImUser.h"
 #include "models/ModelBuddy.h"
+#include "models/ModelGroup.h"
 
 using namespace PTP::Common;
 
@@ -37,43 +38,29 @@ namespace ACTION_BUDDY {
             }else{
                 CacheManager *pCacheManager = CacheManager::getInstance();
                 CacheConn *pCacheConn = pCacheManager->GetCacheConn(CACHE_AUTH_INSTANCE);
+                CacheConn *pCacheConnGroup = pCacheManager->GetCacheConn(CACHE_GROUP_INSTANCE);
 
                 while (true) {
-                    if (!pCacheConn) {
+                    if (!pCacheConn || !pCacheConnGroup) {
                         error = PTP::Common:: E_SYSTEM;
                         DEBUG_E("error pCacheConn");
                         break;
                     }
                     auto auth_uid = msg.auth_uid();
-                    list<string> argv;
-                    list<string> ret_list;
-                    argv.emplace_back("ZRANGE");
-                    argv.push_back(MEMBER_PAIR_UPDATE_PREFIX + to_string(auth_uid));
-                    argv.push_back(to_string(msg.buddy_updated_time()));
-                    argv.emplace_back("+INF");
-                    argv.emplace_back("BYSCORE");
-                    pCacheConn->exec(&argv,&ret_list);
+                    list<string> pair_user_ids;
+                    CModelGroup::getUserGroupPairs(pCacheConnGroup,pair_user_ids,auth_uid,msg.buddy_updated_time());
 
-                    list<string> argv_users;
-                    list<string> list_users;
-                    list<uint32_t> pairs;
-                    argv_users.emplace_back("MGET");
-
-                    for(auto it = ret_list.begin();it != ret_list.end();it++){
-                        string pair_uid = *it;
-                        if(string2int(pair_uid) == auth_uid){
+                    for(const auto& it : pair_user_ids){
+                        uint32_t pair_uid = string2int(it);
+                        if(pair_uid == auth_uid){
                             continue;
                         }
-                        pairs.push_back(string2int(pair_uid));
-                        CModelBuddy::handleUserInfoCacheArgv(argv_users,pair_uid);
-                    }
-                    pCacheConn->exec(&argv_users,&list_users);
-                    auto it_pair = pairs.begin();
-                    for (auto it = list_users.begin(); it != list_users.end() ; it++) {
                         PTP::Common::UserInfo *buddy = msg_rsp.add_buddy_list();
-                        CModelBuddy::handleUserInfoCache(buddy,it);
-                        it_pair++;
+                        CModelBuddy::getUserInfo(pCacheConn,buddy,pair_uid);
+                        CImUser *pImUser = CImUserManager::GetInstance()->GetImUserByAddress(buddy->address());
+                        buddy->set_is_online(pImUser != nullptr);
                     }
+
                     msg_rsp.set_error(error);
                     msg_rsp.set_auth_uid(auth_uid);
                     msg_rsp.set_buddy_updated_time(time(nullptr));
@@ -82,6 +69,9 @@ namespace ACTION_BUDDY {
 
                 if (pCacheConn) {
                     pCacheManager->RelCacheConn(pCacheConn);
+                }
+                if (pCacheConnGroup) {
+                    pCacheManager->RelCacheConn(pCacheConnGroup);
                 }
                 request->SendResponseMsg(&msg_rsp,CID_BuddyGetALLRes,request->GetSeqNum());
             }
@@ -93,33 +83,6 @@ namespace ACTION_BUDDY {
         }
     }
     void BuddyGetALLResAction(CRequest* request){
-        // PTP::Buddy::BuddyGetALLRes msg;
-        // auto error = msg.error();
-        // while (true){
-        //     if(!msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), (int)request->GetRequestPdu()->GetBodyLength()))
-        //     {
-        //         error = E_PB_PARSE_ERROR;
-        //         break;
-        //     }
-        //     if(!request->IsBusinessConn()){
-        //       uint32_t handle = request->GetHandle();
-        //       auto pMsgConn = FindMsgSrvConnByHandle(handle);
-        //       if(!pMsgConn){
-        //           DEBUG_E("not found pMsgConn");
-        //           return;
-        //       }
-        //       if(error != PTP::Common::NO_ERROR){
-        //           break;
-        //       }
-        //     }else{
-        //       if(error != PTP::Common::NO_ERROR){
-        //           break;
-        //       }
-        //     }
-        //     break;
-        // }
-        // msg.set_error(error);
-        // request->SendResponseMsg(&msg,CID_BuddyGetALLRes,request->GetSeqNum());
         request->SendResponsePdu(request->GetRequestPdu());
     }
 };

@@ -38,6 +38,9 @@ namespace ACTION_OTHER {
         }
         
     }
+    void CaptchaResAction(CRequest* request){
+
+    }
     
 };
 

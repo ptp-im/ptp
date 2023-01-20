@@ -45,18 +45,21 @@ void CImPdu::WriteHeader()
 	CByteStream::WriteUint16(buf + 6, m_pdu_header.flag);
 	CByteStream::WriteUint16(buf + 8, m_pdu_header.command_id);
 	CByteStream::WriteUint16(buf + 10, m_pdu_header.seq_num);
-    CByteStream::WriteUint16(buf + 12, m_pdu_header.reversed);
+    CByteStream::WriteUint32(buf + 12, m_pdu_header.reversed);
+    m_pdu_header.length = GetLength();
 }
 
 void CImPdu::SetVersion(uint16_t version)
 {
+    m_pdu_header.version = version;
 	uchar_t* buf = GetBuffer();
 	CByteStream::WriteUint16(buf + 4, version);
 }
 
 void CImPdu::SetFlag(uint16_t flag)
 {
-	uchar_t* buf = GetBuffer();
+    m_pdu_header.flag = flag;
+    uchar_t* buf = GetBuffer();
 	CByteStream::WriteUint16(buf + 6, flag);
 }
 
@@ -68,6 +71,7 @@ void CImPdu::SetServiceId(uint16_t service_id)
 
 void CImPdu::SetCommandId(uint16_t command_id)
 {
+    m_pdu_header.command_id = command_id;
     uchar_t* buf = GetBuffer();
     CByteStream::WriteUint16(buf + 8, command_id);
 }
@@ -80,6 +84,7 @@ void CImPdu::SetError(uint16_t error)
 
 void CImPdu::SetSeqNum(uint16_t seq_num)
 {
+    m_pdu_header.seq_num = seq_num;
 	uchar_t* buf = GetBuffer();
 	CByteStream::WriteUint16(buf + 10, seq_num);
 }
@@ -87,6 +92,7 @@ void CImPdu::SetSeqNum(uint16_t seq_num)
 void CImPdu::SetReversed(uint32_t reversed)
 {
     uchar_t* buf = GetBuffer();
+    m_pdu_header.reversed = reversed;
     CByteStream::WriteUint32(buf + 12, reversed);
 }
 
@@ -166,10 +172,4 @@ void CImPdu::SetPBMsg(unsigned char *buf, int len)
     WriteHeader();
 }
 
-void CImPdu::Dump(){
-    DEBUG_D("size=%d",GetLength());
-    DEBUG_D("body size=%d",GetBodyLength());
-    DEBUG_D("body  : %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer()+16,GetLength() - 16).c_str());
-    DEBUG_D("header: %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer(),16).c_str());
-    DEBUG_D("pdu   : %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer(),GetLength()).c_str());
-}
+

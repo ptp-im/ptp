@@ -117,11 +117,7 @@ namespace ACTION_GROUP {
          PTP::Group::GroupPreCreateRes msg;
          auto error = msg.error();
          while (true){
-             if(!msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), (int)request->GetRequestPdu()->GetBodyLength()))
-             {
-                 error = E_PB_PARSE_ERROR;
-                 break;
-             }
+             msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), (int)request->GetRequestPdu()->GetBodyLength());
              uint32_t handle = request->GetHandle();
              auto pMsgConn = FindMsgSrvConnByHandle(handle);
              if(!pMsgConn){
@@ -133,6 +129,7 @@ namespace ACTION_GROUP {
              }
              string captcha = gen_random(6);
              msg.set_captcha(captcha);
+             DEBUG_D("Handle:%d",pMsgConn->GetHandle());
              pMsgConn->SetCaptcha(captcha);
              request->SendResponseMsg(&msg,CID_GroupPreCreateRes,request->GetSeqNum());
              break;

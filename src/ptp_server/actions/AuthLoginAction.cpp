@@ -62,7 +62,7 @@ namespace ACTION_AUTH {
             pMsgConn->m_client_type = msg.client_type();
             pMsgConn->m_online_status = USER_STAT_ONLINE;
 
-            DEBUG_D("address=%s", address.c_str());
+            DEBUG_D("client address=%s", address.c_str());
             DEBUG_D("client_type=%u ", msg.client_type());
             DEBUG_D("client_version=%s ",  msg.client_version().c_str());
             pMsgConn->m_login_time = time(nullptr);

@@ -237,9 +237,6 @@ bool ERR_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
-    case 2:
-    case 3:
-    case 4:
     case 5:
     case 6:
     case 7:
@@ -251,17 +248,24 @@ bool ERR_IsValid(int value) {
     case 404:
     case 1003:
     case 1004:
+    case 1101:
+    case 1102:
+    case 1103:
+    case 1104:
+    case 1201:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ERR_strings[16] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ERR_strings[18] = {};
 
 static const char ERR_names[] =
+  "E_BUDDY_MODIFY_INVALID_ACTION"
   "E_CLIENT"
   "E_CLIENT_TIMEOUT"
+  "E_GROUP_CREATE_PAIR_EXISTS"
   "E_GROUP_CREATE_PAIR_GROUP_MEMBER_SIE_INVALID"
   "E_GROUP_CREATE_PAIR_GROUP_NO_REG_USER"
   "E_GROUP_HAS_CREATED"
@@ -278,41 +282,45 @@ static const char ERR_names[] =
   "NO_ERROR";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ERR_entries[] = {
-  { {ERR_names + 0, 8}, 1003 },
-  { {ERR_names + 8, 16}, 1004 },
-  { {ERR_names + 24, 44}, 2 },
-  { {ERR_names + 68, 37}, 3 },
-  { {ERR_names + 105, 19}, 4 },
-  { {ERR_names + 124, 13}, 8 },
-  { {ERR_names + 137, 16}, 9 },
-  { {ERR_names + 153, 21}, 7 },
-  { {ERR_names + 174, 24}, 6 },
-  { {ERR_names + 198, 24}, 5 },
-  { {ERR_names + 222, 18}, 404 },
-  { {ERR_names + 240, 23}, 10 },
-  { {ERR_names + 263, 8}, 1 },
-  { {ERR_names + 271, 17}, 11 },
-  { {ERR_names + 288, 18}, 12 },
-  { {ERR_names + 306, 8}, 0 },
+  { {ERR_names + 0, 29}, 1201 },
+  { {ERR_names + 29, 8}, 1003 },
+  { {ERR_names + 37, 16}, 1004 },
+  { {ERR_names + 53, 26}, 1104 },
+  { {ERR_names + 79, 44}, 1101 },
+  { {ERR_names + 123, 37}, 1102 },
+  { {ERR_names + 160, 19}, 1103 },
+  { {ERR_names + 179, 13}, 8 },
+  { {ERR_names + 192, 16}, 9 },
+  { {ERR_names + 208, 21}, 7 },
+  { {ERR_names + 229, 24}, 6 },
+  { {ERR_names + 253, 24}, 5 },
+  { {ERR_names + 277, 18}, 404 },
+  { {ERR_names + 295, 23}, 10 },
+  { {ERR_names + 318, 8}, 1 },
+  { {ERR_names + 326, 17}, 11 },
+  { {ERR_names + 343, 18}, 12 },
+  { {ERR_names + 361, 8}, 0 },
 };
 
 static const int ERR_entries_by_number[] = {
-  15, // 0 -> NO_ERROR
-  12, // 1 -> E_SYSTEM
-  2, // 2 -> E_GROUP_CREATE_PAIR_GROUP_MEMBER_SIE_INVALID
-  3, // 3 -> E_GROUP_CREATE_PAIR_GROUP_NO_REG_USER
-  4, // 4 -> E_GROUP_HAS_CREATED
-  9, // 5 -> E_REASON_NO_ROUTE_SERVER
-  8, // 6 -> E_REASON_NO_LOGIN_SERVER
-  7, // 7 -> E_REASON_NO_DB_SERVER
-  5, // 8 -> E_LOGIN_ERROR
-  6, // 9 -> E_PB_PARSE_ERROR
-  11, // 10 -> E_SWITCH_USER_NO_ONLINE
-  13, // 11 -> E_USERNAME_EXISTS
-  14, // 12 -> E_USERNAME_INVALID
-  10, // 404 -> E_SERVER_NOT_FOUND
-  0, // 1003 -> E_CLIENT
-  1, // 1004 -> E_CLIENT_TIMEOUT
+  17, // 0 -> NO_ERROR
+  14, // 1 -> E_SYSTEM
+  11, // 5 -> E_REASON_NO_ROUTE_SERVER
+  10, // 6 -> E_REASON_NO_LOGIN_SERVER
+  9, // 7 -> E_REASON_NO_DB_SERVER
+  7, // 8 -> E_LOGIN_ERROR
+  8, // 9 -> E_PB_PARSE_ERROR
+  13, // 10 -> E_SWITCH_USER_NO_ONLINE
+  15, // 11 -> E_USERNAME_EXISTS
+  16, // 12 -> E_USERNAME_INVALID
+  12, // 404 -> E_SERVER_NOT_FOUND
+  1, // 1003 -> E_CLIENT
+  2, // 1004 -> E_CLIENT_TIMEOUT
+  4, // 1101 -> E_GROUP_CREATE_PAIR_GROUP_MEMBER_SIE_INVALID
+  5, // 1102 -> E_GROUP_CREATE_PAIR_GROUP_NO_REG_USER
+  6, // 1103 -> E_GROUP_HAS_CREATED
+  3, // 1104 -> E_GROUP_CREATE_PAIR_EXISTS
+  0, // 1201 -> E_BUDDY_MODIFY_INVALID_ACTION
 };
 
 const std::string& ERR_Name(
@@ -321,12 +329,12 @@ const std::string& ERR_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ERR_entries,
           ERR_entries_by_number,
-          16, ERR_strings);
+          18, ERR_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ERR_entries,
       ERR_entries_by_number,
-      16, value);
+      18, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ERR_strings[idx].get();
 }
@@ -334,7 +342,7 @@ bool ERR_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ERR* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ERR_entries, 16, name, &int_value);
+      ERR_entries, 18, name, &int_value);
   if (success) {
     *value = static_cast<ERR>(int_value);
   }

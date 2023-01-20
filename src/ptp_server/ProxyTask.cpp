@@ -24,7 +24,7 @@ void CProxyTask::run()
         CBusinessSrvConn::AddResponsePdu(m_conn_uuid, NULL);
         DEBUG_E("CProxyTask::run,m_pPdu is null");
 	} else {
-        DEBUG_I("CProxyTask::run cid=%d,pid:%d", m_pPdu->GetCommandId(),getpid());
+        DEBUG_I("CProxyTask::run cid=%s,pid:%d", getActionCommandsName((ActionCommands)m_pPdu->GetCommandId()).c_str(),getpid());
 		if (m_pdu_handler) {
             CRequest request;
             request.SetIsBusinessConn(true);

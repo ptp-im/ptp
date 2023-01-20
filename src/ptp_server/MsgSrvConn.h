@@ -25,7 +25,7 @@ public:
     net_handle_t GetHandle() { return m_handle; }
     uint16_t GetPduVersion() { return m_pdu_version; }
     uint32_t GetClientType() { return m_client_type; }
-    void SetOpen() { m_bOpen = true; }
+    void SetOpen(bool open = true) { m_bOpen = open; }
     bool IsOpen() { return m_bOpen; }
     void SetKickOff() { m_bKickOff = true; }
     bool IsKickOff() { return m_bKickOff; }

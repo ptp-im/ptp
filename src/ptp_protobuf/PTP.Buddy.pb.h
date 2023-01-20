@@ -77,9 +77,9 @@ extern BuddyModifyReqDefaultTypeInternal _BuddyModifyReq_default_instance_;
 class BuddyModifyRes;
 struct BuddyModifyResDefaultTypeInternal;
 extern BuddyModifyResDefaultTypeInternal _BuddyModifyRes_default_instance_;
-class BuddyModifyUpdatePair;
-struct BuddyModifyUpdatePairDefaultTypeInternal;
-extern BuddyModifyUpdatePairDefaultTypeInternal _BuddyModifyUpdatePair_default_instance_;
+class BuddyModifyUpdatePairNotify;
+struct BuddyModifyUpdatePairNotifyDefaultTypeInternal;
+extern BuddyModifyUpdatePairNotifyDefaultTypeInternal _BuddyModifyUpdatePairNotify_default_instance_;
 class BuddyQueryListReq;
 struct BuddyQueryListReqDefaultTypeInternal;
 extern BuddyQueryListReqDefaultTypeInternal _BuddyQueryListReq_default_instance_;
@@ -103,7 +103,7 @@ template<> ::PTP::Buddy::BuddyImportContactsRes* Arena::CreateMaybeMessage<::PTP
 template<> ::PTP::Buddy::BuddyModifyNotify* Arena::CreateMaybeMessage<::PTP::Buddy::BuddyModifyNotify>(Arena*);
 template<> ::PTP::Buddy::BuddyModifyReq* Arena::CreateMaybeMessage<::PTP::Buddy::BuddyModifyReq>(Arena*);
 template<> ::PTP::Buddy::BuddyModifyRes* Arena::CreateMaybeMessage<::PTP::Buddy::BuddyModifyRes>(Arena*);
-template<> ::PTP::Buddy::BuddyModifyUpdatePair* Arena::CreateMaybeMessage<::PTP::Buddy::BuddyModifyUpdatePair>(Arena*);
+template<> ::PTP::Buddy::BuddyModifyUpdatePairNotify* Arena::CreateMaybeMessage<::PTP::Buddy::BuddyModifyUpdatePairNotify>(Arena*);
 template<> ::PTP::Buddy::BuddyQueryListReq* Arena::CreateMaybeMessage<::PTP::Buddy::BuddyQueryListReq>(Arena*);
 template<> ::PTP::Buddy::BuddyQueryListRes* Arena::CreateMaybeMessage<::PTP::Buddy::BuddyQueryListRes>(Arena*);
 template<> ::PTP::Buddy::BuddyStatNotify* Arena::CreateMaybeMessage<::PTP::Buddy::BuddyStatNotify>(Arena*);
@@ -2031,24 +2031,24 @@ class BuddyModifyNotify final :
 };
 // -------------------------------------------------------------------
 
-class BuddyModifyUpdatePair final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:PTP.Buddy.BuddyModifyUpdatePair) */ {
+class BuddyModifyUpdatePairNotify final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:PTP.Buddy.BuddyModifyUpdatePairNotify) */ {
  public:
-  inline BuddyModifyUpdatePair() : BuddyModifyUpdatePair(nullptr) {}
-  ~BuddyModifyUpdatePair() override;
-  explicit PROTOBUF_CONSTEXPR BuddyModifyUpdatePair(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline BuddyModifyUpdatePairNotify() : BuddyModifyUpdatePairNotify(nullptr) {}
+  ~BuddyModifyUpdatePairNotify() override;
+  explicit PROTOBUF_CONSTEXPR BuddyModifyUpdatePairNotify(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  BuddyModifyUpdatePair(const BuddyModifyUpdatePair& from);
-  BuddyModifyUpdatePair(BuddyModifyUpdatePair&& from) noexcept
-    : BuddyModifyUpdatePair() {
+  BuddyModifyUpdatePairNotify(const BuddyModifyUpdatePairNotify& from);
+  BuddyModifyUpdatePairNotify(BuddyModifyUpdatePairNotify&& from) noexcept
+    : BuddyModifyUpdatePairNotify() {
     *this = ::std::move(from);
   }
 
-  inline BuddyModifyUpdatePair& operator=(const BuddyModifyUpdatePair& from) {
+  inline BuddyModifyUpdatePairNotify& operator=(const BuddyModifyUpdatePairNotify& from) {
     CopyFrom(from);
     return *this;
   }
-  inline BuddyModifyUpdatePair& operator=(BuddyModifyUpdatePair&& from) noexcept {
+  inline BuddyModifyUpdatePairNotify& operator=(BuddyModifyUpdatePairNotify&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -2069,20 +2069,20 @@ class BuddyModifyUpdatePair final :
     return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const BuddyModifyUpdatePair& default_instance() {
+  static const BuddyModifyUpdatePairNotify& default_instance() {
     return *internal_default_instance();
   }
-  static inline const BuddyModifyUpdatePair* internal_default_instance() {
-    return reinterpret_cast<const BuddyModifyUpdatePair*>(
-               &_BuddyModifyUpdatePair_default_instance_);
+  static inline const BuddyModifyUpdatePairNotify* internal_default_instance() {
+    return reinterpret_cast<const BuddyModifyUpdatePairNotify*>(
+               &_BuddyModifyUpdatePairNotify_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     10;
 
-  friend void swap(BuddyModifyUpdatePair& a, BuddyModifyUpdatePair& b) {
+  friend void swap(BuddyModifyUpdatePairNotify& a, BuddyModifyUpdatePairNotify& b) {
     a.Swap(&b);
   }
-  inline void Swap(BuddyModifyUpdatePair* other) {
+  inline void Swap(BuddyModifyUpdatePairNotify* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2095,7 +2095,7 @@ class BuddyModifyUpdatePair final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(BuddyModifyUpdatePair* other) {
+  void UnsafeArenaSwap(BuddyModifyUpdatePairNotify* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2103,12 +2103,12 @@ class BuddyModifyUpdatePair final :
 
   // implements Message ----------------------------------------------
 
-  BuddyModifyUpdatePair* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<BuddyModifyUpdatePair>(arena);
+  BuddyModifyUpdatePairNotify* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BuddyModifyUpdatePairNotify>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const BuddyModifyUpdatePair& from);
-  void MergeFrom(const BuddyModifyUpdatePair& from);
+  void CopyFrom(const BuddyModifyUpdatePairNotify& from);
+  void MergeFrom(const BuddyModifyUpdatePairNotify& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -2122,15 +2122,15 @@ class BuddyModifyUpdatePair final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(BuddyModifyUpdatePair* other);
+  void InternalSwap(BuddyModifyUpdatePairNotify* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "PTP.Buddy.BuddyModifyUpdatePair";
+    return "PTP.Buddy.BuddyModifyUpdatePairNotify";
   }
   protected:
-  explicit BuddyModifyUpdatePair(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit BuddyModifyUpdatePairNotify(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -2179,7 +2179,7 @@ class BuddyModifyUpdatePair final :
   void _internal_set_auth_uid(uint32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:PTP.Buddy.BuddyModifyUpdatePair)
+  // @@protoc_insertion_point(class_scope:PTP.Buddy.BuddyModifyUpdatePairNotify)
  private:
   class _Internal;
 
@@ -4403,6 +4403,34 @@ inline void BuddyModifyRes::set_auth_uid(uint32_t value) {
 
 // BuddyModifyNotify
 
+// required uint32 uid = 2;
+inline bool BuddyModifyNotify::_internal_has_uid() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool BuddyModifyNotify::has_uid() const {
+  return _internal_has_uid();
+}
+inline void BuddyModifyNotify::clear_uid() {
+  _impl_.uid_ = 0u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline uint32_t BuddyModifyNotify::_internal_uid() const {
+  return _impl_.uid_;
+}
+inline uint32_t BuddyModifyNotify::uid() const {
+  // @@protoc_insertion_point(field_get:PTP.Buddy.BuddyModifyNotify.uid)
+  return _internal_uid();
+}
+inline void BuddyModifyNotify::_internal_set_uid(uint32_t value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.uid_ = value;
+}
+inline void BuddyModifyNotify::set_uid(uint32_t value) {
+  _internal_set_uid(value);
+  // @@protoc_insertion_point(field_set:PTP.Buddy.BuddyModifyNotify.uid)
+}
+
 // required .PTP.Common.BuddyModifyAction buddy_modify_action = 1;
 inline bool BuddyModifyNotify::_internal_has_buddy_modify_action() const {
   bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
@@ -4430,34 +4458,6 @@ inline void BuddyModifyNotify::_internal_set_buddy_modify_action(::PTP::Common::
 inline void BuddyModifyNotify::set_buddy_modify_action(::PTP::Common::BuddyModifyAction value) {
   _internal_set_buddy_modify_action(value);
   // @@protoc_insertion_point(field_set:PTP.Buddy.BuddyModifyNotify.buddy_modify_action)
-}
-
-// required uint32 uid = 2;
-inline bool BuddyModifyNotify::_internal_has_uid() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool BuddyModifyNotify::has_uid() const {
-  return _internal_has_uid();
-}
-inline void BuddyModifyNotify::clear_uid() {
-  _impl_.uid_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000002u;
-}
-inline uint32_t BuddyModifyNotify::_internal_uid() const {
-  return _impl_.uid_;
-}
-inline uint32_t BuddyModifyNotify::uid() const {
-  // @@protoc_insertion_point(field_get:PTP.Buddy.BuddyModifyNotify.uid)
-  return _internal_uid();
-}
-inline void BuddyModifyNotify::_internal_set_uid(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000002u;
-  _impl_.uid_ = value;
-}
-inline void BuddyModifyNotify::set_uid(uint32_t value) {
-  _internal_set_uid(value);
-  // @@protoc_insertion_point(field_set:PTP.Buddy.BuddyModifyNotify.uid)
 }
 
 // required string value = 4;
@@ -4530,81 +4530,81 @@ inline void BuddyModifyNotify::set_allocated_value(std::string* value) {
 
 // -------------------------------------------------------------------
 
-// BuddyModifyUpdatePair
+// BuddyModifyUpdatePairNotify
 
 // repeated uint32 pair_uid_list = 1;
-inline int BuddyModifyUpdatePair::_internal_pair_uid_list_size() const {
+inline int BuddyModifyUpdatePairNotify::_internal_pair_uid_list_size() const {
   return _impl_.pair_uid_list_.size();
 }
-inline int BuddyModifyUpdatePair::pair_uid_list_size() const {
+inline int BuddyModifyUpdatePairNotify::pair_uid_list_size() const {
   return _internal_pair_uid_list_size();
 }
-inline void BuddyModifyUpdatePair::clear_pair_uid_list() {
+inline void BuddyModifyUpdatePairNotify::clear_pair_uid_list() {
   _impl_.pair_uid_list_.Clear();
 }
-inline uint32_t BuddyModifyUpdatePair::_internal_pair_uid_list(int index) const {
+inline uint32_t BuddyModifyUpdatePairNotify::_internal_pair_uid_list(int index) const {
   return _impl_.pair_uid_list_.Get(index);
 }
-inline uint32_t BuddyModifyUpdatePair::pair_uid_list(int index) const {
-  // @@protoc_insertion_point(field_get:PTP.Buddy.BuddyModifyUpdatePair.pair_uid_list)
+inline uint32_t BuddyModifyUpdatePairNotify::pair_uid_list(int index) const {
+  // @@protoc_insertion_point(field_get:PTP.Buddy.BuddyModifyUpdatePairNotify.pair_uid_list)
   return _internal_pair_uid_list(index);
 }
-inline void BuddyModifyUpdatePair::set_pair_uid_list(int index, uint32_t value) {
+inline void BuddyModifyUpdatePairNotify::set_pair_uid_list(int index, uint32_t value) {
   _impl_.pair_uid_list_.Set(index, value);
-  // @@protoc_insertion_point(field_set:PTP.Buddy.BuddyModifyUpdatePair.pair_uid_list)
+  // @@protoc_insertion_point(field_set:PTP.Buddy.BuddyModifyUpdatePairNotify.pair_uid_list)
 }
-inline void BuddyModifyUpdatePair::_internal_add_pair_uid_list(uint32_t value) {
+inline void BuddyModifyUpdatePairNotify::_internal_add_pair_uid_list(uint32_t value) {
   _impl_.pair_uid_list_.Add(value);
 }
-inline void BuddyModifyUpdatePair::add_pair_uid_list(uint32_t value) {
+inline void BuddyModifyUpdatePairNotify::add_pair_uid_list(uint32_t value) {
   _internal_add_pair_uid_list(value);
-  // @@protoc_insertion_point(field_add:PTP.Buddy.BuddyModifyUpdatePair.pair_uid_list)
+  // @@protoc_insertion_point(field_add:PTP.Buddy.BuddyModifyUpdatePairNotify.pair_uid_list)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
-BuddyModifyUpdatePair::_internal_pair_uid_list() const {
+BuddyModifyUpdatePairNotify::_internal_pair_uid_list() const {
   return _impl_.pair_uid_list_;
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
-BuddyModifyUpdatePair::pair_uid_list() const {
-  // @@protoc_insertion_point(field_list:PTP.Buddy.BuddyModifyUpdatePair.pair_uid_list)
+BuddyModifyUpdatePairNotify::pair_uid_list() const {
+  // @@protoc_insertion_point(field_list:PTP.Buddy.BuddyModifyUpdatePairNotify.pair_uid_list)
   return _internal_pair_uid_list();
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
-BuddyModifyUpdatePair::_internal_mutable_pair_uid_list() {
+BuddyModifyUpdatePairNotify::_internal_mutable_pair_uid_list() {
   return &_impl_.pair_uid_list_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
-BuddyModifyUpdatePair::mutable_pair_uid_list() {
-  // @@protoc_insertion_point(field_mutable_list:PTP.Buddy.BuddyModifyUpdatePair.pair_uid_list)
+BuddyModifyUpdatePairNotify::mutable_pair_uid_list() {
+  // @@protoc_insertion_point(field_mutable_list:PTP.Buddy.BuddyModifyUpdatePairNotify.pair_uid_list)
   return _internal_mutable_pair_uid_list();
 }
 
 // required uint32 auth_uid = 2;
-inline bool BuddyModifyUpdatePair::_internal_has_auth_uid() const {
+inline bool BuddyModifyUpdatePairNotify::_internal_has_auth_uid() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool BuddyModifyUpdatePair::has_auth_uid() const {
+inline bool BuddyModifyUpdatePairNotify::has_auth_uid() const {
   return _internal_has_auth_uid();
 }
-inline void BuddyModifyUpdatePair::clear_auth_uid() {
+inline void BuddyModifyUpdatePairNotify::clear_auth_uid() {
   _impl_.auth_uid_ = 0u;
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline uint32_t BuddyModifyUpdatePair::_internal_auth_uid() const {
+inline uint32_t BuddyModifyUpdatePairNotify::_internal_auth_uid() const {
   return _impl_.auth_uid_;
 }
-inline uint32_t BuddyModifyUpdatePair::auth_uid() const {
-  // @@protoc_insertion_point(field_get:PTP.Buddy.BuddyModifyUpdatePair.auth_uid)
+inline uint32_t BuddyModifyUpdatePairNotify::auth_uid() const {
+  // @@protoc_insertion_point(field_get:PTP.Buddy.BuddyModifyUpdatePairNotify.auth_uid)
   return _internal_auth_uid();
 }
-inline void BuddyModifyUpdatePair::_internal_set_auth_uid(uint32_t value) {
+inline void BuddyModifyUpdatePairNotify::_internal_set_auth_uid(uint32_t value) {
   _impl_._has_bits_[0] |= 0x00000001u;
   _impl_.auth_uid_ = value;
 }
-inline void BuddyModifyUpdatePair::set_auth_uid(uint32_t value) {
+inline void BuddyModifyUpdatePairNotify::set_auth_uid(uint32_t value) {
   _internal_set_auth_uid(value);
-  // @@protoc_insertion_point(field_set:PTP.Buddy.BuddyModifyUpdatePair.auth_uid)
+  // @@protoc_insertion_point(field_set:PTP.Buddy.BuddyModifyUpdatePairNotify.auth_uid)
 }
 
 // -------------------------------------------------------------------

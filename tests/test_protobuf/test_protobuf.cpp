@@ -4,14 +4,43 @@
 #include "ptp_global/Helpers.h"
 #include "ptp_protobuf/PTP.Common.pb.h"
 #include "ptp_protobuf/PTP.Group.pb.h"
+#include "ptp_protobuf/PTP.Buddy.pb.h"
+#include "ptp_protobuf/ActionCommands.h"
 #include "ImPdu.h"
-using namespace PTP::Common;
+
+
+TEST(ptp_protobuf, ActionCommands) {
+    DEBUG_D("%s",getActionCommandsName(CID_AuthCaptchaReq).c_str());
+}
 
 TEST(ptp_protobuf, Global_ERR) {
     DEBUG_D("ERR_NO:%x",E_REASON_NO_DB_SERVER);
-//    DEBUG_D("ERR_AUTH_LOGIN_ERROR:%x",ERR_AUTH_LOGIN_ERROR);
-//    ASSERT_EQ(ERR_NO,0x0);
     ASSERT_EQ(E_REASON_NO_DB_SERVER,7);
+}
+
+TEST(ptp_protobuf, SetMsg) {
+    PTP::Buddy::BuddyModifyNotify msg_rsp1;
+    msg_rsp1.set_buddy_modify_action(PTP::Common::BuddyModifyAction_sign_info);
+    msg_rsp1.set_value("SSSS");
+    msg_rsp1.set_uid(1);
+    ImPdu pdu1;
+    pdu1.SetPBMsg(&msg_rsp1,CID_BuddyModifyNotify,102);
+    pdu1.Dump();
+    PTP::Buddy::BuddyGetALLReq msg_rsp2;
+    msg_rsp2.set_buddy_updated_time(0);
+    msg_rsp2.set_auth_uid(1);
+
+    ImPdu pdu2;
+    pdu2.SetPBMsg(&msg_rsp2,CID_BuddyGetALLReq,104);
+    pdu2.SetReversed(1);
+    pdu2.Dump();
+
+    pdu2.SetPBMsg(&msg_rsp1);
+    pdu2.SetReversed(0);
+    pdu2.Dump();
+
+    ASSERT_EQ(1,1);
+
 }
 
 TEST(ptp_protobuf, GroupCreateRes) {
@@ -68,12 +97,24 @@ TEST(ptp_protobuf, GroupCreateReq) {
     msg1.SerializeToArray(szData1,msg1.ByteSizeLong());
     DEBUG_D("msg1 size:%d", msg1.ByteSizeLong());
     DEBUG_D("msg1:%s", bytes_to_hex_string(szData1,msg1.ByteSizeLong()).c_str());
-
 }
 
 
+TEST(ptp_protobuf, GroupPreCreateRes_E_GROUP_CREATE_PAIR_EXISTS) {
+    PTP::Group::GroupCreateRes msg;
+    msg.set_error(PTP::Common::E_GROUP_CREATE_PAIR_EXISTS);
+    ImPdu pdu;
+    pdu.SetPBMsg(&msg,CID_GroupPreCreateRes,0);
+    pdu.Dump();
+    PTP::Group::GroupCreateRes msg1;
+    auto ret = msg1.ParseFromArray(pdu.GetBodyData(),pdu.GetBodyLength());
+    DEBUG_D("ret: %d", ret);
 
-PTP::Group::GroupCreateReq msg;
+    DEBUG_D("msg_rsp1 error: %d", msg1.error());
+    DEBUG_D("msg_rsp1 size: %d", msg1.ByteSizeLong());
+
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
