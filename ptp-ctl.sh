@@ -195,6 +195,8 @@ function print_usage() {
   		echo "  $0 clean_tests"
   		echo "  $0 copy_to_build"
   		echo "  $0 clean_ptp"
+  		echo "  $0 test_log_no_stdout"
+  		echo "  $0 test_log_stdout"
   		echo "  $0 cmake"
   		echo "  $0 run_redis_dev_server"
   		echo "  $0 init_dev"
@@ -313,6 +315,12 @@ case $1 in
   ;;
 	copy_to_build)
 	  copy_to_build
+  ;;
+	test_log_stdout)
+		cp $PTP_DIR/tests/log4cxx.stdout.properties $PTP_DIR/build/bin/log4cxx.properties
+  ;;
+	test_log_no_stdout)
+		cp $PTP_DIR/tests/log4cxx.properties $PTP_DIR/build/bin/log4cxx.properties
   ;;
 	gen_pb)
 	  $PTP_DIR/src/ptp_protobuf/proto-v1/tools/create.sh
