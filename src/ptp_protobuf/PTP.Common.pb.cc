@@ -252,6 +252,7 @@ bool ERR_IsValid(int value) {
     case 1102:
     case 1103:
     case 1104:
+    case 1105:
     case 1201:
       return true;
     default:
@@ -259,7 +260,7 @@ bool ERR_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ERR_strings[18] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ERR_strings[19] = {};
 
 static const char ERR_names[] =
   "E_BUDDY_MODIFY_INVALID_ACTION"
@@ -269,6 +270,7 @@ static const char ERR_names[] =
   "E_GROUP_CREATE_PAIR_GROUP_MEMBER_SIE_INVALID"
   "E_GROUP_CREATE_PAIR_GROUP_NO_REG_USER"
   "E_GROUP_HAS_CREATED"
+  "E_GROUP_MODIFY_INVALID_ACTION"
   "E_LOGIN_ERROR"
   "E_PB_PARSE_ERROR"
   "E_REASON_NO_DB_SERVER"
@@ -289,37 +291,39 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ERR_entries[] = {
   { {ERR_names + 79, 44}, 1101 },
   { {ERR_names + 123, 37}, 1102 },
   { {ERR_names + 160, 19}, 1103 },
-  { {ERR_names + 179, 13}, 8 },
-  { {ERR_names + 192, 16}, 9 },
-  { {ERR_names + 208, 21}, 7 },
-  { {ERR_names + 229, 24}, 6 },
-  { {ERR_names + 253, 24}, 5 },
-  { {ERR_names + 277, 18}, 404 },
-  { {ERR_names + 295, 23}, 10 },
-  { {ERR_names + 318, 8}, 1 },
-  { {ERR_names + 326, 17}, 11 },
-  { {ERR_names + 343, 18}, 12 },
-  { {ERR_names + 361, 8}, 0 },
+  { {ERR_names + 179, 29}, 1105 },
+  { {ERR_names + 208, 13}, 8 },
+  { {ERR_names + 221, 16}, 9 },
+  { {ERR_names + 237, 21}, 7 },
+  { {ERR_names + 258, 24}, 6 },
+  { {ERR_names + 282, 24}, 5 },
+  { {ERR_names + 306, 18}, 404 },
+  { {ERR_names + 324, 23}, 10 },
+  { {ERR_names + 347, 8}, 1 },
+  { {ERR_names + 355, 17}, 11 },
+  { {ERR_names + 372, 18}, 12 },
+  { {ERR_names + 390, 8}, 0 },
 };
 
 static const int ERR_entries_by_number[] = {
-  17, // 0 -> NO_ERROR
-  14, // 1 -> E_SYSTEM
-  11, // 5 -> E_REASON_NO_ROUTE_SERVER
-  10, // 6 -> E_REASON_NO_LOGIN_SERVER
-  9, // 7 -> E_REASON_NO_DB_SERVER
-  7, // 8 -> E_LOGIN_ERROR
-  8, // 9 -> E_PB_PARSE_ERROR
-  13, // 10 -> E_SWITCH_USER_NO_ONLINE
-  15, // 11 -> E_USERNAME_EXISTS
-  16, // 12 -> E_USERNAME_INVALID
-  12, // 404 -> E_SERVER_NOT_FOUND
+  18, // 0 -> NO_ERROR
+  15, // 1 -> E_SYSTEM
+  12, // 5 -> E_REASON_NO_ROUTE_SERVER
+  11, // 6 -> E_REASON_NO_LOGIN_SERVER
+  10, // 7 -> E_REASON_NO_DB_SERVER
+  8, // 8 -> E_LOGIN_ERROR
+  9, // 9 -> E_PB_PARSE_ERROR
+  14, // 10 -> E_SWITCH_USER_NO_ONLINE
+  16, // 11 -> E_USERNAME_EXISTS
+  17, // 12 -> E_USERNAME_INVALID
+  13, // 404 -> E_SERVER_NOT_FOUND
   1, // 1003 -> E_CLIENT
   2, // 1004 -> E_CLIENT_TIMEOUT
   4, // 1101 -> E_GROUP_CREATE_PAIR_GROUP_MEMBER_SIE_INVALID
   5, // 1102 -> E_GROUP_CREATE_PAIR_GROUP_NO_REG_USER
   6, // 1103 -> E_GROUP_HAS_CREATED
   3, // 1104 -> E_GROUP_CREATE_PAIR_EXISTS
+  7, // 1105 -> E_GROUP_MODIFY_INVALID_ACTION
   0, // 1201 -> E_BUDDY_MODIFY_INVALID_ACTION
 };
 
@@ -329,12 +333,12 @@ const std::string& ERR_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ERR_entries,
           ERR_entries_by_number,
-          18, ERR_strings);
+          19, ERR_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ERR_entries,
       ERR_entries_by_number,
-      18, value);
+      19, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ERR_strings[idx].get();
 }
@@ -342,7 +346,7 @@ bool ERR_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ERR* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ERR_entries, 18, name, &int_value);
+      ERR_entries, 19, name, &int_value);
   if (success) {
     *value = static_cast<ERR>(int_value);
   }
@@ -807,23 +811,27 @@ bool GroupType_Parse(
 bool GroupMemberStatus_IsValid(int value) {
   switch (value) {
     case 1:
+    case 10:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> GroupMemberStatus_strings[1] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> GroupMemberStatus_strings[2] = {};
 
 static const char GroupMemberStatus_names[] =
+  "GROUP_MEMBER_STATUS_DEL"
   "GROUP_MEMBER_STATUS_NORMAL";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry GroupMemberStatus_entries[] = {
-  { {GroupMemberStatus_names + 0, 26}, 1 },
+  { {GroupMemberStatus_names + 0, 23}, 1 },
+  { {GroupMemberStatus_names + 23, 26}, 10 },
 };
 
 static const int GroupMemberStatus_entries_by_number[] = {
-  0, // 1 -> GROUP_MEMBER_STATUS_NORMAL
+  0, // 1 -> GROUP_MEMBER_STATUS_DEL
+  1, // 10 -> GROUP_MEMBER_STATUS_NORMAL
 };
 
 const std::string& GroupMemberStatus_Name(
@@ -832,12 +840,12 @@ const std::string& GroupMemberStatus_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           GroupMemberStatus_entries,
           GroupMemberStatus_entries_by_number,
-          1, GroupMemberStatus_strings);
+          2, GroupMemberStatus_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       GroupMemberStatus_entries,
       GroupMemberStatus_entries_by_number,
-      1, value);
+      2, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      GroupMemberStatus_strings[idx].get();
 }
@@ -845,7 +853,7 @@ bool GroupMemberStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GroupMemberStatus* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      GroupMemberStatus_entries, 1, name, &int_value);
+      GroupMemberStatus_entries, 2, name, &int_value);
   if (success) {
     *value = static_cast<GroupMemberStatus>(int_value);
   }
@@ -855,26 +863,30 @@ bool GroupModifyAction_IsValid(int value) {
   switch (value) {
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> GroupModifyAction_strings[2] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> GroupModifyAction_strings[3] = {};
 
 static const char GroupModifyAction_names[] =
+  "GroupModifyAction_about"
   "GroupModifyAction_avatar"
   "GroupModifyAction_name";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry GroupModifyAction_entries[] = {
-  { {GroupModifyAction_names + 0, 24}, 2 },
-  { {GroupModifyAction_names + 24, 22}, 1 },
+  { {GroupModifyAction_names + 0, 23}, 3 },
+  { {GroupModifyAction_names + 23, 24}, 2 },
+  { {GroupModifyAction_names + 47, 22}, 1 },
 };
 
 static const int GroupModifyAction_entries_by_number[] = {
-  1, // 1 -> GroupModifyAction_name
-  0, // 2 -> GroupModifyAction_avatar
+  2, // 1 -> GroupModifyAction_name
+  1, // 2 -> GroupModifyAction_avatar
+  0, // 3 -> GroupModifyAction_about
 };
 
 const std::string& GroupModifyAction_Name(
@@ -883,12 +895,12 @@ const std::string& GroupModifyAction_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           GroupModifyAction_entries,
           GroupModifyAction_entries_by_number,
-          2, GroupModifyAction_strings);
+          3, GroupModifyAction_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       GroupModifyAction_entries,
       GroupModifyAction_entries_by_number,
-      2, value);
+      3, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      GroupModifyAction_strings[idx].get();
 }
@@ -896,7 +908,7 @@ bool GroupModifyAction_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GroupModifyAction* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      GroupModifyAction_entries, 2, name, &int_value);
+      GroupModifyAction_entries, 3, name, &int_value);
   if (success) {
     *value = static_cast<GroupModifyAction>(int_value);
   }
@@ -904,8 +916,8 @@ bool GroupModifyAction_Parse(
 }
 bool GroupMemberModifyAction_IsValid(int value) {
   switch (value) {
-    case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -916,16 +928,16 @@ static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Gro
 
 static const char GroupMemberModifyAction_names[] =
   "GroupMemberModifyAction_ADD"
-  "GroupMemberModifyAction_DEL";
+  "GroupMemberModifyAction_STATUS";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry GroupMemberModifyAction_entries[] = {
   { {GroupMemberModifyAction_names + 0, 27}, 2 },
-  { {GroupMemberModifyAction_names + 27, 27}, 1 },
+  { {GroupMemberModifyAction_names + 27, 30}, 3 },
 };
 
 static const int GroupMemberModifyAction_entries_by_number[] = {
-  1, // 1 -> GroupMemberModifyAction_DEL
   0, // 2 -> GroupMemberModifyAction_ADD
+  1, // 3 -> GroupMemberModifyAction_STATUS
 };
 
 const std::string& GroupMemberModifyAction_Name(

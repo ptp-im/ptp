@@ -69,25 +69,22 @@ message GroupModifyNotify{
 message GroupChangeMemberReq{
 	required Common.GroupMemberModifyAction group_member_modify_action = 1;
 	required uint32 group_id = 2;
-	repeated string members = 3;
-
+	repeated uint32 members = 3;
+	required Common.GroupMemberStatus group_member_status = 4;
 	optional bytes attach_data = 20;
 	optional uint32 auth_uid = 21;
 }
 
 message GroupChangeMemberRes{
-	required Common.GroupMemberModifyAction group_member_modify_action = 1;
 	required uint32 group_id = 3;
-	repeated string members_chang = 4;
+	repeated uint32 notify_members = 4;
 	required Common.ERR error = 5;
 	optional bytes attach_data = 20;
 	optional uint32 auth_uid = 21;
 }
 
 message GroupChangeMemberNotify{
-	required Common.GroupMemberModifyAction group_member_modify_action = 1;
 	required uint32 group_id = 2;
-	repeated string members_chang = 3;
 }
 
 message GroupGetListReq{
@@ -100,6 +97,7 @@ message GroupGetListRes{
 	required uint32 group_info_updated_time = 1;
 	repeated Common.GroupInfo groups = 2;
 	required Common.ERR error = 3;
+	repeated uint32 removed_group_ids = 4;
 	optional bytes attach_data = 20;
 	optional uint32 auth_uid = 21;
 }
@@ -133,23 +131,4 @@ message GroupUnreadMsgRes{
 	required Common.ERR error = 4;
 	optional bytes attach_data = 20;
 	optional uint32 auth_uid = 21;
-}
-
-message GroupRemoveSessionReq{
-	required uint32 group_id = 2;
-
-	optional bytes attach_data = 20;
-	optional uint32 auth_uid = 21;
-}
-
-message GroupRemoveSessionRes{
-	required Common.ERR error = 1;
-	required uint32 group_id = 2;
-	optional bytes attach_data = 20;
-	optional uint32 auth_uid = 21;
-}
-
-message GroupRemoveSessionNotify{
-	required uint32 group_id = 1;
-	required uint32 from_uid = 3;
 }

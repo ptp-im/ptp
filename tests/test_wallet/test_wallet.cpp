@@ -21,9 +21,9 @@ TEST(ptp_wallet, GenerateMnemonics) {
     ASSERT_TRUE(PTPWallet::MnemonicHelper::validateWords("en", m1.raw.data()));
     ASSERT_TRUE(PTPWallet::MnemonicHelper::validateWords("en", m2.raw.data()));
     ASSERT_TRUE(PTPWallet::MnemonicHelper::validateWords("en", m3.raw.data()));
-    std::cout << m1.raw << std::endl;
-    std::cout << m2.raw << std::endl;
-    std::cout << m3.raw << std::endl;
+    //std::cout << m1.raw << std::endl;
+    //std::cout << m2.raw << std::endl;
+    //std::cout << m3.raw << std::endl;
     ASSERT_STRNE(m1.raw.c_str(), m2.raw.c_str());
     ASSERT_STRNE(m1.raw.c_str(), m3.raw.c_str());
     ASSERT_STRNE(m2.raw.c_str(), m3.raw.c_str());

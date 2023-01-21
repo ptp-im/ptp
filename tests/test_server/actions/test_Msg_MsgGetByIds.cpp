@@ -10,8 +10,8 @@ using namespace PTP::Common;
 TEST(test_Msg, MsgGetByIdsAction) {
     auto *pMsgConn = test_init_msg_conn();
     PTP::Msg::MsgGetByIdsReq msg_MsgGetByIdsReq;
-    //msg_MsgGetByIdsReq.set_group_id();
-    //msg_MsgGetByIdsReq.set_msg_ids();
+    msg_MsgGetByIdsReq.set_group_id(1);
+    msg_MsgGetByIdsReq.add_msg_ids(1);
     uint16_t sep_no = 1;
     ImPdu pdu_MsgGetByIdsReq;
     pdu_MsgGetByIdsReq.SetPBMsg(&msg_MsgGetByIdsReq,CID_MsgGetByIdsReq,sep_no);

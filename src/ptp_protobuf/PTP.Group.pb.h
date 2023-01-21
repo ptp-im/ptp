@@ -86,15 +86,6 @@ extern GroupPreCreateReqDefaultTypeInternal _GroupPreCreateReq_default_instance_
 class GroupPreCreateRes;
 struct GroupPreCreateResDefaultTypeInternal;
 extern GroupPreCreateResDefaultTypeInternal _GroupPreCreateRes_default_instance_;
-class GroupRemoveSessionNotify;
-struct GroupRemoveSessionNotifyDefaultTypeInternal;
-extern GroupRemoveSessionNotifyDefaultTypeInternal _GroupRemoveSessionNotify_default_instance_;
-class GroupRemoveSessionReq;
-struct GroupRemoveSessionReqDefaultTypeInternal;
-extern GroupRemoveSessionReqDefaultTypeInternal _GroupRemoveSessionReq_default_instance_;
-class GroupRemoveSessionRes;
-struct GroupRemoveSessionResDefaultTypeInternal;
-extern GroupRemoveSessionResDefaultTypeInternal _GroupRemoveSessionRes_default_instance_;
 class GroupUnreadMsgReq;
 struct GroupUnreadMsgReqDefaultTypeInternal;
 extern GroupUnreadMsgReqDefaultTypeInternal _GroupUnreadMsgReq_default_instance_;
@@ -118,9 +109,6 @@ template<> ::PTP::Group::GroupModifyReq* Arena::CreateMaybeMessage<::PTP::Group:
 template<> ::PTP::Group::GroupModifyRes* Arena::CreateMaybeMessage<::PTP::Group::GroupModifyRes>(Arena*);
 template<> ::PTP::Group::GroupPreCreateReq* Arena::CreateMaybeMessage<::PTP::Group::GroupPreCreateReq>(Arena*);
 template<> ::PTP::Group::GroupPreCreateRes* Arena::CreateMaybeMessage<::PTP::Group::GroupPreCreateRes>(Arena*);
-template<> ::PTP::Group::GroupRemoveSessionNotify* Arena::CreateMaybeMessage<::PTP::Group::GroupRemoveSessionNotify>(Arena*);
-template<> ::PTP::Group::GroupRemoveSessionReq* Arena::CreateMaybeMessage<::PTP::Group::GroupRemoveSessionReq>(Arena*);
-template<> ::PTP::Group::GroupRemoveSessionRes* Arena::CreateMaybeMessage<::PTP::Group::GroupRemoveSessionRes>(Arena*);
 template<> ::PTP::Group::GroupUnreadMsgReq* Arena::CreateMaybeMessage<::PTP::Group::GroupUnreadMsgReq>(Arena*);
 template<> ::PTP::Group::GroupUnreadMsgRes* Arena::CreateMaybeMessage<::PTP::Group::GroupUnreadMsgRes>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -1865,30 +1853,29 @@ class GroupChangeMemberReq final :
     kGroupIdFieldNumber = 2,
     kAuthUidFieldNumber = 21,
     kGroupMemberModifyActionFieldNumber = 1,
+    kGroupMemberStatusFieldNumber = 4,
   };
-  // repeated string members = 3;
+  // repeated uint32 members = 3;
   int members_size() const;
   private:
   int _internal_members_size() const;
   public:
   void clear_members();
-  const std::string& members(int index) const;
-  std::string* mutable_members(int index);
-  void set_members(int index, const std::string& value);
-  void set_members(int index, std::string&& value);
-  void set_members(int index, const char* value);
-  void set_members(int index, const char* value, size_t size);
-  std::string* add_members();
-  void add_members(const std::string& value);
-  void add_members(std::string&& value);
-  void add_members(const char* value);
-  void add_members(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& members() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_members();
   private:
-  const std::string& _internal_members(int index) const;
-  std::string* _internal_add_members();
+  uint32_t _internal_members(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      _internal_members() const;
+  void _internal_add_members(uint32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      _internal_mutable_members();
   public:
+  uint32_t members(int index) const;
+  void set_members(int index, uint32_t value);
+  void add_members(uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      members() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      mutable_members();
 
   // optional bytes attach_data = 20;
   bool has_attach_data() const;
@@ -1947,6 +1934,19 @@ class GroupChangeMemberReq final :
   void _internal_set_group_member_modify_action(::PTP::Common::GroupMemberModifyAction value);
   public:
 
+  // required .PTP.Common.GroupMemberStatus group_member_status = 4;
+  bool has_group_member_status() const;
+  private:
+  bool _internal_has_group_member_status() const;
+  public:
+  void clear_group_member_status();
+  ::PTP::Common::GroupMemberStatus group_member_status() const;
+  void set_group_member_status(::PTP::Common::GroupMemberStatus value);
+  private:
+  ::PTP::Common::GroupMemberStatus _internal_group_member_status() const;
+  void _internal_set_group_member_status(::PTP::Common::GroupMemberStatus value);
+  public:
+
   // @@protoc_insertion_point(class_scope:PTP.Group.GroupChangeMemberReq)
  private:
   class _Internal;
@@ -1960,11 +1960,12 @@ class GroupChangeMemberReq final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> members_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > members_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr attach_data_;
     uint32_t group_id_;
     uint32_t auth_uid_;
     int group_member_modify_action_;
+    int group_member_status_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_PTP_2eGroup_2eproto;
@@ -2081,36 +2082,33 @@ class GroupChangeMemberRes final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kMembersChangFieldNumber = 4,
+    kNotifyMembersFieldNumber = 4,
     kAttachDataFieldNumber = 20,
     kGroupIdFieldNumber = 3,
     kErrorFieldNumber = 5,
     kAuthUidFieldNumber = 21,
-    kGroupMemberModifyActionFieldNumber = 1,
   };
-  // repeated string members_chang = 4;
-  int members_chang_size() const;
+  // repeated uint32 notify_members = 4;
+  int notify_members_size() const;
   private:
-  int _internal_members_chang_size() const;
+  int _internal_notify_members_size() const;
   public:
-  void clear_members_chang();
-  const std::string& members_chang(int index) const;
-  std::string* mutable_members_chang(int index);
-  void set_members_chang(int index, const std::string& value);
-  void set_members_chang(int index, std::string&& value);
-  void set_members_chang(int index, const char* value);
-  void set_members_chang(int index, const char* value, size_t size);
-  std::string* add_members_chang();
-  void add_members_chang(const std::string& value);
-  void add_members_chang(std::string&& value);
-  void add_members_chang(const char* value);
-  void add_members_chang(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& members_chang() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_members_chang();
+  void clear_notify_members();
   private:
-  const std::string& _internal_members_chang(int index) const;
-  std::string* _internal_add_members_chang();
+  uint32_t _internal_notify_members(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      _internal_notify_members() const;
+  void _internal_add_notify_members(uint32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      _internal_mutable_notify_members();
   public:
+  uint32_t notify_members(int index) const;
+  void set_notify_members(int index, uint32_t value);
+  void add_notify_members(uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      notify_members() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      mutable_notify_members();
 
   // optional bytes attach_data = 20;
   bool has_attach_data() const;
@@ -2169,19 +2167,6 @@ class GroupChangeMemberRes final :
   void _internal_set_auth_uid(uint32_t value);
   public:
 
-  // required .PTP.Common.GroupMemberModifyAction group_member_modify_action = 1;
-  bool has_group_member_modify_action() const;
-  private:
-  bool _internal_has_group_member_modify_action() const;
-  public:
-  void clear_group_member_modify_action();
-  ::PTP::Common::GroupMemberModifyAction group_member_modify_action() const;
-  void set_group_member_modify_action(::PTP::Common::GroupMemberModifyAction value);
-  private:
-  ::PTP::Common::GroupMemberModifyAction _internal_group_member_modify_action() const;
-  void _internal_set_group_member_modify_action(::PTP::Common::GroupMemberModifyAction value);
-  public:
-
   // @@protoc_insertion_point(class_scope:PTP.Group.GroupChangeMemberRes)
  private:
   class _Internal;
@@ -2195,12 +2180,11 @@ class GroupChangeMemberRes final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> members_chang_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > notify_members_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr attach_data_;
     uint32_t group_id_;
     int error_;
     uint32_t auth_uid_;
-    int group_member_modify_action_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_PTP_2eGroup_2eproto;
@@ -2317,34 +2301,8 @@ class GroupChangeMemberNotify final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kMembersChangFieldNumber = 3,
     kGroupIdFieldNumber = 2,
-    kGroupMemberModifyActionFieldNumber = 1,
   };
-  // repeated string members_chang = 3;
-  int members_chang_size() const;
-  private:
-  int _internal_members_chang_size() const;
-  public:
-  void clear_members_chang();
-  const std::string& members_chang(int index) const;
-  std::string* mutable_members_chang(int index);
-  void set_members_chang(int index, const std::string& value);
-  void set_members_chang(int index, std::string&& value);
-  void set_members_chang(int index, const char* value);
-  void set_members_chang(int index, const char* value, size_t size);
-  std::string* add_members_chang();
-  void add_members_chang(const std::string& value);
-  void add_members_chang(std::string&& value);
-  void add_members_chang(const char* value);
-  void add_members_chang(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& members_chang() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_members_chang();
-  private:
-  const std::string& _internal_members_chang(int index) const;
-  std::string* _internal_add_members_chang();
-  public:
-
   // required uint32 group_id = 2;
   bool has_group_id() const;
   private:
@@ -2358,25 +2316,9 @@ class GroupChangeMemberNotify final :
   void _internal_set_group_id(uint32_t value);
   public:
 
-  // required .PTP.Common.GroupMemberModifyAction group_member_modify_action = 1;
-  bool has_group_member_modify_action() const;
-  private:
-  bool _internal_has_group_member_modify_action() const;
-  public:
-  void clear_group_member_modify_action();
-  ::PTP::Common::GroupMemberModifyAction group_member_modify_action() const;
-  void set_group_member_modify_action(::PTP::Common::GroupMemberModifyAction value);
-  private:
-  ::PTP::Common::GroupMemberModifyAction _internal_group_member_modify_action() const;
-  void _internal_set_group_member_modify_action(::PTP::Common::GroupMemberModifyAction value);
-  public:
-
   // @@protoc_insertion_point(class_scope:PTP.Group.GroupChangeMemberNotify)
  private:
   class _Internal;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -2384,9 +2326,7 @@ class GroupChangeMemberNotify final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> members_chang_;
     uint32_t group_id_;
-    int group_member_modify_action_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_PTP_2eGroup_2eproto;
@@ -2681,6 +2621,7 @@ class GroupGetListRes final :
 
   enum : int {
     kGroupsFieldNumber = 2,
+    kRemovedGroupIdsFieldNumber = 4,
     kAttachDataFieldNumber = 20,
     kGroupInfoUpdatedTimeFieldNumber = 1,
     kErrorFieldNumber = 3,
@@ -2703,6 +2644,28 @@ class GroupGetListRes final :
   ::PTP::Common::GroupInfo* add_groups();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PTP::Common::GroupInfo >&
       groups() const;
+
+  // repeated uint32 removed_group_ids = 4;
+  int removed_group_ids_size() const;
+  private:
+  int _internal_removed_group_ids_size() const;
+  public:
+  void clear_removed_group_ids();
+  private:
+  uint32_t _internal_removed_group_ids(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      _internal_removed_group_ids() const;
+  void _internal_add_removed_group_ids(uint32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      _internal_mutable_removed_group_ids();
+  public:
+  uint32_t removed_group_ids(int index) const;
+  void set_removed_group_ids(int index, uint32_t value);
+  void add_removed_group_ids(uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      removed_group_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      mutable_removed_group_ids();
 
   // optional bytes attach_data = 20;
   bool has_attach_data() const;
@@ -2775,6 +2738,7 @@ class GroupGetListRes final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PTP::Common::GroupInfo > groups_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > removed_group_ids_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr attach_data_;
     uint32_t group_info_updated_time_;
     int error_;
@@ -3601,538 +3565,6 @@ class GroupUnreadMsgRes final :
     uint32_t unread_cnt_;
     int error_;
     uint32_t auth_uid_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_PTP_2eGroup_2eproto;
-};
-// -------------------------------------------------------------------
-
-class GroupRemoveSessionReq final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:PTP.Group.GroupRemoveSessionReq) */ {
- public:
-  inline GroupRemoveSessionReq() : GroupRemoveSessionReq(nullptr) {}
-  ~GroupRemoveSessionReq() override;
-  explicit PROTOBUF_CONSTEXPR GroupRemoveSessionReq(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  GroupRemoveSessionReq(const GroupRemoveSessionReq& from);
-  GroupRemoveSessionReq(GroupRemoveSessionReq&& from) noexcept
-    : GroupRemoveSessionReq() {
-    *this = ::std::move(from);
-  }
-
-  inline GroupRemoveSessionReq& operator=(const GroupRemoveSessionReq& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline GroupRemoveSessionReq& operator=(GroupRemoveSessionReq&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const std::string& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
-  }
-  inline std::string* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<std::string>();
-  }
-
-  static const GroupRemoveSessionReq& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const GroupRemoveSessionReq* internal_default_instance() {
-    return reinterpret_cast<const GroupRemoveSessionReq*>(
-               &_GroupRemoveSessionReq_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    16;
-
-  friend void swap(GroupRemoveSessionReq& a, GroupRemoveSessionReq& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(GroupRemoveSessionReq* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(GroupRemoveSessionReq* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  GroupRemoveSessionReq* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<GroupRemoveSessionReq>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const GroupRemoveSessionReq& from);
-  void MergeFrom(const GroupRemoveSessionReq& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(GroupRemoveSessionReq* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "PTP.Group.GroupRemoveSessionReq";
-  }
-  protected:
-  explicit GroupRemoveSessionReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kAttachDataFieldNumber = 20,
-    kGroupIdFieldNumber = 2,
-    kAuthUidFieldNumber = 21,
-  };
-  // optional bytes attach_data = 20;
-  bool has_attach_data() const;
-  private:
-  bool _internal_has_attach_data() const;
-  public:
-  void clear_attach_data();
-  const std::string& attach_data() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_attach_data(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_attach_data();
-  PROTOBUF_NODISCARD std::string* release_attach_data();
-  void set_allocated_attach_data(std::string* attach_data);
-  private:
-  const std::string& _internal_attach_data() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_attach_data(const std::string& value);
-  std::string* _internal_mutable_attach_data();
-  public:
-
-  // required uint32 group_id = 2;
-  bool has_group_id() const;
-  private:
-  bool _internal_has_group_id() const;
-  public:
-  void clear_group_id();
-  uint32_t group_id() const;
-  void set_group_id(uint32_t value);
-  private:
-  uint32_t _internal_group_id() const;
-  void _internal_set_group_id(uint32_t value);
-  public:
-
-  // optional uint32 auth_uid = 21;
-  bool has_auth_uid() const;
-  private:
-  bool _internal_has_auth_uid() const;
-  public:
-  void clear_auth_uid();
-  uint32_t auth_uid() const;
-  void set_auth_uid(uint32_t value);
-  private:
-  uint32_t _internal_auth_uid() const;
-  void _internal_set_auth_uid(uint32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:PTP.Group.GroupRemoveSessionReq)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr attach_data_;
-    uint32_t group_id_;
-    uint32_t auth_uid_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_PTP_2eGroup_2eproto;
-};
-// -------------------------------------------------------------------
-
-class GroupRemoveSessionRes final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:PTP.Group.GroupRemoveSessionRes) */ {
- public:
-  inline GroupRemoveSessionRes() : GroupRemoveSessionRes(nullptr) {}
-  ~GroupRemoveSessionRes() override;
-  explicit PROTOBUF_CONSTEXPR GroupRemoveSessionRes(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  GroupRemoveSessionRes(const GroupRemoveSessionRes& from);
-  GroupRemoveSessionRes(GroupRemoveSessionRes&& from) noexcept
-    : GroupRemoveSessionRes() {
-    *this = ::std::move(from);
-  }
-
-  inline GroupRemoveSessionRes& operator=(const GroupRemoveSessionRes& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline GroupRemoveSessionRes& operator=(GroupRemoveSessionRes&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const std::string& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
-  }
-  inline std::string* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<std::string>();
-  }
-
-  static const GroupRemoveSessionRes& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const GroupRemoveSessionRes* internal_default_instance() {
-    return reinterpret_cast<const GroupRemoveSessionRes*>(
-               &_GroupRemoveSessionRes_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    17;
-
-  friend void swap(GroupRemoveSessionRes& a, GroupRemoveSessionRes& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(GroupRemoveSessionRes* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(GroupRemoveSessionRes* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  GroupRemoveSessionRes* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<GroupRemoveSessionRes>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const GroupRemoveSessionRes& from);
-  void MergeFrom(const GroupRemoveSessionRes& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(GroupRemoveSessionRes* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "PTP.Group.GroupRemoveSessionRes";
-  }
-  protected:
-  explicit GroupRemoveSessionRes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kAttachDataFieldNumber = 20,
-    kErrorFieldNumber = 1,
-    kGroupIdFieldNumber = 2,
-    kAuthUidFieldNumber = 21,
-  };
-  // optional bytes attach_data = 20;
-  bool has_attach_data() const;
-  private:
-  bool _internal_has_attach_data() const;
-  public:
-  void clear_attach_data();
-  const std::string& attach_data() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_attach_data(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_attach_data();
-  PROTOBUF_NODISCARD std::string* release_attach_data();
-  void set_allocated_attach_data(std::string* attach_data);
-  private:
-  const std::string& _internal_attach_data() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_attach_data(const std::string& value);
-  std::string* _internal_mutable_attach_data();
-  public:
-
-  // required .PTP.Common.ERR error = 1;
-  bool has_error() const;
-  private:
-  bool _internal_has_error() const;
-  public:
-  void clear_error();
-  ::PTP::Common::ERR error() const;
-  void set_error(::PTP::Common::ERR value);
-  private:
-  ::PTP::Common::ERR _internal_error() const;
-  void _internal_set_error(::PTP::Common::ERR value);
-  public:
-
-  // required uint32 group_id = 2;
-  bool has_group_id() const;
-  private:
-  bool _internal_has_group_id() const;
-  public:
-  void clear_group_id();
-  uint32_t group_id() const;
-  void set_group_id(uint32_t value);
-  private:
-  uint32_t _internal_group_id() const;
-  void _internal_set_group_id(uint32_t value);
-  public:
-
-  // optional uint32 auth_uid = 21;
-  bool has_auth_uid() const;
-  private:
-  bool _internal_has_auth_uid() const;
-  public:
-  void clear_auth_uid();
-  uint32_t auth_uid() const;
-  void set_auth_uid(uint32_t value);
-  private:
-  uint32_t _internal_auth_uid() const;
-  void _internal_set_auth_uid(uint32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:PTP.Group.GroupRemoveSessionRes)
- private:
-  class _Internal;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr attach_data_;
-    int error_;
-    uint32_t group_id_;
-    uint32_t auth_uid_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_PTP_2eGroup_2eproto;
-};
-// -------------------------------------------------------------------
-
-class GroupRemoveSessionNotify final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:PTP.Group.GroupRemoveSessionNotify) */ {
- public:
-  inline GroupRemoveSessionNotify() : GroupRemoveSessionNotify(nullptr) {}
-  ~GroupRemoveSessionNotify() override;
-  explicit PROTOBUF_CONSTEXPR GroupRemoveSessionNotify(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  GroupRemoveSessionNotify(const GroupRemoveSessionNotify& from);
-  GroupRemoveSessionNotify(GroupRemoveSessionNotify&& from) noexcept
-    : GroupRemoveSessionNotify() {
-    *this = ::std::move(from);
-  }
-
-  inline GroupRemoveSessionNotify& operator=(const GroupRemoveSessionNotify& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline GroupRemoveSessionNotify& operator=(GroupRemoveSessionNotify&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const std::string& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
-  }
-  inline std::string* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<std::string>();
-  }
-
-  static const GroupRemoveSessionNotify& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const GroupRemoveSessionNotify* internal_default_instance() {
-    return reinterpret_cast<const GroupRemoveSessionNotify*>(
-               &_GroupRemoveSessionNotify_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    18;
-
-  friend void swap(GroupRemoveSessionNotify& a, GroupRemoveSessionNotify& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(GroupRemoveSessionNotify* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(GroupRemoveSessionNotify* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  GroupRemoveSessionNotify* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<GroupRemoveSessionNotify>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const GroupRemoveSessionNotify& from);
-  void MergeFrom(const GroupRemoveSessionNotify& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(GroupRemoveSessionNotify* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "PTP.Group.GroupRemoveSessionNotify";
-  }
-  protected:
-  explicit GroupRemoveSessionNotify(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kGroupIdFieldNumber = 1,
-    kFromUidFieldNumber = 3,
-  };
-  // required uint32 group_id = 1;
-  bool has_group_id() const;
-  private:
-  bool _internal_has_group_id() const;
-  public:
-  void clear_group_id();
-  uint32_t group_id() const;
-  void set_group_id(uint32_t value);
-  private:
-  uint32_t _internal_group_id() const;
-  void _internal_set_group_id(uint32_t value);
-  public:
-
-  // required uint32 from_uid = 3;
-  bool has_from_uid() const;
-  private:
-  bool _internal_has_from_uid() const;
-  public:
-  void clear_from_uid();
-  uint32_t from_uid() const;
-  void set_from_uid(uint32_t value);
-  private:
-  uint32_t _internal_from_uid() const;
-  void _internal_set_from_uid(uint32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:PTP.Group.GroupRemoveSessionNotify)
- private:
-  class _Internal;
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    uint32_t group_id_;
-    uint32_t from_uid_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_PTP_2eGroup_2eproto;
@@ -6078,7 +5510,7 @@ inline bool GroupChangeMemberReq::has_group_member_modify_action() const {
   return _internal_has_group_member_modify_action();
 }
 inline void GroupChangeMemberReq::clear_group_member_modify_action() {
-  _impl_.group_member_modify_action_ = 1;
+  _impl_.group_member_modify_action_ = 2;
   _impl_._has_bits_[0] &= ~0x00000008u;
 }
 inline ::PTP::Common::GroupMemberModifyAction GroupChangeMemberReq::_internal_group_member_modify_action() const {
@@ -6126,7 +5558,7 @@ inline void GroupChangeMemberReq::set_group_id(uint32_t value) {
   // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberReq.group_id)
 }
 
-// repeated string members = 3;
+// repeated uint32 members = 3;
 inline int GroupChangeMemberReq::_internal_members_size() const {
   return _impl_.members_.size();
 }
@@ -6136,69 +5568,70 @@ inline int GroupChangeMemberReq::members_size() const {
 inline void GroupChangeMemberReq::clear_members() {
   _impl_.members_.Clear();
 }
-inline std::string* GroupChangeMemberReq::add_members() {
-  std::string* _s = _internal_add_members();
-  // @@protoc_insertion_point(field_add_mutable:PTP.Group.GroupChangeMemberReq.members)
-  return _s;
-}
-inline const std::string& GroupChangeMemberReq::_internal_members(int index) const {
+inline uint32_t GroupChangeMemberReq::_internal_members(int index) const {
   return _impl_.members_.Get(index);
 }
-inline const std::string& GroupChangeMemberReq::members(int index) const {
+inline uint32_t GroupChangeMemberReq::members(int index) const {
   // @@protoc_insertion_point(field_get:PTP.Group.GroupChangeMemberReq.members)
   return _internal_members(index);
 }
-inline std::string* GroupChangeMemberReq::mutable_members(int index) {
-  // @@protoc_insertion_point(field_mutable:PTP.Group.GroupChangeMemberReq.members)
-  return _impl_.members_.Mutable(index);
-}
-inline void GroupChangeMemberReq::set_members(int index, const std::string& value) {
-  _impl_.members_.Mutable(index)->assign(value);
+inline void GroupChangeMemberReq::set_members(int index, uint32_t value) {
+  _impl_.members_.Set(index, value);
   // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberReq.members)
 }
-inline void GroupChangeMemberReq::set_members(int index, std::string&& value) {
-  _impl_.members_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberReq.members)
+inline void GroupChangeMemberReq::_internal_add_members(uint32_t value) {
+  _impl_.members_.Add(value);
 }
-inline void GroupChangeMemberReq::set_members(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _impl_.members_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:PTP.Group.GroupChangeMemberReq.members)
-}
-inline void GroupChangeMemberReq::set_members(int index, const char* value, size_t size) {
-  _impl_.members_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:PTP.Group.GroupChangeMemberReq.members)
-}
-inline std::string* GroupChangeMemberReq::_internal_add_members() {
-  return _impl_.members_.Add();
-}
-inline void GroupChangeMemberReq::add_members(const std::string& value) {
-  _impl_.members_.Add()->assign(value);
+inline void GroupChangeMemberReq::add_members(uint32_t value) {
+  _internal_add_members(value);
   // @@protoc_insertion_point(field_add:PTP.Group.GroupChangeMemberReq.members)
 }
-inline void GroupChangeMemberReq::add_members(std::string&& value) {
-  _impl_.members_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:PTP.Group.GroupChangeMemberReq.members)
-}
-inline void GroupChangeMemberReq::add_members(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _impl_.members_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:PTP.Group.GroupChangeMemberReq.members)
-}
-inline void GroupChangeMemberReq::add_members(const char* value, size_t size) {
-  _impl_.members_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:PTP.Group.GroupChangeMemberReq.members)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-GroupChangeMemberReq::members() const {
-  // @@protoc_insertion_point(field_list:PTP.Group.GroupChangeMemberReq.members)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+GroupChangeMemberReq::_internal_members() const {
   return _impl_.members_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+GroupChangeMemberReq::members() const {
+  // @@protoc_insertion_point(field_list:PTP.Group.GroupChangeMemberReq.members)
+  return _internal_members();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+GroupChangeMemberReq::_internal_mutable_members() {
+  return &_impl_.members_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
 GroupChangeMemberReq::mutable_members() {
   // @@protoc_insertion_point(field_mutable_list:PTP.Group.GroupChangeMemberReq.members)
-  return &_impl_.members_;
+  return _internal_mutable_members();
+}
+
+// required .PTP.Common.GroupMemberStatus group_member_status = 4;
+inline bool GroupChangeMemberReq::_internal_has_group_member_status() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool GroupChangeMemberReq::has_group_member_status() const {
+  return _internal_has_group_member_status();
+}
+inline void GroupChangeMemberReq::clear_group_member_status() {
+  _impl_.group_member_status_ = 1;
+  _impl_._has_bits_[0] &= ~0x00000010u;
+}
+inline ::PTP::Common::GroupMemberStatus GroupChangeMemberReq::_internal_group_member_status() const {
+  return static_cast< ::PTP::Common::GroupMemberStatus >(_impl_.group_member_status_);
+}
+inline ::PTP::Common::GroupMemberStatus GroupChangeMemberReq::group_member_status() const {
+  // @@protoc_insertion_point(field_get:PTP.Group.GroupChangeMemberReq.group_member_status)
+  return _internal_group_member_status();
+}
+inline void GroupChangeMemberReq::_internal_set_group_member_status(::PTP::Common::GroupMemberStatus value) {
+  assert(::PTP::Common::GroupMemberStatus_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_.group_member_status_ = value;
+}
+inline void GroupChangeMemberReq::set_group_member_status(::PTP::Common::GroupMemberStatus value) {
+  _internal_set_group_member_status(value);
+  // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberReq.group_member_status)
 }
 
 // optional bytes attach_data = 20;
@@ -6301,35 +5734,6 @@ inline void GroupChangeMemberReq::set_auth_uid(uint32_t value) {
 
 // GroupChangeMemberRes
 
-// required .PTP.Common.GroupMemberModifyAction group_member_modify_action = 1;
-inline bool GroupChangeMemberRes::_internal_has_group_member_modify_action() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
-  return value;
-}
-inline bool GroupChangeMemberRes::has_group_member_modify_action() const {
-  return _internal_has_group_member_modify_action();
-}
-inline void GroupChangeMemberRes::clear_group_member_modify_action() {
-  _impl_.group_member_modify_action_ = 1;
-  _impl_._has_bits_[0] &= ~0x00000010u;
-}
-inline ::PTP::Common::GroupMemberModifyAction GroupChangeMemberRes::_internal_group_member_modify_action() const {
-  return static_cast< ::PTP::Common::GroupMemberModifyAction >(_impl_.group_member_modify_action_);
-}
-inline ::PTP::Common::GroupMemberModifyAction GroupChangeMemberRes::group_member_modify_action() const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupChangeMemberRes.group_member_modify_action)
-  return _internal_group_member_modify_action();
-}
-inline void GroupChangeMemberRes::_internal_set_group_member_modify_action(::PTP::Common::GroupMemberModifyAction value) {
-  assert(::PTP::Common::GroupMemberModifyAction_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000010u;
-  _impl_.group_member_modify_action_ = value;
-}
-inline void GroupChangeMemberRes::set_group_member_modify_action(::PTP::Common::GroupMemberModifyAction value) {
-  _internal_set_group_member_modify_action(value);
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberRes.group_member_modify_action)
-}
-
 // required uint32 group_id = 3;
 inline bool GroupChangeMemberRes::_internal_has_group_id() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
@@ -6358,79 +5762,51 @@ inline void GroupChangeMemberRes::set_group_id(uint32_t value) {
   // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberRes.group_id)
 }
 
-// repeated string members_chang = 4;
-inline int GroupChangeMemberRes::_internal_members_chang_size() const {
-  return _impl_.members_chang_.size();
+// repeated uint32 notify_members = 4;
+inline int GroupChangeMemberRes::_internal_notify_members_size() const {
+  return _impl_.notify_members_.size();
 }
-inline int GroupChangeMemberRes::members_chang_size() const {
-  return _internal_members_chang_size();
+inline int GroupChangeMemberRes::notify_members_size() const {
+  return _internal_notify_members_size();
 }
-inline void GroupChangeMemberRes::clear_members_chang() {
-  _impl_.members_chang_.Clear();
+inline void GroupChangeMemberRes::clear_notify_members() {
+  _impl_.notify_members_.Clear();
 }
-inline std::string* GroupChangeMemberRes::add_members_chang() {
-  std::string* _s = _internal_add_members_chang();
-  // @@protoc_insertion_point(field_add_mutable:PTP.Group.GroupChangeMemberRes.members_chang)
-  return _s;
+inline uint32_t GroupChangeMemberRes::_internal_notify_members(int index) const {
+  return _impl_.notify_members_.Get(index);
 }
-inline const std::string& GroupChangeMemberRes::_internal_members_chang(int index) const {
-  return _impl_.members_chang_.Get(index);
+inline uint32_t GroupChangeMemberRes::notify_members(int index) const {
+  // @@protoc_insertion_point(field_get:PTP.Group.GroupChangeMemberRes.notify_members)
+  return _internal_notify_members(index);
 }
-inline const std::string& GroupChangeMemberRes::members_chang(int index) const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupChangeMemberRes.members_chang)
-  return _internal_members_chang(index);
+inline void GroupChangeMemberRes::set_notify_members(int index, uint32_t value) {
+  _impl_.notify_members_.Set(index, value);
+  // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberRes.notify_members)
 }
-inline std::string* GroupChangeMemberRes::mutable_members_chang(int index) {
-  // @@protoc_insertion_point(field_mutable:PTP.Group.GroupChangeMemberRes.members_chang)
-  return _impl_.members_chang_.Mutable(index);
+inline void GroupChangeMemberRes::_internal_add_notify_members(uint32_t value) {
+  _impl_.notify_members_.Add(value);
 }
-inline void GroupChangeMemberRes::set_members_chang(int index, const std::string& value) {
-  _impl_.members_chang_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberRes.members_chang)
+inline void GroupChangeMemberRes::add_notify_members(uint32_t value) {
+  _internal_add_notify_members(value);
+  // @@protoc_insertion_point(field_add:PTP.Group.GroupChangeMemberRes.notify_members)
 }
-inline void GroupChangeMemberRes::set_members_chang(int index, std::string&& value) {
-  _impl_.members_chang_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberRes.members_chang)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+GroupChangeMemberRes::_internal_notify_members() const {
+  return _impl_.notify_members_;
 }
-inline void GroupChangeMemberRes::set_members_chang(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _impl_.members_chang_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:PTP.Group.GroupChangeMemberRes.members_chang)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+GroupChangeMemberRes::notify_members() const {
+  // @@protoc_insertion_point(field_list:PTP.Group.GroupChangeMemberRes.notify_members)
+  return _internal_notify_members();
 }
-inline void GroupChangeMemberRes::set_members_chang(int index, const char* value, size_t size) {
-  _impl_.members_chang_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:PTP.Group.GroupChangeMemberRes.members_chang)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+GroupChangeMemberRes::_internal_mutable_notify_members() {
+  return &_impl_.notify_members_;
 }
-inline std::string* GroupChangeMemberRes::_internal_add_members_chang() {
-  return _impl_.members_chang_.Add();
-}
-inline void GroupChangeMemberRes::add_members_chang(const std::string& value) {
-  _impl_.members_chang_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:PTP.Group.GroupChangeMemberRes.members_chang)
-}
-inline void GroupChangeMemberRes::add_members_chang(std::string&& value) {
-  _impl_.members_chang_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:PTP.Group.GroupChangeMemberRes.members_chang)
-}
-inline void GroupChangeMemberRes::add_members_chang(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _impl_.members_chang_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:PTP.Group.GroupChangeMemberRes.members_chang)
-}
-inline void GroupChangeMemberRes::add_members_chang(const char* value, size_t size) {
-  _impl_.members_chang_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:PTP.Group.GroupChangeMemberRes.members_chang)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-GroupChangeMemberRes::members_chang() const {
-  // @@protoc_insertion_point(field_list:PTP.Group.GroupChangeMemberRes.members_chang)
-  return _impl_.members_chang_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-GroupChangeMemberRes::mutable_members_chang() {
-  // @@protoc_insertion_point(field_mutable_list:PTP.Group.GroupChangeMemberRes.members_chang)
-  return &_impl_.members_chang_;
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+GroupChangeMemberRes::mutable_notify_members() {
+  // @@protoc_insertion_point(field_mutable_list:PTP.Group.GroupChangeMemberRes.notify_members)
+  return _internal_mutable_notify_members();
 }
 
 // required .PTP.Common.ERR error = 5;
@@ -6562,35 +5938,6 @@ inline void GroupChangeMemberRes::set_auth_uid(uint32_t value) {
 
 // GroupChangeMemberNotify
 
-// required .PTP.Common.GroupMemberModifyAction group_member_modify_action = 1;
-inline bool GroupChangeMemberNotify::_internal_has_group_member_modify_action() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool GroupChangeMemberNotify::has_group_member_modify_action() const {
-  return _internal_has_group_member_modify_action();
-}
-inline void GroupChangeMemberNotify::clear_group_member_modify_action() {
-  _impl_.group_member_modify_action_ = 1;
-  _impl_._has_bits_[0] &= ~0x00000002u;
-}
-inline ::PTP::Common::GroupMemberModifyAction GroupChangeMemberNotify::_internal_group_member_modify_action() const {
-  return static_cast< ::PTP::Common::GroupMemberModifyAction >(_impl_.group_member_modify_action_);
-}
-inline ::PTP::Common::GroupMemberModifyAction GroupChangeMemberNotify::group_member_modify_action() const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupChangeMemberNotify.group_member_modify_action)
-  return _internal_group_member_modify_action();
-}
-inline void GroupChangeMemberNotify::_internal_set_group_member_modify_action(::PTP::Common::GroupMemberModifyAction value) {
-  assert(::PTP::Common::GroupMemberModifyAction_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000002u;
-  _impl_.group_member_modify_action_ = value;
-}
-inline void GroupChangeMemberNotify::set_group_member_modify_action(::PTP::Common::GroupMemberModifyAction value) {
-  _internal_set_group_member_modify_action(value);
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberNotify.group_member_modify_action)
-}
-
 // required uint32 group_id = 2;
 inline bool GroupChangeMemberNotify::_internal_has_group_id() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
@@ -6617,81 +5964,6 @@ inline void GroupChangeMemberNotify::_internal_set_group_id(uint32_t value) {
 inline void GroupChangeMemberNotify::set_group_id(uint32_t value) {
   _internal_set_group_id(value);
   // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberNotify.group_id)
-}
-
-// repeated string members_chang = 3;
-inline int GroupChangeMemberNotify::_internal_members_chang_size() const {
-  return _impl_.members_chang_.size();
-}
-inline int GroupChangeMemberNotify::members_chang_size() const {
-  return _internal_members_chang_size();
-}
-inline void GroupChangeMemberNotify::clear_members_chang() {
-  _impl_.members_chang_.Clear();
-}
-inline std::string* GroupChangeMemberNotify::add_members_chang() {
-  std::string* _s = _internal_add_members_chang();
-  // @@protoc_insertion_point(field_add_mutable:PTP.Group.GroupChangeMemberNotify.members_chang)
-  return _s;
-}
-inline const std::string& GroupChangeMemberNotify::_internal_members_chang(int index) const {
-  return _impl_.members_chang_.Get(index);
-}
-inline const std::string& GroupChangeMemberNotify::members_chang(int index) const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupChangeMemberNotify.members_chang)
-  return _internal_members_chang(index);
-}
-inline std::string* GroupChangeMemberNotify::mutable_members_chang(int index) {
-  // @@protoc_insertion_point(field_mutable:PTP.Group.GroupChangeMemberNotify.members_chang)
-  return _impl_.members_chang_.Mutable(index);
-}
-inline void GroupChangeMemberNotify::set_members_chang(int index, const std::string& value) {
-  _impl_.members_chang_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberNotify.members_chang)
-}
-inline void GroupChangeMemberNotify::set_members_chang(int index, std::string&& value) {
-  _impl_.members_chang_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupChangeMemberNotify.members_chang)
-}
-inline void GroupChangeMemberNotify::set_members_chang(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _impl_.members_chang_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:PTP.Group.GroupChangeMemberNotify.members_chang)
-}
-inline void GroupChangeMemberNotify::set_members_chang(int index, const char* value, size_t size) {
-  _impl_.members_chang_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:PTP.Group.GroupChangeMemberNotify.members_chang)
-}
-inline std::string* GroupChangeMemberNotify::_internal_add_members_chang() {
-  return _impl_.members_chang_.Add();
-}
-inline void GroupChangeMemberNotify::add_members_chang(const std::string& value) {
-  _impl_.members_chang_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:PTP.Group.GroupChangeMemberNotify.members_chang)
-}
-inline void GroupChangeMemberNotify::add_members_chang(std::string&& value) {
-  _impl_.members_chang_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:PTP.Group.GroupChangeMemberNotify.members_chang)
-}
-inline void GroupChangeMemberNotify::add_members_chang(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _impl_.members_chang_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:PTP.Group.GroupChangeMemberNotify.members_chang)
-}
-inline void GroupChangeMemberNotify::add_members_chang(const char* value, size_t size) {
-  _impl_.members_chang_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:PTP.Group.GroupChangeMemberNotify.members_chang)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-GroupChangeMemberNotify::members_chang() const {
-  // @@protoc_insertion_point(field_list:PTP.Group.GroupChangeMemberNotify.members_chang)
-  return _impl_.members_chang_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-GroupChangeMemberNotify::mutable_members_chang() {
-  // @@protoc_insertion_point(field_mutable_list:PTP.Group.GroupChangeMemberNotify.members_chang)
-  return &_impl_.members_chang_;
 }
 
 // -------------------------------------------------------------------
@@ -6918,6 +6190,53 @@ inline void GroupGetListRes::_internal_set_error(::PTP::Common::ERR value) {
 inline void GroupGetListRes::set_error(::PTP::Common::ERR value) {
   _internal_set_error(value);
   // @@protoc_insertion_point(field_set:PTP.Group.GroupGetListRes.error)
+}
+
+// repeated uint32 removed_group_ids = 4;
+inline int GroupGetListRes::_internal_removed_group_ids_size() const {
+  return _impl_.removed_group_ids_.size();
+}
+inline int GroupGetListRes::removed_group_ids_size() const {
+  return _internal_removed_group_ids_size();
+}
+inline void GroupGetListRes::clear_removed_group_ids() {
+  _impl_.removed_group_ids_.Clear();
+}
+inline uint32_t GroupGetListRes::_internal_removed_group_ids(int index) const {
+  return _impl_.removed_group_ids_.Get(index);
+}
+inline uint32_t GroupGetListRes::removed_group_ids(int index) const {
+  // @@protoc_insertion_point(field_get:PTP.Group.GroupGetListRes.removed_group_ids)
+  return _internal_removed_group_ids(index);
+}
+inline void GroupGetListRes::set_removed_group_ids(int index, uint32_t value) {
+  _impl_.removed_group_ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:PTP.Group.GroupGetListRes.removed_group_ids)
+}
+inline void GroupGetListRes::_internal_add_removed_group_ids(uint32_t value) {
+  _impl_.removed_group_ids_.Add(value);
+}
+inline void GroupGetListRes::add_removed_group_ids(uint32_t value) {
+  _internal_add_removed_group_ids(value);
+  // @@protoc_insertion_point(field_add:PTP.Group.GroupGetListRes.removed_group_ids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+GroupGetListRes::_internal_removed_group_ids() const {
+  return _impl_.removed_group_ids_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+GroupGetListRes::removed_group_ids() const {
+  // @@protoc_insertion_point(field_list:PTP.Group.GroupGetListRes.removed_group_ids)
+  return _internal_removed_group_ids();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+GroupGetListRes::_internal_mutable_removed_group_ids() {
+  return &_impl_.removed_group_ids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+GroupGetListRes::mutable_removed_group_ids() {
+  // @@protoc_insertion_point(field_mutable_list:PTP.Group.GroupGetListRes.removed_group_ids)
+  return _internal_mutable_removed_group_ids();
 }
 
 // optional bytes attach_data = 20;
@@ -7725,360 +7044,9 @@ inline void GroupUnreadMsgRes::set_auth_uid(uint32_t value) {
   // @@protoc_insertion_point(field_set:PTP.Group.GroupUnreadMsgRes.auth_uid)
 }
 
-// -------------------------------------------------------------------
-
-// GroupRemoveSessionReq
-
-// required uint32 group_id = 2;
-inline bool GroupRemoveSessionReq::_internal_has_group_id() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool GroupRemoveSessionReq::has_group_id() const {
-  return _internal_has_group_id();
-}
-inline void GroupRemoveSessionReq::clear_group_id() {
-  _impl_.group_id_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000002u;
-}
-inline uint32_t GroupRemoveSessionReq::_internal_group_id() const {
-  return _impl_.group_id_;
-}
-inline uint32_t GroupRemoveSessionReq::group_id() const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupRemoveSessionReq.group_id)
-  return _internal_group_id();
-}
-inline void GroupRemoveSessionReq::_internal_set_group_id(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000002u;
-  _impl_.group_id_ = value;
-}
-inline void GroupRemoveSessionReq::set_group_id(uint32_t value) {
-  _internal_set_group_id(value);
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupRemoveSessionReq.group_id)
-}
-
-// optional bytes attach_data = 20;
-inline bool GroupRemoveSessionReq::_internal_has_attach_data() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool GroupRemoveSessionReq::has_attach_data() const {
-  return _internal_has_attach_data();
-}
-inline void GroupRemoveSessionReq::clear_attach_data() {
-  _impl_.attach_data_.ClearToEmpty();
-  _impl_._has_bits_[0] &= ~0x00000001u;
-}
-inline const std::string& GroupRemoveSessionReq::attach_data() const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupRemoveSessionReq.attach_data)
-  return _internal_attach_data();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void GroupRemoveSessionReq::set_attach_data(ArgT0&& arg0, ArgT... args) {
- _impl_._has_bits_[0] |= 0x00000001u;
- _impl_.attach_data_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupRemoveSessionReq.attach_data)
-}
-inline std::string* GroupRemoveSessionReq::mutable_attach_data() {
-  std::string* _s = _internal_mutable_attach_data();
-  // @@protoc_insertion_point(field_mutable:PTP.Group.GroupRemoveSessionReq.attach_data)
-  return _s;
-}
-inline const std::string& GroupRemoveSessionReq::_internal_attach_data() const {
-  return _impl_.attach_data_.Get();
-}
-inline void GroupRemoveSessionReq::_internal_set_attach_data(const std::string& value) {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  _impl_.attach_data_.Set(value, GetArenaForAllocation());
-}
-inline std::string* GroupRemoveSessionReq::_internal_mutable_attach_data() {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  return _impl_.attach_data_.Mutable(GetArenaForAllocation());
-}
-inline std::string* GroupRemoveSessionReq::release_attach_data() {
-  // @@protoc_insertion_point(field_release:PTP.Group.GroupRemoveSessionReq.attach_data)
-  if (!_internal_has_attach_data()) {
-    return nullptr;
-  }
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  auto* p = _impl_.attach_data_.Release();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.attach_data_.IsDefault()) {
-    _impl_.attach_data_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  return p;
-}
-inline void GroupRemoveSessionReq::set_allocated_attach_data(std::string* attach_data) {
-  if (attach_data != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  _impl_.attach_data_.SetAllocated(attach_data, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.attach_data_.IsDefault()) {
-    _impl_.attach_data_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:PTP.Group.GroupRemoveSessionReq.attach_data)
-}
-
-// optional uint32 auth_uid = 21;
-inline bool GroupRemoveSessionReq::_internal_has_auth_uid() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
-  return value;
-}
-inline bool GroupRemoveSessionReq::has_auth_uid() const {
-  return _internal_has_auth_uid();
-}
-inline void GroupRemoveSessionReq::clear_auth_uid() {
-  _impl_.auth_uid_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000004u;
-}
-inline uint32_t GroupRemoveSessionReq::_internal_auth_uid() const {
-  return _impl_.auth_uid_;
-}
-inline uint32_t GroupRemoveSessionReq::auth_uid() const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupRemoveSessionReq.auth_uid)
-  return _internal_auth_uid();
-}
-inline void GroupRemoveSessionReq::_internal_set_auth_uid(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000004u;
-  _impl_.auth_uid_ = value;
-}
-inline void GroupRemoveSessionReq::set_auth_uid(uint32_t value) {
-  _internal_set_auth_uid(value);
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupRemoveSessionReq.auth_uid)
-}
-
-// -------------------------------------------------------------------
-
-// GroupRemoveSessionRes
-
-// required .PTP.Common.ERR error = 1;
-inline bool GroupRemoveSessionRes::_internal_has_error() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool GroupRemoveSessionRes::has_error() const {
-  return _internal_has_error();
-}
-inline void GroupRemoveSessionRes::clear_error() {
-  _impl_.error_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000002u;
-}
-inline ::PTP::Common::ERR GroupRemoveSessionRes::_internal_error() const {
-  return static_cast< ::PTP::Common::ERR >(_impl_.error_);
-}
-inline ::PTP::Common::ERR GroupRemoveSessionRes::error() const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupRemoveSessionRes.error)
-  return _internal_error();
-}
-inline void GroupRemoveSessionRes::_internal_set_error(::PTP::Common::ERR value) {
-  assert(::PTP::Common::ERR_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000002u;
-  _impl_.error_ = value;
-}
-inline void GroupRemoveSessionRes::set_error(::PTP::Common::ERR value) {
-  _internal_set_error(value);
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupRemoveSessionRes.error)
-}
-
-// required uint32 group_id = 2;
-inline bool GroupRemoveSessionRes::_internal_has_group_id() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
-  return value;
-}
-inline bool GroupRemoveSessionRes::has_group_id() const {
-  return _internal_has_group_id();
-}
-inline void GroupRemoveSessionRes::clear_group_id() {
-  _impl_.group_id_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000004u;
-}
-inline uint32_t GroupRemoveSessionRes::_internal_group_id() const {
-  return _impl_.group_id_;
-}
-inline uint32_t GroupRemoveSessionRes::group_id() const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupRemoveSessionRes.group_id)
-  return _internal_group_id();
-}
-inline void GroupRemoveSessionRes::_internal_set_group_id(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000004u;
-  _impl_.group_id_ = value;
-}
-inline void GroupRemoveSessionRes::set_group_id(uint32_t value) {
-  _internal_set_group_id(value);
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupRemoveSessionRes.group_id)
-}
-
-// optional bytes attach_data = 20;
-inline bool GroupRemoveSessionRes::_internal_has_attach_data() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool GroupRemoveSessionRes::has_attach_data() const {
-  return _internal_has_attach_data();
-}
-inline void GroupRemoveSessionRes::clear_attach_data() {
-  _impl_.attach_data_.ClearToEmpty();
-  _impl_._has_bits_[0] &= ~0x00000001u;
-}
-inline const std::string& GroupRemoveSessionRes::attach_data() const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupRemoveSessionRes.attach_data)
-  return _internal_attach_data();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void GroupRemoveSessionRes::set_attach_data(ArgT0&& arg0, ArgT... args) {
- _impl_._has_bits_[0] |= 0x00000001u;
- _impl_.attach_data_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupRemoveSessionRes.attach_data)
-}
-inline std::string* GroupRemoveSessionRes::mutable_attach_data() {
-  std::string* _s = _internal_mutable_attach_data();
-  // @@protoc_insertion_point(field_mutable:PTP.Group.GroupRemoveSessionRes.attach_data)
-  return _s;
-}
-inline const std::string& GroupRemoveSessionRes::_internal_attach_data() const {
-  return _impl_.attach_data_.Get();
-}
-inline void GroupRemoveSessionRes::_internal_set_attach_data(const std::string& value) {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  _impl_.attach_data_.Set(value, GetArenaForAllocation());
-}
-inline std::string* GroupRemoveSessionRes::_internal_mutable_attach_data() {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  return _impl_.attach_data_.Mutable(GetArenaForAllocation());
-}
-inline std::string* GroupRemoveSessionRes::release_attach_data() {
-  // @@protoc_insertion_point(field_release:PTP.Group.GroupRemoveSessionRes.attach_data)
-  if (!_internal_has_attach_data()) {
-    return nullptr;
-  }
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  auto* p = _impl_.attach_data_.Release();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.attach_data_.IsDefault()) {
-    _impl_.attach_data_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  return p;
-}
-inline void GroupRemoveSessionRes::set_allocated_attach_data(std::string* attach_data) {
-  if (attach_data != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  _impl_.attach_data_.SetAllocated(attach_data, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.attach_data_.IsDefault()) {
-    _impl_.attach_data_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:PTP.Group.GroupRemoveSessionRes.attach_data)
-}
-
-// optional uint32 auth_uid = 21;
-inline bool GroupRemoveSessionRes::_internal_has_auth_uid() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
-  return value;
-}
-inline bool GroupRemoveSessionRes::has_auth_uid() const {
-  return _internal_has_auth_uid();
-}
-inline void GroupRemoveSessionRes::clear_auth_uid() {
-  _impl_.auth_uid_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000008u;
-}
-inline uint32_t GroupRemoveSessionRes::_internal_auth_uid() const {
-  return _impl_.auth_uid_;
-}
-inline uint32_t GroupRemoveSessionRes::auth_uid() const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupRemoveSessionRes.auth_uid)
-  return _internal_auth_uid();
-}
-inline void GroupRemoveSessionRes::_internal_set_auth_uid(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000008u;
-  _impl_.auth_uid_ = value;
-}
-inline void GroupRemoveSessionRes::set_auth_uid(uint32_t value) {
-  _internal_set_auth_uid(value);
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupRemoveSessionRes.auth_uid)
-}
-
-// -------------------------------------------------------------------
-
-// GroupRemoveSessionNotify
-
-// required uint32 group_id = 1;
-inline bool GroupRemoveSessionNotify::_internal_has_group_id() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool GroupRemoveSessionNotify::has_group_id() const {
-  return _internal_has_group_id();
-}
-inline void GroupRemoveSessionNotify::clear_group_id() {
-  _impl_.group_id_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000001u;
-}
-inline uint32_t GroupRemoveSessionNotify::_internal_group_id() const {
-  return _impl_.group_id_;
-}
-inline uint32_t GroupRemoveSessionNotify::group_id() const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupRemoveSessionNotify.group_id)
-  return _internal_group_id();
-}
-inline void GroupRemoveSessionNotify::_internal_set_group_id(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  _impl_.group_id_ = value;
-}
-inline void GroupRemoveSessionNotify::set_group_id(uint32_t value) {
-  _internal_set_group_id(value);
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupRemoveSessionNotify.group_id)
-}
-
-// required uint32 from_uid = 3;
-inline bool GroupRemoveSessionNotify::_internal_has_from_uid() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool GroupRemoveSessionNotify::has_from_uid() const {
-  return _internal_has_from_uid();
-}
-inline void GroupRemoveSessionNotify::clear_from_uid() {
-  _impl_.from_uid_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000002u;
-}
-inline uint32_t GroupRemoveSessionNotify::_internal_from_uid() const {
-  return _impl_.from_uid_;
-}
-inline uint32_t GroupRemoveSessionNotify::from_uid() const {
-  // @@protoc_insertion_point(field_get:PTP.Group.GroupRemoveSessionNotify.from_uid)
-  return _internal_from_uid();
-}
-inline void GroupRemoveSessionNotify::_internal_set_from_uid(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000002u;
-  _impl_.from_uid_ = value;
-}
-inline void GroupRemoveSessionNotify::set_from_uid(uint32_t value) {
-  _internal_set_from_uid(value);
-  // @@protoc_insertion_point(field_set:PTP.Group.GroupRemoveSessionNotify.from_uid)
-}
-
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

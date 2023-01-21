@@ -12,6 +12,7 @@
 #include "PTP.Group.pb.h"
 #include "MsgSrvConn.h"
 #include "models/ModelGroup.h"
+#include "models/ModelBuddy.h"
 
 using namespace PTP::Common;
 
@@ -37,13 +38,34 @@ namespace ACTION_GROUP {
             }else{
                 CacheManager *pCacheManager = CacheManager::getInstance();
                 CacheConn *pCacheConn = pCacheManager->GetCacheConn(CACHE_GROUP_INSTANCE);
+                CacheConn *pCacheConnAuth = pCacheManager->GetCacheConn(CACHE_AUTH_INSTANCE);
                 while (true) {
-                    if (!pCacheConn) {
+                    if (!pCacheConn || !pCacheConnAuth) {
                         error = PTP::Common:: E_SYSTEM;
                         DEBUG_E("error pCacheConn");
                         break;
                     }
                     auto auth_uid = msg.auth_uid();
+                    auto group_id = msg.group_id();
+                    auto group_members_updated_time = msg.group_members_updated_time();
+                    list<string> member_ids;
+                    CModelGroup::getGroupMembersByStatus(pCacheConn,member_ids,group_id,PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
+
+                    for(string &user_id : member_ids){
+                        PTP::Common::GroupMember* group_member = msg_rsp.add_group_members();
+                        group_member->set_uid(string2int(user_id));
+                        group_member->set_member_status(PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
+                    }
+                    list<string> updated_member_ids;
+                    CModelGroup::getGroupMembersByUpdatedTime(pCacheConn,updated_member_ids,group_id,group_members_updated_time);
+
+                    for(string &user_id : updated_member_ids){
+                        PTP::Common::UserInfo * user = msg_rsp.add_members();
+                        CModelBuddy::getUserInfo(pCacheConnAuth,user,string2int(user_id));
+                    }
+
+                    msg_rsp.set_group_id(group_id);
+                    msg_rsp.set_group_members_updated_time(time(nullptr));
                     msg_rsp.set_error(error);
                     msg_rsp.set_auth_uid(auth_uid);
                     break;
@@ -51,6 +73,9 @@ namespace ACTION_GROUP {
 
                 if (pCacheConn) {
                     pCacheManager->RelCacheConn(pCacheConn);
+                }
+                if (pCacheConnAuth) {
+                    pCacheManager->RelCacheConn(pCacheConnAuth);
                 }
                 request->SendResponseMsg(&msg_rsp,CID_GroupGetMembersListRes,request->GetSeqNum());
             }
@@ -62,33 +87,6 @@ namespace ACTION_GROUP {
         }
     }
     void GroupGetMembersListResAction(CRequest* request){
-        // PTP::Group::GroupGetMembersListRes msg;
-        // auto error = msg.error();
-        // while (true){
-        //     if(!msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), (int)request->GetRequestPdu()->GetBodyLength()))
-        //     {
-        //         error = E_PB_PARSE_ERROR;
-        //         break;
-        //     }
-        //     if(!request->IsBusinessConn()){
-        //       uint32_t handle = request->GetHandle();
-        //       auto pMsgConn = FindMsgSrvConnByHandle(handle);
-        //       if(!pMsgConn){
-        //           DEBUG_E("not found pMsgConn");
-        //           return;
-        //       }
-        //       if(error != PTP::Common::NO_ERROR){
-        //           break;
-        //       }
-        //     }else{
-        //       if(error != PTP::Common::NO_ERROR){
-        //           break;
-        //       }
-        //     }
-        //     break;
-        // }
-        // msg.set_error(error);
-        // request->SendResponseMsg(&msg,CID_GroupGetMembersListRes,request->GetSeqNum());
         request->SendResponsePdu(request->GetRequestPdu());
     }
 };

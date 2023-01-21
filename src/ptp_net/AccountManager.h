@@ -85,6 +85,7 @@ public:
     static string getAddressByEntropy(const string& entropy);
     string signMessage(const string& message);
     string signGroupMessage(const string& message,int32_t groupIdx);
+    string getAccountGroupAddress(uint32_t groupIdx);
     static string verifyMessageRecoverAddress(const unsigned char *sig_65, const string& message);
     static void setCurrentAccountId(uint32_t accountId);
     static uint32_t getCurrentAccountId();

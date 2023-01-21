@@ -16,7 +16,6 @@
 
 namespace ACTION_SWITCH {
     void SwitchPtpReqAction(CRequest *request);
-    void SwitchPtpResAction(CRequest *request);
 };
 
 #endif /*defined(__SWITCHPTPACTION_H__) */

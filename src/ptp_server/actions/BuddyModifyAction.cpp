@@ -63,7 +63,7 @@ namespace ACTION_BUDDY {
                             }
                         }
                         list<string> group_ids;
-                        CModelGroup::getMemberGroups(pCacheConnGroup,group_ids,auth_uid);
+                        CModelGroup::getMemberGroupsByStatus(pCacheConnGroup,group_ids,auth_uid,GroupMemberModifyAction_STATUS);
                         if(!group_ids.empty()){
                             for(const string &group_id:group_ids){
                                 list<string> group_member_ids;

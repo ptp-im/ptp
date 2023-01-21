@@ -44,6 +44,19 @@ namespace ACTION_MSG {
                         break;
                     }
                     auto auth_uid = msg.auth_uid();
+                    list<string> msg_str_list;
+                    list<uint32_t> msg_ids;
+
+                    for(uint32_t msg_id : msg.msg_ids()){
+                        msg_ids.push_back(msg_id);
+                    }
+                    CModelMsg::getMsgListById(pCacheConn,msg.group_id(),msg_ids,msg_str_list);
+
+                    for(string& msg_str : msg_str_list){
+                        string msg_buf = hex_to_string(msg_str.substr(2));
+                        auto msg_info = msg_rsp.add_msg_list();
+                        msg_info->ParseFromArray(msg_buf.data(), msg_buf.length());
+                    }
                     msg_rsp.set_error(error);
                     msg_rsp.set_auth_uid(auth_uid);
                     break;

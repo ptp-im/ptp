@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "ptp_global/Helpers.h"
+#include "ptp_global/Logger.h"
 #include "ptp_crypto/secp256k1_helpers.h"
 #include "ptp_crypto/aes_encryption.h"
 #include "ptp_crypto/crypto_helpers.h"
@@ -40,7 +41,7 @@ TEST(test_aes_gcm_encrypt1, TestIntegerOne_One)
 
     if (encLen > 0)
     {
-        std::cout << bytes_to_hex_string(encData, encLen) << std::endl;
+        DEBUG_D("encData:%s",bytes_to_hex_string(encData, encLen).c_str());
     }
     ASSERT_TRUE(encLen > 0);
 
@@ -54,7 +55,7 @@ TEST(test_aes_gcm_encrypt1, TestIntegerOne_One)
 
     if (decLen > 0)
     {
-        std::cout << std::string{decData, decData + decLen} << std::endl;
+        DEBUG_D("decData:%s",std::string{decData, decData + decLen}.c_str());
     }
     ASSERT_TRUE(decLen > 0);
     string data = std::string{decData, decData + decLen};

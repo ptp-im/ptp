@@ -26,23 +26,23 @@ TEST(ptp_crypto, signRecover) {
     string msg_data = format_eth_msg_data(message);
     secp256k1_context *ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
     gen_ec_key_pair(ctx,prv_key,pub_key);
-    std::cout << "prv_key:" + bytes_to_hex_string(prv_key,32) << std::endl;
+    //std::cout << "prv_key:" + bytes_to_hex_string(prv_key,32) << std::endl;
 
     string pub_key_hex = pub_key_to_hex(pub_key);
-    std::cout << "org pub_key_hex:" + pub_key_hex << std::endl;
+    //std::cout << "org pub_key_hex:" + pub_key_hex << std::endl;
     secp256k1_context *ctx1 = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
     ecdsa_sign_recoverable(ctx1,msg_data,prv_key,sig_65);
     memcpy(sig_64,sig_65,64);
     string pub_key_rec = recover_pub_key_from_sig_64(sig_64,sig_65[64], msg_data);
     string pub_key_rec_hex = bytes_to_hex_string(reinterpret_cast<const uint8_t *>(pub_key_rec.data()), pub_key_rec.size());
-    std::cout << "rec pub_key_hex:" + pub_key_rec_hex << std::endl;
+    //std::cout << "rec pub_key_hex:" + pub_key_rec_hex << std::endl;
     string address_hex = address_to_hex(pub_key_to_address(pub_key_rec));
-    std::cout << "address_hex:" + address_hex << std::endl;
+    //std::cout << "address_hex:" + address_hex << std::endl;
     auto pub_key_rec1 = recover_pub_key_from_sig_65(sig_65,msg_data);
     string pub_key_rec_hex1 = bytes_to_hex_string(reinterpret_cast<const uint8_t *>(pub_key_rec1.data()), pub_key_rec1.size());
-    std::cout << "rec pub_key_hex:" + pub_key_rec_hex1 << std::endl;
+    //std::cout << "rec pub_key_hex:" + pub_key_rec_hex1 << std::endl;
     string address_hex1 = address_to_hex(pub_key_to_address(pub_key_rec1));
-    std::cout << "address_hex:" + address_hex1 << std::endl;
+    //std::cout << "address_hex:" + address_hex1 << std::endl;
     ASSERT_EQ(address_hex1,address_hex);
     ASSERT_EQ(pub_key_hex,pub_key_rec_hex);
     ASSERT_EQ(pub_key_hex,pub_key_rec_hex1);
@@ -59,31 +59,31 @@ TEST(ptp_crypto, signRecover11) {
     string msg_data = format_eth_msg_data(message);
     secp256k1_context *ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY);
     gen_ec_key_pair(ctx,prv_key,pub_key);
-    std::cout << "prv_key:" + bytes_to_hex_string(prv_key,32) << std::endl;
+    //std::cout << "prv_key:" + bytes_to_hex_string(prv_key,32) << std::endl;
     string pub_key_hex = pub_key_to_hex(pub_key);
-    std::cout << "org pub_key_hex:" + pub_key_hex << std::endl;
+    //std::cout << "org pub_key_hex:" + pub_key_hex << std::endl;
 
     for (int i = 1; i < 65; ++i) {
         pub_key_64[i-1] = pub_key[i];
     }
 
     string pub_key_64_s((char*) pub_key_64);
-    std::cout << pub_key_64_s.size() << std::endl;
+    //std::cout << pub_key_64_s.size() << std::endl;
     string address_hex_org = address_to_hex(pub_key_to_address(pub_key_64_s));
-    std::cout << "address_hex org:" + address_hex_org << std::endl;
+    //std::cout << "address_hex org:" + address_hex_org << std::endl;
     secp256k1_context *ctx1 = secp256k1_context_create(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY);
     ecdsa_sign_recoverable(ctx1,msg_data,prv_key,sig_65);
     memcpy(sig_64,sig_65,64);
     string pub_key_rec = recover_pub_key_from_sig_64(sig_64,sig_65[64], msg_data);
     string pub_key_rec_hex = bytes_to_hex_string(reinterpret_cast<const uint8_t *>(pub_key_rec.data()), pub_key_rec.size());
-    std::cout << "rec pub_key_hex:" + pub_key_rec_hex << std::endl;
+    //std::cout << "rec pub_key_hex:" + pub_key_rec_hex << std::endl;
     string address_hex = address_to_hex(pub_key_to_address(pub_key_rec));
-    std::cout << "address_hex:" + address_hex << std::endl;
+    //std::cout << "address_hex:" + address_hex << std::endl;
     auto pub_key_rec1 = recover_pub_key_from_sig_65(sig_65,msg_data);
     string pub_key_rec_hex1 = bytes_to_hex_string(reinterpret_cast<const uint8_t *>(pub_key_rec1.data()), pub_key_rec1.size());
-    std::cout << "rec pub_key_hex:" + pub_key_rec_hex1 << std::endl;
+    //std::cout << "rec pub_key_hex:" + pub_key_rec_hex1 << std::endl;
     string address_hex1 = address_to_hex(pub_key_to_address(pub_key_rec1));
-    std::cout << "address_hex:" + address_hex1 << std::endl;
+    //std::cout << "address_hex:" + address_hex1 << std::endl;
     ASSERT_EQ(address_hex1,address_hex);
     ASSERT_EQ(pub_key_hex,pub_key_rec_hex);
     ASSERT_EQ(pub_key_hex,pub_key_rec_hex1);

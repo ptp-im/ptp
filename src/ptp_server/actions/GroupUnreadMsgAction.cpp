@@ -12,6 +12,7 @@
 #include "PTP.Group.pb.h"
 #include "MsgSrvConn.h"
 #include "models/ModelGroup.h"
+#include "models/ModelMsg.h"
 
 using namespace PTP::Common;
 
@@ -44,6 +45,17 @@ namespace ACTION_GROUP {
                         break;
                     }
                     auto auth_uid = msg.auth_uid();
+                    list<string> unread_msg_list;
+
+
+                    uint32_t total = 0;
+                    CModelMsg::getUnReadMsgList(pCacheConn,auth_uid,total,unread_msg_list);
+                    for(string &msg_str : unread_msg_list){
+                        PTP::Common::MsgInfo * msg_info = msg_rsp.add_unread_list();
+                        msg_info->ParseFromString(hex_to_string(msg_str.substr(2)));
+
+                    }
+                    msg_rsp.set_unread_cnt(total);
                     msg_rsp.set_error(error);
                     msg_rsp.set_auth_uid(auth_uid);
                     break;
@@ -62,33 +74,6 @@ namespace ACTION_GROUP {
         }
     }
     void GroupUnreadMsgResAction(CRequest* request){
-        // PTP::Group::GroupUnreadMsgRes msg;
-        // auto error = msg.error();
-        // while (true){
-        //     if(!msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), (int)request->GetRequestPdu()->GetBodyLength()))
-        //     {
-        //         error = E_PB_PARSE_ERROR;
-        //         break;
-        //     }
-        //     if(!request->IsBusinessConn()){
-        //       uint32_t handle = request->GetHandle();
-        //       auto pMsgConn = FindMsgSrvConnByHandle(handle);
-        //       if(!pMsgConn){
-        //           DEBUG_E("not found pMsgConn");
-        //           return;
-        //       }
-        //       if(error != PTP::Common::NO_ERROR){
-        //           break;
-        //       }
-        //     }else{
-        //       if(error != PTP::Common::NO_ERROR){
-        //           break;
-        //       }
-        //     }
-        //     break;
-        // }
-        // msg.set_error(error);
-        // request->SendResponseMsg(&msg,CID_GroupUnreadMsgRes,request->GetSeqNum());
         request->SendResponsePdu(request->GetRequestPdu());
     }
 };

@@ -10,6 +10,7 @@
 ================================================================*/
 #include "MsgReadNotifyAction.h"
 #include "PTP.Msg.pb.h"
+#include "ImUser.h"
 #include "models/ModelMsg.h"
 
 using namespace PTP::Common;
@@ -21,6 +22,16 @@ namespace ACTION_MSG {
             if(!msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), (int)request->GetRequestPdu()->GetBodyLength()))
             {
                 break;
+            }
+            auto users = msg.notify_users();
+            msg.clear_notify_users();
+            for(uint32_t user_id : users){
+                DEBUG_D("notify:%d",user_id);
+                CImUser *pImUser = CImUserManager::GetInstance()->GetImUserById(user_id);
+                if (pImUser) {
+                    request->GetRequestPdu()->SetReversed(1);
+                    pImUser->BroadcastPdu(request->GetRequestPdu());
+                }
             }
             break;
         }

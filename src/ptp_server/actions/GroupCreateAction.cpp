@@ -109,7 +109,7 @@ namespace ACTION_GROUP {
                     }
                 }
 
-                CModelGroup::updateGroupMembers(pCacheConn,group_member_ids,group_id,created_time);
+                CModelGroup::updateGroupMembers(pCacheConn,group_member_ids,group_id,created_time,PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
 
                 group->set_group_id(group_id);
                 group->set_group_adr(group_address);
@@ -123,8 +123,8 @@ namespace ACTION_GROUP {
                 group->set_group_type(group_type);
 
                 list<string> set_argv;
-                CModelGroup::handleGroupSetCacheArgv(set_argv,group);
-                pCacheConn->exec(&set_argv, nullptr);
+                CModelGroup::cacheGroupInfo(pCacheConn,group);
+
                 pCacheManager->RelCacheConn(pCacheConn);
 
                 msg_rsp.set_auth_uid(from_uid);

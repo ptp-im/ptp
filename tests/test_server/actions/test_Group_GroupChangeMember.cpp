@@ -9,10 +9,16 @@ using namespace PTP::Common;
 
 TEST(test_Group, GroupChangeMemberAction) {
     auto *pMsgConn = test_init_msg_conn();
+
+    auto groupType = PTP::Common::GROUP_TYPE_MULTI;
+    createGroup(pMsgConn,groupType,pMsgConn->GetUserId(),pMsgConn->GetUserId()+1,DEFAULT_TEST_ACCOUNT_ID);
+    auto group_id = get_test_default_group_id();
+
     PTP::Group::GroupChangeMemberReq msg_GroupChangeMemberReq;
-    //msg_GroupChangeMemberReq.set_group_member_modify_action();
-    //msg_GroupChangeMemberReq.set_group_id();
-    //msg_GroupChangeMemberReq.set_members();
+    msg_GroupChangeMemberReq.set_group_member_modify_action(PTP::Common::GroupMemberModifyAction_STATUS);
+    msg_GroupChangeMemberReq.set_group_member_status(PTP::Common::GROUP_MEMBER_STATUS_DEL);
+    msg_GroupChangeMemberReq.set_group_id(group_id);
+    msg_GroupChangeMemberReq.add_members(pMsgConn->GetUserId()+1);
     uint16_t sep_no = 1;
     ImPdu pdu_GroupChangeMemberReq;
     pdu_GroupChangeMemberReq.SetPBMsg(&msg_GroupChangeMemberReq,CID_GroupChangeMemberReq,sep_no);

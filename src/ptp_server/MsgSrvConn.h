@@ -62,6 +62,15 @@ public:
     uint32_t        m_online_status;      //在线状态 1-online, 2-off-line, 3-leave
     string 			m_client_version;	// e.g MAC/2.2, or WIN/2.2
     uint32_t        m_login_time;
+
+    string 			m_browser_name;
+    string 			m_browser_version;
+
+    string 			m_os_name;
+    string 			m_os_version;
+    string 			m_client_id;
+    bool 			m_is_intel;
+
 private:
     void _HandleHeartBeatNotify(CRequest *requestPdu);
 
@@ -79,7 +88,6 @@ private:
     string          m_iv;
     string          m_aad;
     string          m_prv_key;
-
 
     string          m_captcha;
     string          m_address_hex;

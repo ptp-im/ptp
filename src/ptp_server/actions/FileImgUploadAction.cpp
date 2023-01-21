@@ -27,13 +27,19 @@ namespace ACTION_FILE {
                 break;
             }
             if(!request->IsBusinessConn()){
-              auto pMsgConn = FindMsgSrvConnByHandle(request->GetHandle());
-              if(!pMsgConn){
-                  DEBUG_E("not found pMsgConn");
-                  return;
-              }
-             msg.set_auth_uid(pMsgConn->GetUserId());
-             request->Next(&msg,CID_FileImgUploadReq,request->GetSeqNum());
+                auto pMsgConn = FindMsgSrvConnByHandle(request->GetHandle());
+                if(!pMsgConn){
+                    DEBUG_E("not found pMsgConn");
+                    return;
+                }
+                msg.set_auth_uid(pMsgConn->GetUserId());
+                auto file_id = msg.file_id();
+                auto file_part = msg.file_part();
+                auto file_total_parts = msg.file_total_parts();
+                auto file_data = msg.file_data();
+                msg_rsp.set_file_path("ww");
+                msg_rsp.set_error(NO_ERROR);
+                request->Next(&msg,CID_FileImgUploadReq,request->GetSeqNum());
             }else{
                 CacheManager *pCacheManager = CacheManager::getInstance();
                 CacheConn *pCacheConn = pCacheManager->GetCacheConn(CACHE_GROUP_INSTANCE);

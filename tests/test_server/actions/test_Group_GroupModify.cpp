@@ -10,9 +10,14 @@ using namespace PTP::Common;
 TEST(test_Group, GroupModifyAction) {
     auto *pMsgConn = test_init_msg_conn();
     PTP::Group::GroupModifyReq msg_GroupModifyReq;
-    //msg_GroupModifyReq.set_group_modify_action();
-    //msg_GroupModifyReq.set_group_id();
-    //msg_GroupModifyReq.set_value();
+    auto groupType = PTP::Common::GROUP_TYPE_MULTI;
+
+    createGroup(pMsgConn,groupType,pMsgConn->GetUserId(),pMsgConn->GetUserId()+1,DEFAULT_TEST_ACCOUNT_ID);
+    auto group_id = get_test_default_group_id();
+
+    msg_GroupModifyReq.set_group_modify_action(PTP::Common::GroupModifyAction_name);
+    msg_GroupModifyReq.set_group_id(group_id);
+    msg_GroupModifyReq.set_value("CHANGE_NAME");
     uint16_t sep_no = 1;
     ImPdu pdu_GroupModifyReq;
     pdu_GroupModifyReq.SetPBMsg(&msg_GroupModifyReq,CID_GroupModifyReq,sep_no);
@@ -41,16 +46,16 @@ TEST(test_Group, GroupModifyAction) {
             ASSERT_EQ(request_next_GroupModifyReq.GetResponsePdu()->GetCommandId(),CID_GroupModifyRes);
             auto error = msg_GroupModifyRes.error();
             ASSERT_EQ(error,NO_ERROR);
-            //auto group_modify_action = msg_GroupModifyRes.group_modify_action();
-            //DEBUG_I("group_modify_action: %p",group_modify_action);
-            //auto value = msg_GroupModifyRes.value();
-            //DEBUG_I("value: %s",value.c_str());
-            //auto group_id = msg_GroupModifyRes.group_id();
-            //DEBUG_I("group_id: %d",group_id);
-            //auto notify_members = msg_GroupModifyRes.notify_members();
-            //DEBUG_I("notify_members: %p",notify_members);
-            //auto auth_uid = msg_GroupModifyRes.auth_uid();
-            //DEBUG_I("auth_uid: %d",auth_uid);
+            auto group_modify_action = msg_GroupModifyRes.group_modify_action();
+            DEBUG_I("group_modify_action: %p",group_modify_action);
+            auto value = msg_GroupModifyRes.value();
+            DEBUG_I("value: %s",value.c_str());
+            auto group_id = msg_GroupModifyRes.group_id();
+            DEBUG_I("group_id: %d",group_id);
+            auto notify_members = msg_GroupModifyRes.notify_members();
+            DEBUG_I("notify_members size: %d",notify_members.size());
+            auto auth_uid = msg_GroupModifyRes.auth_uid();
+            DEBUG_I("auth_uid: %d",auth_uid);
             
             CRequest request_GroupModifyRes;
             request_GroupModifyRes.SetIsBusinessConn(false);

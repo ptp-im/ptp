@@ -22,17 +22,12 @@
 #include "actions/GroupModifyNotifyAction.h"
 #include "actions/GroupModifyAction.h"
 #include "actions/GroupPreCreateAction.h"
-#include "actions/GroupRemoveSessionNotifyAction.h"
-#include "actions/GroupRemoveSessionAction.h"
 #include "actions/GroupUnreadMsgAction.h"
 #include "actions/MsgGetByIdsAction.h"
-#include "actions/MsgGetMaxIdAction.h"
 #include "actions/MsgNotifyAction.h"
 #include "actions/MsgReadAckAction.h"
 #include "actions/MsgReadNotifyAction.h"
 #include "actions/MsgAction.h"
-#include "actions/MsgUnNotifyAction.h"
-#include "actions/CaptchaAction.h"
 #include "actions/HeartBeatNotifyAction.h"
 #include "actions/ServerLoginAction.h"
 #include "actions/SwitchDevicesNotifyAction.h"
@@ -79,22 +74,15 @@ void CHandlerMap::Init()
     m_handler_map.insert(make_pair(uint32_t(CID_GroupModifyRes), ACTION_GROUP::GroupModifyResAction));
     m_handler_map.insert(make_pair(uint32_t(CID_GroupPreCreateReq), ACTION_GROUP::GroupPreCreateReqAction));
     m_handler_map.insert(make_pair(uint32_t(CID_GroupPreCreateRes), ACTION_GROUP::GroupPreCreateResAction));
-    m_handler_map.insert(make_pair(uint32_t(CID_GroupRemoveSessionNotify), ACTION_GROUP::GroupRemoveSessionNotifyAction));
-    m_handler_map.insert(make_pair(uint32_t(CID_GroupRemoveSessionReq), ACTION_GROUP::GroupRemoveSessionReqAction));
-    m_handler_map.insert(make_pair(uint32_t(CID_GroupRemoveSessionRes), ACTION_GROUP::GroupRemoveSessionResAction));
     m_handler_map.insert(make_pair(uint32_t(CID_GroupUnreadMsgReq), ACTION_GROUP::GroupUnreadMsgReqAction));
     m_handler_map.insert(make_pair(uint32_t(CID_GroupUnreadMsgRes), ACTION_GROUP::GroupUnreadMsgResAction));
     m_handler_map.insert(make_pair(uint32_t(CID_MsgGetByIdsReq), ACTION_MSG::MsgGetByIdsReqAction));
     m_handler_map.insert(make_pair(uint32_t(CID_MsgGetByIdsRes), ACTION_MSG::MsgGetByIdsResAction));
-    m_handler_map.insert(make_pair(uint32_t(CID_MsgGetMaxIdReq), ACTION_MSG::MsgGetMaxIdReqAction));
-    m_handler_map.insert(make_pair(uint32_t(CID_MsgGetMaxIdRes), ACTION_MSG::MsgGetMaxIdResAction));
     m_handler_map.insert(make_pair(uint32_t(CID_MsgNotify), ACTION_MSG::MsgNotifyAction));
     m_handler_map.insert(make_pair(uint32_t(CID_MsgReadAckReq), ACTION_MSG::MsgReadAckReqAction));
     m_handler_map.insert(make_pair(uint32_t(CID_MsgReadNotify), ACTION_MSG::MsgReadNotifyAction));
     m_handler_map.insert(make_pair(uint32_t(CID_MsgReq), ACTION_MSG::MsgReqAction));
     m_handler_map.insert(make_pair(uint32_t(CID_MsgRes), ACTION_MSG::MsgResAction));
-    m_handler_map.insert(make_pair(uint32_t(CID_MsgUnNotify), ACTION_MSG::MsgUnNotifyAction));
-    m_handler_map.insert(make_pair(uint32_t(CID_CaptchaReq), ACTION_OTHER::CaptchaReqAction));
     m_handler_map.insert(make_pair(uint32_t(CID_HeartBeatNotify), ACTION_OTHER::HeartBeatNotifyAction));
     m_handler_map.insert(make_pair(uint32_t(CID_ServerLoginReq), ACTION_SERVER::ServerLoginReqAction));
     m_handler_map.insert(make_pair(uint32_t(CID_ServerLoginRes), ACTION_SERVER::ServerLoginResAction));

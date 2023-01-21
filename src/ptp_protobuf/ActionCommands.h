@@ -4,7 +4,7 @@
  *   filename：  ActionCommands.h
  *   author：    Barry
  *   email：     dev.crypto@proton.me
- *   createdAt： Thursday, January 19, 2023
+ *   createdAt： Saturday, January 21, 2023
  *   desc： DO NOT EDIT!!
  *
  #pragma once
@@ -52,24 +52,16 @@ enum ActionCommands {
   CID_GroupModifyRes = 4012,
   CID_GroupPreCreateReq = 4013,
   CID_GroupPreCreateRes = 4014,
-  CID_GroupRemoveSessionNotify = 4015,
-  CID_GroupRemoveSessionReq = 4016,
-  CID_GroupRemoveSessionRes = 4017,
-  CID_GroupUnreadMsgReq = 4018,
-  CID_GroupUnreadMsgRes = 4019,
+  CID_GroupUnreadMsgReq = 4015,
+  CID_GroupUnreadMsgRes = 4016,
   CID_MsgGetByIdsReq = 5001,
   CID_MsgGetByIdsRes = 5002,
-  CID_MsgGetMaxIdReq = 5003,
-  CID_MsgGetMaxIdRes = 5004,
-  CID_MsgNotify = 5005,
-  CID_MsgReadAckReq = 5006,
-  CID_MsgReadNotify = 5007,
-  CID_MsgReq = 5008,
-  CID_MsgRes = 5009,
-  CID_MsgUnNotify = 5010,
-  CID_CaptchaReq = 6001,
-  CID_CaptchaRes = 6002,
-  CID_HeartBeatNotify = 6003,
+  CID_MsgNotify = 5003,
+  CID_MsgReadAckReq = 5004,
+  CID_MsgReadNotify = 5005,
+  CID_MsgReq = 5006,
+  CID_MsgRes = 5007,
+  CID_HeartBeatNotify = 6001,
   CID_ServerLoginReq = 7001,
   CID_ServerLoginRes = 7002,
   CID_SwitchDevicesNotify = 8001,
@@ -159,12 +151,6 @@ static string getActionCommandsName(ActionCommands cid){
             return to_string(cid) + ":CID_GroupPreCreateReq";
         case CID_GroupPreCreateRes:
             return to_string(cid) + ":CID_GroupPreCreateRes";
-        case CID_GroupRemoveSessionNotify:
-            return to_string(cid) + ":CID_GroupRemoveSessionNotify";
-        case CID_GroupRemoveSessionReq:
-            return to_string(cid) + ":CID_GroupRemoveSessionReq";
-        case CID_GroupRemoveSessionRes:
-            return to_string(cid) + ":CID_GroupRemoveSessionRes";
         case CID_GroupUnreadMsgReq:
             return to_string(cid) + ":CID_GroupUnreadMsgReq";
         case CID_GroupUnreadMsgRes:
@@ -173,10 +159,6 @@ static string getActionCommandsName(ActionCommands cid){
             return to_string(cid) + ":CID_MsgGetByIdsReq";
         case CID_MsgGetByIdsRes:
             return to_string(cid) + ":CID_MsgGetByIdsRes";
-        case CID_MsgGetMaxIdReq:
-            return to_string(cid) + ":CID_MsgGetMaxIdReq";
-        case CID_MsgGetMaxIdRes:
-            return to_string(cid) + ":CID_MsgGetMaxIdRes";
         case CID_MsgNotify:
             return to_string(cid) + ":CID_MsgNotify";
         case CID_MsgReadAckReq:
@@ -187,12 +169,6 @@ static string getActionCommandsName(ActionCommands cid){
             return to_string(cid) + ":CID_MsgReq";
         case CID_MsgRes:
             return to_string(cid) + ":CID_MsgRes";
-        case CID_MsgUnNotify:
-            return to_string(cid) + ":CID_MsgUnNotify";
-        case CID_CaptchaReq:
-            return to_string(cid) + ":CID_CaptchaReq";
-        case CID_CaptchaRes:
-            return to_string(cid) + ":CID_CaptchaRes";
         case CID_HeartBeatNotify:
             return to_string(cid) + ":CID_HeartBeatNotify";
         case CID_ServerLoginReq:

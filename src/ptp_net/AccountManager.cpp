@@ -380,6 +380,7 @@ string AccountManager::getAccountAddress(){
         string entropy = GetEntropy();
         if(entropy.empty()){
             upsertEntropy();
+            entropy = GetEntropy();
         }
         if(!m_address.empty()){
             return m_address;
@@ -405,8 +406,11 @@ string AccountManager::getAddressByEntropy(const string& entropy){
 }
 
 string AccountManager::getWords(){
-    upsertEntropy();
     string entropy = GetEntropy();
+    if(entropy.empty()){
+        upsertEntropy();
+        entropy = GetEntropy();
+    }
     PTPWallet::MnemonicHelper::MnemonicResult mnemonicResult = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy, "en");
     return mnemonicResult.raw;
 }
@@ -580,6 +584,10 @@ string AccountManager::signGroupMessage(const string &message,int32_t groupIdx) 
 
 void AccountManager::signGroupMessage(const string &message,int32_t groupIdx,unsigned char *signOut65) {
     string entropy = GetEntropy();
+    if(entropy.empty()){
+        upsertEntropy();
+        entropy = GetEntropy();
+    }
     auto mnemonicRes = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy,"en");
     PTPWallet::HDKey hdKey = PTPWallet::HDKeyEncoder::makeBip32RootKey(mnemonicRes.raw.data());
     string groupIdxStr = int2string(groupIdx);
@@ -592,8 +600,28 @@ void AccountManager::signGroupMessage(const string &message,int32_t groupIdx,uns
     hdKey.clear();
 }
 
+string AccountManager::getAccountGroupAddress(uint32_t groupIdx){
+    string entropy = GetEntropy();
+    if(entropy.empty()){
+        upsertEntropy();
+        entropy = GetEntropy();
+    }
+    auto mnemonicRes = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy,"en");
+    PTPWallet::HDKey hdKey = PTPWallet::HDKeyEncoder::makeBip32RootKey(mnemonicRes.raw.data());
+    string groupIdxStr = int2string(groupIdx);
+    PTPWallet::HDKeyEncoder::makeExtendedKey(hdKey, PTP_GROUP_HD_PATH+groupIdxStr);
+    string address = PTPWallet::HDKeyEncoder::getEthAddress(hdKey);
+    DEBUG_D("signGroupMessage group address:%s", address.c_str());
+    return address;
+}
+
 bool AccountManager::createShareKey(secp256k1_pubkey *pub_key,unsigned char *shared_key) {
     string entropy = GetEntropy();
+
+    if(entropy.empty()){
+        upsertEntropy();
+        entropy = GetEntropy();
+    }
     auto mnemonicRes = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy,"en");
     PTPWallet::HDKey hdKey = PTPWallet::HDKeyEncoder::makeBip32RootKey(mnemonicRes.raw.data());
     PTPWallet::HDKeyEncoder::makeExtendedKey(hdKey, PTP_HD_PATH);

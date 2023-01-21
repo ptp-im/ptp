@@ -113,6 +113,7 @@ enum ERR : int {
   E_GROUP_CREATE_PAIR_GROUP_NO_REG_USER = 1102,
   E_GROUP_HAS_CREATED = 1103,
   E_GROUP_CREATE_PAIR_EXISTS = 1104,
+  E_GROUP_MODIFY_INVALID_ACTION = 1105,
   E_BUDDY_MODIFY_INVALID_ACTION = 1201
 };
 bool ERR_IsValid(int value);
@@ -295,10 +296,11 @@ inline const std::string& GroupType_Name(T enum_t_value) {
 bool GroupType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GroupType* value);
 enum GroupMemberStatus : int {
-  GROUP_MEMBER_STATUS_NORMAL = 1
+  GROUP_MEMBER_STATUS_DEL = 1,
+  GROUP_MEMBER_STATUS_NORMAL = 10
 };
 bool GroupMemberStatus_IsValid(int value);
-constexpr GroupMemberStatus GroupMemberStatus_MIN = GROUP_MEMBER_STATUS_NORMAL;
+constexpr GroupMemberStatus GroupMemberStatus_MIN = GROUP_MEMBER_STATUS_DEL;
 constexpr GroupMemberStatus GroupMemberStatus_MAX = GROUP_MEMBER_STATUS_NORMAL;
 constexpr int GroupMemberStatus_ARRAYSIZE = GroupMemberStatus_MAX + 1;
 
@@ -314,11 +316,12 @@ bool GroupMemberStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GroupMemberStatus* value);
 enum GroupModifyAction : int {
   GroupModifyAction_name = 1,
-  GroupModifyAction_avatar = 2
+  GroupModifyAction_avatar = 2,
+  GroupModifyAction_about = 3
 };
 bool GroupModifyAction_IsValid(int value);
 constexpr GroupModifyAction GroupModifyAction_MIN = GroupModifyAction_name;
-constexpr GroupModifyAction GroupModifyAction_MAX = GroupModifyAction_avatar;
+constexpr GroupModifyAction GroupModifyAction_MAX = GroupModifyAction_about;
 constexpr int GroupModifyAction_ARRAYSIZE = GroupModifyAction_MAX + 1;
 
 const std::string& GroupModifyAction_Name(GroupModifyAction value);
@@ -332,12 +335,12 @@ inline const std::string& GroupModifyAction_Name(T enum_t_value) {
 bool GroupModifyAction_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GroupModifyAction* value);
 enum GroupMemberModifyAction : int {
-  GroupMemberModifyAction_DEL = 1,
-  GroupMemberModifyAction_ADD = 2
+  GroupMemberModifyAction_ADD = 2,
+  GroupMemberModifyAction_STATUS = 3
 };
 bool GroupMemberModifyAction_IsValid(int value);
-constexpr GroupMemberModifyAction GroupMemberModifyAction_MIN = GroupMemberModifyAction_DEL;
-constexpr GroupMemberModifyAction GroupMemberModifyAction_MAX = GroupMemberModifyAction_ADD;
+constexpr GroupMemberModifyAction GroupMemberModifyAction_MIN = GroupMemberModifyAction_ADD;
+constexpr GroupMemberModifyAction GroupMemberModifyAction_MAX = GroupMemberModifyAction_STATUS;
 constexpr int GroupMemberModifyAction_ARRAYSIZE = GroupMemberModifyAction_MAX + 1;
 
 const std::string& GroupMemberModifyAction_Name(GroupMemberModifyAction value);

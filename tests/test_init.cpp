@@ -17,6 +17,7 @@
 #include "ptp_server/actions/models/ModelGroup.h"
 #include "ptp_server/actions/GroupPreCreateAction.h"
 
+static uint32_t m_group_id = 0;
 
 void test_init(){
     set_config_path(TEST_CONFIG_PATH);
@@ -47,7 +48,7 @@ CMsgSrvConn *test_init_msg_conn(){
     auto handle = (int)time(nullptr);
     auto *pMsgConn = new CMsgSrvConn();
     pMsgConn->SetHandle(handle);
-    login(pMsgConn,10011);
+    login(pMsgConn,DEFAULT_TEST_ACCOUNT_ID);
     uint32_t user_id_1 = pMsgConn->GetUserId();
 
     CMsgSrvConn pMsgConn2;
@@ -60,11 +61,11 @@ CMsgSrvConn *test_init_msg_conn(){
     uint32_t user_id_3 = pMsgConn3.GetUserId();
 
     auto groupType = PTP::Common::GROUP_TYPE_MULTI;
-    createGroup(pMsgConn,groupType,user_id_1,user_id_2);
+    createGroup(pMsgConn,groupType,user_id_1,user_id_2,DEFAULT_TEST_ACCOUNT_ID);
     CImUserManager::GetInstance()->RemoveImUserById(pMsgConn2.GetUserId());
     CImUserManager::GetInstance()->RemoveImUserById(pMsgConn3.GetUserId());
     groupType = PTP::Common::GROUP_TYPE_PAIR;
-    createGroup(pMsgConn,groupType,user_id_1,user_id_3);
+    createGroup(pMsgConn,groupType,user_id_1,user_id_3,DEFAULT_TEST_ACCOUNT_ID);
     return pMsgConn;
 }
 
@@ -91,27 +92,27 @@ void login(CMsgSrvConn *pMsgConn,uint32_t accountId){
         ASSERT_EQ(error,NO_ERROR);
         auto captcha = msg_rsp.captcha();
         ASSERT_EQ(captcha.size(),6);
-        DEBUG_I("captcha: %s",captcha.c_str());
+        DEBUG_D("captcha: %s",captcha.c_str());
         auto server_address = bytes_to_hex_string((unsigned char *)msg_rsp.address().data(),20);
         ASSERT_EQ(msg_rsp.address().size(),20);
-        DEBUG_I("server_address: %s", server_address.c_str());
+        DEBUG_D("server_address: %s", server_address.c_str());
         auto iv = msg_rsp.iv();
         ASSERT_EQ(iv.size(),16);
-        DEBUG_I("iv: %s", bytes_to_hex_string((unsigned char *)iv.data(), 16).c_str());
+        DEBUG_D("iv: %s", bytes_to_hex_string((unsigned char *)iv.data(), 16).c_str());
         auto aad = msg_rsp.aad();
         ASSERT_EQ(aad.size(),16);
-        DEBUG_I("add: %s", bytes_to_hex_string((unsigned char *)aad.data(), 16).c_str());
+        DEBUG_D("add: %s", bytes_to_hex_string((unsigned char *)aad.data(), 16).c_str());
         auto sign = msg_rsp.sign();
         ASSERT_EQ(sign.size(),65);
-        DEBUG_I("sign: %s", bytes_to_hex_string((unsigned char *)sign.data(), 65).c_str());
+        DEBUG_D("sign: %s", bytes_to_hex_string((unsigned char *)sign.data(), 65).c_str());
 
         PTP::Auth::AuthLoginReq msg_login;
 
         unsigned char sign65[65];
         string client_address = AccountManager::getInstance(accountId).getAccountAddress();
         AccountManager::getInstance(accountId).signMessage(captcha,sign65);
-        DEBUG_I("client_address: %s", client_address.c_str());
-        DEBUG_I("client sign: %s", bytes_to_hex_string(sign65,65).c_str());
+        DEBUG_D("client_address: %s", client_address.c_str());
+        DEBUG_D("client sign: %s", bytes_to_hex_string(sign65,65).c_str());
 
         string msg_data = format_sign_msg_data(captcha,SignMsgType_ptp);
         DEBUG_D("sign msg_data:%s", msg_data.c_str());
@@ -167,7 +168,7 @@ void login(CMsgSrvConn *pMsgConn,uint32_t accountId){
                 error = msg_login_res_rsp.error();
                 ASSERT_EQ(error,NO_ERROR);
                 ASSERT_EQ(true,msg_login_res_rsp.user_info().uid() > 0);
-                DEBUG_I("address: %s",msg_login_res_rsp.user_info().address().c_str());
+                DEBUG_D("address: %s",msg_login_res_rsp.user_info().address().c_str());
                 ASSERT_EQ(
                         msg_login_res_rsp.user_info().address(),
                         client_address);
@@ -220,10 +221,11 @@ void login(CMsgSrvConn *pMsgConn,uint32_t accountId){
     DEBUG_D("login ========================================>>> end");
 }
 
-void createGroup(CMsgSrvConn *pMsgConn,PTP::Common::GroupType groupType,uint32_t fromUid,uint32_t toUid){
+void createGroup(CMsgSrvConn *pMsgConn, PTP::Common::GroupType groupType, uint32_t fromUid, uint32_t toUid, uint32_t accountId){
     DEBUG_D("createGroup ========================================>>>");
     string captcha;
     uint32_t group_idx = 0;
+    uint32_t group_id = 0;
 
     PTP::Group::GroupPreCreateReq msg_GroupPreCreateReq;
     msg_GroupPreCreateReq.set_group_type(groupType);
@@ -254,13 +256,13 @@ void createGroup(CMsgSrvConn *pMsgConn,PTP::Common::GroupType groupType,uint32_t
             auto error = msg_GroupPreCreateRes.error();
             ASSERT_EQ(error,NO_ERROR);
             auto group_adr = msg_GroupPreCreateRes.group_adr();
-            DEBUG_I("group_adr: %s",group_adr.c_str());
+            DEBUG_D("group_adr: %s",group_adr.c_str());
             auto group_idx1 = msg_GroupPreCreateRes.group_idx();
-            DEBUG_I("group_idx: %d",group_idx1);
+            DEBUG_D("group_idx: %d",group_idx1);
             auto captcha1 = msg_GroupPreCreateRes.captcha();
-            DEBUG_I("captcha: %s",captcha1.c_str());
+            DEBUG_D("captcha: %s",captcha1.c_str());
             auto auth_uid = msg_GroupPreCreateRes.auth_uid();
-            DEBUG_I("auth_uid: %d",auth_uid);
+            DEBUG_D("auth_uid: %d",auth_uid);
             ASSERT_EQ(group_idx1> 0,true);
             ASSERT_EQ(captcha1,"");
 
@@ -281,7 +283,7 @@ void createGroup(CMsgSrvConn *pMsgConn,PTP::Common::GroupType groupType,uint32_t
                 ASSERT_EQ(group_idx,group_idx1);
                 captcha = msg_final_GroupPreCreateRes.captcha();
                 ASSERT_EQ(captcha,pMsgConn->GetCaptcha());
-                DEBUG_I("captcha: %s",captcha1.c_str());
+                DEBUG_D("captcha: %s",captcha1.c_str());
             }
         }
 
@@ -289,7 +291,7 @@ void createGroup(CMsgSrvConn *pMsgConn,PTP::Common::GroupType groupType,uint32_t
     if(group_idx > 0){
         PTP::Group::GroupCreateReq msg_GroupCreateReq;
         unsigned char sign65[65];
-        AccountManager::getInstance(1001).signGroupMessage(captcha,(int32_t)group_idx,sign65);
+        AccountManager::getInstance(accountId).signGroupMessage(captcha,(int32_t)group_idx,sign65);
         msg_GroupCreateReq.set_sign(sign65,65);
         msg_GroupCreateReq.set_group_idx(group_idx);
         msg_GroupCreateReq.set_captcha(captcha);
@@ -323,22 +325,28 @@ void createGroup(CMsgSrvConn *pMsgConn,PTP::Common::GroupType groupType,uint32_t
             ASSERT_EQ(request_next_GroupCreateReq.GetResponsePdu()->GetCommandId(),CID_GroupCreateRes);
             auto error = msg_GroupCreateRes.error();
             if(error == PTP::Common::E_GROUP_CREATE_PAIR_EXISTS){
-                DEBUG_I("E_GROUP_CREATE_PAIR_EXISTS");
+                DEBUG_D("E_GROUP_CREATE_PAIR_EXISTS");
                 return;
             }
+            if(error == PTP::Common::E_GROUP_HAS_CREATED){
+                DEBUG_D("E_GROUP_HAS_CREATED");
+                return;
+            }
+            DEBUG_D("error:%d",error);
             ASSERT_EQ(error,NO_ERROR);
             ASSERT_EQ(fromUid,msg_GroupCreateRes.auth_uid());
-            DEBUG_I("auth_uid: %d",msg_GroupCreateRes.auth_uid());
+            DEBUG_D("auth_uid: %d",msg_GroupCreateRes.auth_uid());
             auto group = msg_GroupCreateRes.group();
-            DEBUG_I("group_id: %d",group.group_id());
-            DEBUG_I("group_idx: %d",group.group_idx());
-            DEBUG_I("group_adr: %s",group.group_adr().c_str());
+            DEBUG_D("group_id: %d",group.group_id());
+            DEBUG_D("group_idx: %d",group.group_idx());
+            DEBUG_D("group_type: %d",group.group_type());
+            DEBUG_D("group_adr: %s",group.group_adr().c_str());
             auto group_members = msg_GroupCreateRes.group_members();
-            DEBUG_I("group_members size: %d",group_members.size());
-
+            DEBUG_D("group_members size: %d",group_members.size());
+            group_id = group.group_id();
             for (const auto& member: group_members) {
-                DEBUG_I("===>>member uid: %d",member.uid());
-                DEBUG_I("member member_status: %d",member.member_status());
+                DEBUG_D("===>>member uid: %d",member.uid());
+                DEBUG_D("member member_status: %d",member.member_status());
             }
 
             CacheManager *pCacheManager = CacheManager::getInstance();
@@ -371,19 +379,19 @@ void createGroup(CMsgSrvConn *pMsgConn,PTP::Common::GroupType groupType,uint32_t
             }
 
             list<string> from_user_group_ids;
-            CModelGroup::getMemberGroups(pCacheConn,from_user_group_ids,fromUid);
+            CModelGroup::getMemberGroupsByStatus(pCacheConn,from_user_group_ids,fromUid,PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
             ASSERT_TRUE(list_string_contains(from_user_group_ids, to_string(groupInfoFromCache.group_id())));
 
             list<string> to_user_group_ids;
-            CModelGroup::getMemberGroups(pCacheConn,to_user_group_ids,fromUid);
+            CModelGroup::getMemberGroupsByStatus(pCacheConn,to_user_group_ids,fromUid,PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
             ASSERT_TRUE(list_string_contains(to_user_group_ids, to_string(groupInfoFromCache.group_id())));
 
             list<string> member_ids;
-            CModelGroup::getGroupMembersStatus(pCacheConn,member_ids,group.group_id(),PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
+            CModelGroup::getGroupMembersByStatus(pCacheConn,member_ids,group.group_id(),PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
             ASSERT_EQ(member_ids.size(),2);
 
             list<string> updated_member_ids;
-            CModelGroup::getGroupMembersUpdated(pCacheConn,updated_member_ids,group.group_id(),0);
+            CModelGroup::getGroupMembersByUpdatedTime(pCacheConn,updated_member_ids,group.group_id(),0);
             ASSERT_EQ(updated_member_ids.size(),2);
 
             CRequest request_GroupCreateRes;
@@ -400,4 +408,11 @@ void createGroup(CMsgSrvConn *pMsgConn,PTP::Common::GroupType groupType,uint32_t
         }
     }
     DEBUG_D("createGroup ========================================>>> end");
+    if(DEFAULT_TEST_ACCOUNT_ID == accountId){
+        m_group_id = group_id;
+    }
+}
+
+uint32_t get_test_default_group_id(){
+    return m_group_id;
 }

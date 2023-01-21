@@ -10,7 +10,6 @@ using namespace PTP::Common;
 TEST(test_Group, GroupUnreadMsgAction) {
     auto *pMsgConn = test_init_msg_conn();
     PTP::Group::GroupUnreadMsgReq msg_GroupUnreadMsgReq;
-    
     uint16_t sep_no = 1;
     ImPdu pdu_GroupUnreadMsgReq;
     pdu_GroupUnreadMsgReq.SetPBMsg(&msg_GroupUnreadMsgReq,CID_GroupUnreadMsgReq,sep_no);

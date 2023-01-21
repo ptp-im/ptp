@@ -44,6 +44,17 @@ namespace ACTION_GROUP {
                         break;
                     }
                     auto auth_uid = msg.auth_uid();
+                    list<uint32_t> group_ids;
+                    list<uint32_t> removed_group_ids;
+                    CModelGroup::getUpdatedGroups(pCacheConn,group_ids,removed_group_ids,auth_uid,msg.group_info_updated_time());
+                    for(uint32_t group_id:group_ids){
+                        GroupInfo *group = msg_rsp.add_groups();
+                        CModelGroup::getGroupInfoById(pCacheConn,group,group_id);
+                    }
+                    for(uint32_t group_id : removed_group_ids){
+                        msg_rsp.add_removed_group_ids(group_id);
+                    }
+                    msg_rsp.set_group_info_updated_time(time(nullptr));
                     msg_rsp.set_error(error);
                     msg_rsp.set_auth_uid(auth_uid);
                     break;
@@ -62,33 +73,6 @@ namespace ACTION_GROUP {
         }
     }
     void GroupGetListResAction(CRequest* request){
-        // PTP::Group::GroupGetListRes msg;
-        // auto error = msg.error();
-        // while (true){
-        //     if(!msg.ParseFromArray(request->GetRequestPdu()->GetBodyData(), (int)request->GetRequestPdu()->GetBodyLength()))
-        //     {
-        //         error = E_PB_PARSE_ERROR;
-        //         break;
-        //     }
-        //     if(!request->IsBusinessConn()){
-        //       uint32_t handle = request->GetHandle();
-        //       auto pMsgConn = FindMsgSrvConnByHandle(handle);
-        //       if(!pMsgConn){
-        //           DEBUG_E("not found pMsgConn");
-        //           return;
-        //       }
-        //       if(error != PTP::Common::NO_ERROR){
-        //           break;
-        //       }
-        //     }else{
-        //       if(error != PTP::Common::NO_ERROR){
-        //           break;
-        //       }
-        //     }
-        //     break;
-        // }
-        // msg.set_error(error);
-        // request->SendResponseMsg(&msg,CID_GroupGetListRes,request->GetSeqNum());
         request->SendResponsePdu(request->GetRequestPdu());
     }
 };

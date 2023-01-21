@@ -24,9 +24,12 @@
 #define TEST_CONFIG_group_db         "group_db=12"
 #define TEST_CONFIG_group_maxconncnt "group_maxconncnt=16"
 
+#define DEFAULT_TEST_ACCOUNT_ID 10011
+
 void test_init();
+uint32_t get_test_default_group_id();
 CMsgSrvConn *test_init_msg_conn();
 void login(CMsgSrvConn *pMsgConn,uint32_t accountId);
-void createGroup(CMsgSrvConn *pMsgConn,PTP::Common::GroupType groupType,uint32_t fromUid,uint32_t toUid);
+void createGroup(CMsgSrvConn *pMsgConn, PTP::Common::GroupType groupType, uint32_t fromUid, uint32_t toUid, uint32_t accountId = 1001);
 
 #endif //PTP_CTL_TEST_DEFINE_H

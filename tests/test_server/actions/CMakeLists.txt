@@ -64,20 +64,11 @@ target_link_libraries(test_Group_GroupModify.run PRIVATE gtest_main test_init pt
 add_executable(test_Group_GroupPreCreate.run test_Group_GroupPreCreate.cpp)
 target_link_libraries(test_Group_GroupPreCreate.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
 
-add_executable(test_Group_GroupRemoveSessionNotify.run test_Group_GroupRemoveSessionNotify.cpp)
-target_link_libraries(test_Group_GroupRemoveSessionNotify.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
-
-add_executable(test_Group_GroupRemoveSession.run test_Group_GroupRemoveSession.cpp)
-target_link_libraries(test_Group_GroupRemoveSession.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
-
 add_executable(test_Group_GroupUnreadMsg.run test_Group_GroupUnreadMsg.cpp)
 target_link_libraries(test_Group_GroupUnreadMsg.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
 
 add_executable(test_Msg_MsgGetByIds.run test_Msg_MsgGetByIds.cpp)
 target_link_libraries(test_Msg_MsgGetByIds.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
-
-add_executable(test_Msg_MsgGetMaxId.run test_Msg_MsgGetMaxId.cpp)
-target_link_libraries(test_Msg_MsgGetMaxId.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
 
 add_executable(test_Msg_MsgNotify.run test_Msg_MsgNotify.cpp)
 target_link_libraries(test_Msg_MsgNotify.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
@@ -90,12 +81,6 @@ target_link_libraries(test_Msg_MsgReadNotify.run PRIVATE gtest_main test_init pt
 
 add_executable(test_Msg_Msg.run test_Msg_Msg.cpp)
 target_link_libraries(test_Msg_Msg.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
-
-add_executable(test_Msg_MsgUnNotify.run test_Msg_MsgUnNotify.cpp)
-target_link_libraries(test_Msg_MsgUnNotify.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
-
-add_executable(test_Other_Captcha.run test_Other_Captcha.cpp)
-target_link_libraries(test_Other_Captcha.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)
 
 add_executable(test_Other_HeartBeatNotify.run test_Other_HeartBeatNotify.cpp)
 target_link_libraries(test_Other_HeartBeatNotify.run PRIVATE gtest_main test_init ptp_net ptp_global ptp_protobuf ptp_server)

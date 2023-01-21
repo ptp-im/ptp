@@ -9,8 +9,9 @@ using namespace PTP::Common;
 
 TEST(test_Group, GroupGetListAction) {
     auto *pMsgConn = test_init_msg_conn();
+
     PTP::Group::GroupGetListReq msg_GroupGetListReq;
-    //msg_GroupGetListReq.set_group_info_updated_time();
+    msg_GroupGetListReq.set_group_info_updated_time(0);
     uint16_t sep_no = 1;
     ImPdu pdu_GroupGetListReq;
     pdu_GroupGetListReq.SetPBMsg(&msg_GroupGetListReq,CID_GroupGetListReq,sep_no);
@@ -39,12 +40,25 @@ TEST(test_Group, GroupGetListAction) {
             ASSERT_EQ(request_next_GroupGetListReq.GetResponsePdu()->GetCommandId(),CID_GroupGetListRes);
             auto error = msg_GroupGetListRes.error();
             ASSERT_EQ(error,NO_ERROR);
-            //auto group_info_updated_time = msg_GroupGetListRes.group_info_updated_time();
-            //DEBUG_I("group_info_updated_time: %d",group_info_updated_time);
-            //auto groups = msg_GroupGetListRes.groups();
+            auto group_info_updated_time = msg_GroupGetListRes.group_info_updated_time();
+            DEBUG_I("group_info_updated_time: %d",group_info_updated_time);
+            auto groups = msg_GroupGetListRes.groups();
             //DEBUG_I("groups: %p",groups);
-            //auto auth_uid = msg_GroupGetListRes.auth_uid();
-            //DEBUG_I("auth_uid: %d",auth_uid);
+            for(const auto&group:groups){
+                DEBUG_I("============>>>>>group_id: %d",group.group_id());
+                DEBUG_I("group_idx: %d",group.group_idx());
+                DEBUG_I("group_type: %d",group.group_type());
+                DEBUG_I("pair_uid: %d",group.pair_uid());
+                DEBUG_I("owner_uid: %d",group.owner_uid());
+                DEBUG_I("updated_time: %d",group.updated_time());
+                DEBUG_I("created_time: %d",group.created_time());
+                DEBUG_I("group_idx: %s",group.group_adr().c_str());
+                DEBUG_I("name: %s",group.name().c_str());
+                DEBUG_I("avatar: %s",group.avatar().c_str());
+                DEBUG_I("about: %s",group.about().c_str());
+            }
+            auto auth_uid = msg_GroupGetListRes.auth_uid();
+            DEBUG_I("auth_uid: %d",auth_uid);
             
             CRequest request_GroupGetListRes;
             request_GroupGetListRes.SetIsBusinessConn(false);
