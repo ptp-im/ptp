@@ -1,4 +1,5 @@
-FROM ubuntu:bionic
+ARG VARIANT="ubuntu-20.04"
+FROM sanfun/ptp-cpp:0-${VARIANT}
 
 ########################################################
 # Essential packages for remote debugging and login in
@@ -7,13 +8,12 @@ FROM ubuntu:bionic
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     apt-utils gcc g++ openssh-server cmake build-essential gdb gdbserver rsync vim
 
-ADD . /code
-WORKDIR /code
-
 # Taken from - https://docs.docker.com/engine/examples/running_ssh_service/#environment-variables
 
 RUN mkdir /var/run/sshd
 RUN echo 'root:root' | chpasswd
+RUN mkdir /root/.ssh && echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1loPOPen3t2Nqd1RpW0PrHIsqib6gswVtonz1qNNAP+Dbfxynm600XlybRHiwFNDIpXOzwEGKbdGwjRIDI+sxzUQ8u4QZgPGJvRQA9oyPXcP6Epfqiv6eneYYIjxmu+6VZcEeVdYzbwp2p2+DvO6vMXOH6pW3mVpRBbukzw6+VSuBpM3CGJGl5dwkKkb3sycpeKDaqwoRMMTivzzWWN8tiUwdWCSxSgWLub7uvG0bFTuPMYvEFIaxAC7ghowF4e5WVszlo95ihOlNJSXuqS9nOMmyb6UTm6PRayRPul8i3HkJJHXaYcLYL+2gaHIbxekxxLWazbo7dK6LUR6nBfwfcu5aZWmE5HFDEeqCISgqjMBfblHjn8zIAkaPDk4Jz2OkjRN1cBeT6OSHPQ1GJw6l6nTad9+VkhKmaix/nyytB+lt4ADcOpkgM0POFPJ878R0qvCSQ2sG2YxCbhrhWPTVmj92jCR2L6RoyC/XNListmnwn5dEXlQGvGSSl8zLOpE= jack@jacks-MacBook-Pro.local" > /root/.ssh/authorized_keys
+
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # SSH login fix. Otherwise user is kicked off after login
@@ -34,5 +34,5 @@ RUN echo 'debugger:pwd' | chpasswd
 ########################################################
 
 ########################################################
-
+WORKDIR /workspaces/ptp/
 CMD ["/usr/sbin/sshd", "-D"]
