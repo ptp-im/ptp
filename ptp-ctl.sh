@@ -317,10 +317,10 @@ case $1 in
 	  copy_to_build
   ;;
 	test_log_stdout)
-		cp $PTP_DIR/tests/log4cxx.stdout.properties $PTP_DIR/build/bin/log4cxx.properties
+		cp $PTP_DIR/tests/log4cxx.properties $PTP_DIR/build/bin/log4cxx.properties
   ;;
 	test_log_no_stdout)
-		cp $PTP_DIR/tests/log4cxx.properties $PTP_DIR/build/bin/log4cxx.properties
+		cp $PTP_DIR/tests/log4cxx.nostdout.properties $PTP_DIR/build/bin/log4cxx.properties
   ;;
 	gen_pb)
 	  $PTP_DIR/src/ptp_protobuf/proto-v1/tools/create.sh
