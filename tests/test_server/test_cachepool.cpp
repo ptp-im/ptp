@@ -180,15 +180,15 @@ void createGroup1(CMsgSrvConn *pMsgConn, PTP::Common::GroupType groupType, uint3
             }
 
             list<string> from_user_group_ids;
-            CModelGroup::getMemberGroupsByStatus(pCacheConn,from_user_group_ids,fromUid,PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
+            CModelGroup::getMemberGroupsByStatus(pCacheConn,from_user_group_ids,fromUid,10);
             ASSERT_TRUE(list_string_contains(from_user_group_ids, to_string(groupInfoFromCache.group_id())));
 
             list<string> to_user_group_ids;
-            CModelGroup::getMemberGroupsByStatus(pCacheConn,to_user_group_ids,fromUid,PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
+            CModelGroup::getMemberGroupsByStatus(pCacheConn,to_user_group_ids,fromUid,10);
             ASSERT_TRUE(list_string_contains(to_user_group_ids, to_string(groupInfoFromCache.group_id())));
 
             list<string> member_ids;
-            CModelGroup::getGroupMembersByStatus(pCacheConn,member_ids,group.group_id(),PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
+            CModelGroup::getGroupMembersByStatus(pCacheConn,member_ids,group.group_id(),10);
             ASSERT_EQ(member_ids.size(),2);
 
             list<string> updated_member_ids;
