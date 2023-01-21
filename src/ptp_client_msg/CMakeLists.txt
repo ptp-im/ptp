@@ -5,6 +5,5 @@ endif(COMMAND cmake_policy)
 set(LIB_NAME_MAIN ptp_client_msg)
 project(${LIB_NAME_MAIN})
 MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
-
 ADD_EXECUTABLE(${LIB_NAME_MAIN} main.cpp)
-TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} ptp_net ptp_global)
+TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} ptp_net ptp_global pthread)
