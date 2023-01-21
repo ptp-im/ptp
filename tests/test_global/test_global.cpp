@@ -10,6 +10,8 @@
 #include "ptp_global/BaseSocket.h"
 #include "ptp_global/SocketClient.h"
 
+
+
 TEST(ptp_global, remove_file) {
     if(file_exists("./file_test.log")){
         remove_file("./file_test.log");
@@ -107,22 +109,31 @@ TEST(Util, replaceStr) {
     ASSERT_EQ(true,true);
 }
 
-TEST(Util, int2string) {
-    int i = 1;
-    string s = int2string(i);
-    ASSERT_EQ(s,"1");
+TEST(ptp_global, to_string) {
+    uint16_t test1 = 1;
+    ASSERT_EQ(to_string(test1),"1");
+
+    uint32_t test2 = 1;
+    ASSERT_EQ(to_string(test2),"1");
+
+    uint64_t test3 = 1;
+    ASSERT_EQ(to_string(test3),"1");
 }
 
-TEST(Util, int64ToString) {
-    int64_t i = 1;
-    string s = int64ToString(i);
-    ASSERT_EQ(s,"1");
-}
-
-TEST(Util, string2int) {
+TEST(Util, string_to_int) {
     string s = "22";
-    int64_t i = string2int(s);
+    uint16_t i = string_to_int(s);
     ASSERT_EQ(i,22);
+
+    uint32_t i1 = string_to_int(s);
+    ASSERT_EQ(i1,22);
+    s = "-22";
+    int i2 = string_to_int(s);
+    ASSERT_EQ(i2,-22);
+
+    s = "22";
+    uint64_t i3 = string_to_uint64(s);
+    ASSERT_EQ(i3,22);
 }
 
 TEST(Util, get_tick_count) {
@@ -228,7 +239,7 @@ TEST(Util, writePid) {
     get_file_content("/tmp/server.pid",buf,size);
     DEBUG_D("size:%d",size);
     DEBUG_D("buf ====>>>\n%s",string(buf, size).c_str());
-    ASSERT_TRUE(string2int(string(buf, size) )== curPid);
+    ASSERT_TRUE(string_to_int(string(buf, size) )== curPid);
 }
 
 TEST(pt_net, CSimpleBuffer) {

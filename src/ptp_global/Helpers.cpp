@@ -1,5 +1,6 @@
 #include "Helpers.h"
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -90,52 +91,14 @@ char* replaceStr(char* pSrc, char oldChar, char newChar)
     return pSrc;
 }
 
-string int2string(uint32_t user_id)
+int string_to_int(const string& value)
 {
-    stringstream ss;
-    ss << user_id;
-    return ss.str();
+    return stoi(value);
 }
 
-string int64ToString(uint64_t user_id)
+uint64_t string_to_uint64(const string& value)
 {
-    stringstream ss;
-    ss << user_id;
-    return ss.str();
-}
-
-uint32_t string2int(const string& value)
-{
-    return (uint32_t)atoi(value.c_str());
-}
-
-// 由于被替换的内容可能包含?号，所以需要更新开始搜寻的位置信息来避免替换刚刚插入的?号
-void replace_mark(string& str, string& new_value, uint32_t& begin_pos)
-{
-    string::size_type pos = str.find('?', begin_pos);
-    if (pos == string::npos) {
-        return;
-    }
-
-    string prime_new_value = "'"+ new_value + "'";
-    str.replace(pos, 1, prime_new_value);
-
-    begin_pos = pos + prime_new_value.size();
-}
-
-void replace_mark(string& str, uint32_t new_value, uint32_t& begin_pos)
-{
-    stringstream ss;
-    ss << new_value;
-
-    string str_value = ss.str();
-    string::size_type pos = str.find('?', begin_pos);
-    if (pos == string::npos) {
-        return;
-    }
-
-    str.replace(pos, 1, str_value);
-    begin_pos = pos + str_value.size();
+    return stoul(value);
 }
 
 void writePid(){
@@ -299,52 +262,6 @@ void replace_string(string &str,const string &org_str,const string &replace_str)
         str.replace(index,org_str.size(),replace_str);
     }
 }
-//
-//const char* memfind(const char *src_str,size_t src_len, const char *sub_str, size_t sub_len, bool flag)
-//{
-//    if(NULL == src_str || NULL == sub_str || src_len <= 0)
-//    {
-//        return NULL;
-//    }
-//    if(src_len < sub_len)
-//    {
-//        return NULL;
-//    }
-//    const char *p;
-//    if (sub_len == 0)
-//        sub_len = strlen(sub_str);
-//    if(src_len == sub_len)
-//    {
-//        if(0 == (memcmp(src_str, sub_str, src_len)))
-//        {
-//            return src_str;
-//        }
-//        else
-//        {
-//            return NULL;
-//        }
-//    }
-//    if(flag)
-//    {
-//        for (int i = 0; i < src_len - sub_len; i++)
-//        {
-//            p = src_str + i;
-//            if(0 == memcmp(p, sub_str, sub_len))
-//                return p;
-//        }
-//    }
-//    else
-//    {
-//        for ( int i = (src_len - sub_len) ; i >= 0;i--  )
-//        {
-//            p = src_str + i;
-//            if ( 0 == memcmp(  p,sub_str,sub_len ) )
-//                return p;
-//
-//        }
-//    }
-//    return NULL;
-//}
 
 bool list_int_contains(list<uint32_t> &l,uint32_t i){
     auto it = std::find(l.begin(), l.end(), i);

@@ -142,7 +142,7 @@ clean_dir() {
   CMAKE_DIR=$1
   echo "clean $CMAKE_DIR"
   cd $CMAKE_DIR
-  rm -rf CMakeCache.txt CMakeFiles CTestTestfile.cmake cmake_install.cmake Testing Makefile cmake-build-debug
+  rm -rf *.a CMakeCache.txt CMakeFiles CTestTestfile.cmake cmake_install.cmake Testing Makefile cmake-build-debug
   rm -rf build
 }
 
@@ -165,9 +165,11 @@ function clean_ptp() {
               clean_dir $CUR_DIR/src/$dir
         fi
       done
+      rm -rf clean_dir $CUR_DIR/src/ptp_protobuf/proto-v1/gen
+      clean_dir $CUR_DIR/tests/test_server/actions
       clean_dir $CUR_DIR/third_party/gtest
       clean_dir $CUR_DIR/third_party/gtest/googlemock
-      clean_dir $CUR_DIR/third_party/gtest/googletest
+      clean_dir $CUR_DIR/third_party/gtest/googletestg
       cd $CUR_DIR/third_party/protobuf
       rm -rf build
       cd $CUR_DIR/third_party/redis
@@ -177,7 +179,7 @@ function clean_ptp() {
       cd $CUR_DIR/third_party/secp256k1
       rm -rf build
       cd $CUR_DIR
-      rm -rf build
+      rm -rf build bin lib _deps .cmake
 }
 
 function run_redis_dev_server() {

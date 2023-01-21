@@ -51,7 +51,7 @@ namespace ACTION_BUDDY {
                     CModelGroup::getUserGroupPairs(pCacheConnGroup,pair_user_ids,auth_uid,msg.buddy_updated_time());
 
                     for(const auto& it : pair_user_ids){
-                        uint32_t pair_uid = string2int(it);
+                        uint32_t pair_uid = string_to_int(it);
                         if(pair_uid == auth_uid){
                             continue;
                         }

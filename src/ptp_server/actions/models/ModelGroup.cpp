@@ -33,7 +33,7 @@ CModelGroup* CModelGroup::getInstance()
 
 uint32_t CModelGroup::getGroupIdByAddress(CacheConn *pCacheConnGroup,const string& group_address){
     auto group_id_str =  pCacheConnGroup->get(GROUP_ADDRESS_ID_PREFIX + group_address);
-    return group_id_str.empty() ? 0 : (uint32_t)string2int(group_id_str);
+    return group_id_str.empty() ? 0 : (uint32_t)string_to_int(group_id_str);
 }
 
 uint32_t CModelGroup::genGroupId(CacheConn *pCacheConnGroup){
@@ -78,7 +78,7 @@ uint32_t CModelGroup::getGroupPairRelation(CacheConn *pCacheConnGroup,uint32_t f
     } else {
         group_id_str = pCacheConnGroup->hget(GROUP_PAIR_USER_REL_PREFIX + to_string(second_uid), to_string(first_uid));
     }
-    return group_id_str.empty() ? 0 : string2int(group_id_str);
+    return group_id_str.empty() ? 0 : string_to_int(group_id_str);
 }
 
 void CModelGroup::updateGroupMembersUpdate(CacheConn *pCacheConnGroup,list<string> &group_member_ids,uint32_t group_id,uint32_t updated_time){
@@ -193,7 +193,7 @@ void CModelGroup::getUpdatedGroups(CacheConn *pCacheConnGroup,list<uint32_t> &gr
         group_ids1.push_back(group_id);
         advance(it,1);
         string status = *it;
-        if((GroupMemberStatus)string2int(status) == PTP::Common::GROUP_MEMBER_STATUS_DEL){
+        if((GroupMemberStatus)string_to_int(status) == PTP::Common::GROUP_MEMBER_STATUS_DEL){
             group_ids_del.push_back(group_id);
         }
     }
@@ -208,14 +208,14 @@ void CModelGroup::getUpdatedGroups(CacheConn *pCacheConnGroup,list<uint32_t> &gr
 
     auto it_group = group_ids1.begin();
     for(string &group_updated_time:group_update_time_list){
-        if(string2int(group_updated_time) > updated_time){
-            group_ids.push_back(string2int(*it_group));
+        if(string_to_int(group_updated_time) > updated_time){
+            group_ids.push_back(string_to_int(*it_group));
         }
         it_group++;
     }
     for(string &group_id:group_ids_del){
-        if(list_int_contains(group_ids,string2int(group_id))){
-            removed_group_ids.push_back(string2int(group_id));
+        if(list_int_contains(group_ids,string_to_int(group_id))){
+            removed_group_ids.push_back(string_to_int(group_id));
         }
     }
 }
@@ -266,9 +266,9 @@ void CModelGroup::handleGroupGetCacheArgv(list<string> &get_argv,uint32_t group_
 }
 
 void CModelGroup::handleGroupInfoCache(GroupInfo *group,list<string>::iterator it) {
-    group->set_group_idx(string2int(*it));
+    group->set_group_idx(string_to_int(*it));
     advance(it,1);
-    group->set_group_type((PTP::Common::GroupType)string2int(*it));
+    group->set_group_type((PTP::Common::GroupType)string_to_int(*it));
     advance(it,1);
     group->set_group_adr(it->c_str());
     advance(it,1);
@@ -278,13 +278,13 @@ void CModelGroup::handleGroupInfoCache(GroupInfo *group,list<string>::iterator i
     advance(it,1);
     group->set_avatar(it->c_str());
     advance(it,1);
-    group->set_owner_uid(string2int(*it));
+    group->set_owner_uid(string_to_int(*it));
     advance(it,1);
-    group->set_pair_uid(string2int(*it));
+    group->set_pair_uid(string_to_int(*it));
     advance(it,1);
-    group->set_updated_time(string2int(*it));
+    group->set_updated_time(string_to_int(*it));
     advance(it,1);
-    group->set_created_time(string2int(*it));
+    group->set_created_time(string_to_int(*it));
 }
 
 void CModelGroup::getGroupInfoById(CacheConn *pCacheConnGroup,GroupInfo *group,uint32_t group_id){

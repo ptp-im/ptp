@@ -50,7 +50,7 @@ bool CInterLoginStrategy::ServerLogin(PTP::Server::ServerLoginReq *msg, PTP::Com
                 user_id_long = pCacheConn->incrBy(CACHE_INCR_USER_ID,99999);
             }
             list<string> argv;
-            string user_id_str1 = int2string(user_id_long);
+            string user_id_str1 = to_string(user_id_long);
             argv.emplace_back("MSET");
             argv.push_back(CACHE_USER_ADR_ID_PREFIX + address_hex);
             argv.push_back(user_id_str1);
@@ -59,7 +59,7 @@ bool CInterLoginStrategy::ServerLogin(PTP::Server::ServerLoginReq *msg, PTP::Com
             argv.push_back(CACHE_USER_ID_ADR_PREFIX + user_id_str1);
             argv.push_back(address_hex);
             argv.push_back(CACHE_USER_ID_LOGIN_TIME_PREFIX + user_id_str1);
-            argv.push_back(int2string(unix_timestamp()));
+            argv.push_back(to_string(unix_timestamp()));
             pCacheConn->exec(&argv, nullptr);
             user_id = (uint32_t)(atoi(user_id_str1.c_str()));
         }else{

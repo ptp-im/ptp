@@ -32,31 +32,14 @@ uint64_t unix_timestamp_m();
 uint64_t get_tick_count();
 void util_sleep(uint32_t millisecond);
 char* replaceStr(char* pSrc, char oldChar, char newChar);
-string int2string(uint32_t user_id);
-string int64ToString(uint64_t user_id);
-uint32_t string2int(const string& value);
-/**
- * @deprecated
- * @param str
- * @param new_value
- * @param begin_pos
- */
-void replace_mark(string& str, string& new_value, uint32_t& begin_pos);
-/**
- * @deprecated
- * @param str
- * @param new_value
- * @param begin_pos
- */
-void replace_mark(string& str, uint32_t new_value, uint32_t& begin_pos);
-
+int string_to_int(const string& value);
+uint64_t string_to_uint64(const string& value);
 void writePid();
 void writePid(const string& name);
 unsigned char toHex(const unsigned char &x);
 unsigned char fromHex(const unsigned char &x);
 string URLEncode(const string &sIn);
 string URLDecode(const string &sIn);
-//const char* memfind(const char *src_str,size_t src_len, const char *sub_str, size_t sub_len, bool flag = true);
 bool file_exists(const char * name);
 void make_dir(const char * dir);
 void remove_file(const char * name);

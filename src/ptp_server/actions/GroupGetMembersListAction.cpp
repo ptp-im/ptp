@@ -53,7 +53,7 @@ namespace ACTION_GROUP {
 
                     for(string &user_id : member_ids){
                         PTP::Common::GroupMember* group_member = msg_rsp.add_group_members();
-                        group_member->set_uid(string2int(user_id));
+                        group_member->set_uid(string_to_int(user_id));
                         group_member->set_member_status(PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
                     }
                     list<string> updated_member_ids;
@@ -61,7 +61,7 @@ namespace ACTION_GROUP {
 
                     for(string &user_id : updated_member_ids){
                         PTP::Common::UserInfo * user = msg_rsp.add_members();
-                        CModelBuddy::getUserInfo(pCacheConnAuth,user,string2int(user_id));
+                        CModelBuddy::getUserInfo(pCacheConnAuth,user,string_to_int(user_id));
                     }
 
                     msg_rsp.set_group_id(group_id);

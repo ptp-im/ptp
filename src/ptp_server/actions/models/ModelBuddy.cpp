@@ -55,16 +55,16 @@ void CModelBuddy::handleUserInfoCache(PTP::Common::UserInfo *user,list<string>::
     advance(it,1);
     user->set_last_name(it->c_str());
     advance(it,1);
-    user->set_login_time(string2int(*it));
+    user->set_login_time(string_to_int(*it));
     advance(it,1);
-    user->set_status(it->empty() ? (uint32_t)0 : string2int(*it));
+    user->set_status(it->empty() ? (uint32_t)0 : string_to_int(*it));
 }
 
 void CModelBuddy::getUserInfo(CacheConn *pCacheConn,PTP::Common::UserInfo *user,uint32_t user_id){
     list<string> argv;
     list<string> list_ret;
     argv.emplace_back("MGET");
-    CModelBuddy::handleUserInfoCacheArgv(argv,int2string(user_id));
+    CModelBuddy::handleUserInfoCacheArgv(argv,to_string(user_id));
     pCacheConn->exec(&argv, &list_ret);
     auto it = list_ret.begin();
     CModelBuddy::handleUserInfoCache(user,it);

@@ -103,7 +103,7 @@ void CModelMsg::getUnReadMsgList(CacheConn *pCacheConnMsg,uint32_t user_id,uint3
         advance(it,0);
         string group_id_str = *it;
         advance(it,1);
-        uint32_t unread_cnt = string2int(*it);
+        uint32_t unread_cnt = string_to_int(*it);
         total += unread_cnt;
         argv_group_msg.push_back(GROUP_LATEST_MSG_DATA_BY_ID_PREFIX+group_id_str);
     }

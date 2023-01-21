@@ -56,9 +56,9 @@ namespace ACTION_GROUP {
                         string member_id = *it;
                         advance(it,1);
                         string status = *it;
-                        if((GroupMemberStatus)string2int(status) == PTP::Common::GROUP_MEMBER_STATUS_NORMAL){
-                            if(string2int(member_id) == auth_uid){
-                                msg_rsp.add_notify_members(string2int(member_id));
+                        if((GroupMemberStatus)string_to_int(status) == PTP::Common::GROUP_MEMBER_STATUS_NORMAL){
+                            if(string_to_int(member_id) == auth_uid){
+                                msg_rsp.add_notify_members(string_to_int(member_id));
                             }
                         }
                     }

@@ -119,7 +119,7 @@ void CSyncCenter::stopSync()
 //        pCacheManager->RelCacheConn(pCacheConn);
 //	if(strTotalUpdate != "")
 //        {
-//            m_nLastUpdate = string2int(strTotalUpdate);
+//            m_nLastUpdate = string_to_int(strTotalUpdate);
 //        }
 //        else
 //        {
@@ -127,7 +127,7 @@ void CSyncCenter::stopSync()
 //        }
 //        if(strLastUpdateGroup.empty())
 //        {
-//            m_nLastUpdateGroup = string2int(strLastUpdateGroup);
+//            m_nLastUpdateGroup = string_to_int(strLastUpdateGroup);
 //        }
 //        else
 //        {
@@ -153,7 +153,7 @@ void CSyncCenter::stopSync()
 //        last_update_lock_.lock();
 //        m_nLastUpdate = nUpdated;
 //        last_update_lock_.unlock();
-//        string strUpdated = int2string(nUpdated);
+//        string strUpdated = to_string(nUpdated);
 //        pCacheConn->set("total_user_update", strUpdated);
 //        pCacheManager->RelCacheConn(pCacheConn);
 //    }
@@ -175,7 +175,7 @@ void CSyncCenter::stopSync()
 //    if (pCacheConn) {
 //        last_update_lock_.lock();
 //        m_nLastUpdateGroup = nUpdated;
-//        string strUpdated = int2string(nUpdated);
+//        string strUpdated = to_string(nUpdated);
 //        last_update_lock_.unlock();
 //
 //        pCacheConn->set("last_update_group", strUpdated);
@@ -204,7 +204,7 @@ void CSyncCenter::stopSync()
 //        CDBConn* pDBConn = pDBManager->GetDBConn("bd_slave");
 //        if(pDBConn)
 //        {
-//            string strSql = "select id, lastChated from bd_im_group where status=0 and lastChated >=" + int2string(m_pInstance->getLastUpdateGroup());
+//            string strSql = "select id, lastChated from bd_im_group where status=0 and lastChated >=" + to_string(m_pInstance->getLastUpdateGroup());
 //            CResultSet* pResult = pDBConn->ExecuteQuery(strSql.c_str(),true);
 //            if(pResult)
 //            {

@@ -113,6 +113,10 @@ function run() {
         if [[ $app == "daeml" ]]; then
           continue
         fi
+
+        if [[ $app == "conf" ]]; then
+          continue
+        fi
         echo $0 "run $app"
       done
       cd $PTP_DIR

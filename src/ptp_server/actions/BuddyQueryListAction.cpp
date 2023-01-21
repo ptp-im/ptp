@@ -66,7 +66,7 @@ namespace ACTION_BUDDY {
                     if(!user_ids.empty()){
                         for(const string&user_id:user_ids){
                             auto *buddy = msg_rsp.add_buddy_list();
-                            CModelBuddy::getUserInfo(pCacheConn,buddy, string2int(user_id));
+                            CModelBuddy::getUserInfo(pCacheConn,buddy, string_to_int(user_id));
                             CImUser *pImUser = CImUserManager::GetInstance()->GetImUserByAddress(buddy->address());
                             buddy->set_is_online(pImUser != nullptr);
                         }

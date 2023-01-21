@@ -590,7 +590,7 @@ void AccountManager::signGroupMessage(const string &message,int32_t groupIdx,uns
     }
     auto mnemonicRes = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy,"en");
     PTPWallet::HDKey hdKey = PTPWallet::HDKeyEncoder::makeBip32RootKey(mnemonicRes.raw.data());
-    string groupIdxStr = int2string(groupIdx);
+    string groupIdxStr = to_string(groupIdx);
     PTPWallet::HDKeyEncoder::makeExtendedKey(hdKey, PTP_GROUP_HD_PATH+groupIdxStr);
     string msg_data = AccountManager::format_sign_msg_data(groupIdxStr+message,SignMsgType_ptp_group);
     secp256k1_context *ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
@@ -608,7 +608,7 @@ string AccountManager::getAccountGroupAddress(uint32_t groupIdx){
     }
     auto mnemonicRes = PTPWallet::MnemonicHelper::entropyHexToMnemonic(entropy,"en");
     PTPWallet::HDKey hdKey = PTPWallet::HDKeyEncoder::makeBip32RootKey(mnemonicRes.raw.data());
-    string groupIdxStr = int2string(groupIdx);
+    string groupIdxStr = to_string(groupIdx);
     PTPWallet::HDKeyEncoder::makeExtendedKey(hdKey, PTP_GROUP_HD_PATH+groupIdxStr);
     string address = PTPWallet::HDKeyEncoder::getEthAddress(hdKey);
     DEBUG_D("signGroupMessage group address:%s", address.c_str());

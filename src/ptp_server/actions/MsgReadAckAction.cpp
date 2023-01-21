@@ -39,8 +39,8 @@ namespace ACTION_MSG {
                 CModelGroup::getGroupMembersByStatus(pCacheConn,member_ids,msg.group_id(),PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
                 for(string &user_id:member_ids){
                     if(user_id != to_string(msg.auth_uid())){
-                        CModelMsg::updateUnReadMsg(pCacheConn,msg.group_id(),string2int(user_id),true);
-                        msg_notify.add_notify_users(string2int(user_id));
+                        CModelMsg::updateUnReadMsg(pCacheConn,msg.group_id(),string_to_int(user_id),true);
+                        msg_notify.add_notify_users(string_to_int(user_id));
                     }
                 }
                 msg_notify.set_from_uid(msg.auth_uid());

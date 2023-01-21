@@ -57,7 +57,7 @@ namespace ACTION_GROUP {
                         CModelGroup::getGroupMembersByStatus(pCacheConn,member_ids,group_id,PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
                         if(!member_ids.empty()){
                             for(const string &user_id:member_ids){
-                                msg_rsp.add_notify_members(string2int(user_id));
+                                msg_rsp.add_notify_members(string_to_int(user_id));
                             }
                         }
                     }

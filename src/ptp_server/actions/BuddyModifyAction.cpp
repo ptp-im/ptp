@@ -59,7 +59,7 @@ namespace ACTION_BUDDY {
                         CModelGroup::getUserGroupPairs(pCacheConnGroup,pair_user_ids,auth_uid);
                         if(!pair_user_ids.empty()){
                             for(const string &user_id:pair_user_ids){
-                                msg_rsp.add_notify_pairs(string2int(user_id));
+                                msg_rsp.add_notify_pairs(string_to_int(user_id));
                             }
                         }
                         list<string> group_ids;
@@ -69,7 +69,7 @@ namespace ACTION_BUDDY {
                                 list<string> group_member_ids;
                                 group_member_ids.push_back(to_string(auth_uid));
                                 CModelGroup::updateGroupMembersUpdate(
-                                        pCacheConnGroup,group_member_ids, string2int(group_id),(uint32_t)time(nullptr));
+                                        pCacheConnGroup,group_member_ids, string_to_int(group_id),(uint32_t)time(nullptr));
                             }
                         }
                     }

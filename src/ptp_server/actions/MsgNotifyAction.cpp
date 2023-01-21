@@ -51,8 +51,8 @@ namespace ACTION_MSG {
                 CModelGroup::getGroupMembersByStatus(pCacheConn,member_ids,group_id,PTP::Common::GROUP_MEMBER_STATUS_NORMAL);
                 for(string &user_id:member_ids){
                     if(user_id != to_string(msg_info.from_uid())){
-                        msg.add_notify_users(string2int(user_id));
-                        CModelMsg::updateUnReadMsg(pCacheConn,group_id,string2int(user_id),false);
+                        msg.add_notify_users(string_to_int(user_id));
+                        CModelMsg::updateUnReadMsg(pCacheConn,group_id,string_to_int(user_id),false);
                     }
                 }
                 pCacheManager->RelCacheConn(pCacheConn);
