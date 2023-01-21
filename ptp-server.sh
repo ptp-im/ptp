@@ -117,6 +117,9 @@ function run() {
         if [[ $app == "conf" ]]; then
           continue
         fi
+        if [[ $app == "log" ]]; then
+          continue
+        fi
         echo $0 "run $app"
       done
       cd $PTP_DIR
