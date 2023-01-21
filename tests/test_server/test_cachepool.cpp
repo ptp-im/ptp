@@ -230,7 +230,7 @@ TEST(cachepool, create_group) {
     uint32_t user_id_3 = pMsgConn3.GetUserId();
 
     auto groupType = PTP::Common::GROUP_TYPE_MULTI;
-    createGroup(&pMsgConn1,groupType,user_id_1,user_id_2,10011);
+    createGroup1(&pMsgConn1,groupType,user_id_1,user_id_2,10011);
 
     groupType = PTP::Common::GROUP_TYPE_PAIR;
     createGroup1(&pMsgConn1,groupType,user_id_1,user_id_3,10011);
