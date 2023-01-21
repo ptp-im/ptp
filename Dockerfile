@@ -10,19 +10,24 @@ FROM sanfun/ptp-cpp:0-${VARIANT}
 #RUN apt-get -y install --no-install-recommends redis-server redis-tools
 #RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-#WORKDIR     /workspaces/ptp/
-ADD     ./  /workspaces/ptp/
+RUN curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg \
+  && echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
 
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install build-essential redis
+
+ADD     ./  /workspaces/ptp/
+WORKDIR     /workspaces/ptp/
 RUN chmod +x ./ptp-ctl.sh && ./ptp-ctl.sh clean_ptp
 
 # docker build -t ptp-cpp:latest -f Dockerfile ./
 # docker run -it ptp-cpp:latest bash
 #
-# docker tag ptp-cpp:1.0.1 sanfun/ptp-cpp:1.0.1
-# docker tag sanfun/ptp-cpp:1.0.1 sanfun/ptp-cpp:latest
-# docker tag sanfun/ptp-cpp:1.0.1 sanfun/ptp-cpp:0-ubuntu-20.04
+# docker tag ptp-cpp:latest sanfun/ptp-cpp:1.0.2
+# docker tag sanfun/ptp-cpp:1.0.2 sanfun/ptp-cpp:latest
+# docker tag sanfun/ptp-cpp:1.0.2 sanfun/ptp-cpp:0-ubuntu-20.04
 # docker login
 # docker push sanfun/ptp-cpp:latest
-# docker push sanfun/ptp-cpp:1.0.1
+# docker push sanfun/ptp-cpp:1.0.2
 # docker push sanfun/ptp-cpp:0-ubuntu-20.04
 #

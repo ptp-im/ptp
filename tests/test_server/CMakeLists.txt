@@ -22,5 +22,3 @@ target_link_libraries(test_utils.run PRIVATE gtest_main test_init ptp_global ptp
 
 add_executable(test_upload.run test_upload.cpp)
 target_link_libraries(test_upload.run PRIVATE gtest_main test_init ptp_global ptp_protobuf)
-
-add_subdirectory("actions")

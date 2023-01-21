@@ -169,7 +169,7 @@ function clean_ptp() {
       clean_dir $CUR_DIR/tests/test_server/actions
       clean_dir $CUR_DIR/third_party/gtest
       clean_dir $CUR_DIR/third_party/gtest/googlemock
-      clean_dir $CUR_DIR/third_party/gtest/googletestg
+      clean_dir $CUR_DIR/third_party/gtest/googletest
       cd $CUR_DIR/third_party/protobuf
       rm -rf build
       cd $CUR_DIR/third_party/redis
@@ -248,7 +248,7 @@ function copy_to_build() {
 }
 function run_docker() {
     mkdir -p "$PTP_DIR"/docker/prod/build
-    docker run -v "$PTP_DIR"/docker/prod/build:/workspaces/ptp/build -it ptp-cpp:latest bash
+    docker run -v "$PTP_DIR"/src:/workspaces/ptp/src -v "$PTP_DIR"/tests:/workspaces/ptp/tests -v "$PTP_DIR"/docker/prod/build:/workspaces/ptp/build -it ptp-cpp:latest bash
 }
 case $1 in
 	build)
