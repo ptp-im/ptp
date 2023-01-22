@@ -11,6 +11,7 @@
 
 TEST(ptp_protobuf, ActionCommands) {
     DEBUG_D("%s",getActionCommandsName(CID_AuthCaptchaReq).c_str());
+    ASSERT_EQ(getActionCommandsName(CID_AuthCaptchaReq), to_string(CID_AuthCaptchaReq) + ":CID_AuthCaptchaReq");
 }
 
 TEST(ptp_protobuf, Global_ERR) {

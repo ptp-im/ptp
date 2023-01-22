@@ -5,7 +5,6 @@ endif(COMMAND cmake_policy)
 set(LIB_NAME_MAIN ptp_server_msg)
 project(${LIB_NAME_MAIN})
 MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
-INCLUDE_DIRECTORIES(./)
-INCLUDE_DIRECTORIES(../ptp_protobuf/)
+
 ADD_EXECUTABLE(${LIB_NAME_MAIN} main.cpp)
 TARGET_LINK_LIBRARIES(${LIB_NAME_MAIN} ptp_server ptp_global)

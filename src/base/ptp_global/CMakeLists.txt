@@ -2,11 +2,12 @@ set(LIB_NAME_MAIN ptp_global)
 MESSAGE( STATUS ===>>> ${LIB_NAME_MAIN} )
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 
-INCLUDE_DIRECTORIES(../)
-INCLUDE_DIRECTORIES(../../include)
-
 if(ANDROID)
-    SET(LIBRARY_OUTPUT_PATH  ../../lib)
+    SET(LIBRARY_OUTPUT_PATH  ../../../lib)
+    INCLUDE_DIRECTORIES(../)
+    INCLUDE_DIRECTORIES(../../../include)
+else()
+
 endif()
 
 add_library(${LIB_NAME_MAIN} STATIC ${SRC_LIST})

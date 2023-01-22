@@ -93,25 +93,44 @@ function run_test() {
 function build_app() {
   app=$2
   if [ "$2" == "" ]; then
+      # shellcheck disable=SC2164
       cd $PTP_DIR/src/
       apps=$(ls ./ | tr " " "\n")
       for app in $apps
       do
-        if [ -d $CUR_DIR/src/$app ]; then
-           echo $0 "build $app"
+        if [ "$app" == "base" ]; then
+          # shellcheck disable=SC2164
+          cd $PTP_DIR/src/base
+          apps1=$(ls ./ | tr " " "\n")
+          for app1 in $apps1
+          do
+            if [ -d $CUR_DIR/src/base/$app1 ]; then
+               echo $0 "build base/$app1"
+            fi
+          done
+        else
+          if [ -d $CUR_DIR/src/$app ]; then
+             echo $0 "build $app"
+          fi
         fi
       done
+      # shellcheck disable=SC2164
       cd $PTP_DIR
   else
     echo "build $app"
+    if [ -d $PTP_DIR/src/$app ]; then
+      # shellcheck disable=SC2164
       cd $PTP_DIR
       run_cmake
+      # shellcheck disable=SC2164
       cd $PTP_DIR/src/$app
       make
       if [ -e main.cpp  ]; then
+        # shellcheck disable=SC2164
         cd  $PTP_DIR/build/bin
         ./$app
       fi
+    fi
   fi
 }
 
@@ -142,6 +161,7 @@ clean_dir() {
   CMAKE_DIR=$1
   echo "clean $CMAKE_DIR"
   cd $CMAKE_DIR
+  rm -rf *.cbp
   rm -rf *.a CMakeCache.txt CMakeFiles CTestTestfile.cmake cmake_install.cmake Testing Makefile cmake-build-debug
   rm -rf build
 }
@@ -323,7 +343,7 @@ case $1 in
 		cp $PTP_DIR/tests/log4cxx.nostdout.properties $PTP_DIR/build/bin/log4cxx.properties
   ;;
 	gen_pb)
-	  $PTP_DIR/src/ptp_protobuf/proto-v1/tools/create.sh
+	  $PTP_DIR/src/base/ptp_protobuf/proto-v1/tools/create.sh
   ;;
 	*)
 		print_usage
