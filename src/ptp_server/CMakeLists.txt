@@ -15,6 +15,9 @@ AUX_SOURCE_DIRECTORY(./actions SRC_LIST)
 AUX_SOURCE_DIRECTORY(./actions/models SRC_LIST)
 AUX_SOURCE_DIRECTORY(./services SRC_LIST)
 AUX_SOURCE_DIRECTORY(./msfs SRC_LIST)
+AUX_SOURCE_DIRECTORY(./route SRC_LIST)
+AUX_SOURCE_DIRECTORY(./login SRC_LIST)
+
 AUX_SOURCE_DIRECTORY(../../include/jsoncpp SRC_LIST)
 
 set(COMMON_LIBS pthread mysqlclient_r curl hiredis slog crypto secp256k1 ptp_global ptp_crypto ptp_protobuf ptp_wallet)

@@ -37,6 +37,22 @@ static string m_config_conf_temp = "" \
 "group_auth=\n" \
 "group_db=2\n" \
 "group_maxconncnt=16\n\n" \
+"PUSH_ListenIP=0.0.0.0\n" \
+"PUSH_ListenPort=7861\n" \
+"CertPath=conf/apns-dev-cert.pem\n" \
+"KeyPath=conf/apns-dev-key.pem\n" \
+"KeyPassword=ZZZ@WWWW\n" \
+"SandBox=1\n\n" \
+"LOGIN_ClientListenIP=0.0.0.0\n" \
+"LOGIN_ClientPort=7831\n" \
+"LOGIN_HttpListenIP=0.0.0.0\n" \
+"LOGIN_HttpPort=7831\n" \
+"LOGIN_MSG_ListenIP=0.0.0.0\n" \
+"LOGIN_MSG_ListenPort=7833\n" \
+"URL_msfs=http://127.0.0.1:7841\n" \
+"URL_discovery=http://127.0.0.1\n\n" \
+"ROUTE_ListenIP=0.0.0.0\n" \
+"ROUTE_ListenPort=7851\n\n" \
 "MSFS_BaseDir=./data/msfs\n" \
 "MSFS_FilesPerDir=30000\n" \
 "MSFS_GetThreadCount=32\n" \
@@ -46,7 +62,7 @@ static string m_config_conf_temp = "" \
 "MSFS_Site=127.0.0.1\n" \
 "MsfsSite=127.0.0.1\n\n";
 
-static string m_config_conf = "";
+static string m_config_conf;
 
 void set_config_path(const string &path){
     m_config_path = path;

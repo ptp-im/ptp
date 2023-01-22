@@ -666,7 +666,7 @@ int run_ptp_server_msfs(int argc, char *argv[]) {
     char* nGetThreadCount_str = config_file.GetConfigName("MSFS_GetThreadCount");
 
     if (!listen_ip_str || !listen_port_str) {
-        DEBUG_E("config file miss ws_listen, exit... ");
+        DEBUG_E("config file miss IP and port, exit... ");
         return -1;
     }
     if(!base_dir){
@@ -707,6 +707,7 @@ int run_ptp_server_msfs(int argc, char *argv[]) {
             return -1;
         }
     }
+
     CConfigFileReader config_count_file(CONFIG_COUNT_FILE);
     char *str_file_cnt = config_count_file.GetConfigName("FileCnt");
 
