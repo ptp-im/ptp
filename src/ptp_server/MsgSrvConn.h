@@ -3,9 +3,12 @@
 
 #include "ptp_global/ImConn.h"
 #include "ptp_protobuf/ImPdu.h"
+#include "ptp_global/HttpParserWrapper.h"
 #include "FileConfig.h"
 #include "CachePool.h"
 #include "Request.h"
+#include "ws/websocket_request.h"
+#include "ws/websocket_respond.h"
 
 #define READ_BUF_SIZE_MSG_SRV	    1024
 #define MAX_READ_BUF_SIZE_MSG_SRV	2048
@@ -75,6 +78,13 @@ public:
     string 			m_client_id;
     bool 			m_is_intel;
 
+    bool            is_hand_shake;
+    char            buff_[2048];
+    int             fd_;
+    bool            m_is_websocket;
+    void SendMessageToWS(const char* msg);
+    void SendBufMessageToWS(void *data,int messageLength);
+
 private:
     void _HandleHeartBeatNotify(CRequest *requestPdu);
 
@@ -99,11 +109,15 @@ private:
     bool            m_test;
     CSimpleBuffer   m_test_buf;
 
+
+    CHttpParserWrapper m_HttpParser;
+    Websocket_Request *ws_request;
+    Websocket_Respond *ws_respond;
 };
 
 void init_msg_conn();
 CMsgSrvConn *FindMsgSrvConnByHandle(uint32_t conn_handle);
 void addMsgSrvConnByHandle(uint32_t conn_handle,CMsgSrvConn *pConn);
-int run_ptp_server_msg(int argc, char* argv[]);
+int run_ptp_server_msg(int argc, char* argv[],bool isWs = false);
 
 #endif /* __MSG_SRV_CONN_H__ */

@@ -2,6 +2,8 @@
 
 static string m_config_path = "conf/bd_server.conf";
 static string m_config_conf_temp = "" \
+"WS_ListenIP=0.0.0.0\n" \
+"WS_ListenPort=7871\n" \
 "MSG_ListenIP=0.0.0.0\n" \
 "MSG_ListenPort=7881\n" \
 "MSG_ConcurrentDBConnCnt=2\n" \

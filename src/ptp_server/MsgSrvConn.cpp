@@ -13,6 +13,8 @@
 #include "PTP.Other.pb.h"
 #include "FileConfig.h"
 
+static bool g_is_websocket;
+
 using namespace PTP::Common;
 
 #define DEFAULT_CONCURRENT_DB_CONN_CNT  2
@@ -37,7 +39,9 @@ void ptp_server_msg_callback(void* callback_data, uint8_t msg, uint32_t handle, 
 {
     if (msg == NETLIB_MSG_CONNECT)
     {
+        DEBUG_I("g_is_websocket: %d ", g_is_websocket);
         auto* pConn = new CMsgSrvConn();
+        pConn->m_is_websocket = g_is_websocket;
         pConn->OnConnect((int)handle);
     }
     else
@@ -127,7 +131,10 @@ CMsgSrvConn::CMsgSrvConn()
     m_last_seq_no = 0;
     m_msg_cnt_per_sec = 0;
     m_send_msg_list.clear();
-    m_online_status = PTP::Common::USER_STAT_ONLINE;
+    m_online_status = PTP::Common::USER_STAT_OFFLINE;
+
+    ws_request = new Websocket_Request();
+    ws_respond = new Websocket_Respond();
 }
 
 CMsgSrvConn::~CMsgSrvConn(){}
@@ -236,16 +243,70 @@ void CMsgSrvConn::OnRead()
     }
     //DEBUG_D("pid=%d,handle=%d,m_in_buf size=%d",getpid(),GetHandle(),m_in_buf.GetWriteOffset());
     CImPdu* pPdu = NULL;
+    DEBUG_I("m_is_websocket: %d ", m_is_websocket);
     try
     {
-        while ( ( pPdu = CImPdu::ReadPdu(m_in_buf.GetBuffer(), m_in_buf.GetWriteOffset()) ) )
-        {
-            uint32_t pdu_len = pPdu->GetLength();
-            HandlePdu(pPdu);
-            m_in_buf.Read(NULL, pdu_len);
-            delete pPdu;
-            pPdu = NULL;
+        if(m_is_websocket){
+
+            char *in_buf = (char *) m_in_buf.GetBuffer();
+            uint32_t buf_len = m_in_buf.GetWriteOffset();
+            if(buf_len != 16 && buf_len != 22){
+                DEBUG_D("read buf_len: %d", buf_len);
+            }
+            if (!is_hand_shake) {
+                strcpy(buff_, in_buf);
+                char *b = strdup("Connection: Upgrade");
+                if (strstr(in_buf, b) != NULL) {
+                    char *c = strdup("Sec-WebSocket-Key:");
+                    if (strstr(in_buf, c) != NULL) {
+                        char request[1024] = {};
+                        ws_respond->fetch_http_info(buff_);
+                        ws_respond->parse_str(request);
+                        //发送握手回复
+                        Send(request, (uint32_t) strlen(request));
+                        is_hand_shake = true;
+                        memset(buff_, 0, sizeof(buff_));
+                    } else {
+                        Close();
+                    }
+                } else {
+                    Close();
+                }
+                return;
+            }
+            ws_request->reset();
+            ws_request->fetch_websocket_info(in_buf);
+
+            if (in_buf) {
+                memset(in_buf, 0, strlen(in_buf));
+            }
+            if (ws_request->opcode_ == 0x1) {
+                Close();
+            }if (ws_request->opcode_ == 0x2) {
+                auto buf = (unsigned char *)ws_request->payload_;
+                auto len = ws_request->payload_length_;
+                while ( ( pPdu = CImPdu::ReadPdu(buf, len) ) )
+                {
+                    uint32_t pdu_len = pPdu->GetLength();
+                    HandlePdu(pPdu);
+                    m_in_buf.Read(NULL, pdu_len);
+                    delete pPdu;
+                    pPdu = NULL;
+                }
+            } else if (ws_request->opcode_ == 0x8) {//连接关闭
+                Close();
+            }
+        }else{
+            while ( ( pPdu = CImPdu::ReadPdu(m_in_buf.GetBuffer(), m_in_buf.GetWriteOffset()) ) )
+            {
+                uint32_t pdu_len = pPdu->GetLength();
+                HandlePdu(pPdu);
+                m_in_buf.Read(NULL, pdu_len);
+                delete pPdu;
+                pPdu = NULL;
+            }
         }
+
     } catch (CPduException& ex) {
         DEBUG_E("!!!catch exception, sid=%u, cid=%u, err_code=%u, err_msg=%s, close the connection ",
                 ex.GetServiceId(), ex.GetCommandId(), ex.GetErrorCode(), ex.GetErrorMsg());
@@ -375,12 +436,53 @@ int CMsgSrvConn::SendPdu(ImPdu *pPdu) {
             pPdu->SetPBMsg(cipherData,cipherDataLen);
             pPdu->Dump();
         }
-        return CImConn::SendPdu(pPdu);
+        if(g_is_websocket){
+            SendBufMessageToWS(pPdu->GetBuffer(),pPdu->GetLength());
+            return 1;
+        }else{
+            return CImConn::SendPdu(pPdu);
+        }
+
     }else{
         m_test_buf.Position(0);
         m_test_buf.Write(pPdu->GetBuffer(),pPdu->GetLength());
     }
     return 0;
+}
+
+void CMsgSrvConn::SendBufMessageToWS( void *data, int messageLength ) {
+    std::string outFrame;
+    if (messageLength > 20000) {
+        return;
+    }
+    uint8_t payloadFieldExtraBytes = (messageLength <= 0x7d) ? 0 : 2;
+    // header: 2字节, mask位设置为0(不加密), 则后面的masking key无须填写, 省略4字节
+    uint8_t frameHeaderSize = 2 + payloadFieldExtraBytes;
+    auto *frameHeader = new uint8_t[frameHeaderSize];
+    memset(frameHeader, 0, frameHeaderSize);
+
+//    fin位为1, 扩展位为0, 操作位为frameType
+//    TEXT_FRAME=0x81,
+//    BINARY_FRAME=0x82,
+//    frameHeader[0] = static_cast<uint8_t>(0x80 | 0x1);
+    frameHeader[0] = static_cast<uint8_t>(0x80 | 0x2);
+
+    if (messageLength <= 0x7d) {
+        frameHeader[1] = static_cast<uint8_t>(messageLength);
+    } else {
+        frameHeader[1] = 0x7e;
+        uint16_t len = htons(messageLength);
+        memcpy(&frameHeader[2], &len, payloadFieldExtraBytes);
+    }
+
+    // 填充数据
+    uint32_t frameSize = frameHeaderSize + messageLength;
+    char *frame = new char[frameSize];
+    memcpy(frame, frameHeader, frameHeaderSize);
+    memcpy(frame + frameHeaderSize, data, messageLength);
+    //frame[frameSize] = '\0';
+    Send(frame, frameSize);
+    delete[] frame;
 }
 
 ImPdu * CMsgSrvConn::ReadTestPdu() {
@@ -391,25 +493,25 @@ ImPdu * CMsgSrvConn::ReadTestPdu() {
     return pPdu;
 }
 
-int run_ptp_server_msg(int argc, char* argv[])
+int run_ptp_server_msg(int argc, char* argv[],bool isWs)
 {
+    g_is_websocket = isWs;
     bool isDebug = false;
 
     for (int i = 0; i < argc; ++i) {
         if(strcmp(argv[i], "--debug") == 0){
             isDebug = true;
-        }else if(strcmp(argv[i], "--debug") == 0){
-
         }
     }
     if(argc == 0 && argv == nullptr){
         isDebug = true;
     }
-    string server_name = "ptp_server_msg";
+    string server_name = isWs ? "ptp_server_ws" : "ptp_server_msg";
     slog_set_append(true,isDebug, true,LOG_PATH);
     DEBUG_I("Server Version: %s: %s",server_name.c_str(), VERSION);
     DEBUG_I("Server Run At: %s %s", __DATE__, __TIME__);
     DEBUG_I("%s max files can open: %d ", server_name.c_str(),getdtablesize());
+    DEBUG_I("g_is_websocket: %d ", g_is_websocket);
     signal(SIGPIPE, SIG_IGN);
     srand(time(nullptr));
     if(!init_server_config()){
@@ -418,10 +520,10 @@ int run_ptp_server_msg(int argc, char* argv[])
     }
 
     CConfigFileReader config_file(get_config_path().c_str());
-    char* msg_listen_ip = config_file.GetConfigName("MSG_ListenIP");
-    char* msg_listen_port_str = config_file.GetConfigName("MSG_ListenPort");
+    char* msg_listen_ip = config_file.GetConfigName(isWs ? "WS_ListenIP":"MSG_ListenIP");
+    char* msg_listen_port_str = config_file.GetConfigName(isWs ? "WS_ListenPort" : "MSG_ListenPort");
     if (!msg_listen_ip || !msg_listen_port_str) {
-        DEBUG_E("config file miss ws_listen, exit... ");
+        DEBUG_E("config file miss ip or port, exit... ");
         return -1;
     }
     uint16_t MSG_ENABLE_BUSINESS_ASYNC = 0;
