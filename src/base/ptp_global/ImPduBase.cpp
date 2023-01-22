@@ -173,3 +173,14 @@ void CImPdu::SetPBMsg(unsigned char *buf, int len)
 }
 
 
+void CImPdu::Dump(){
+    DEBUG_D("PDU Dump  =====>>>>");
+    DEBUG_D("cid     = %d",GetCommandId());
+    DEBUG_D("sno     = %d",GetSeqNum());
+    DEBUG_D("rev     = %d",GetReversed());
+    DEBUG_D("len     = %d",GetLength());
+    DEBUG_D("len b   = %d",GetBodyLength());
+    DEBUG_D("header  : %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer(),16).c_str());
+    DEBUG_D("pdu     : %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer(),32).c_str());
+    DEBUG_D("body    : %s", bytes_to_hex_string((unsigned char *)m_buf.GetBuffer()+16,16).c_str());
+}
