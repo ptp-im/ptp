@@ -10,8 +10,6 @@
 #include "ptp_global/BaseSocket.h"
 #include "ptp_global/SocketClient.h"
 
-
-
 TEST(ptp_global, remove_file) {
     if(file_exists("./file_test.log")){
         remove_file("./file_test.log");

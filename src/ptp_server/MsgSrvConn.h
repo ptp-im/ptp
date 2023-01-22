@@ -7,6 +7,9 @@
 #include "CachePool.h"
 #include "Request.h"
 
+#define READ_BUF_SIZE_MSG_SRV	    1024
+#define MAX_READ_BUF_SIZE_MSG_SRV	2048
+
 typedef struct {
 	uint32_t msg_id;
 	uint32_t from_id;
@@ -53,9 +56,10 @@ public:
 	virtual void OnConnect(net_handle_t handle);
 	virtual void OnClose();
 	virtual inline void OnTimer(uint64_t curr_tick);
-    int SendPdu(ImPdu* pPdu);
 	virtual void HandlePdu(CImPdu* pPdu);
-    void HandleNextResponse(ImPdu* pPdu);
+    virtual void OnRead();
+    int SendPdu(ImPdu* pPdu);
+    void HandleNextResponse(ImPdu* pPdu,bool isNext);
     ImPdu * ReadTestPdu();
 
     uint32_t        m_client_type;        //客户端登录方式

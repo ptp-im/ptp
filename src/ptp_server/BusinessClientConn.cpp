@@ -186,7 +186,7 @@ void CBusinessClientConn::HandlePdu(CImPdu* pPdu)
         auto *pMsgSrvConn = (CMsgSrvConn*)FindMsgSrvConnByHandle(handle);
         if(pMsgSrvConn != nullptr){
             DEBUG_I("CBusinessClientConn::HandlePdu cid=%s,pid:%d", getActionCommandsName((ActionCommands)pPdu->GetCommandId()).c_str(),getpid());
-            pMsgSrvConn->HandleNextResponse((ImPdu *)pPdu);
+            pMsgSrvConn->HandleNextResponse((ImPdu *)pPdu, false);
         }else{
             if(pPdu->GetCommandId() != CID_HeartBeatNotify){
                 DEBUG_E("CBusinessClientConn handler pMsgSrvConn is null for packet type: %d", pPdu->GetCommandId());

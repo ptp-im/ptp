@@ -1,5 +1,5 @@
-#ifndef __HTTP_CONN_H__
-#define __HTTP_CONN_H__
+#ifndef __MSFS_HTTP_CONN_H__
+#define __MSFS_HTTP_CONN_H__
 #if (MSFS_LINUX)
     #include <sys/sendfile.h>
 #elif (MSFS_BSD)
@@ -17,6 +17,11 @@
 #include "FileManager.h"
 #include <unordered_map>
 
+#define MSFS_SEND_BUF_SIZE		     (1 * 1024 * 1024)
+#define MSFS_READ_BUF_SIZE           (1 * 1024 * 1024)
+
+#define CONFIG_COUNT_FILE            "conf/msfs_count.conf"
+
 #define HTTP_CONN_TIMEOUT            30000
 
 #define HTTP_UPLOAD_MAX                 (1000 * 1024 * 1024)
@@ -24,7 +29,6 @@
 #define HTTP_END_MARK                   "\r\n\r\n"
 #define CONTENT_TYPE                    "Content-Type:"
 #define CONTENT_DISPOSITION             "Content-Disposition:"
-#define READ_BUF_SIZE                   (2 * 1024 * 1024)
 #define HTTP_RESPONSE_HEADER            "HTTP/1.1 200 OK\r\n"\
 "Connection:close\r\n"\
 "Content-Length:%d\r\n"\
@@ -74,7 +78,6 @@ enum
 };
 
 extern FileManager * g_fileManager;
-extern CConfigFileReader config_file;
 extern CThreadPool g_PostThreadPool;
 extern CThreadPool g_GetThreadPool;
 
@@ -99,7 +102,7 @@ class CHttpConn;
 class CHttpTask: public CTask
 {
 public:
-    CHttpTask(Request_t request);
+    CHttpTask(const Request_t& request);
     virtual ~CHttpTask();
     void run();
     void OnPost();
@@ -169,5 +172,7 @@ typedef unordered_map<uint32_t, CHttpConn*> HttpConnMap_t;
 
 CHttpConn* FindHttpConnByHandle(uint32_t handle);
 void init_http_conn();
+
+int run_ptp_server_msfs(int argc, char *argv[]);
 
 #endif

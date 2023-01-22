@@ -35,19 +35,19 @@ static string m_config_conf_temp = "" \
 "group_host=127.0.0.1\n" \
 "group_port=6379\n" \
 "group_auth=\n" \
-"group_db=1\n" \
+"group_db=2\n" \
 "group_maxconncnt=16\n\n" \
-"MSFS_BaseDir=../data/msfs\n" \
-"MSFS_FileCnt=16\n" \
+"MSFS_BaseDir=./data/msfs\n" \
 "MSFS_FilesPerDir=30000\n" \
 "MSFS_GetThreadCount=32\n" \
+"MSFS_PostThreadCount=1\n" \
 "MSFS_ListenIP=0.0.0.0\n" \
 "MSFS_ListenPort=7841\n" \
-"MSFS_PostThreadCount=1\n" \
 "MSFS_Site=127.0.0.1\n" \
 "MsfsSite=127.0.0.1\n\n";
 
 static string m_config_conf = "";
+
 void set_config_path(const string &path){
     m_config_path = path;
 }

@@ -1,16 +1,23 @@
-#include "HttpConn.h"
+#include "MsfsHttpConn.h"
 #include "ptp_global/Helpers.h"
 #include "json/json.h"
-#include "PTP.Common.pb.h"
 #include "PTP.File.pb.h"
+#include "FileConfig.h"
+#include "ptp_global/version.h"
+
 #include <unistd.h>
 
 using namespace PTP::File;
 using namespace PTP::Common;
 
-static HttpConnMap_t g_http_conn_map;
+using namespace msfs;
 
-#define NETLIB_MAX_SOCKET_BUF_SIZE1		(2 * 1024 * 1024)
+FileManager *FileManager::m_instance = nullptr;
+FileManager *g_fileManager = nullptr;
+CThreadPool g_PostThreadPool;
+CThreadPool g_GetThreadPool;
+
+static HttpConnMap_t g_http_conn_map;
 
 static uint32_t g_conn_handle_generator = 0;
 CLock CHttpConn::s_list_lock;
@@ -87,7 +94,7 @@ void init_http_conn()
     netlib_add_loop(http_conn_loop_callback, NULL);
 }
 
-CHttpTask::CHttpTask(Request_t request)
+CHttpTask::CHttpTask(const Request_t& request)
 {
     m_ConnHandle = request.conn_handle;
     m_nMethod = request.method;
@@ -158,7 +165,7 @@ void CHttpTask::FileImgDownloadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
             msg_rsp.set_error(error);
             ImPdu pdu;
             pdu.SetPBMsg(&msg_rsp);
-            pdu.SetServiceId(S_FILE);
+            pdu.SetServiceId(0);
             pdu.SetCommandId(CID_FileImgDownloadRes);
             pdu.SetSeqNum(pPdu->GetSeqNum());
             auto httpBody1 = msg_rsp.SerializeAsString();
@@ -214,7 +221,7 @@ void CHttpTask::FileImgUploadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
         if(m_isPdu){
             ImPdu pdu;
             pdu.SetPBMsg(&msg_rsp);
-            pdu.SetServiceId(S_FILE);
+            pdu.SetServiceId(0);
             pdu.SetCommandId(CID_FileImgUploadRes);
             pdu.SetSeqNum(pPdu->GetSeqNum());
             auto httpBody1 = msg_rsp.SerializeAsString();
@@ -244,6 +251,7 @@ void CHttpTask::FileImgUploadReqCmd(CImPdu* pPdu, uint32_t conn_uuid){
         break;
     }
 }
+
 void  CHttpTask::OnGet()
 {
         uint32_t  nFileSize = 0;
@@ -298,9 +306,9 @@ void CHttpTask::HandlePduBuf(uchar_t* pdu_buf, uint32_t pdu_len)
     {
         while (true){
             pPdu = CImPdu::ReadPdu(pdu_buf, pdu_len);
-            if (pPdu->GetCommandId() == PTP::Common::CID_FileImgUploadReq) {
+            if (pPdu->GetCommandId() == CID_FileImgUploadReq) {
                 FileImgUploadReqCmd(pPdu,m_ConnHandle);
-            }else if(pPdu->GetCommandId() == PTP::Common::CID_FileImgDownloadReq){
+            }else if(pPdu->GetCommandId() == CID_FileImgDownloadReq){
                 FileImgDownloadReqCmd(pPdu,m_ConnHandle);
             }
             break;
@@ -347,11 +355,11 @@ int CHttpConn::Send(void* data, int len)
     int remain = len;
     while (remain > 0) {
         int send_size = remain;
-        if (send_size > NETLIB_MAX_SOCKET_BUF_SIZE1) {
-            send_size = NETLIB_MAX_SOCKET_BUF_SIZE1;
+        if (send_size > MSFS_SEND_BUF_SIZE) {
+            send_size = MSFS_SEND_BUF_SIZE;
         }
         int ret = netlib_send(m_sock_handle, (char*)data + offset , send_size);
-        DEBUG_D("Send: %d, %d / %d, remain:%d, send_size:%d",ret,offset,len,remain,send_size);
+        DEBUG_D("Send: %d, %d / %d",ret,offset,len);
         if (ret <= 0) {
             ret = 0;
             break;
@@ -366,6 +374,7 @@ int CHttpConn::Send(void* data, int len)
         m_out_buf.Write((char*)data + offset, remain);
         m_busy = true;
         DEBUG_D("send busy, remain=%d ", m_out_buf.GetWriteOffset());
+        OnWrite();
     }
     else
     {
@@ -374,13 +383,40 @@ int CHttpConn::Send(void* data, int len)
     return len;
 }
 
+void CHttpConn::OnWrite()
+{
+    DEBUG_D("OnWrite m_busy: %b",m_busy);
+    if (!m_busy)
+        return;
+
+    int ret = netlib_send(m_sock_handle, m_out_buf.GetBuffer(),
+                          m_out_buf.GetWriteOffset());
+
+    DEBUG_D("OnWrite ret: %d",ret);
+    if (ret < 0)
+        ret = 0;
+
+    int out_buf_size = (int) m_out_buf.GetWriteOffset();
+
+    m_out_buf.Read(NULL, ret);
+
+    if (ret < out_buf_size)
+    {
+        m_busy = true;
+        DEBUG_D("not send all, remain=%d", m_out_buf.GetWriteOffset());
+        OnWrite();
+    } else
+    {
+        m_busy = false;
+        OnSendComplete();
+    }
+}
+
 void CHttpConn::Close()
 {
     m_state = CONN_STATE_CLOSED;
-
     g_http_conn_map.erase(m_conn_handle);
     netlib_close(m_sock_handle);
-
     ReleaseRef();
 }
 
@@ -403,12 +439,12 @@ void CHttpConn::OnRead()
     {
         uint32_t free_buf_len = m_in_buf.GetAllocSize()
                 - m_in_buf.GetWriteOffset();
-        if (free_buf_len < READ_BUF_SIZE + 1)
-            m_in_buf.Extend(READ_BUF_SIZE + 1);
+        if (free_buf_len < MSFS_READ_BUF_SIZE + 1)
+            m_in_buf.Extend(MSFS_READ_BUF_SIZE + 1);
         int ret = netlib_recv(m_sock_handle,
                 m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(),
-                READ_BUF_SIZE);
-        DEBUG_D("m_conn_handle=%d,ret=%d,offset=%d,READ_BUF_SIZE=%d",m_conn_handle,ret,m_in_buf.GetWriteOffset(),READ_BUF_SIZE);
+                              MSFS_READ_BUF_SIZE);
+        DEBUG_D("m_conn_handle=%d,ret=%d,offset=%d",m_conn_handle,ret,m_in_buf.GetWriteOffset());
         if (ret <= 0)
             break;
         m_in_buf.IncWriteOffset(ret);
@@ -486,41 +522,12 @@ void CHttpConn::OnRead()
             request.strAccessHost = m_HttpParser.GetHost();
             request.strContentType = m_HttpParser.GetContentType();
             request.strUrl = m_HttpParser.GetUrl() + 1;
-            CHttpTask* pTask = new CHttpTask(request);
+            auto* pTask = new CHttpTask(request);
             g_PostThreadPool.AddTask(pTask);
         }
     }
     DEBUG_D("m_conn_handle=%d,buf_len=%d",m_conn_handle,buf_len);
 
-}
-
-void CHttpConn::OnWrite()
-{
-    DEBUG_D("OnWrite m_busy: %b",m_busy);
-    if (!m_busy)
-        return;
-
-    int ret = netlib_send(m_sock_handle, m_out_buf.GetBuffer(),
-            m_out_buf.GetWriteOffset());
-
-    DEBUG_D("OnWrite ret: %d",ret);
-    if (ret < 0)
-        ret = 0;
-
-    int out_buf_size = (int) m_out_buf.GetWriteOffset();
-
-    m_out_buf.Read(NULL, ret);
-
-    if (ret < out_buf_size)
-    {
-        m_busy = true;
-        DEBUG_D("not send all, remain=%d", m_out_buf.GetWriteOffset());
-        OnWrite();
-    } else
-    {
-        m_busy = false;
-        OnSendComplete();
-    }
 }
 
 void CHttpConn::OnClose()
@@ -589,3 +596,151 @@ void CHttpConn::OnSendComplete()
     //Close();
 }
 
+// for client connect in
+static void http_callback(void *callback_data, uint8_t msg, uint32_t handle,
+                          void *pParam) {
+    if (msg == NETLIB_MSG_CONNECT) {
+        auto *pConn = new CHttpConn();
+        pConn->OnConnect(handle);
+    } else {
+        DEBUG_D("!!!error msg: %d", msg);
+    }
+}
+
+static void do_quit_job() {
+    char fileCntBuf[20] = {0};
+    snprintf(fileCntBuf, 20, "%llu", g_fileManager->getFileCntCurr());
+    CConfigFileReader config_count_file(CONFIG_COUNT_FILE);
+    config_count_file.SetConfigValue("FileCnt", fileCntBuf);
+    FileManager::destroyInstance();
+    netlib_destroy();
+    DEBUG_D("I'm ready quit...");
+}
+
+static void stop(int signo) {
+    DEBUG_D("receive signal:%d", signo);
+    switch (signo) {
+        case SIGINT:
+        case SIGTERM:
+        case SIGQUIT:
+            do_quit_job();
+            _exit(0);
+            break;
+        default:
+            cout << "unknown signal" << endl;
+            _exit(0);
+    }
+}
+
+int run_ptp_server_msfs(int argc, char *argv[]) {
+    bool isDebug = false;
+
+    for (int i = 0; i < argc; ++i) {
+        if(strcmp(argv[i], "--debug") == 0){
+            isDebug = true;
+        }else if(strcmp(argv[i], "--debug") == 0){
+
+        }
+    }
+    if(argc == 0 && argv == nullptr){
+        isDebug = true;
+    }
+    string server_name = "ptp_server_msfs";
+    slog_set_append(true,isDebug, true,LOG_PATH);
+
+    DEBUG_I("Server Version: %s: %s",server_name.c_str(), VERSION);
+    DEBUG_I("Server Run At: %s %s", __DATE__, __TIME__);
+    DEBUG_I("%s max files can open: %d ", server_name.c_str(),getdtablesize());
+    if(!init_server_config()){
+        DEBUG_E("init_server_config failed");
+        return -1;
+    }
+
+    CConfigFileReader config_file(get_config_path().c_str());
+
+    char* listen_ip_str = config_file.GetConfigName("MSFS_ListenIP");
+    char* listen_port_str = config_file.GetConfigName("MSFS_ListenPort");
+    char* base_dir = config_file.GetConfigName("MSFS_BaseDir");
+    char* filesPerDir_str = config_file.GetConfigName("MSFS_FilesPerDir");
+    char* nPostThreadCount_str = config_file.GetConfigName("MSFS_PostThreadCount");
+    char* nGetThreadCount_str = config_file.GetConfigName("MSFS_GetThreadCount");
+
+    if (!listen_ip_str || !listen_port_str) {
+        DEBUG_E("config file miss ws_listen, exit... ");
+        return -1;
+    }
+    if(!base_dir){
+        base_dir = strdup("./data/msfs");
+    }
+
+    if(!file_exists(base_dir)) {
+        auto dir = get_dir_path(base_dir);
+        if (!file_exists(dir.c_str())) {
+            make_dir(dir.c_str());
+            if (!file_exists(dir.c_str())) {
+                DEBUG_E("Mkdir error:%s", dir.c_str());
+                return -1;
+            }
+        }
+    }
+
+    int filesPerDir = !filesPerDir_str ? 30000 : string_to_int(filesPerDir_str);
+    int nPostThreadCount = !nPostThreadCount_str ? 32 : string_to_int(nPostThreadCount_str);
+    int nGetThreadCount = !nGetThreadCount_str ? 1 : string_to_int(nGetThreadCount_str);
+
+    uint16_t listen_port = string_to_int(listen_port_str);
+
+    if(!file_exists(CONFIG_COUNT_FILE)){
+        auto dir = get_dir_path(CONFIG_COUNT_FILE);
+        if(!file_exists(dir.c_str())){
+            make_dir(dir.c_str());
+            if(!file_exists(dir.c_str())){
+                DEBUG_E("Mkdir error:%s",dir.c_str());
+                return -1;
+            }
+        }
+        DEBUG_I("Write config: %s",CONFIG_COUNT_FILE);
+        string config_conf = "FileCnt=0";
+        put_file_content(CONFIG_COUNT_FILE,(char *)config_conf.c_str(),config_conf.size());
+        if(!file_exists(CONFIG_COUNT_FILE)){
+            DEBUG_E("Write config error: %s",CONFIG_COUNT_FILE);
+            return -1;
+        }
+    }
+    CConfigFileReader config_count_file(CONFIG_COUNT_FILE);
+    char *str_file_cnt = config_count_file.GetConfigName("FileCnt");
+
+    long long int fileCnt = stoll(str_file_cnt);
+
+    g_PostThreadPool.Init(nPostThreadCount);
+    g_GetThreadPool.Init(nGetThreadCount);
+
+    g_fileManager = FileManager::getInstance(listen_ip_str, base_dir, fileCnt, filesPerDir);
+    if (g_fileManager->initDir() != 0) {
+        DEBUG_E("The BaseDir is set incorrectly :%s", base_dir);
+        return -1;
+    }
+    auto ret = netlib_init();
+    if (ret == NETLIB_ERROR){
+        return ret;
+    }
+
+    CStrExplode listen_ip_list(listen_ip_str, ';');
+    for (uint32_t i = 0; i < listen_ip_list.GetItemCnt(); i++) {
+        ret = netlib_listen(listen_ip_list.GetItem(i), listen_port,
+                            http_callback, nullptr);
+        if (ret == NETLIB_ERROR)
+            return ret;
+    }
+
+    signal(SIGINT, stop);
+    signal(SIGTERM, stop);
+    signal(SIGQUIT, stop);
+    signal(SIGPIPE, SIG_IGN);
+    signal(SIGHUP, SIG_IGN);
+    DEBUG_I("%s start listen on: http://%s:%d",server_name.c_str(), listen_ip_str, listen_port);
+    init_http_conn();
+    DEBUG_I("%s looping...",server_name.c_str());
+    writePid(server_name);
+    return 0;
+}

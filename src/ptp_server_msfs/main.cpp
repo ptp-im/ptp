@@ -1,8 +1,8 @@
-#include "ptp_servers/msfs/boot_msfs.h"
+#include "ptp_server/msfs/MsfsHttpConn.h"
 
-int main(int argc, char *argv[]) {
-    boot_msfs(argc,argv);
+int main(int argc, char* argv[])
+{
+    run_ptp_server_msfs(argc,argv);
+    netlib_eventloop();
     return 0;
 }
-
-

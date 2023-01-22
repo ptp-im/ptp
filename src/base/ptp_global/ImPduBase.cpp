@@ -134,7 +134,7 @@ bool CImPdu::IsPduAvailable(uchar_t* buf, uint32_t len, uint32_t& pdu_len)
 	pdu_len = CByteStream::ReadUint32(buf);
 	if (pdu_len > len)
 	{
-		DEBUG_D("pdu_len=%d, len=%d\n", pdu_len, len);
+		DEBUG_D("pdu_len=%d, len=%d", pdu_len, len);
 		return false;
 	}
 

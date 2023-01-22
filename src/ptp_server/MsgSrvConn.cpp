@@ -210,12 +210,58 @@ void CMsgSrvConn::OnTimer(uint64_t curr_tick)
 	}
 }
 
+void CMsgSrvConn::OnRead()
+{
+    int i = 0;
+    for (;;)
+    {
+        if(m_in_buf.GetWriteOffset() > MAX_READ_BUF_SIZE_MSG_SRV){
+            OnClose();
+            break;
+        }
+        uint32_t free_buf_len = m_in_buf.GetAllocSize() - m_in_buf.GetWriteOffset();
+        if (free_buf_len < READ_BUF_SIZE_MSG_SRV)
+            m_in_buf.Extend(READ_BUF_SIZE_MSG_SRV);
+        int ret = netlib_recv(m_handle, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(), READ_BUF_SIZE_MSG_SRV);
+        //DEBUG_D("i#%d,pid=%d,handle=%d,ret=%d,offset=%d",i,getpid(),GetHandle(),ret,m_in_buf.GetWriteOffset());
+        if (ret <= 0)
+            break;
+
+        m_recv_bytes += ret;
+        m_in_buf.IncWriteOffset(ret);
+
+        m_last_recv_tick = get_tick_count();
+        i++;
+
+    }
+    //DEBUG_D("pid=%d,handle=%d,m_in_buf size=%d",getpid(),GetHandle(),m_in_buf.GetWriteOffset());
+    CImPdu* pPdu = NULL;
+    try
+    {
+        while ( ( pPdu = CImPdu::ReadPdu(m_in_buf.GetBuffer(), m_in_buf.GetWriteOffset()) ) )
+        {
+            uint32_t pdu_len = pPdu->GetLength();
+            HandlePdu(pPdu);
+            m_in_buf.Read(NULL, pdu_len);
+            delete pPdu;
+            pPdu = NULL;
+        }
+    } catch (CPduException& ex) {
+        DEBUG_E("!!!catch exception, sid=%u, cid=%u, err_code=%u, err_msg=%s, close the connection ",
+                ex.GetServiceId(), ex.GetCommandId(), ex.GetErrorCode(), ex.GetErrorMsg());
+        if (pPdu) {
+            delete pPdu;
+            pPdu = NULL;
+        }
+        OnClose();
+    }
+}
 void CMsgSrvConn::HandlePdu(CImPdu* pPdu)
 {
-    HandleNextResponse((ImPdu*)pPdu);
+    HandleNextResponse((ImPdu*)pPdu,false);
 }
 
-void CMsgSrvConn::HandleNextResponse(ImPdu* pPdu){
+void CMsgSrvConn::HandleNextResponse(ImPdu* pPdu,bool isNext){
     auto cid = (ActionCommands)pPdu->GetCommandId();
 
     if(pPdu->GetCommandId() != CID_AuthCaptchaReq
@@ -264,6 +310,7 @@ void CMsgSrvConn::HandleNextResponse(ImPdu* pPdu){
         CRequest request;
         request.SetHandle(GetHandle());
         request.SetRequestPdu(pPdu);
+        request.SetIsBusinessConn(isNext);
         auto pDbMsgConn = get_business_serv_conn_for_login();
         if(pDbMsgConn->isEnable() && cid == CID_AuthLoginReq){
             if(!pDbMsgConn->IsOpen()){
@@ -280,7 +327,7 @@ void CMsgSrvConn::HandleNextResponse(ImPdu* pPdu){
             if(request.GetNextResponsePdu() && request.IsNextResponsePduValid()){
                 pDbMsgConn = get_business_serv_conn();
                 if(!pDbMsgConn->isEnable()){
-                    HandleNextResponse(request.GetNextResponsePdu());
+                    HandleNextResponse(request.GetNextResponsePdu(),true);
                 }else{
                     if(pDbMsgConn->IsOpen()){
                         request.GetResponsePdu()->SetReversed(GetHandle());
@@ -301,23 +348,20 @@ void CMsgSrvConn::HandleNextResponse(ImPdu* pPdu){
             }
         }
     }else{
-        if(pPdu){
-            SendPdu(pPdu);
-        }
+        Close();
     }
 }
 
 int CMsgSrvConn::SendPdu(ImPdu *pPdu) {
     if(!m_test){
         pPdu->Dump();
-        if(pPdu->GetReversed()){
+        if(pPdu->GetReversed() && !this->m_share_key.empty()){
             unsigned char shared_secret[32];
             unsigned char iv[16];
             unsigned char aad[16];
-            string shareKey = this->m_share_key;
             string ivHex = this->m_iv;
             string aadHex =  this->m_aad;
-            memcpy(shared_secret,hex_to_string(shareKey.substr(2)).data(),32);
+            memcpy(shared_secret,hex_to_string(this->m_share_key.substr(2)).data(),32);
             memcpy(iv,hex_to_string(ivHex.substr(2)).data(),16);
             memcpy(aad,hex_to_string(aadHex.substr(2)).data(),16);
 
@@ -372,12 +416,7 @@ int run_ptp_server_msg(int argc, char* argv[])
         DEBUG_E("init_server_config failed");
         return -1;
     }
-    CacheManager::setConfigPath(get_config_path());
-    CacheManager* pCacheManager = CacheManager::getInstance();
-    if (!pCacheManager) {
-        DEBUG_E("CacheManager init failed");
-        return -1;
-    }
+
     CConfigFileReader config_file(get_config_path().c_str());
     char* msg_listen_ip = config_file.GetConfigName("MSG_ListenIP");
     char* msg_listen_port_str = config_file.GetConfigName("MSG_ListenPort");
@@ -388,12 +427,20 @@ int run_ptp_server_msg(int argc, char* argv[])
     uint16_t MSG_ENABLE_BUSINESS_ASYNC = 0;
     char* MSG_ENABLE_BUSINESS_ASYNC_str = config_file.GetConfigName("MSG_ENABLE_BUSINESS_ASYNC");
     if (MSG_ENABLE_BUSINESS_ASYNC_str) {
-        MSG_ENABLE_BUSINESS_ASYNC = atoi(MSG_ENABLE_BUSINESS_ASYNC_str);
+        MSG_ENABLE_BUSINESS_ASYNC = string_to_int(MSG_ENABLE_BUSINESS_ASYNC_str);
         if(MSG_ENABLE_BUSINESS_ASYNC == 1){
             set_enable_business_async(true);
         }
     }
-    uint16_t msg_listen_port = atoi(msg_listen_port_str);
+    if(MSG_ENABLE_BUSINESS_ASYNC == 0){
+        CacheManager::setConfigPath(get_config_path());
+        CacheManager* pCacheManager = CacheManager::getInstance();
+        if (!pCacheManager) {
+            DEBUG_E("CacheManager init failed");
+            return -1;
+        }
+    }
+    uint16_t msg_listen_port = string_to_int(msg_listen_port_str);
     int ret = netlib_init();
     if (ret == NETLIB_ERROR)
         return ret;
@@ -414,7 +461,7 @@ int run_ptp_server_msg(int argc, char* argv[])
         uint32_t db_server_count2 = db_server_count * DEFAULT_CONCURRENT_DB_CONN_CNT;
         char* concurrent_db_conn = config_file.GetConfigName("MSG_ConcurrentDBConnCnt");
         if (concurrent_db_conn) {
-            concurrent_db_conn_cnt  = atoi(concurrent_db_conn);
+            concurrent_db_conn_cnt  = string_to_int(concurrent_db_conn);
             db_server_count2 = db_server_count * concurrent_db_conn_cnt;
         }
 
@@ -431,7 +478,7 @@ int run_ptp_server_msg(int argc, char* argv[])
             init_business_serv_conn(db_server_list2, db_server_count2, concurrent_db_conn_cnt);
         }
     }
-
+    DEBUG_D("%s start listen on: %s:%d", server_name.c_str(),msg_listen_ip, msg_listen_port);
     DEBUG_I("%s looping...",server_name.c_str());
     writePid(server_name);
     return 0;

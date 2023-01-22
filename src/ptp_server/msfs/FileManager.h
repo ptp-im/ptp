@@ -50,7 +50,7 @@ private:
 	FileManager operator=(const FileManager &);
 
 public:
-    static FileManager* getInstance(const char *host, const char *disk, int totFiles, int filesPerDir) {
+    static FileManager* getInstance(const char *host, const char *disk, long long totFiles, int filesPerDir) {
 			return (m_instance) ? m_instance : \
 					(new FileManager(host, disk, totFiles, filesPerDir));
 		}
@@ -105,7 +105,7 @@ private:
 	CriticalSection	m_filesCs;
 	
 	int 			m_filesPerDir;	//mas file nums per dir eg. xxx/xxx
-    static const u32 MAX_FILE_SIZE_PER_FILE = 100 * 1024 * 1024;
+    static const u32 MAX_FILE_SIZE_PER_FILE = 1024 * 1024 * 1024 + 16 + 1;
 	static const int FIRST_DIR_MAX =255;
 	static const int SECOND_DIR_MAX =255;
 	static FileManager * m_instance;
