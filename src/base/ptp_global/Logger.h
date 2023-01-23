@@ -26,6 +26,7 @@ private:
 #ifndef DEBUG_D
     #define DEBUG_E Logger::getInstance().e
     #define DEBUG_W Logger::getInstance().w
+    #define DEBUG_I Logger::getInstance().i
     #define DEBUG_D Logger::getInstance().d
 #endif
 
